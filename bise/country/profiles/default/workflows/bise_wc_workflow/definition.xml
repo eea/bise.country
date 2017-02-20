@@ -10,6 +10,7 @@
  <permission>iterate : Check in content</permission>
  <permission>iterate : Check out content</permission>
  <state state_id="draft" title="Working Copy">
+  <exit-transition transition_id="submit"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Authenticated</permission-role>
    <permission-role>Contributor</permission-role>
@@ -42,6 +43,7 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Review portal content" acquired="False">
+   <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
@@ -71,6 +73,59 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
+ <state state_id="ready_for_checkin" title="Ready for checkin">
+  <permission-map name="Access contents information" acquired="False">
+   <permission-role>Authenticated</permission-role>
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Add portal content" acquired="False">
+  </permission-map>
+  <permission-map name="Delete objects" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="Review portal content" acquired="False">
+  </permission-map>
+  <permission-map name="Sharing page: Delegate roles" acquired="False">
+  </permission-map>
+  <permission-map name="View" acquired="False">
+   <permission-role>Authenticated</permission-role>
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Owner</permission-role>
+   <permission-role>Reader</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="iterate : Check in content" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+  <permission-map name="iterate : Check out content" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reviewer</permission-role>
+  </permission-map>
+ </state>
+ <transition transition_id="submit" title="Ready for checkin" new_state="ready_for_checkin" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=submit" category="workflow" icon="">Ready for checkin</action>
+  <guard>
+   <guard-permission>Review portal content</guard-permission>
+   <guard-expression>python: object.restrictedTraverse("@@iterate_control").is_checkout()</guard-expression>
+  </guard>
+ </transition>
  <worklist worklist_id="reviewer_queue" title="">
   <description>Reviewer tasks</description>
   <action url="%(portal_url)s/search?review_state=pending" category="global" icon="">Pending (%(count)d)</action>
