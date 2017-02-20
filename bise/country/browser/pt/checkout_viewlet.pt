@@ -1,0 +1,20 @@
+<div id="bise-checkout-actions">
+  <div tal:condition="view/can_checkout">
+    <a href="" tal:attributes="href string:${context/absolute_url}/@@content-checkout">
+      Checkout a private copy
+    </a>
+  </div>
+  <div tal:condition="view/can_checkin">
+    <ul>
+      <li>
+        <a href="" tal:attributes="href string:${context/absolute_url}/@@content-checkin">
+          Checkin current working copy
+        </a>
+      </li>
+      <li>
+        <a href="" tal:attributes="href string:${context/absolute_url}/@@content-cancel-checkout">
+          Cancel current working copy
+        </a>
+      </li>
+  </div>
+</div>
