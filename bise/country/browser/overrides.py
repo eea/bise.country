@@ -1,12 +1,22 @@
-from plone.app.contentmenu.menu import ActionsSubMenuItem as ASMI
-from plone.memoize.instance import memoize
 from plone.api.user import get_roles
+from plone.app.contentmenu.menu import ActionsSubMenuItem as ASMI
+from plone.app.layout.globals.context import ContextState as CS
 
 
 class ActionsSubMenuItem(ASMI):
 
-    @memoize
     def available(self):
         local_roles = get_roles(obj=self.context, inherit=False)
         # hide Actions menu for Contributor
         return 'Contributor' not in local_roles
+
+
+class ContextState(CS):
+    """ Override @@plone_context_state to only allow View/Edit actions
+    """
+
+    def actions(self, category=None, max=-1):
+        actions = super(ContextState, self).actions(category=category, max=max)
+        if category == 'object':
+            actions = [a for a in actions if a['id'] in ['view', 'edit']]
+        return actions

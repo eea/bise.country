@@ -20,4 +20,12 @@
     factory=".overrides.ActionsSubMenuItem"
     provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
 
+  <browser:page
+    name="plone_context_state"
+    for="bise.country.interfaces.ICountryFolder"
+    permission="zope.Public"
+    class=".overrides.ContextState"
+    allowed_interface="plone.app.layout.globals.interfaces.IContextState"
+    />
+
 </configure>
