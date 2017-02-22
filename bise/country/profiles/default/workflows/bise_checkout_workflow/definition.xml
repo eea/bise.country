@@ -11,6 +11,7 @@
  <permission>iterate : Check out content</permission>
  <state state_id="country_draft" title="Under review by Country Representatives">
   <exit-transition transition_id="fwd_to_etc_review"/>
+  <exit-transition transition_id="immediately_publish"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
@@ -64,7 +65,7 @@
  </state>
  <state state_id="draft" title="First draft">
   <exit-transition transition_id="fwd_to_country_draft"/>
-  <exit-transition transition_id="send_for_publish_review"/>
+  <exit-transition transition_id="immediately_publish"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Authenticated</permission-role>
    <permission-role>Contributor</permission-role>
@@ -124,6 +125,7 @@
  </state>
  <state state_id="etc_review" title="Under review by ETC">
   <exit-transition transition_id="bwd_to_country_draft"/>
+  <exit-transition transition_id="immediately_publish"/>
   <exit-transition transition_id="publish"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Authenticated</permission-role>
@@ -265,6 +267,12 @@
   <action url="%(content_url)s/content_status_modify?workflow_action=fwd_to_etc_review" category="workflow" icon="">Send to ETC representatives</action>
   <guard>
    <guard-permission>Review portal content</guard-permission>
+  </guard>
+ </transition>
+ <transition transition_id="immediately_publish" title="Immediately publish" new_state="published" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=immediately_publish" category="workflow" icon="">Immediately publish</action>
+  <guard>
+   <guard-role>Manager</guard-role>
   </guard>
  </transition>
  <transition transition_id="publish" title="Reviewer publishes content" new_state="published" trigger="USER" before_script="" after_script="">

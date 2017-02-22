@@ -34,4 +34,6 @@ def initialize_bise_checkout(context):
     country = site['countries']
     for obj in country.contentValues():
         if obj.portal_type == 'FolderishPage':
+            logger.info("Applying ICountryFolder marker interface to %s",
+                        obj.absolute_url())
             alsoProvides(obj, ICountryFolder)
