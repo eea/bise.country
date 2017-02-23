@@ -1,0 +1,17 @@
+<registry>
+  <record name="plone.app.iterate.interfaces.IIterateSettings.checkout_workflow_policy" interface="plone.app.iterate.interfaces.IIterateSettings" field="checkout_workflow_policy">
+    <field type="plone.registry.field.ASCIILine">
+      <default>checkout_workflow_policy</default>
+      <title xmlns:ns0="http://xml.zope.org/namespaces/i18n" ns0:domain="plone" ns0:translate="">Checkout workflow policy</title>
+    </field>
+    <value>checkout_workflow_policy</value>
+  </record>
+  <record name="plone.app.iterate.interfaces.IIterateSettings.enable_checkout_workflow" interface="plone.app.iterate.interfaces.IIterateSettings" field="enable_checkout_workflow">
+    <field type="plone.registry.field.Bool">
+      <default>False</default>
+      <required>False</required>
+      <title xmlns:ns0="http://xml.zope.org/namespaces/i18n" ns0:domain="plone" ns0:translate="">Enable checkout workflow</title>
+    </field>
+    <value>True</value>
+  </record>
+</registry>

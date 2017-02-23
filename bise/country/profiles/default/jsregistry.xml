@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<object name="portal_javascripts" meta_type="JavaScripts Registry">
+  <javascript authenticated="True" bundle="default" cacheable="True"
+    compression="safe" conditionalcomment="" cookable="True" enabled="False"
+    expression="" id="kss-bbb.js" inline="False"
+    />
+</object>

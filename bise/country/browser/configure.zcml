@@ -28,4 +28,11 @@
     allowed_interface="plone.app.layout.globals.interfaces.IContextState"
     />
 
+  <browser:page
+    name="bise-country-share"
+    for="bise.country.interfaces.ICountryFolder"
+    permission="plone.DelegateRoles"
+    class=".sharing.ShareForm"
+    />
+
 </configure>

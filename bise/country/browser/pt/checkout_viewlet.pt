@@ -17,4 +17,11 @@
         </a>
       </li>
   </div>
+
+  <div tal:condition="python: view.is_contributor() and view.can_cancel()">
+    <a href="" tal:attributes="href string:${context/absolute_url}/@@content-cancel-checkout">
+      Cancel current working copy
+    </a>
+  </div>
+
 </div>

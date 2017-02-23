@@ -1,3 +1,5 @@
+from AccessControl import getSecurityManager
+from Products.CMFCore.permissions import ModifyPortalContent
 from plone.api.content import get_state
 from plone.api.user import get_roles, is_anonymous
 from plone.app.iterate.interfaces import ICheckinCheckoutPolicy
@@ -16,6 +18,14 @@ class CountryCheckoutViewlet(ViewletBase):
             'etc_review': 'Under review by ETC/EEA',
             'published': 'Published',
         }
+
+    def is_contributor(self):
+        local_roles = get_roles(obj=self.context, inherit=False)
+        return 'Contributor' in local_roles
+
+    def can_cancel(self):
+        sm = getSecurityManager()
+        return sm.checkPermission(ModifyPortalContent, self.context)
 
     def can_checkout(self):
         # user is Contributer, state is published, context is baseline, doesn't

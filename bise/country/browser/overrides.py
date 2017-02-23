@@ -17,6 +17,7 @@ class ContextState(CS):
 
     def actions(self, category=None, max=-1):
         actions = super(ContextState, self).actions(category=category, max=max)
+        views = ['view', 'edit', 'country_checkout_share']
         if category == 'object':
-            actions = [a for a in actions if a['id'] in ['view', 'edit']]
+            actions = [a for a in actions if a['id'] in views]
         return actions

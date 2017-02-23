@@ -1,4 +1,5 @@
 from AccessControl.PermissionMapping import getPermissionMapping
+from Products.CMFPlone.utils import getToolByName
 from Products.DCWorkflow.utils import modifyRolesForPermission
 from bise.country.interfaces import ICountryFolder
 from plone.dexterity.utils import createContentInContainer
@@ -6,6 +7,28 @@ from zope.interface import alsoProvides
 import logging
 
 logger = logging.getLogger('bise.country')
+
+
+def setup_country_folder(folder):
+    """ Setup the container for country folders
+    """
+
+    logger.info("Grant Add permission on /checkout-folder")
+
+    countries = [x for x in folder.contentValues()
+                 if x.portal_type == 'FolderishPage']
+
+    for obj in countries:
+        logger.info("Applying ICountryFolder marker interface to %s",
+                    obj.absolute_url())
+        alsoProvides(obj, ICountryFolder)
+
+    logger.info("Set placeful workflow policy for /countries")
+    tool = getToolByName(folder, 'portal_placeful_workflow')
+    config = tool.getWorkflowPolicyConfig(folder)
+
+    # NOTE: updates workflow mappings
+    config.setPolicyBelow('countries_checkout_workflow', True)
 
 
 def initialize_bise_checkout(context):
@@ -29,11 +52,5 @@ def initialize_bise_checkout(context):
     pm.update(['Contributor', 'Reviewer', 'Editor', 'Manager', 'Owner'])
     modifyRolesForPermission(cf, perm, tuple(pm))
 
-    logger.info("Grant Add permission on /checkout-folder")
-
-    country = site['countries']
-    for obj in country.contentValues():
-        if obj.portal_type == 'FolderishPage':
-            logger.info("Applying ICountryFolder marker interface to %s",
-                        obj.absolute_url())
-            alsoProvides(obj, ICountryFolder)
+    for name in ['countries']:
+        setup_country_folder(site.restrictedTraverse(name))
