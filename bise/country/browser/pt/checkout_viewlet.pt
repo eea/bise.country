@@ -1,26 +1,26 @@
 <div id="bise-checkout-actions">
   <div tal:condition="view/can_checkout">
     <a href="" tal:attributes="href string:${context/absolute_url}/@@content-checkout">
-      Checkout a private copy
+      Create a private copy, for editing
     </a>
   </div>
   <div tal:condition="view/can_checkin">
     <ul>
       <li>
         <a href="" tal:attributes="href string:${context/absolute_url}/@@content-checkin">
-          Checkin current working copy
+          Publish this working copy
         </a>
       </li>
       <li>
         <a href="" tal:attributes="href string:${context/absolute_url}/@@content-cancel-checkout">
-          Cancel current working copy
+          Delete current Working Copy
         </a>
       </li>
   </div>
 
   <div tal:condition="python: view.is_contributor() and view.can_cancel()">
     <a href="" tal:attributes="href string:${context/absolute_url}/@@content-cancel-checkout">
-      Cancel current working copy
+      Delete current Working Copy
     </a>
   </div>
 
