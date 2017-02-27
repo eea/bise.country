@@ -1,4 +1,4 @@
-<div id="bise-checkout-actions">
+<div id="bise-checkout-actions" tal:condition="view/available">
   <div tal:condition="view/can_checkout">
     <a href="" tal:attributes="href string:${context/absolute_url}/@@content-checkout">
       Create a private copy, for editing

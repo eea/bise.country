@@ -72,38 +72,10 @@ class CountryCheckoutViewlet(ViewletBase):
 
     @property
     def available(self):
-        return not is_anonymous()
-
-    # def can_edit(self):
-    #     return self.current_state() != 'published'
-    # def can_submit_for_publication(self):
-    #     # TODO: return True if transition submit is available
-    #     return self.current_state() in ['private', 'sent']
-
-    # def current_state(self):
-    #     return get_state(self.context)
-    #
-    # def get_working_copy(self):
-    #
-    #     context = self.context
-    #     policy = ICheckinCheckoutPolicy(context, None)
-    #
-    #     if policy is None:
-    #         return False
-    #
-    #     wc = policy.getWorkingCopy()
-    #     return wc
-    #
-    # def has_working_copy(self):
-    #     wc = self.get_working_copy()
-    #     if wc is not None:
-    #         return True
-    #     return False
-    #
-    # def get_baseline_state(self):
-    #     policy = ICheckinCheckoutPolicy(self.context)
-    #     baseline = policy.getBaseline()
-    #     if baseline is None:
-    #         baseline = self.context
-    #
-    #     return get_state(baseline)
+        return (
+            (not is_anonymous()) and
+            (self.can_checkout() or
+             self.can_checkin() or
+             (self.is_contributor() and self.can_cancel())
+             )
+        )
