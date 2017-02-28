@@ -13,8 +13,6 @@ def setup_country_folder(folder):
     """ Setup the container for country folders
     """
 
-    logger.info("Grant Add permission on /checkout-folder")
-
     countries = [x for x in folder.contentValues()
                  if x.portal_type == 'FolderishPage']
 

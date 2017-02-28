@@ -7,7 +7,7 @@ from z3c.form.interfaces import ActionExecutionError
 from zope import schema
 from zope.component import getMultiAdapter
 from zope.component.hooks import getSite
-from zope.interface import Invalid
+from zope.interface import Invalid, Interface, implements
 from zope.schema.vocabulary import SimpleVocabulary
 import logging
 
@@ -50,15 +50,23 @@ class NoResultsException(Exception):
     """
 
 
+class ICheckoutSharePage(Interface):
+    """ Marker interface for share page
+    """
+
+
 class ShareForm(form.SchemaForm):
     """ A page to share a country with a group or user
     """
+    implements(ICheckoutSharePage)
 
     schema = IShareSchema
     ignoreContext = True
 
-    label = u""
-    description = u""
+    label = u"Share this country for checkout editing"
+    description = u"""Here it is possible to choose the Eionet groups or
+individual users that have special checkout, edit and reviewing rights in this
+location."""
 
     @button.buttonAndHandler(u"Save")
     def handleApply(self, action):
@@ -82,6 +90,10 @@ class ShareForm(form.SchemaForm):
         self.status = u"Saved."
 
         self.share_with_principal(principal['id'], role)
+
+    @button.buttonAndHandler(u"Cancel")
+    def handleCancel(self, action):
+        return self.request.response.redirect(self.context.absolute_url())
 
     def share_with_principal(self, principal_id, role):
         """ Setup proper share role for this principal
