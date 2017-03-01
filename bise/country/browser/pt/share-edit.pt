@@ -1,0 +1,28 @@
+<div id="bise-country-share-edit">
+  <form method="POST" action="./@@bise-country-share-edit">
+    <table class="listing" tal:define="rolesmap view/user_role_map">
+      <thead>
+        <tr>
+          <th>User / Group id</th>
+          <th>Roles</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr tal:repeat="m rolesmap">
+          <td tal:content="python: m[0]">Username</td>
+          <td>
+            <div tal:repeat="r python:m[2]">
+              <span tal:replace="python: r[1]">Role name</span>
+            </div>
+          </td>
+          <td>
+            <button type="submit"
+                    name="principalid"
+                    tal:attributes="value python:m[0]" >Remove roles</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</div>

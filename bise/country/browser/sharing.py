@@ -1,15 +1,19 @@
 """ Share a country with a group or user
 """
 
+from Products.Five.browser import BrowserView
+from plone.api.portal import get_tool
 from plone.directives import form
 from z3c.form import button
 from z3c.form.interfaces import ActionExecutionError
 from zope import schema
+from zope.app.pagetemplate import ViewPageTemplateFile
 from zope.component import getMultiAdapter
 from zope.component.hooks import getSite
 from zope.interface import Invalid, Interface, implements
 from zope.schema.vocabulary import SimpleVocabulary
 import logging
+
 
 logger = logging.getLogger('bise.country')
 
@@ -24,6 +28,12 @@ PLONE_ROLES = {
     'country_rep': 'Contributor',
     'etc_rep': 'Editor',
     'eea_rep': 'Reviewer',
+}
+
+PLONE_ROLE_TO_LABEL = {
+    'Contributor': u'Country representative',
+    'Editor': u'ETC representative',
+    'Reviewer': u'EEA representative',
 }
 
 
@@ -67,6 +77,8 @@ class ShareForm(form.SchemaForm):
     description = u"""Here it is possible to choose the Eionet groups or
 individual users that have special checkout, edit and reviewing rights in this
 location."""
+
+    template = ViewPageTemplateFile("pt/share.pt")
 
     @button.buttonAndHandler(u"Save")
     def handleApply(self, action):
@@ -125,3 +137,38 @@ location."""
             raise NoResultsException
 
         return result[0]
+
+
+class EditRolesForm(BrowserView):
+    """
+    """
+
+    def user_role_map(self):
+        acl = get_tool('acl_users')
+        roles = acl._getLocalRolesForDisplay(self.context)
+        print roles
+        res = []
+        for name, roles, _type, pid in roles:
+            roles = [(r, PLONE_ROLE_TO_LABEL[r])
+                     for r in roles if (r in PLONE_ROLE_TO_LABEL)]
+            if not roles:
+                continue
+            res.append((name, _type, roles))
+        return res
+
+    def __call__(self):
+        if self.request.method == 'POST':
+            pid = self.request.form.get('principalid')
+
+            site = getSite()
+            checkout_folder = site['checkout-folder']
+
+            for context in [self.context, checkout_folder]:
+                context.manage_delLocalRoles([pid])
+
+            logger.info("Removed country checkout special roles for %s", pid)
+
+            url = self.context.absolute_url() + '/@@bise-country-share'
+            return self.request.response.redirect(url)
+        else:
+            return self.index()

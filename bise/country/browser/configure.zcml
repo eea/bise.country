@@ -35,4 +35,19 @@
     class=".sharing.ShareForm"
     />
 
+  <browser:page
+    name="bise-country-share-edit"
+    for="bise.country.interfaces.ICountryFolder"
+    permission="plone.DelegateRoles"
+    class=".sharing.EditRolesForm"
+    template="pt/share-edit.pt"
+    />
+
+  <browser:page
+    name="bise-pdb"
+    for="*"
+    permission="cmf.ManagePortal"
+    class=".PDBView"
+    />
+
 </configure>
