@@ -14,6 +14,8 @@
 
       <div tal:replace="structure context/@@bise-country-share-edit" ></div>
 
+      <div>Access the <a href="./@@sharing">Advanced sharing page</a></div>
+
       <metal:block use-macro="context/@@ploneform-macros/titlelessform"></metal:block>
 
   </body>
