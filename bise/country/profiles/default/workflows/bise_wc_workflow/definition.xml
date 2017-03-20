@@ -9,6 +9,7 @@
  <permission>View</permission>
  <permission>iterate : Check in content</permission>
  <permission>iterate : Check out content</permission>
+ <permission>Request review</permission>
  <state state_id="draft" title="Working Copy">
   <exit-transition transition_id="submit"/>
   <permission-map name="Access contents information" acquired="False">
@@ -42,8 +43,11 @@
    <permission-role>Reviewer</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="Review portal content" acquired="False">
+  <permission-map name="Request review" acquired="False">
    <permission-role>Contributor</permission-role>
+   <permission-role>Manager</permission-role>
+  </permission-map>
+  <permission-map name="Review portal content" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
@@ -96,12 +100,17 @@
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
+  <permission-map name="Request review" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Manager</permission-role>
+  </permission-map>
   <permission-map name="Review portal content" acquired="False">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="Sharing page: Delegate roles" acquired="False">
+   <permission-role>Manager</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>Authenticated</permission-role>
@@ -132,7 +141,7 @@
  <transition transition_id="submit" title="Ready for checkin" new_state="ready_for_checkin" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=submit" category="workflow" icon="">Ready for checkin</action>
   <guard>
-   <guard-permission>Review portal content</guard-permission>
+   <guard-permission>Request review</guard-permission>
    <guard-expression>python: object.restrictedTraverse("@@iterate_control").is_checkout()</guard-expression>
   </guard>
  </transition>
