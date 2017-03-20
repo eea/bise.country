@@ -25,7 +25,17 @@ class CountryCheckoutViewlet(ViewletBase):
 
     def can_cancel(self):
         sm = getSecurityManager()
-        return sm.checkPermission(ModifyPortalContent, self.context)
+        return self.has_checkout() and \
+            sm.checkPermission(ModifyPortalContent, self.context)
+
+    def has_checkout(self):
+        policy = ICheckinCheckoutPolicy(self.context, None)
+
+        if policy is None:
+            return False
+
+        wc = policy.getWorkingCopy()
+        return wc is not None
 
     def can_checkout(self):
         # user is Contributer, state is published, context is baseline, doesn't
