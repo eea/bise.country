@@ -80,8 +80,11 @@ location."""
 
     template = ViewPageTemplateFile("pt/share.pt")
 
+    status = ''
+
     @button.buttonAndHandler(u"Save")
     def handleApply(self, action):
+        print "doing handle apply"
         data, errors = self.extractData()
         if errors:
             self.status = self.formErrorsMessage
@@ -94,9 +97,13 @@ location."""
             principal = self._search_principal(principal_id)
         except NoResultsException:
             msg = u'No results found.'
+            self.status = msg
+            print self.status
             raise ActionExecutionError(Invalid(msg))
         except MultipleResultsException:
             msg = 'The user/group id is not precise enough.'
+            self.status = msg
+            print self.status
             raise ActionExecutionError(Invalid(msg))
 
         self.status = u"Saved."
@@ -157,6 +164,9 @@ class EditRolesForm(BrowserView):
         return res
 
     def __call__(self):
+        if 'form.buttons.save' in self.request.form:
+            return self.index()
+
         if self.request.method == 'POST':
             pid = self.request.form.get('principalid')
 
