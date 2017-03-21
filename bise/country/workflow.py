@@ -1,7 +1,10 @@
 """ Pages to deal with workflow
 """
 
-from Products.CMFCore.interfaces import IActionSucceededEvent
+# from Products.CMFCore.interfaces import IActionSucceededEvent
+# from zope.component.interfaces import ObjectEvent
+# from zope.interface import implements
+# from zope.event import notify
 from Products.CMFCore.interfaces import IContentish
 from plone.api.content import transition
 from plone.api.portal import show_message
@@ -13,22 +16,19 @@ from z3c.form import button     # , field
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.component import adapts
-from zope.component.interfaces import ObjectEvent
-from zope.event import notify
 from zope.globalrequest import getRequest
-from zope.interface import implements
 
 
 ANNOT_KEY = 'WORKFLOW_MESSAGE'
 
 
-class IWorkflowMessageEvent(IActionSucceededEvent):
-    """ An event with a message for the workflow transition
-    """
-
-
-class WorkflowMessageEvent(ObjectEvent):
-    implements(IWorkflowMessageEvent)
+# class IWorkflowMessageEvent(IActionSucceededEvent):
+#     """ An event with a message for the workflow transition
+#     """
+#
+#
+# class WorkflowMessageEvent(ObjectEvent):
+#     implements(IWorkflowMessageEvent)
 
 
 class IWorkflowMessageSchema(form.Schema):
@@ -78,7 +78,7 @@ class WorkflowTransitionMessage(form.SchemaForm):
         msg = data['message'].strip()
 
         IAnnotations(self.request)[ANNOT_KEY] = msg
-        notify(WorkflowMessageEvent(self.context))
+        # notify(WorkflowMessageEvent(self.context))
         transition(obj=self.context, transition=action, comment=msg)
 
         self.status = msg = u"Message will be further processed."

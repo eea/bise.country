@@ -8,15 +8,14 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="bise.country">
 
-    <subscriber
-        for=".workflow.IWorkflowMessageEvent"
-        handler=".workflow.trigger_contentrules" />
-
-    <interface
-        interface=".workflow.IWorkflowMessageEvent"
-        type="plone.contentrules.rule.interfaces.IRuleEventType"
-        name="Workflow transition with message"
-        />
+    <!-- <subscriber -->
+    <!--     for=".workflow.IWorkflowMessageEvent" -->
+    <!--     handler=".workflow.trigger_contentrules" /> -->
+    <!-- <interface -->
+    <!--     interface=".workflow.IWorkflowMessageEvent" -->
+    <!--     type="plone.contentrules.rule.interfaces.IRuleEventType" -->
+    <!--     name="Workflow transition with message" -->
+    <!--     /> -->
 
     <adapter
         for="*"

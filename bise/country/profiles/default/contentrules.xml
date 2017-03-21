@@ -37,7 +37,8 @@
 
  <rule name="rule-4" title="Country Profile sent back for editing"
     cascading="False" description="" enabled="True"
-    event="bise.country.workflow.IWorkflowMessageEvent" stop-after="False">
+    event="Products.CMFCore.interfaces.IActionSucceededEvent"
+    stop-after="False">
   <conditions>
    <condition type="plone.conditions.WorkflowTransition">
     <property name="wf_transitions">
