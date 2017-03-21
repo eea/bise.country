@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<contentrules>
+
+ <rule name="rule-3" title="Country Profile submitted for review"
+    cascading="False" description="" enabled="True"
+    event="Products.CMFCore.interfaces.IActionSucceededEvent"
+    stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.WorkflowTransition">
+    <property name="wf_transitions">
+     <element>fwd_to_etc_review</element>
+     <element>submit</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="plone.actions.Mail">
+    <property name="source"/>
+    <property name="message">Hello
+
+     A Country Profile has been sent for approval:
+     Title: ${title}
+     Url: ${absolute_url}
+
+     Please check if the item meets our quality standards. If it's the case, you can publish it. Otherwise you can send it back to the owner for revision. You can also delete it.
+
+     Best regards,
+     The BISE team</property>
+    <property
+       name="subject">A Country Profile has been sent for approval</property>
+    <property
+       name="recipients">${contributor_emails}, ${editor_emails}, ${reviewer_emails}</property>
+    <property name="exclude_actor">False</property>
+   </action>
+  </actions>
+ </rule>
+
+ <rule name="rule-4" title="Country Profile sent back for editing"
+    cascading="False" description="" enabled="True"
+    event="bise.country.workflow.IWorkflowMessageEvent" stop-after="False">
+  <conditions>
+   <condition type="plone.conditions.WorkflowTransition">
+    <property name="wf_transitions">
+     <element>send_back</element>
+     <element>bwd_to_country_draft</element>
+    </property>
+   </condition>
+  </conditions>
+  <actions>
+   <action type="plone.actions.Mail">
+    <property name="source"/>
+    <property name="message">Hello,
+
+     Your Country Profile  is almost ready but the reviewer team has made some comments:
+     ${workflow_message}
+
+     Once you have assessed those comments and made the adequate changes, you need to submit the Country Profile again.
+     Should you have questions please contact the reviewer at this email: ${user_email}
+
+     You can access your item here:
+     Url: ${absolute_url}
+
+     Best regards,
+     The BISE team</property>
+    <property
+       name="subject">Your Country Profile has been sent back for editing</property>
+    <property name="recipients">${contributor_emails}</property>
+    <property name="exclude_actor">False</property>
+   </action>
+  </actions>
+ </rule>
+
+ <assignment name="rule-3" bubbles="True" enabled="True"
+    location="/countries"/>
+ <assignment name="rule-4" bubbles="True" enabled="True"
+    location="/countries"/>
+ <assignment name="rule-3" bubbles="True" enabled="True"
+    location="/checkout-folder"/>
+ <assignment name="rule-4" bubbles="True" enabled="True"
+    location="/checkout-folder"/>
+</contentrules>
