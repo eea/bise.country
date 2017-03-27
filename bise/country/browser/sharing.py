@@ -3,13 +3,13 @@
 
 from Products.Five.browser import BrowserView
 from plone.api.portal import get_tool
+from plone.app.iterate.interfaces import ICheckinCheckoutPolicy
 from plone.directives import form
 from z3c.form import button
 from z3c.form.interfaces import ActionExecutionError
 from zope import schema
 from zope.app.pagetemplate import ViewPageTemplateFile
 from zope.component import getMultiAdapter
-from zope.component.hooks import getSite
 from zope.interface import Invalid, Interface, implements
 from zope.schema.vocabulary import SimpleVocabulary
 import logging
@@ -114,15 +114,27 @@ location."""
     def handleCancel(self, action):
         return self.request.response.redirect(self.context.absolute_url())
 
+    def get_wc(self, context):
+        policy = ICheckinCheckoutPolicy(context, None)
+
+        if policy is None:
+            return False
+
+        wc = policy.getWorkingCopy()
+        return wc
+
     def share_with_principal(self, principal_id, role):
         """ Setup proper share role for this principal
         """
         logger.info("Setting up proper %s role for %s", role, principal_id)
         print "Sharing", principal_id, role
 
-        site = getSite()
-        checkout_folder = site['checkout-folder']
-        for folder in [checkout_folder, self.context]:
+        contexts = [self.context]
+        wc = self.get_wc(self.context)
+        if wc:
+            contexts.append(wc)
+
+        for folder in contexts:
             self.assign_role_to_principal(folder, role, principal_id)
 
     def assign_role_to_principal(self, context, role, principal_id):
@@ -163,6 +175,15 @@ class EditRolesForm(BrowserView):
             res.append((name, _type, roles))
         return res
 
+    def get_wc(self, context):
+        policy = ICheckinCheckoutPolicy(context, None)
+
+        if policy is None:
+            return False
+
+        wc = policy.getWorkingCopy()
+        return wc
+
     def __call__(self):
         if 'form.buttons.save' in self.request.form:
             return self.index()
@@ -170,10 +191,12 @@ class EditRolesForm(BrowserView):
         if self.request.method == 'POST':
             pid = self.request.form.get('principalid')
 
-            site = getSite()
-            checkout_folder = site['checkout-folder']
+            contexts = [self.context]
+            wc = self.get_wc(self.context)
+            if wc:
+                contexts.append(wc)
 
-            for context in [self.context, checkout_folder]:
+            for context in contexts:
                 context.manage_delLocalRoles([pid])
 
             logger.info("Removed country checkout special roles for %s", pid)

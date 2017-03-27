@@ -46,7 +46,6 @@ class IterateControl(Control):
         """
 
         context = aq_inner(self.context)
-        checkPermission = getSecurityManager().checkPermission
 
         if not IIterateAware.providedBy(context):
             return False
@@ -70,6 +69,7 @@ class IterateControl(Control):
             return False
 
         checkPermission = getSecurityManager().checkPermission
+        # permission is "iterate : Check in content"
         if not checkPermission(CheckinPermission, original):
             return False
 

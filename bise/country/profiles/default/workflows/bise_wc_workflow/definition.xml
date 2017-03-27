@@ -77,7 +77,7 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
- <state state_id="ready_for_checkin" title="Ready for checkin">
+ <state state_id="ready_for_checkin" title="Content review">
   <exit-transition transition_id="send_back"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Authenticated</permission-role>
@@ -138,8 +138,8 @@
    <guard-permission>Review portal content</guard-permission>
   </guard>
  </transition>
- <transition transition_id="submit" title="Ready for checkin" new_state="ready_for_checkin" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=submit" category="workflow" icon="">Ready for checkin</action>
+ <transition transition_id="submit" title="Ready for content review" new_state="ready_for_checkin" trigger="USER" before_script="" after_script="">
+  <action url="%(content_url)s/content_status_modify?workflow_action=submit" category="workflow" icon="">Send for review</action>
   <guard>
    <guard-permission>Request review</guard-permission>
    <guard-expression>python: object.restrictedTraverse("@@iterate_control").is_checkout()</guard-expression>
@@ -156,7 +156,7 @@
  <variable variable_id="action" for_catalog="False" for_status="True" update_always="True">
   <description>Previous transition</description>
   <default>
-   
+
    <expression>transition/getId|nothing</expression>
   </default>
   <guard>
@@ -165,7 +165,7 @@
  <variable variable_id="actor" for_catalog="False" for_status="True" update_always="True">
   <description>The ID of the user who performed the previous transition</description>
   <default>
-   
+
    <expression>user/getId</expression>
   </default>
   <guard>
@@ -174,7 +174,7 @@
  <variable variable_id="comments" for_catalog="False" for_status="True" update_always="True">
   <description>Comment about the last transition</description>
   <default>
-   
+
    <expression>python:state_change.kwargs.get('comment', '')</expression>
   </default>
   <guard>
@@ -183,7 +183,7 @@
  <variable variable_id="review_history" for_catalog="False" for_status="False" update_always="False">
   <description>Provides access to workflow history</description>
   <default>
-   
+
    <expression>state_change/getHistory</expression>
   </default>
   <guard>
@@ -194,7 +194,7 @@
  <variable variable_id="time" for_catalog="False" for_status="True" update_always="True">
   <description>When the previous transition was performed</description>
   <default>
-   
+
    <expression>state_change/getDateTime</expression>
   </default>
   <guard>
