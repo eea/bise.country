@@ -6,7 +6,7 @@ from plone.app.layout.globals.context import ContextState as CS
 class ActionsSubMenuItem(ASMI):
 
     def available(self):
-        local_roles = get_roles(obj=self.context, inherit=False)
+        local_roles = get_roles(obj=self.context, inherit=True)
         # hide Actions menu for Contributor
         return 'Contributor' not in local_roles
 

@@ -20,7 +20,7 @@ class CountryCheckoutViewlet(ViewletBase):
         }
 
     def is_contributor(self):
-        local_roles = get_roles(obj=self.context, inherit=False)
+        local_roles = get_roles(obj=self.context, inherit=True)
         return 'Contributor' in local_roles
 
     def can_cancel(self):
@@ -41,7 +41,7 @@ class CountryCheckoutViewlet(ViewletBase):
         # user is Contributer, state is published, context is baseline, doesn't
         # have a checkout
 
-        local_roles = get_roles(obj=self.context, inherit=False)
+        local_roles = get_roles(obj=self.context, inherit=True)
 
         control = getMultiAdapter((self.context, self.request),
                                   name="iterate_control")
@@ -63,7 +63,7 @@ class CountryCheckoutViewlet(ViewletBase):
     def can_checkin(self):
         # user is Reviewer/Editor, state is submitted, context is wc
 
-        local_roles = get_roles(obj=self.context, inherit=False)
+        local_roles = get_roles(obj=self.context, inherit=True)
 
         control = getMultiAdapter((self.context, self.request),
                                   name="iterate_control")

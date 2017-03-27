@@ -45,6 +45,7 @@ class IterateControl(Control):
         """ Overrided to check for the checkin permission, as it should be normal
         """
 
+        # import pdb; pdb.set_trace()
         context = aq_inner(self.context)
 
         if not IIterateAware.providedBy(context):
