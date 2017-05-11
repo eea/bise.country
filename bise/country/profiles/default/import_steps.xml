@@ -2,6 +2,6 @@
 <import-steps>
   <import-step id="initialize_bise_checkout" version="2017-02-22"
     handler="bise.country.setuphandlers.initialize_bise_checkout"
-    title="EEA Climate Adapt content import">
+    title="Bise Countries: initialize checkout workflow for country folders">
   </import-step>
 </import-steps>

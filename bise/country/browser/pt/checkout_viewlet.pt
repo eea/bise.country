@@ -10,17 +10,17 @@
     <ul>
       <li>
         <a href="" tal:attributes="href string:${context/absolute_url}/@@content-checkin">
-          Publish this <strong>Country Draft</strong>
+          <strong>Publish</strong> this Country Draft
         </a>
       </li>
       <li>
         <a href="" tal:attributes="href string:${context/absolute_url}/@@set_workflow_message?form.widgets.workflow_action=send_back">
-          Send back to country representatives
+          <strong>Send back</strong> to country representatives
         </a>
       </li>
       <li>
         <a href="" tal:attributes="href string:${context/absolute_url}/@@content-cancel-checkout">
-          Delete current <strong>Country Draft</strong>
+          <strong>Delete</strong> current Country Draft
         </a>
       </li>
   </div>
@@ -32,12 +32,12 @@
     <ul>
       <li>
         <a href="" tal:attributes="href string:${context/absolute_url}/@@content-cancel-checkout">
-          Delete current <strong>Country Draft</strong>
+          <strong>Delete</strong> current Country Draft
         </a>
       </li>
       <li>
         <a href="" tal:attributes="href string:${context/absolute_url}//content_status_modify?workflow_action=submit">
-          Send this <strong>Country Draft</strong> for review
+          <strong>Send</strong> this Country Draft for review
         </a>
       </li>
     </ul>
