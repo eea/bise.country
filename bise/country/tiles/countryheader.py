@@ -1,0 +1,54 @@
+""" Country Header tile
+"""
+
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from collective.cover import _
+from collective.cover.tiles.base import IPersistentCoverTile
+from collective.cover.tiles.base import PersistentCoverTile
+from plone.autoform.directives import write_permission
+from plone.formwidget.contenttree import UUIDSourceBinder
+from z3c.relationfield.schema import RelationList, RelationChoice
+from zope import schema
+from zope.interface import implementer
+
+
+class ICountryHeaderTile(IPersistentCoverTile):
+
+    title = schema.TextLine(
+        title=_(u'Country name'),
+        required=False,
+    )
+
+    write_permission(embed='collective.cover.EmbedCode')
+    embed = schema.Text(
+        title=_(u'Map Embedding code'),
+        required=False,
+    )
+
+    uuid = RelationList(
+        title=u"Linked objects",
+        value_type=RelationChoice(
+            title=u"Linked object",
+            source=UUIDSourceBinder(),
+            required=False,
+        )
+    )
+
+
+@implementer(ICountryHeaderTile)
+class CountryHeaderTile(PersistentCoverTile):
+
+    index = ViewPageTemplateFile('pt/countryheader.pt')
+
+    is_configurable = True
+    is_editable = True
+    is_droppable = False
+    short_name = default = u'Country Header'
+
+    def is_empty(self):
+        return not (self.data.get('embed', None) or
+                    self.data.get('title', None))
+
+    def accepted_ct(self):
+        """Return an empty list as no content types are accepted."""
+        return []
