@@ -9,11 +9,14 @@
     Please edit the tile to add the code to be embedded.
     </p>
 
-    <div tal:condition="not: is_empty" class="cover-embed-tile tile-content">
+    <div tal:condition="not: is_empty" class="cover-embed-tile tile-content"
+                                       tal:define="tabs view/tabs">
 
       <h3
-        tal:condition="is_compose"
-        tal:content="python: view.data.get('title')">Title here</h3>
+                                       tal:condition="is_compose"
+                                       tal:content="python: view.data.get('title')">
+        Title here
+      </h3>
 
       <div class="well" tal:condition="is_compose">
 
@@ -21,12 +24,36 @@
         <pre>
         <code tal:content="python:view.data.get('embed')" ></code>
         </pre>
+
       </div>
 
-      <code tal:content="python:view.data.get('uuid')" ></code>
-      <div tal:replace="structure python:view.data.get('embed')" ></div>
+      <div
+           id="country-factsheet-embed-header"
+           tal:content="structure python:view.data.get('embed')" >
+      </div>
 
-      <div class="visualClear"><!-- --></div>
+        <ul class="nav nav-tabs" role="tablist" id="#country-tabs" tal:condition="tabs">
+          <li role="presentation" tal:repeat="obj tabs">
+            <a href=""
+               data-toggle="tab"
+               tal:attributes="href string:#t-${repeat/obj/index}"
+               tal:content="obj/Title">
+              Title
+            </a>
+          </li>
+        </ul>
+
+        <div class="tab-content"
+             tal:condition="python: tabs and not is_compose">
+          <div
+             tal:repeat="obj tabs"
+             tal:attributes="id string:#t-${repeat/obj/index}"
+             tal:content="structure python: view.view_page(obj)">
+            page inside here
+          </div>
+        </div>
+
+        <div class="visualClear"><!-- --></div>
     </div>
   </body>
 </html>

@@ -5,8 +5,11 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from collective.cover import _
 from collective.cover.tiles.base import IPersistentCoverTile
 from collective.cover.tiles.base import PersistentCoverTile
+from lxml.html import fromstring, tostring
+from plone.app.uuid.utils import uuidToObject
 from plone.autoform.directives import write_permission
 from plone.formwidget.contenttree import UUIDSourceBinder
+from plone.subrequest import subrequest
 from z3c.relationfield.schema import RelationList, RelationChoice
 from zope import schema
 from zope.interface import implementer
@@ -52,3 +55,29 @@ class CountryHeaderTile(PersistentCoverTile):
     def accepted_ct(self):
         """Return an empty list as no content types are accepted."""
         return []
+
+    def tabs(self):
+        tabs = []
+        uuids = self.data.get('uuid', [])
+        for uuid in uuids:
+            obj = uuidToObject(uuid)
+            tabs.append(obj)
+        return tabs
+
+    def view_page(self, obj):
+        al = self.request.get('ajax_load')
+        self.request.set('ajax_load', True)
+        path = '/'.join(obj.getPhysicalPath())
+        resp = subrequest(path)
+        body = resp.getBody()
+        e = fromstring(body)
+        nodes = e.cssselect("#content-core > *")
+        if not nodes:
+            nodes = e.cssselect("#content > *")
+
+        # TODO: make sure about unicode compatibility
+        cn = [tostring(node) for node in nodes]
+        content = "\n".join(cn)
+        if al:
+            self.request.set('ajax_load', al)
+        return content
