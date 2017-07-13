@@ -58,7 +58,7 @@ class CountryHeaderTile(PersistentCoverTile):
 
     def tabs(self):
         tabs = []
-        uuids = self.data.get('uuid', [])
+        uuids = self.data.get('uuid') or []
         for uuid in uuids:
             obj = uuidToObject(uuid)
             tabs.append(obj)
