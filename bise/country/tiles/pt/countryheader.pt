@@ -744,12 +744,57 @@
   color: rgba(0, 0, 0, .4);
 }
 
-
+.section-countries #targetFilter {
+  display: none;
+}
 
 
 
 </style>
 
+
+<script type="text/javascript">
+$(document).ready(function(){
+    var countrytabs = $('#country-tabs').children()
+    countrytabs[0].classList.add('active')
+
+    var hide_show = function() {
+        klass = this.classList.value
+
+        if (klass === "active") {
+            siblings = $(this).siblings()
+            $.each(siblings, function (index, value) {
+                element_id = $(this).children('a')[0].hash;
+                element = document.getElementById(element_id)
+                $(element).hide()
+            });
+        }
+        else {
+            element_id = $(this).children('a')[0].hash;
+            element = document.getElementById(element_id)
+            $(element).show()
+
+            siblings = $(this).siblings()
+            $.each(siblings, function (index, value) {
+                element_id = $(this).children('a')[0].hash;
+                element = document.getElementById(element_id)
+                $(element).hide()
+            });
+        }
+    }
+
+    $.each(countrytabs, function(index, value) {
+        value.addEventListener('click', hide_show);
+
+        klass = value.classList.value
+        if (klass != "active") {
+            element_id = $(value).children('a')[0].hash;
+            element = document.getElementById(element_id)
+            $(element).hide()
+        }
+    });
+});
+</script>
 
 </head>
 
@@ -796,7 +841,7 @@
       </div>
    <div class="panel with-nav-tabs panel-default">
      <div class="panel-heading">
-        <ul class="nav nav-tabs" role="tablist" id="#country-tabs" tal:condition="tabs">
+        <ul class="nav nav-tabs" role="tablist" id="country-tabs" tal:condition="tabs">
           <li role="presentation" tal:repeat="obj tabs">
             <a href=""
                data-toggle="tab"
