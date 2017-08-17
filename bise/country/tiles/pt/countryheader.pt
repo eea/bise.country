@@ -9,6 +9,7 @@
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script src="http://d3js.org/queue.v1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="++theme++bise.diazotheme/js/factsheets-map.js"></script>
 
 <style>
 
@@ -683,9 +684,10 @@
      display: inline-block;
     vertical-align: middle;
     position: absolute;
-    top: -52px;
+    top: 10px;
     z-index: 1;
     right: 0;
+    /*left: -321;*/
 }
 
 .custom-dropdown select {
@@ -748,7 +750,22 @@
   display: none;
 }
 
+.aside {
+  display: none;
+}
 
+@media (min-width: 800px) {
+  .asidetrue {
+    width: 100%;
+    left: 0%;
+  }
+}
+
+@media (max-width: 800px) {
+  .asidetrigger {
+    display: none;
+  }
+}
 
 </style>
 
@@ -793,6 +810,13 @@ $(document).ready(function(){
             $(element).hide()
         }
     });
+
+    // Dropdown functionality
+
+    $('.custom-dropdown select').change(function() {
+      var url = $(this).val()
+      document.location = url
+    });
 });
 </script>
 
@@ -803,11 +827,11 @@ $(document).ready(function(){
 
     <span class="custom-dropdown">
         <select>
-            <option>12345678910112</option>
-            <option>astafafassa</option>
-            <option>test</option>
-            <option>test</option>
-            <option>testttt</option>
+            <option tal:repeat="country view/dropdown_countries"
+                    tal:content="country/name"
+                    tal:attributes="value country/href">
+                  12345678910112
+            </option>
         </select>
     </span>
 

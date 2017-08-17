@@ -81,3 +81,18 @@ class CountryHeaderTile(PersistentCoverTile):
         if al:
             self.request.set('ajax_load', al)
         return content
+
+    def dropdown_countries(self):
+        parent = self.context.aq_parent
+        children = parent.listFolderContents()
+
+        ignore = ['gi', 'eu_country_profiles', 'Map_Countries.png',
+                  self.context.id]
+
+        results = []
+        for child in children:
+            if child.id not in ignore:
+                results.append({'name': child.title,
+                                'href': child.absolute_url()})
+
+        return results
