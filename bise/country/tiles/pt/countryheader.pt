@@ -4,12 +4,28 @@
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
       i18n:domain="collective.cover">
 <head>
+<link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css">
+<link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css">
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
 <script src="http://d3js.org/topojson.v1.min.js"></script>
 <script src="http://d3js.org/queue.v1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="++theme++bise.diazotheme/js/factsheets-map.js"></script>
+<script src="++resource++bise.biodiversityfactsheet/mapsConfig.js" ></script>
+<script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5" ></script>
+<script src="++resource++bise.biodiversityfactsheet/layout.js" ></script>
+<script src="++resource++bise.biodiversityfactsheet/maps.js" ></script>
+
+<script>
+$(document).ready(function() {
+  $.each($('.fact-contents'), function (index, value) {
+    $(value).find("iframe").prop("src", function(){
+        return $(this).data("src");
+    });
+  });
+});
+</script>
 
 <style>
 
@@ -764,6 +780,15 @@
 @media (max-width: 800px) {
   .asidetrigger {
     display: none;
+  }
+
+  .factsheets .panel-heading {
+    position: relative;
+    margin-top: 4em;
+  }
+
+  .factsheets .panel-body {
+    margin-top: 2em;
   }
 }
 
