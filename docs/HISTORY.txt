@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.2.dev0 - (unreleased)
------------------------
+1.2 - (2017-08-28)
+------------------
 - Fix country factsheets header
 
 1.1 - (2017-05-11)
