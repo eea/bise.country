@@ -792,11 +792,17 @@ $(document).ready(function() {
   }
 }
 
-</style>
+.legendContainer {
+  left: 770px !important;
+}
 
+</style>
 
 <script type="text/javascript">
 $(document).ready(function(){
+    // Add claro class for css
+    $("body").addClass("claro");
+
     var countrytabs = $('#country-tabs').children()
     countrytabs[0].classList.add('active')
 
