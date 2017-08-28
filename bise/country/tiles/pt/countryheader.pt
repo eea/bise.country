@@ -803,6 +803,17 @@ $(document).ready(function(){
     // Add claro class for css
     $("body").addClass("claro");
 
+    // Dropdown functionality
+
+    $('.custom-dropdown select').change(function() {
+      var url = $(this).val()
+      document.location = url
+    });
+});
+</script>
+
+<script type="text/javascript" tal:define="is_compose view/is_compose_mode" tal:condition="not: is_compose">
+$(document).ready(function(){
     var countrytabs = $('#country-tabs').children()
     countrytabs[0].classList.add('active')
 
@@ -840,13 +851,6 @@ $(document).ready(function(){
             element = document.getElementById(element_id)
             $(element).hide()
         }
-    });
-
-    // Dropdown functionality
-
-    $('.custom-dropdown select').change(function() {
-      var url = $(this).val()
-      document.location = url
     });
 });
 </script>
