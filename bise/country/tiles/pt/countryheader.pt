@@ -762,7 +762,7 @@ $(document).ready(function() {
   color: rgba(0, 0, 0, .4);
 }
 
-.section-countries #targetFilter {
+#targetFilter {
   display: none;
 }
 
