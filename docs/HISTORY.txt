@@ -3,6 +3,8 @@ Changelog
 
 1.4.dev0 - (unreleased)
 -----------------------
+* Bug Fix: Exclude plone.app.stagingbehavior from folderishpage schema.
+  [iulianpetchesi #87107]
 - Hide targetFilters from factsheets
   [iulianpetchesi #85826]
 
