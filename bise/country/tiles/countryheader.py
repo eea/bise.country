@@ -6,6 +6,7 @@ from collective.cover import _
 from collective.cover.tiles.base import IPersistentCoverTile
 from collective.cover.tiles.base import PersistentCoverTile
 from lxml.html import fromstring, tostring
+from lxml.builder import E
 from plone.app.uuid.utils import uuidToObject
 from plone.autoform.directives import write_permission
 from plone.formwidget.contenttree import UUIDSourceBinder
@@ -75,9 +76,16 @@ class CountryHeaderTile(PersistentCoverTile):
         if not nodes:
             nodes = e.cssselect("#content > *")
 
-        # TODO: make sure about unicode compatibility
-        cn = [tostring(node) for node in nodes]
-        content = "\n".join(cn)
+        classes = e.xpath('//body')[0].get('class')
+        ptype = [x for x in classes.split(' ') if x.startswith('portaltype-')]
+        ptype = ptype and ptype[0] or ''
+
+        root = E('div')
+        if ptype:
+            root.set('class', ptype)
+        for node in nodes:
+            root.append(node)
+        content = tostring(root, pretty_print=True)
         if al:
             self.request.set('ajax_load', al)
         return content
