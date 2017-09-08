@@ -39,7 +39,6 @@
      value="Products.CMFPlone.interfaces.constrains.ISelectableConstrainTypes"/>
   <element value="bise.theme.behaviors.sources.IExtraFolderishPage"/>
   <element value="bise.theme.behaviors.tagging.ICatalogueTags"/>
-  <!-- <element value="plone.app.stagingbehavior.interfaces.IStagingSupport"/> -->
   <element value="plone.app.lockingbehavior.behaviors.ILocking"/>
  </property>
  <property

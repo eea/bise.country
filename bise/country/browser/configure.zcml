@@ -50,4 +50,12 @@
     class=".PDBView"
     />
 
+  <browser:page
+    name="view"
+    for="bise.country.factsheet.CountryFactsheet"
+    permission="zope2.View"
+    class=".views.CountryFactsheetView"
+    template="pt/view_countryfactsheet.pt"
+    />
+
 </configure>

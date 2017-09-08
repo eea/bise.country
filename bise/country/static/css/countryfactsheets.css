@@ -1,34 +1,3 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="collective.cover">
-<head>
-<link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css">
-<link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css">
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
-<script src="http://d3js.org/queue.v1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="++theme++bise.diazotheme/js/factsheets-map.js"></script>
-<script src="++resource++bise.biodiversityfactsheet/mapsConfig.js" ></script>
-<script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5" ></script>
-<script src="++resource++bise.biodiversityfactsheet/layout.js" ></script>
-<script src="++resource++bise.biodiversityfactsheet/maps.js" ></script>
-
-<script>
-$(document).ready(function() {
-  $.each($('.fact-contents'), function (index, value) {
-    $(value).find("iframe").prop("src", function(){
-        return $(this).data("src");
-    });
-  });
-});
-</script>
-
-<style>
-
 .nav {
   margin-bottom: 0;
   padding-left: 0;
@@ -399,7 +368,7 @@ $(document).ready(function() {
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   -webkit-background-clip: padding-box;
-          background-clip: padding-box;
+  background-clip: padding-box;
 }
 .dropdown-menu.pull-right {
   right: 0;
@@ -509,201 +478,201 @@ $(document).ready(function() {
 
 /*here starts the custom css*/
 
-        .factsheets main {
-          /*width: 100%;*/
-            /*left: 0;*/
-            /*float: initial;*/
-        }
+.factsheets main {
+  /*width: 100%;*/
+  /*left: 0;*/
+  /*float: initial;*/
+}
 
 
-        .header-bg {
-            z-index: 1;
-            height: 384px;
-            width: 100%;
-            position: absolute;
-            top: 92px;
-        }
+.header-bg {
+  z-index: 1;
+  height: 384px;
+  width: 100%;
+  position: absolute;
+  top: 92px;
+}
 
-        .factsheets #site-body {
-          padding-top: 275px;
-        }
+.factsheets #site-body {
+  padding-top: 275px;
+}
 
-       body {
-          background: #fcfcfa;
-        }
+body {
+  background: #fcfcfa;
+}
 
-        .stroke {
-          fill: none;
-          stroke: #000;
-          stroke-width: 3px;
-        }
+.stroke {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3px;
+}
 
-        .fill {
-          fill: rgb(48, 140, 168);
-        }
+.fill {
+  fill: rgb(48, 140, 168);
+}
 
-        .graticule {
-          fill: none;
-          /*stroke: #777;*/
-          stroke-width: .5px;
-          stroke-opacity: .5;
-        }
+.graticule {
+  fill: none;
+  /*stroke: #777;*/
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
 
-        .country-wrapper:hover {
-          /*fill: rgba(8, 81, 156, 1);*/
-          /*fill: none;*/
-          cursor: pointer;
-        }
+.country-wrapper:hover {
+  /*fill: rgba(8, 81, 156, 1);*/
+  /*fill: none;*/
+  cursor: pointer;
+}
 
-        rect {
-          transition: all 400ms;
-        }
+rect {
+  transition: all 400ms;
+}
 
-        .land {
-          fill: #000;
-        }
+.land {
+  fill: #000;
+}
 
-        .image.country {
-          stroke: #000;
-          stroke-width: 0.5px;
-        }
+.image.country {
+  stroke: #000;
+  stroke-width: 0.5px;
+}
 
-        .boundary {
-          fill: none;
-          stroke: #000;
-          stroke-width: 0.2px;
-        }
+.boundary {
+  fill: none;
+  stroke: #000;
+  stroke-width: 0.2px;
+}
 
-        * {
-          box-sizing: border-box;
-        }
+* {
+  box-sizing: border-box;
+}
 
-      svg {
-        // background-color: rgb(48, 140, 168);
-        width: 100%;
-        // fill: rgb(48, 140, 168);
-      }
-
-
-      svg-container {
-        width: 100%;
-        position: relative;
-        height: 384px;
-        display: block;
-        top: 0;
-        overflow: hidden;
-      }
-
-      .factsheets .login-wrapper {
-        line-height: 1.6;
-      }
+svg {
+  // background-color: rgb(48, 140, 168);
+  width: 100%;
+  // fill: rgb(48, 140, 168);
+}
 
 
-      .factsheets .page-body {
-        padding-top: 0;
-      }
+svg-container {
+  width: 100%;
+  position: relative;
+  height: 384px;
+  display: block;
+  top: 0;
+  overflow: hidden;
+}
 
-      .factsheets .panel-heading {
-        position: absolute;
-          bottom: 100%;
-        left: 0;
-        z-index: 1;
-        font-size: 1.5rem;
-      }
-
-      .factsheets .nav-tabs {
-        background: #f7f4ed;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        box-shadow: 0px 0px 3px #aaa;
-        margin: 0;
-       border: none;
-      }
-
-      .factsheets .nav-tabs li.active:before {
-        content: '';
-        position: absolute;
-        top: -4px;
-        border-radius: 5px 5px 0 0;
-        width: 100%;
-        border-top: 8px solid #e99279;
-      }
-
-      .factsheets .nav-tabs a {
-        border-radius: 0;
-        margin: 0;
-        border-bottom: none!important
-      }
-
-      .factsheets .tab-header,
-      .factsheets .tab-section {
-        padding-bottom: 1rem;
-        margin-bottom: 1rem;
-        position: relative;
-      }
-
-      .factsheets .tab-header:after,
-      .factsheets .tab-section:after {
-        border-bottom: 2px solid #e5dfd1;
-        content: '';
-        position: absolute;
-        bottom: 3px;
-        width: calc(100% + 4.8rem);
-        left: -2.4rem;
-      }
-
-      .factsheets .tab-section:last-of-type:after {
-        display: none;
-      }
-
-      .factsheets .page-content {
-        border-top: none;
-      }
+.factsheets .login-wrapper {
+  line-height: 1.6;
+}
 
 
-      .factsheets #portal-breadcrumbs {
-        position: absolute;
-        top: 205px;
-        color: white;
-        z-index: -1;
-        text-shadow: 1px 1px 3px #565656;
+.factsheets .page-body {
+  padding-top: 0;
+}
 
-      }
+.factsheets .panel-heading {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  z-index: 1;
+  font-size: 1.5rem;
+}
 
-      .factsheets #portal-breadcrumbs a {
-        color: #ffc612;
-      }
+.factsheets .nav-tabs {
+  background: #f7f4ed;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  box-shadow: 0px 0px 3px #aaa;
+  margin: 0;
+  border: none;
+}
+
+.factsheets .nav-tabs li.active:before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  border-radius: 5px 5px 0 0;
+  width: 100%;
+  border-top: 8px solid #e99279;
+}
+
+.factsheets .nav-tabs a {
+  border-radius: 0;
+  margin: 0;
+  border-bottom: none!important
+}
+
+.factsheets .tab-header,
+.factsheets .tab-section {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.factsheets .tab-header:after,
+.factsheets .tab-section:after {
+  border-bottom: 2px solid #e5dfd1;
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  width: calc(100% + 4.8rem);
+  left: -2.4rem;
+}
+
+.factsheets .tab-section:last-of-type:after {
+  display: none;
+}
+
+.factsheets .page-content {
+  border-top: none;
+}
 
 
-      .factsheets .tab-content h4,
-      .factsheets .tab-content h5{
-        font-weight: 400;
-      }
+.factsheets #portal-breadcrumbs {
+  position: absolute;
+  top: 205px;
+  color: white;
+  z-index: -1;
+  text-shadow: 1px 1px 3px #565656;
 
-      .factsheets h1 {
-        position: absolute;
-        top: -239px;
-        z-index: 1;
-        left: 0;
-        color: white!important;
-        text-shadow: 1px 1px 3px #565656;
-      }
+}
 
-      @media(min-width: 800px) {
-        .factsheets .navbar-descriptor {
-          min-height: 92px
-        }
-      }
+.factsheets #portal-breadcrumbs a {
+  color: #ffc612;
+}
+
+
+.factsheets .tab-content h4,
+.factsheets .tab-content h5{
+  font-weight: 400;
+}
+
+.factsheets h1 {
+  position: absolute;
+  top: -239px;
+  z-index: 1;
+  left: 0;
+  color: white!important;
+  text-shadow: 1px 1px 3px #565656;
+}
+
+@media(min-width: 800px) {
+  .factsheets .navbar-descriptor {
+    min-height: 92px
+  }
+}
 
 
 .custom-dropdown {
-     display: inline-block;
-    vertical-align: middle;
-    position: absolute;
-    top: 10px;
-    z-index: 1;
-    right: 0;
-    /*left: -321;*/
+  display: inline-block;
+  vertical-align: middle;
+  position: absolute;
+  top: 10px;
+  z-index: 1;
+  right: 0;
+  /*left: -321;*/
 }
 
 .custom-dropdown select {
@@ -795,111 +764,3 @@ $(document).ready(function() {
 .legendContainer {
   left: 770px !important;
 }
-
-</style>
-
-<script type="text/javascript">
-$(document).ready(function(){
-    // Add claro class for css
-    $("body").addClass("claro");
-
-    // Dropdown functionality
-
-    $('.custom-dropdown select').change(function() {
-      var url = $(this).val()
-      document.location = url
-    });
-});
-</script>
-
-<script type="text/javascript" tal:define="is_compose view/is_compose_mode" tal:condition="not: is_compose">
-$(document).ready(function(){
-    var countrytabs = $('#country-tabs').children()
-    countrytabs[0].classList.add('active')
-
-    var hide_show = function() {
-        klass = this.classList.value
-
-        if (klass === "active") {
-            siblings = $(this).siblings()
-            $.each(siblings, function (index, value) {
-                element_id = $(this).children('a')[0].hash;
-                element = document.getElementById(element_id)
-                $(element).hide()
-            });
-        }
-        else {
-            element_id = $(this).children('a')[0].hash;
-            element = document.getElementById(element_id)
-            $(element).show()
-
-            siblings = $(this).siblings()
-            $.each(siblings, function (index, value) {
-                element_id = $(this).children('a')[0].hash;
-                element = document.getElementById(element_id)
-                $(element).hide()
-            });
-        }
-    }
-
-    $.each(countrytabs, function(index, value) {
-        value.addEventListener('click', hide_show);
-
-        klass = value.classList.value
-        if (klass != "active") {
-            element_id = $(value).children('a')[0].hash;
-            element = document.getElementById(element_id)
-            $(element).hide()
-        }
-    });
-});
-</script>
-
-</head>
-
-  <body class="factsheets" tal:define="is_empty view/is_empty; is_compose view/is_compose_mode">
-
-
-    <span class="custom-dropdown">
-        <select>
-            <option tal:repeat="country view/dropdown_countries"
-                    tal:content="country/name"
-                    tal:attributes="value country/href">
-                  12345678910112
-            </option>
-        </select>
-    </span>
-
-
-
-    <p tal:condition="python: is_empty and is_compose" i18n:translate="">
-    Please edit the tile to add the code to be embedded.
-    </p>
-
-    <div tal:condition="not: is_empty" class="cover-embed-tile tile-content"
-                                       tal:define="tabs view/tabs">
-
-      <h3
-                                       tal:condition="is_compose"
-                                       tal:content="python: view.data.get('title')">
-        Title here
-      </h3>
-
-      <div class="well" tal:condition="is_compose">
-
-        <p><strong>Embed code:</strong></p>
-        <pre>
-        <code tal:content="python:view.data.get('embed')" ></code>
-        </pre>
-
-      </div>
-
-      <div
-           id="country-factsheet-embed-header"
-           tal:content="structure python:view.data.get('embed')" >
-      </div>
-    </div>
-        <div class="visualClear"><!-- --></div>
-    </div>
-  </body>
-</html>

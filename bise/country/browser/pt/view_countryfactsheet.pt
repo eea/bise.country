@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="plone.z3cform"
+      metal:use-macro="context/@@standard_macros/page">
+
+  <body metal:fill-slot="body">
+    <div tal:define="tabs python: [r.to_object for r in context.relatedItems]">
+
+      <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css" />
+      <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css" />
+
+      <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+      <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
+      <script src="http://d3js.org/topojson.v1.min.js"></script>
+      <script src="http://d3js.org/queue.v1.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="/++theme++bise.diazotheme/js/factsheets-map.js"></script>
+      <script src="/++resource++bise.biodiversityfactsheet/mapsConfig.js" ></script>
+      <script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5" ></script>
+      <script src="/++resource++bise.biodiversityfactsheet/layout.js" ></script>
+      <script src="/++resource++bise.biodiversityfactsheet/maps.js" ></script>
+
+      <script src="++resource++bise.country/js/countryfactsheets.js" ></script>
+      <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheets.css" />
+
+      <span class="custom-dropdown">
+        <select>
+          <option tal:repeat="country view/dropdown_countries"
+            tal:content="country/name"
+            tal:attributes="value country/href">
+          12345678910112
+          </option>
+        </select>
+      </span>
+
+      <div class="panel with-nav-tabs panel-default">
+        <div class="panel-heading">
+          <ul class="nav nav-tabs" role="tablist" id="country-tabs" tal:condition="tabs">
+            <li role="presentation" tal:repeat="obj tabs">
+              <a href=""
+                 data-toggle="tab"
+                 tal:attributes="href string:#t-${repeat/obj/index}"
+                 tal:content="obj/Title">
+                Title
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="panel-body">
+          <div class="tab-content" tal:condition="tabs">
+            <div
+               tal:repeat="obj tabs"
+               tal:attributes="id string:#t-${repeat/obj/index}"
+               tal:content="structure python: view.view_page(obj)">
+              page inside here
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      </div>
+  </body>
+</html>

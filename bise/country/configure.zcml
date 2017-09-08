@@ -42,6 +42,12 @@
     allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout"
     />
 
+
+  <browser:resourceDirectory
+    name="bise.country"
+    directory="static"
+    />
+
   <adapter factory=".iterate.CheckoutFolderLocator" />
 
 </configure>
