@@ -29,7 +29,9 @@
         <select>
           <option selected="selected">---</option>
           <option tal:repeat="country python: context.aq_parent.getFolderContents(
-              contentFilter={'portal_type': 'countryfactsheet'}
+              contentFilter={'portal_type': 'countryfactsheet',
+                             'sort_on': 'sortable_title',
+                             'sort_order': 'ascending'}
               )"
             tal:content="country/Title"
             tal:attributes="value country/getURL; selected python: country.id == context.id">
