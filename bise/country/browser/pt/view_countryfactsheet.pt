@@ -6,7 +6,10 @@
       metal:use-macro="context/@@standard_macros/page">
 
   <body metal:fill-slot="body">
-    <div tal:define="tabs python: [r.to_object for r in context.relatedItems]">
+    <div tal:define="
+        tabs python: [r.to_object for r in context.relatedItems];
+        labels python: ['Factsheet', 'Contributions', 'MAES'];
+        tabs python: zip(labels, tabs);">
 
       <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css" />
       <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css" />
@@ -43,11 +46,11 @@
       <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">
           <ul class="nav nav-tabs" role="tablist" id="country-tabs" tal:condition="tabs">
-            <li role="presentation" tal:repeat="obj tabs">
+            <li role="presentation" tal:repeat="lc tabs">
               <a href=""
                  data-toggle="tab"
-                 tal:attributes="href string:#t-${repeat/obj/index}"
-                 tal:content="obj/Title">
+                 tal:attributes="href string:#t-${repeat/lc/index}"
+                 tal:content="python: lc[0]">
                 Title
               </a>
             </li>
@@ -57,9 +60,9 @@
         <div class="panel-body">
           <div class="tab-content" tal:condition="tabs">
             <div
-               tal:repeat="obj tabs"
-               tal:attributes="id string:#t-${repeat/obj/index}"
-               tal:content="structure python: view.view_page(obj)">
+               tal:repeat="lc tabs"
+               tal:attributes="id string:#t-${repeat/lc/index}"
+               tal:content="structure python: view.view_page(lc[1])">
               page inside here
             </div>
           </div>
