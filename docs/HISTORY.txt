@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.6.dev0 - (unreleased)
------------------------
+1.6 - (2017-09-11)
+------------------
 * Bug fix: improve country factsheets
   [tiberich #72221]
 
