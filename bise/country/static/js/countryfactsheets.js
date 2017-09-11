@@ -1,5 +1,6 @@
 $(document).ready(function(){
-  // Add claro class for css
+  //
+  // Add claro class for css; used by dojo
   $("body").addClass("claro");
 
   // Dropdown functionality

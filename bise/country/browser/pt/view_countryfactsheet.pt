@@ -27,9 +27,12 @@
 
       <span class="custom-dropdown">
         <select>
-          <option tal:repeat="country view/dropdown_countries"
-            tal:content="country/name"
-            tal:attributes="value country/href">
+          <option selected="selected">---</option>
+          <option tal:repeat="country python: context.aq_parent.getFolderContents(
+              contentFilter={'portal_type': 'countryfactsheet'}
+              )"
+            tal:content="country/Title"
+            tal:attributes="value country/getURL; selected python: country.id == context.id">
           12345678910112
           </option>
         </select>
@@ -60,8 +63,7 @@
           </div>
         </div>
 
-
       </div>
-      </div>
+    </div>
   </body>
 </html>

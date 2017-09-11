@@ -8,7 +8,6 @@ class CountryFactsheetView(object):
     """
 
     def view_page(self, obj):
-        print "Showing page", obj
         al = self.request.get('ajax_load')
         self.request.set('ajax_load', True)
         path = '/'.join(obj.getPhysicalPath())
