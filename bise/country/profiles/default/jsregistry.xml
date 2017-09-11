@@ -1,7 +1,16 @@
 <?xml version="1.0"?>
 <object name="portal_javascripts" meta_type="JavaScripts Registry">
+
+  <!-- Disable KSS. Why? -->
   <javascript authenticated="True" bundle="default" cacheable="True"
     compression="safe" conditionalcomment="" cookable="True" enabled="False"
     expression="" id="kss-bbb.js" inline="False"
     />
+
+  <!-- Enable collapsible for countryfactsheet -->
+  <javascript enabled="True"
+    expression="python:context.portal_type in ['BiodiversityFactsheet', 'countryfactsheet']"
+    id="++resource++bise.biodiversityfactsheet/jquery.collapsible.min.js"
+    />
+
 </object>

@@ -70,5 +70,33 @@
 
       </div>
     </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('.collapsible').collapsiblePanel({defaultOpen: 'content-header'});
+      $("body").addClass("claro");
+      $("#targetFilter input:checkbox").change(function() {
+      var filter = "?";
+      if ($("#targetFilter input:checked").length > 0){
+        var targets = "";
+        for(i=0; i <  $("#targetFilter input:checked").length; i++){
+          targets += $("input:checked")[i].value + ","
+        }
+        targets = targets.substring(0, targets.length - 1)
+        filter += "targets=" + targets;
+      }
+        if (window.location.pathname.endsWith("/view")){
+          window.location.href = window.location.pathname + filter;
+        }else if (window.location.pathname.endsWith("/")){
+          window.location.href = window.location.pathname + "view" + filter;
+        }else{
+          window.location.href = window.location.pathname + "/view" + filter;
+        }
+      })
+    });
+
+  </script>
+
+
   </body>
 </html>
