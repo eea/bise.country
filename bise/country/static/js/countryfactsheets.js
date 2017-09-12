@@ -3,11 +3,12 @@ $(document).ready(function(){
   // Add claro class for css; used by dojo
   $("body").addClass("claro");
 
-  // Dropdown functionality
+  // Dropdown + tab changing functionality
+  var currentTab = -1;
 
   $('.custom-dropdown select').change(function() {
     var url = $(this).val()
-    document.location = url
+    document.location = url + '#t-' + currentTab;
   });
 
   $.each($('.fact-contents'), function (index, value) {
@@ -16,9 +17,23 @@ $(document).ready(function(){
     });
   });
 
-
   var countrytabs = $('#country-tabs').children()
-  countrytabs[0].classList.add('active')
+
+  var hash = window.location.hash.substr(1);
+  if (hash !== '') {
+    var sp = hash.split('-');
+    if (sp) {
+      currentTab = parseInt(sp[1]);
+    }
+  }
+
+  // debugger;
+  if (countrytabs.length > 0) {
+    if (currentTab === -1) {
+      currentTab = 0;
+    }
+    countrytabs[currentTab].classList.add('active')
+  }
 
   var hide_show = function() {
     klass = this.classList.value
@@ -27,6 +42,7 @@ $(document).ready(function(){
       siblings = $(this).siblings()
       $.each(siblings, function (index, value) {
         element_id = $(this).children('a')[0].hash;
+        currentTab = element_id;
         element = document.getElementById(element_id)
         $(element).hide()
       });
@@ -39,6 +55,7 @@ $(document).ready(function(){
       siblings = $(this).siblings()
       $.each(siblings, function (index, value) {
         element_id = $(this).children('a')[0].hash;
+        currentTab = element_id;
         element = document.getElementById(element_id)
         $(element).hide()
       });

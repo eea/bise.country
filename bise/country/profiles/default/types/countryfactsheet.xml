@@ -25,7 +25,8 @@
   <element value="plone.app.content.interfaces.INameFromTitle"/>
   <element value="plone.app.relationfield.behavior.IRelatedItems"/>
  </property>
- <property name="schema"></property>
+ <property
+    name="schema">bise.country.factsheet.ICountryFactsheet</property>
  <property name="model_file"></property>
  <property name="schema_policy">dexterity</property>
  <alias from="(Default)" to="(dynamic view)"/>

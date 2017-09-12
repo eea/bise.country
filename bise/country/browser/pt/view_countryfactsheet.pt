@@ -8,8 +8,13 @@
   <body metal:fill-slot="body">
     <div tal:define="
         tabs python: [r.to_object for r in context.relatedItems];
-        labels python: ['Factsheet', 'Contributions', 'MAES'];
-        tabs python: zip(labels, tabs);">
+        labels python: context.tab_titles or ['Factsheet', 'Contributions', 'MAES'];
+        tabs python: zip(labels, tabs);
+        countries python: context.aq_parent.getFolderContents(
+              contentFilter={'portal_type': 'countryfactsheet',
+                             'sort_on': 'sortable_title',
+                             'sort_order': 'ascending'}
+              )">
 
       <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css" />
       <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css" />
@@ -28,14 +33,10 @@
       <script src="++resource++bise.country/js/countryfactsheets.js" ></script>
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheets.css" />
 
-      <span class="custom-dropdown">
+      <span class="custom-dropdown" tal:condition="python: len(countries) > 1">
         <select>
           <option selected="selected">---</option>
-          <option tal:repeat="country python: context.aq_parent.getFolderContents(
-              contentFilter={'portal_type': 'countryfactsheet',
-                             'sort_on': 'sortable_title',
-                             'sort_order': 'ascending'}
-              )"
+          <option tal:repeat="country countries"
             tal:content="country/Title"
             tal:attributes="value country/getURL; selected python: country.id == context.id">
           12345678910112
@@ -71,32 +72,30 @@
       </div>
     </div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-      $('.collapsible').collapsiblePanel({defaultOpen: 'content-header'});
-      $("body").addClass("claro");
-      $("#targetFilter input:checkbox").change(function() {
-      var filter = "?";
-      if ($("#targetFilter input:checked").length > 0){
-        var targets = "";
-        for(i=0; i <  $("#targetFilter input:checked").length; i++){
-          targets += $("input:checked")[i].value + ","
-        }
-        targets = targets.substring(0, targets.length - 1)
-        filter += "targets=" + targets;
+    <script type="text/javascript">
+$(document).ready(function() {
+  $('.collapsible').collapsiblePanel({defaultOpen: 'content-header'});
+  $("body").addClass("claro");
+  $("#targetFilter input:checkbox").change(function() {
+    var filter = "?";
+    if ($("#targetFilter input:checked").length > 0){
+      var targets = "";
+      for(i=0; i <  $("#targetFilter input:checked").length; i++){
+        targets += $("input:checked")[i].value + ","
       }
-        if (window.location.pathname.endsWith("/view")){
-          window.location.href = window.location.pathname + filter;
-        }else if (window.location.pathname.endsWith("/")){
-          window.location.href = window.location.pathname + "view" + filter;
-        }else{
-          window.location.href = window.location.pathname + "/view" + filter;
-        }
-      })
-    });
-
-  </script>
-
+      targets = targets.substring(0, targets.length - 1)
+      filter += "targets=" + targets;
+    }
+    if (window.location.pathname.endsWith("/view")){
+      window.location.href = window.location.pathname + filter;
+    }else if (window.location.pathname.endsWith("/")){
+      window.location.href = window.location.pathname + "view" + filter;
+    }else{
+      window.location.href = window.location.pathname + "/view" + filter;
+    }
+  })
+});
+    </script>
 
   </body>
 </html>
