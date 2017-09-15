@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.8.dev0 - (unreleased)
------------------------
+1.8 - (2017-09-15)
+------------------
 - Fix tabs and map responsiveness on country factsheets
   [krisztina #85826]
 
@@ -46,3 +46,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
