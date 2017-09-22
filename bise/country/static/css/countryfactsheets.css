@@ -780,3 +780,163 @@ svg-container {
 .legendContainer {
   left: 770px !important;
 }
+
+
+/***** contributions sidebar *****/
+
+.target1Bg td p,
+.target2Bg td p,
+.target3Bg td p,
+.target4Bg td p,
+.target5Bg td p,
+.target6Bg td p {
+  display: none;
+}
+
+.target1Bg,
+.target2Bg,
+.target3Bg,
+.target4Bg,
+.target5Bg,
+.target6Bg {
+  background-color: transparent;
+}
+
+.country-table tr {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.country-table td {
+  width: 100% !important;
+  border-bottom: none;
+}
+
+.country-table td:first-child {
+  display: inline;
+}
+
+.country-table h2 {
+  color: #748284 !important;
+  font-weight: bold;
+}
+
+#mtr-wrapper {
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  padding: 0 20px;
+}
+
+#mtr-main-wrapper {
+  height: 100%;
+  padding-left: 25px;
+  overflow-y: auto;
+}
+
+#sidebar-wrapper {
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
+  border-right: 1px solid #efe9db;
+}
+
+#mtr-wrapper .col-md-3 {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.sidebar {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.sidebar ul {
+  padding-left:0;
+  margin: 2px 0;
+}
+
+.sidebar li a {
+  padding-top: 5px;
+  color: #1f8cc9;
+  cursor: pointer;
+}
+
+.sidebar li ul li a {
+  padding-left: 25px;
+  color: #1f8cc9;
+  font-weight: bold;
+}
+
+.sidebar ul li span {
+  display: block;
+  padding: 3px 0;
+}
+
+.sidebar li {
+  position: relative;
+  list-style-type: none;
+}
+
+.nav-header a {
+  font-weight: bold;
+}
+
+.selected:after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  margin-top: -21px;
+  border-left: solid 12px #f7f4ed;
+  border-bottom: solid 21px transparent;
+  border-top: solid 21px transparent;
+}
+
+.selected {
+  background-color: #f7f4ed;
+  border-left: 3px solid #36b76d !important;
+}
+
+.sidebar li span {
+  border-left: 3px solid transparent;
+}
+
+.sidebar p {
+  position: relative;
+  display: block;
+  margin-top: 8px;
+  margin-bottom: 2px;
+  font-size: 0.9em;
+  width: 90%;
+  color: #748284;
+}
+
+.sidebar li ul li p {
+  padding-left: 25px;
+}
+
+.nav-stacked {
+  padding-left: 20px;
+}
+
+@media (min-width: 992px) {
+  #mtr-main-wrapper {
+    float:right;
+  }
+}
+
+@media (max-width: 992px) {
+  #mtr-main-wrapper {
+    padding-top: 30px;
+  }
+
+  #sidebar-wrapper {
+    position: static;
+    height:auto;
+    max-height: 350px;
+    width: 100%;
+    border-right:0;
+  }
+}
