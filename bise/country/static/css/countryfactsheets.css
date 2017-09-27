@@ -877,6 +877,19 @@ svg-container {
   font-weight: bold;
 }
 
+.mtr-container .nav-header a,
+.mtr-container .nav-header p {
+  padding-left: 10px;
+}
+
+
+.mtr-container .nav-header:hover,
+.mtr-container .nav-list li span:hover {
+  background-color: #f7f4ed;
+  border-left: 3px solid #36b76d !important;
+  cursor: pointer;
+}
+
 .mtr-container .selected {
   background-color: #f7f4ed;
   border-left: 3px solid #36b76d !important;
