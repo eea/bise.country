@@ -1,4 +1,12 @@
 $(document).ready(function(){
+
+
+  if( $.isFunction( $.fn.sticky ) ){
+    console.log('sticky', $.isFunction( $.fn.sticky ));
+  }
+
+  // $("#sidebar-wrapper").sticky({topSpacing:0});
+
   //
   // Add claro class for css; used by dojo
   $("body").addClass("claro");
@@ -84,17 +92,15 @@ $(document).ready(function(){
   // contributions sidebar
 
   $('.anchor-link').hide();
-  var $smwrap = $('<div id="mtr-wrapper"/>');
+  var $smwrap = $('<div id="mtr-wrapper" class="mtr-container"/>');
   var $srow = $('<div id="srow" class="row"/>');
   var $swrap = $('<div id="mtr-main-wrapper" class="tab-content col-md-9 pull-right"/>');
-  var $sside = $('<div id="sidebar-wrapper" class="col-md-3 sidebar">sidebar</div>')
 
   $('.country-table').wrapAll($smwrap);
   $('.country-table').wrapAll($srow);
   $('.country-table').wrapAll($swrap);
 
   var $wrapper = $('#srow');
-
 
   var _gtarc = 0;    // global counter for name targets
 
@@ -130,7 +136,7 @@ $(document).ready(function(){
 
     });
 
-    var $ssidebar = $('<div id="sidebar-wrapper" class="col-md-3 sidebar"/>');
+    var $ssidebar = $('<div id="sidebar-wrapper" class="i-sticky col-md-3 sidebar"/>');
     var $menu = $('<ul class="nav nav-list nav-menu-list-style"/>');
 
     $ssidebar.append($menu);
@@ -170,6 +176,8 @@ $(document).ready(function(){
         $sul.append($ali);
       }
     }
+
+    $('.i-sticky').iSticky();   // activate sticky plugin/polyfill for sidebar
 
     $('.tree-toggle').click(function () {
       $(this).parent().children('ul.trees').toggle(200);

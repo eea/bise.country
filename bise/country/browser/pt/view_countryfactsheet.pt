@@ -30,6 +30,7 @@
       <script src="/++resource++bise.biodiversityfactsheet/layout.js" ></script>
       <script src="/++resource++bise.biodiversityfactsheet/maps.js" ></script>
 
+      <script type="text/javascript" src="++resource++bise.country/js/i-sticky.js" ></script>
       <script src="++resource++bise.country/js/countryfactsheets.js" ></script>
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheets.css" />
 

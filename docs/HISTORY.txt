@@ -3,6 +3,8 @@ Changelog
 
 1.9.dev0 - (unreleased)
 -----------------------
+- Fix sidebar and improvements in IE
+  [krisztina #85826]
 - Sidebar menu for contributions
   [krisztina #85826]
 
