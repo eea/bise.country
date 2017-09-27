@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.9.dev0 - (unreleased)
------------------------
+1.9 - (2017-09-27)
+------------------
 - Fix sidebar and improvements in IE
   [krisztina #85826]
 - Sidebar menu for contributions
@@ -53,3 +53,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
