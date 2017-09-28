@@ -1,0 +1,31 @@
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  metal:use-macro="context/main_template/macros/master">
+
+  <body metal:fill-slot="content-core">
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="/++theme++bise.diazotheme/js/factsheets-map.js"></script>
+
+    <!-- <script src="/++resource++bise.biodiversityfactsheet/layout.js" ></script> -->
+    <!-- <script src="/++resource++bise.biodiversityfactsheet/maps.js" ></script> -->
+    <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
+
+    <svg-container data-globalmap="global" data-posscale="6" data-posx="-26"
+      data-posy="-10" id="countryfactsheets-map">
+      <svg viewBox="0 0 1200 300"></svg>
+    </svg-container>
+
+    <div tal:replace="structure context/text/output | nothing">Text here</div>
+
+  </body>
+
+</html>

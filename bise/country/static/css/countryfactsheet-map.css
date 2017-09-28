@@ -1,0 +1,83 @@
+.factsheets main {
+  /*width: 100%;*/
+  /*left: 0;*/
+  /*float: initial;*/
+}
+
+.stroke {
+  fill: none;
+  stroke: #000;
+  stroke-width: 3px;
+}
+
+.fill {
+  fill: rgb(48, 140, 168);
+}
+
+.graticule {
+  fill: none;
+  /*stroke: #777;*/
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+
+.country-wrapper:hover {
+  /*fill: rgba(8, 81, 156, 1);*/
+  /*fill: none;*/
+  cursor: pointer;
+}
+
+rect {
+  transition: all 400ms;
+}
+
+.land {
+  fill: #000;
+}
+
+.image.country {
+  stroke: #000;
+  stroke-width: 0.5px;
+}
+
+.boundary {
+  fill: none;
+  stroke: #000;
+  stroke-width: 0.2px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+svg {
+  // background-color: rgb(48, 140, 168);
+  width: 100%;
+  // fill: rgb(48, 140, 168);
+}
+
+
+svg-container {
+  width: 100%;
+  position: relative;
+  height: 384px;
+  display: block;
+  top: 0;
+  overflow: hidden;
+}
+
+
+#countryfactsheets-map {
+  width: 100%;
+  position: initial;
+  height: 500px !important;
+  display: block;
+  top: inherit;
+  overflow: hidden;
+  border: 2px solid lightgray;
+}
+
+/* make all flags visible */
+/* #countryfactsheets-map .country-wrapper { */
+/*   fill-opacity: 0; */
+/* } */

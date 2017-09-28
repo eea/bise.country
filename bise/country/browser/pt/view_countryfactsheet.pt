@@ -32,7 +32,10 @@
 
       <script type="text/javascript" src="++resource++bise.country/js/i-sticky.js" ></script>
       <script src="++resource++bise.country/js/countryfactsheets.js" ></script>
-      <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheets.css" />
+
+      <!-- <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheets.css" /> -->
+      <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-page.css" />
+      <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
 
       <span class="custom-dropdown" tal:condition="python: len(countries) > 1">
         <select>

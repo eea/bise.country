@@ -21,6 +21,7 @@
   <element value="folder_listing"/>
   <element value="atlasview"/>
   <element value="maesgalleryview"/>
+  <element value="countryfactsheets"/>
  </property>
  <property name="default_view_fallback">False</property>
  <property name="add_permission">cs.folderishpage.AddFolderishPage</property>
