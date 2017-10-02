@@ -1,6 +1,9 @@
 Changelog
 =========
 
+2.1.dev0 - (unreleased)
+-----------------------
+
 2.0 - (2017-10-02)
 ------------------
 - Add hover state for navigation links in sidebar
