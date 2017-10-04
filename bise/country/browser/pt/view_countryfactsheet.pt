@@ -16,24 +16,30 @@
                              'sort_order': 'ascending'}
               )">
 
+      <!-- TODO: test if links can work with https by replacing http with // -->
+      <!-- This is for fixing the various maps that are included in the Biodiversity -->
+      <!-- Factsheet tab -->
       <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css" />
       <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css" />
-
       <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
       <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
       <script src="http://d3js.org/topojson.v1.min.js"></script>
       <script src="http://d3js.org/queue.v1.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <script src="/++theme++bise.diazotheme/js/factsheets-map.js"></script>
       <script src="/++resource++bise.biodiversityfactsheet/mapsConfig.js" ></script>
       <script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5" ></script>
       <script src="/++resource++bise.biodiversityfactsheet/layout.js" ></script>
       <script src="/++resource++bise.biodiversityfactsheet/maps.js" ></script>
 
-      <script type="text/javascript" src="++resource++bise.country/js/i-sticky.js" ></script>
-      <script src="++resource++bise.country/js/countryfactsheets.js" ></script>
+      <!-- This is used by the svg header map -->
+      <script src="/++resource++bise.country/js/factsheets-map.js"></script>
 
-      <!-- <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheets.css" /> -->
+
+      <!-- this is IE Compatibility for the Contributions tab, left side nav menu -->
+      <script type="text/javascript" src="++resource++bise.country/js/i-sticky.js" ></script>
+
+      <!-- This is for the top navigation tabs in a country factsheet page -->
+      <script src="++resource++bise.country/js/countryfactsheets.js" ></script>
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-page.css" />
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
 
