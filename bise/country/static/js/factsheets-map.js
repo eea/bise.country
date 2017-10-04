@@ -297,13 +297,10 @@ $(document).ready(function() {
     if (isGlobalMap) {
       $rect.on('click', function(d){
         if (window.available_map_countries.indexOf(d.name) > -1) {
-          // console.log("You clicked", d);
-          var dd = d3.select(this);
-          // console.log("the dom obj", dd);
-          return false;
-          // TODO: this locations, don't hardcode
-          // var link = d.name.toLowerCase();
-          // location.href = "/countries/eu_country_profiles/"+link+"";
+          var link = d.name.toLowerCase();
+          // "/countries/eu_country_profiles/"+link+"";
+          location.href = link + '';
+          return true;
         }
       })
       .on('mouseover', function(d){
