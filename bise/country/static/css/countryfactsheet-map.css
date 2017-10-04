@@ -7,7 +7,7 @@
 .stroke {
   fill: none;
   stroke: #000;
-  stroke-width: 3px;
+  stroke-width: 6px;
 }
 
 .fill {
@@ -16,15 +16,16 @@
 
 .graticule {
   fill: none;
-  /*stroke: #777;*/
-  stroke-width: .5px;
+  stroke-width: .8px;
   stroke-opacity: .5;
 }
 
-.country-wrapper:hover {
-  /*fill: rgba(8, 81, 156, 1);*/
-  /*fill: none;*/
-  cursor: pointer;
+.boundary {
+  /* stroke for all countries */
+  fill: none;
+  stroke: #000;
+  stroke-width: 0.2px;
+  /* stroke-width: 0.6px; */
 }
 
 rect {
@@ -37,13 +38,18 @@ rect {
 
 .image.country {
   stroke: #000;
-  stroke-width: 0.5px;
+  stroke-width: 6px;
 }
 
-.boundary {
-  fill: none;
-  stroke: #000;
-  stroke-width: 0.2px;
+/* .country-wrapper { */
+/*   stroke: #000; */
+/*   stroke-width: 0.6px; */
+/* } */
+
+.country-wrapper:hover {
+  /*fill: rgba(8, 81, 156, 1);*/
+  /*fill: none;*/
+  cursor: pointer !important;
 }
 
 * {
