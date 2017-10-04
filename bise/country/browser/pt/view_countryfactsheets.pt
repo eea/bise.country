@@ -13,7 +13,7 @@
     <script src="http://d3js.org/queue.v1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script src="/++theme++bise.diazotheme/js/factsheets-map.js"></script>
+    <script src="/++resource++bise.country/js/factsheets-map.js"></script>
 
     <!-- <script src="/++resource++bise.biodiversityfactsheet/layout.js" ></script> -->
     <!-- <script src="/++resource++bise.biodiversityfactsheet/maps.js" ></script> -->
