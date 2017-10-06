@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.2.dev0 - (unreleased)
------------------------
+2.2 - (2017-10-06)
+------------------
 - Improve tabs functionality
   [krisztina #85826]
 
@@ -68,3 +68,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
