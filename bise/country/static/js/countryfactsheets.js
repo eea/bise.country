@@ -7,7 +7,10 @@ $(document).ready(function(){
 
   $('.custom-dropdown select').change(function() {
     var url = $(this).val()
-    document.location = url + '#t-' + currentTab;
+    if (currentTab > -1) {
+      url += "#t-" + currentTab;
+    }
+    document.location = url;
   });
 
   $.each($('.fact-contents'), function (index, value) {
@@ -21,7 +24,7 @@ $(document).ready(function(){
   var getTabFromHash = function(hash) {
     if (hash !== '') {
       var sp = hash.split('-');
-      if (sp) {
+      if (sp && sp[0] === 't') {
         currentTab = parseInt(sp[1]);
         return currentTab;
       }
@@ -39,12 +42,14 @@ $(document).ready(function(){
     countrytabs[currentTab].classList.add('active');
   }
 
+  // This handles clicking on country tabs
   var hide_show = function() {
     klass = this.classList.value
     var element_id;
 
     if (klass === "active") {
       element_id = $(this).children('a')[0].hash;
+      document.location.hash = element_id;
       currentTab = getTabFromHash(element_id);
 
       siblings = $(this).siblings()
@@ -58,6 +63,7 @@ $(document).ready(function(){
       element_id = $(this).children('a')[0].hash;
       currentTab = getTabFromHash(element_id);
       element = document.getElementById(element_id);
+      document.location.hash = element_id;
       $(element).show();
 
       siblings = $(this).siblings()
@@ -69,12 +75,12 @@ $(document).ready(function(){
     }
   };
 
-  $.each(countrytabs, function(index, value) {
-    value.addEventListener('click', hide_show);
+  $.each(countrytabs, function(index, node) {
+    node.addEventListener('click', hide_show);
 
-    klass = value.classList.value
+    klass = node.classList.value
     if (klass != "active") {
-      element_id = $(value).children('a')[0].hash;
+      element_id = $(node).children('a')[0].hash;
       element = document.getElementById(element_id);
       $(element).hide();
     }
@@ -140,7 +146,14 @@ $(document).ready(function(){
       var sectionTitle = sectionTitle.charAt(0).toUpperCase() + sectionTitle.slice(1).toLowerCase();
       var sectionDescr = sections[i][1];
       var targetID = sectionTitle.slice(-1);
-      var $sa = $('<a/>').attr('href', document.location.href + '#eu-target-' + targetID);
+
+      var loc = 'eu-target-' + targetID;
+      var $sa = $('<a/>').attr('href', document.location.pathname + '#' + loc);
+      $sa.data('wloc', loc)
+      $sa.on('click', function() {
+        document.location.hash = $(this).data('wloc');
+      });
+
       $sa.text(sectionTitle);
       var $sp = $('<p/>');
       $sp.text(sectionDescr);
@@ -160,7 +173,7 @@ $(document).ready(function(){
         var subTitle = subText[0];
         var subDescription = subText[1];
         var actionID = sectionActions[j][1];
-        var navActionTitle = $('<a class="action-title"/>').attr('href', document.location.href + '#gtarc-' + actionID).text(subTitle);
+        var navActionTitle = $('<a class="action-title"/>').attr('href', document.location.pathname + '#gtarc-' + actionID).text(subTitle);
         var navActionDescription = $('<p class="action-description" />').text(subDescription);
         var $sp = $('<span/>').append(navActionTitle, navActionDescription);
         var $ali = $('<li/>');
@@ -169,7 +182,13 @@ $(document).ready(function(){
       }
     }
 
-    $("tbody tr td:empty").remove();
+    $('b').filter(function() {
+        return $.trim($(this).text()) === '' && $(this).children().length == 0
+    }).remove();
+
+    $('p').filter(function() {
+        return $.trim($(this).text()) === '' && $(this).children().length == 0
+    }).remove();
 
     $('.i-sticky').iSticky();   // activate sticky plugin/polyfill for sidebar
 

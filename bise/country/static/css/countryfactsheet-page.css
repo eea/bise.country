@@ -746,7 +746,7 @@ body {
 .mtr-container .country-table td {
   width: 100% !important;
   border-bottom: none;
-  display: inline-block !important;
+  display: inline-block;
   padding-left: 0!important;
 }
 
