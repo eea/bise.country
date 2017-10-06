@@ -729,15 +729,25 @@ body {
 .mtr-container .target6Bg {
   background-color: transparent;
 }
+.mtr-container .country-table p {
+  padding-left: 0!important;
+}
 
 .mtr-container .country-table tr {
   display: block;
-  margin-bottom: 20px;
+  padding-left: 0!important;
 }
+
+.mtr-container .country-table td:first-child + td {
+    padding: 8px 0 !important;
+    text-align: left !important;
+  }
 
 .mtr-container .country-table td {
   width: 100% !important;
   border-bottom: none;
+  display: inline-block !important;
+  padding-left: 0!important;
 }
 
 .mtr-container .country-table td:first-child {
@@ -747,6 +757,12 @@ body {
 .mtr-container .country-table h2 {
   color: #748284 !important;
   font-weight: bold;
+  margin-top: 15px;
+  padding-left: 0 !important;
+}
+
+.mtr-container [data-tooltip] {
+  display: inline;
 }
 
 #mtr-wrapper {
@@ -758,7 +774,6 @@ body {
 
 #mtr-main-wrapper {
   height: 100%;
-  padding-left: 25px;
   overflow-y: auto;
 }
 

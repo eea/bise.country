@@ -1,13 +1,5 @@
 $(document).ready(function(){
 
-
-  if( $.isFunction( $.fn.sticky ) ){
-    console.log('sticky', $.isFunction( $.fn.sticky ));
-  }
-
-  // $("#sidebar-wrapper").sticky({topSpacing:0});
-
-  //
   // Add claro class for css; used by dojo
   $("body").addClass("claro");
 
@@ -24,7 +16,7 @@ $(document).ready(function(){
     });
   });
 
-  var countrytabs = $('#country-tabs').children()
+  var countrytabs = $('#country-tabs').children();
 
   var getTabFromHash = function(hash) {
     if (hash !== '') {
@@ -44,7 +36,7 @@ $(document).ready(function(){
     if (currentTab === -1) {
       currentTab = 0;
     }
-    countrytabs[currentTab].classList.add('active')
+    countrytabs[currentTab].classList.add('active');
   }
 
   var hide_show = function() {
@@ -58,21 +50,21 @@ $(document).ready(function(){
       siblings = $(this).siblings()
       $.each(siblings, function (index, value) {
         element_id = $(this).children('a')[0].hash;
-        element = document.getElementById(element_id)
-        $(element).hide()
+        element = document.getElementById(element_id);
+        $(element).hide();
       });
     }
     else {
       element_id = $(this).children('a')[0].hash;
       currentTab = getTabFromHash(element_id);
-      element = document.getElementById(element_id)
-      $(element).show()
+      element = document.getElementById(element_id);
+      $(element).show();
 
       siblings = $(this).siblings()
       $.each(siblings, function (index, value) {
         element_id = $(this).children('a')[0].hash;
-        element = document.getElementById(element_id)
-        $(element).hide()
+        element = document.getElementById(element_id);
+        $(element).hide();
       });
     }
   };
@@ -83,8 +75,8 @@ $(document).ready(function(){
     klass = value.classList.value
     if (klass != "active") {
       element_id = $(value).children('a')[0].hash;
-      element = document.getElementById(element_id)
-      $(element).hide()
+      element = document.getElementById(element_id);
+      $(element).hide();
     }
   });
 
@@ -148,7 +140,7 @@ $(document).ready(function(){
       var sectionTitle = sectionTitle.charAt(0).toUpperCase() + sectionTitle.slice(1).toLowerCase();
       var sectionDescr = sections[i][1];
       var targetID = sectionTitle.slice(-1);
-      var $sa = $('<a/>').attr('href', '#eu-target-' + targetID);
+      var $sa = $('<a/>').attr('href', document.location.href + '#eu-target-' + targetID);
       $sa.text(sectionTitle);
       var $sp = $('<p/>');
       $sp.text(sectionDescr);
@@ -168,7 +160,7 @@ $(document).ready(function(){
         var subTitle = subText[0];
         var subDescription = subText[1];
         var actionID = sectionActions[j][1];
-        var navActionTitle = $('<a class="action-title"/>').attr('href','#gtarc-' + actionID).text(subTitle);
+        var navActionTitle = $('<a class="action-title"/>').attr('href', document.location.href + '#gtarc-' + actionID).text(subTitle);
         var navActionDescription = $('<p class="action-description" />').text(subDescription);
         var $sp = $('<span/>').append(navActionTitle, navActionDescription);
         var $ali = $('<li/>');
@@ -176,6 +168,8 @@ $(document).ready(function(){
         $sul.append($ali);
       }
     }
+
+    $("tbody tr td:empty").remove();
 
     $('.i-sticky').iSticky();   // activate sticky plugin/polyfill for sidebar
 
