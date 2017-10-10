@@ -1,6 +1,3 @@
-var width = 1200;
-var height = 560;
-
 function fLoc(fname) {
   return window.location.origin + "/++resource++bise.country/js/countries/" + fname;
 }
@@ -61,7 +58,9 @@ function getSelectedCountry() {
   return sc;
 }
 
-function zoomToCountry(selectedCountry, countries, path, projection) {
+function zoomToCountry(
+  selectedCountry, countries, path, projection, width, height
+) {
 
   if (selectedCountry) {
     var zoomCountries = countries.filter(function(d) {
@@ -113,6 +112,9 @@ $(document).ready(function() {
 
   var isGlobalMap = $("svg-container").data('globalmap') === 'global';
 
+  var width = 1200;
+  var height = 560;
+
   if ($('svg-container').length === 0) {
     $('#site-body').prepend(
       '<div class="header-bg">' +
@@ -121,6 +123,7 @@ $(document).ready(function() {
         '</svg-container>' +
       '</div>'
     );      // viewBox="0 0 1200 300"
+    height = 360;
   }
 
   var selectedCountry = getSelectedCountry();
@@ -160,7 +163,7 @@ $(document).ready(function() {
     setCountryFlags(countries, flags);
     setCountryBounds(countries, path);
 
-    zoomToCountry(selectedCountry, countries, path, projection);
+    zoomToCountry(selectedCountry, countries, path, projection, width, height);
 
     // we need to reset the country bounds because of the zoom
     setCountryBounds(countries, path);
@@ -236,13 +239,9 @@ $(document).ready(function() {
       .insert("image", ".graticule")
       .attr("class", "country")
       .attr("href", function (d){
-        return d.url;
-        // var b = path.bounds(d);
-        // var min = (Math.min(b[0][0], b[0][1], b[1][0], b[1][0]));
-        // if (min > 0){
-        //   console.log("Country flag", min, d.name);
-        //   return d.url;
-        // }
+        if (window.available_map_countries.indexOf(d.name) > -1) {
+          return d.url;
+        }
       })
       .attr("x", function (d) {
         if (d.name == 'France') {     // France has French Guyana in SA
@@ -293,14 +292,14 @@ $(document).ready(function() {
       .attr("opacity",function(d){
         if (isGlobalMap === true) {
           if (window.available_map_countries.indexOf(d.name) > -1) {
-            return "0.5";
+            return "0.98";
           }
         }
       })
       .attr("fill",function(d){
         if (isGlobalMap === true) {
           if (window.available_map_countries.indexOf(d.name) > -1) {
-            return 'black';
+            return '#41b664';
           }
           return "#f7f4ed"; // change color here;
         }
@@ -328,7 +327,7 @@ $(document).ready(function() {
       })
       .on('mouseout', function(d){
         if (window.available_map_countries.indexOf(d.name) > -1) {
-          d3.select(this).attr('opacity','0.5');
+          d3.select(this).attr('opacity','0.98');
         }
       });
     }

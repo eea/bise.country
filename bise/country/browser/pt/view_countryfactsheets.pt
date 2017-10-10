@@ -15,8 +15,6 @@
 
     <script src="/++resource++bise.country/js/factsheets-map.js"></script>
 
-    <!-- <script src="/++resource++bise.biodiversityfactsheet/layout.js" ></script> -->
-    <!-- <script src="/++resource++bise.biodiversityfactsheet/maps.js" ></script> -->
     <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
 
     <svg-container
@@ -27,7 +25,6 @@
       id="countryfactsheets-map">
       <svg ></svg>
     </svg-container>
-<!-- viewBox="0 0 1200 700" -->
 
     <div tal:replace="structure context/text/output | nothing">Text here</div>
     <script tal:define="countries_json python: str([x.Title() for x in context.listFolderContents()])"
