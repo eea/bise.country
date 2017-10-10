@@ -4,6 +4,19 @@
   /*float: initial;*/
 }
 
+/* // TODO: create selector for global map, we want 1px stroke there */
+.country-stroke {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+}
+
+.mask {
+  fill: none;
+  /* stroke: #000; */
+  /* stroke-width: 12px; */
+}
+
 .stroke {
   fill: none;
   stroke: #000;
@@ -16,15 +29,15 @@
 
 .graticule {
   fill: none;
-  stroke-width: .8px;
-  stroke-opacity: .5;
+  /* stroke-width: .8px; */
+  /* stroke-opacity: .5; */
 }
 
 .boundary {
   /* stroke for all countries */
   fill: none;
-  stroke: #000;
-  stroke-width: 0.2px;
+  /* stroke: #000; */
+  /* stroke-width: 0.2px; */
   /* stroke-width: 0.6px; */
 }
 
@@ -37,8 +50,8 @@ rect {
 }
 
 .image.country {
-  stroke: #000;
-  stroke-width: 6px;
+  /* stroke: #000; */
+  /* stroke-width: 6px; */
 }
 
 /* .country-wrapper { */
@@ -66,17 +79,17 @@ svg {
 svg-container {
   width: 100%;
   position: relative;
-  height: 384px;
+  /* height: 384px; */
   display: block;
-  top: 0;
-  overflow: hidden;
+  top: 32px;
+  /* overflow: hidden; */
 }
 
 
 #countryfactsheets-map {
   width: 100%;
   position: initial;
-  height: 500px !important;
+  /* height: 500px !important; */
   display: block;
   top: inherit;
   overflow: hidden;

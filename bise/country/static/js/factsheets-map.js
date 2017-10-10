@@ -1,76 +1,134 @@
+var width = 1200;
+var height = 560;
+
+function fLoc(fname) {
+  return window.location.origin + "/++resource++bise.country/js/countries/" + fname;
+}
+
+function setCountryNames(countries, names) {
+  // TODO: rewrite, this is stupid
+  countries.filter(function(d) {
+    return names.some(function(n) {
+      if (d.id == n.id) {
+        return d.name = n.name;
+      } else {
+      }
+    });
+  });
+}
+
+function setCountryFlags(countries, flags) {
+  countries.filter(function(d) {
+    return flags.some(function(n) {
+      if (d.id == n.id) {
+        return d.url = n.url;
+      }
+    });
+  });
+}
+
+function setCountryBounds(countries, path) {
+  countries = countries.filter(function(d) {
+    return d.bounds = path.bounds(d);
+  });
+  return countries;
+}
+
+function getSelectedCountry() {
+  // get the "desired country" from the window location
+
+  var sc;
+  var frags = window.location.href.split("/").reverse();
+  for (var f=0; f<frags.length; f++) {
+    if (frags[f].length) {
+      sc = frags[f];
+      break;
+    }
+  }
+
+  if(sc) {
+    // TODO: use a better method to uppercase first letter of words
+    sc =  sc[0].toUpperCase() + sc.slice(1);
+    if (sc.includes('#')) {
+      sc = sc.substring(0, sc.indexOf('#'))
+    }
+    sc = sc.replace('-', ' ');
+    sc = sc.split('.')[0];    // for testing
+
+    if (sc == 'Czech republic') sc = 'Czech Republic';
+    if (sc == 'United kingdom') sc = 'United Kingdom';
+  }
+  return sc;
+}
+
+function zoomToCountry(selectedCountry, countries, path, projection) {
+
+  if (selectedCountry) {
+    var zoomCountries = countries.filter(function(d) {
+      return d.name === selectedCountry;
+    });
+
+    var country = zoomCountries[0];
+    if (!country) {
+      projection
+        .scale(1)
+        .translate([0, 0]);
+
+      projection.scale(600).translate([300, 900]);
+      return;
+    }
+
+    projection
+        .scale(1)
+        .translate([0, 0]);
+
+    // TODO: fix France, should hardcode values here
+    var b = path.bounds(country),
+        s = 0.1 / Math.min(
+          (b[1][0] - b[0][0]) / width,
+          (b[1][1] - b[0][1]) / height
+        ),
+        t = [
+          (width - s * (b[1][0] + b[0][0])) / 2,    // / 2,
+          (height - s * (b[1][1] + b[0][1])) / 2    // / 2
+        ];
+
+    projection
+        .scale(s)
+        .translate(t);
+
+    console.log("Scale", s, "t", t);
+  } else {
+    projection
+        .scale(1)
+        .translate([0, 0]);
+
+    projection.scale(600).translate([300, 900]);
+    return;
+  }
+}
+
 $(document).ready(function() {
-
-  // console.log("Context countries", window.available_map_countries);
   $('body').addClass('factsheets');
-
-  if ($('svg-container').length === 0) {
-    $('#site-body').prepend('<div class="header-bg"><svg-container><svg viewBox="0 0 1200 300"></svg> </svg-container> </div>');
-  }
-
-  var pos = ['scale', 'translateX', 'translateY'];
-  pos = [4,-46,-43];
-
-  // read possible values from data-* attributes set on <svg-container>
-  var pScale = $("svg-container").data('posscale');
-  if (pScale) {
-    pos[0] = parseInt(pScale);
-  }
-  var pX = $("svg-container").data('posx');
-  if (pX) {
-    pos[1] = parseInt(pX);
-  }
-  var pY = $("svg-container").data('posy');
-  if (pY) {
-    pos[2] = parseInt(pY);
-  }
-  // console.log("used pos", pos);
 
   var isGlobalMap = $("svg-container").data('globalmap') === 'global';
 
-  var wflags = window.location.origin + "/++resource++bise.country/js/countries/countries.tsv",
-    w110 = window.location.origin + "/++resource++bise.country/js/countries/world-110m.json",
-    wnames = window.location.origin + "/++resource++bise.country/js/countries/world-country-names.tsv";
+  if ($('svg-container').length === 0) {
+    $('#site-body').prepend(
+      '<div class="header-bg">' +
+        '<svg-container>' +
+          '<svg ></svg>' +
+        '</svg-container>' +
+      '</div>'
+    );      // viewBox="0 0 1200 300"
+  }
 
-  var width = 1200;
-  var height = 700;
+  var selectedCountry = getSelectedCountry();
+  console.log("Selected country", selectedCountry);
 
-  var projection = d3.geo.robinson()
-    .scale(160)
-    .translate([width / 2, height / 2.3])
-    .precision(.1);
-
-  var path = d3.geo.path().projection(projection);
-
-  var graticule = d3.geo.graticule();
-
-  var svg = d3.select("body").select("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-  var defs = svg.append("defs");
-
-  defs.append("path")
-    .datum({type: "Sphere"})
-    .attr("id", "sphere")
-    // .attr('fill',' rgb(255, 140, 168)') // change global color here
-    .attr("d", path)
-
-  var new_path = d3.select('#sphere').attr('d').replace(/,/g, ' ')
-
-  d3.select('#sphere').attr('d', new_path)
-
-  svg.append("use")
-    .attr("class", "stroke")
-    .attr("xlink:href", "#sphere");
-
-  svg.append("use")
-    .attr("class", "fill")
-    .attr("xlink:href", "#sphere");
-
-  svg.append("path")
-    .datum(graticule)
-    .attr("class", "graticule")
-    .attr("d", new_path);
+  var wflags = fLoc("countries.tsv");
+  var w110 = fLoc("world-110m.json");
+  var wnames = fLoc("world-country-names.tsv");
 
   var q = queue()
     .defer(d3.json, w110)
@@ -79,52 +137,6 @@ $(document).ready(function() {
     .await(ready);
 
   function ready(error, world, names, flags) {
-
-    var href = window.location.href;
-
-    var frags = href.split("/").reverse();
-    var selected_country;
-
-    for (var f=0; f<frags.length; f++) {
-      if (frags[f].length) {
-        selected_country = frags[f];
-        break;
-      }
-    }
-
-    if(selected_country) {
-      selected_country =  selected_country[0].toUpperCase() + selected_country.slice(1);
-      if (selected_country.includes('#')) {
-        selected_country = selected_country.substring(0, selected_country.indexOf('#'))
-      }
-      selected_country = selected_country.replace('-', ' ');
-      //for testing
-      selected_country = selected_country.split('.')[0]
-    }
-
-    if (selected_country == 'Czech republic') selected_country = 'Czech Republic';
-    if (selected_country == 'United kingdom') selected_country = 'United Kingdom';
-
-    //ugly ifs
-    // if (selected_country == 'United Kingdom')
-    //     pos[0]=5;pos[2]=-12
-    // if(selected_country == '')
-
-    switch(selected_country) {
-      case 'United Kingdom':
-        pos[0]=5;pos[2]=-5
-        break;
-      case 'Estonia':
-      case 'Lithuania':
-      case 'Latvia':
-      case 'Sweden':
-        pos[0]=5;pos[2]=25
-        break;
-      case 'Spain':
-        pos[0]=5;pos[1]=-45;pos[2]=-62
-        break;
-      default:
-    }
 
     if (error) {
       alert('error: ' + error);
@@ -136,65 +148,68 @@ $(document).ready(function() {
       return +a.id < +b.id ? -1 : +a.id > +b.id ? +1 : 0;
     });
 
-    var countries = topojson.feature(world, world.objects.countries).features,
-      land = topojson.feature(world, world.objects.land);
+    // read geometry of countries. See https://github.com/topojson/world-atlas
+    var countries = topojson.feature(world, world.objects.countries).features;
+    var projection = d3.geo.robinson().precision(.1);
 
-    countries = countries.filter(function(d) {
-      return names.some(function(n) {
-        if (d.id == n.id) {
-          return d.name = n.name;
+    var path = d3.geo.path().projection(projection);
+
+    // Augument the countries GeoJSON data with names, bounds and flags
+
+    setCountryNames(countries, names);
+    setCountryFlags(countries, flags);
+    setCountryBounds(countries, path);
+
+    zoomToCountry(selectedCountry, countries, path, projection);
+
+    // we need to reset the country bounds because of the zoom
+    setCountryBounds(countries, path);
+
+    // path.projection(projection.scale(300));  // .translate([110,100]));
+
+    var svg = d3
+      .select("body")
+      .select("svg")
+      .attr("width", width)
+      .attr("height", height);
+
+    // elements defined in defs can be reused with <use>
+    var defs = svg.append("defs");
+    defs
+      .append("path")
+      .datum(
+        {
+          type: "Sphere"
         }
-      });
-    });
+      )
+      .attr("id", "sphere")
+      .attr("d", path);
 
-    countries = countries.filter(function(d) {
-      return flags.some(function(n) {
-        if (d.id == n.id) {
-          var bounds = path.bounds(d);
-          if (bounds[0][0] < 0) bounds[0][0] = 0;
-          if (bounds[1][0] > width) bounds[1][0] = width;
-          if (bounds[0][1] < 0) bounds[0][1] = 0;
-          if (bounds[1][1] < 0) bounds[1][1] = height;
+    svg
+      .append("use")
+      .attr("class", "fill")
+      .attr("href", "#sphere");
 
-          d.bounds = bounds;
+    // TODO: can this be optimized, do the replacement before setting the attr?
+    // console.log("The D: ", d3.select('#sphere').attr('d'));
+    var new_path = d3.select('#sphere').attr('d').replace(/,/g, ' ');
 
-          return d.url = n.url;
-        }
-      });
-    });
-    // console.log('countries', countries);
+    // this acts as a layer over the flags
+    var graticule = d3.geo.graticule();
+    svg.append("path")
+      .datum(graticule)
+      .attr("class", "graticule")
+      .attr("d", new_path);
 
-    // countries = countries.filter(function(d) {
-    //   if (available_map_countries.indexOf(d.name) > -1) {
-    //     console.log('This is good', d.name);
-    //     return true;
-    //   } else {
-    //     console.log('this is not good', d.name);
-    //   }
-    // });
-
-    // for (var f of countries){
-    //     $('body').append(f.url+" ")
-    // }
-
-    // /* usage: */
-    // // stringified SVG
-    // for (var f of countries) {
-    // var svgPathString = "<svg style=\"position:absolute; width: 0; height: 0\"><symbol viewBox=\"0 0 100 \" id=\""+f.id+"\">  <use xlink:href="+f.url+"></image> </symbol></svg>"
-    // // create sprite
-    // var mysvg = createSVGSprite(svgPathString)
-    // // insert sprite into the DOM
-    // document.body.appendChild(mysvg)
-    // }
-
-
-    defs.selectAll("mask")
+    // create clip paths for the country rects
+    defs
+      .selectAll("mask")
       .data(countries)
       .enter()
       .append("clipPath")
       .attr("class", "mask")
       .attr("id", function(d) {
-        return "iso-" + d.id
+        return "iso-" + d.id;
       })
       .attr("width", function (d) {
         return d.bounds[1][0] - d.bounds[0][0];}
@@ -205,74 +220,76 @@ $(document).ready(function() {
       .append("path")
       .attr("d", path);
 
-    var group = svg.selectAll("country")
+    // create an svg group for each country
+    var group = svg
+      .selectAll("country")
       .data(countries)
       .enter()
       .append('g');
 
+    group.append("path").attr('class', 'country-stroke').attr('d', path);
+
+    // This inserts the flags as images in the svg
     svg.selectAll("country")
       .data(countries)
       .enter()
       .insert("image", ".graticule")
       .attr("class", "country")
-      .attr("xlink:href", function (d){
-        var myurl = d.url.split("/");
-        var finalurl = myurl[myurl.length - 1];
-        //return 'http://bise-portal.edw.ro/flags/'+finalurl+''
-        return d.url
-        ;})
+      .attr("href", function (d){
+        return d.url;
+        // var b = path.bounds(d);
+        // var min = (Math.min(b[0][0], b[0][1], b[1][0], b[1][0]));
+        // if (min > 0){
+        //   console.log("Country flag", min, d.name);
+        //   return d.url;
+        // }
+      })
       .attr("x", function (d) {
-        if(d.name=='France')
-          return '586'
-        else
-          return d.bounds[0][0];}
+        if (d.name == 'France') {     // France has French Guyana in SA
+          return '250';
+        }
+        return d.bounds[0][0];}
       )
-      .attr("y", function (d) {return d.bounds[0][1];})
+      .attr("y", function (d) {
+        return d.bounds[0][1];
+      })
       .attr("width", function (d) {
-        if(d.name=='France')
-          return '39'
-        else
-          return d.bounds[1][0] - d.bounds[0][0];}
-      )
+        if (d.name == 'France') {     // France has French Guyana in SA
+          return (d.bounds[1][0] - d.bounds[0][0]) / 5;
+        }
+        return d.bounds[1][0] - d.bounds[0][0];
+      })
       .attr("height", function (d) {
-        if(d.name=='France')
-          return '37'
-        else
-          return d.bounds[1][1] - d.bounds[0][1];}
+        return d.bounds[1][1] - d.bounds[0][1];}
       )
       .attr("preserveAspectRatio", "none")
+
       .attr("clip-path", function(d) {
-        return "url(#iso-"+d.id+")";
+        return "url(#iso-" + d.id + ")";
       });
-    //
-    // .attr('width',function(d){
-    //   if(d.name=='France')
-    //     return '39'
-    //   else
-    //   return document.querySelector("#iso-"+d.id+"").getBBox().width
-    // })
-    //  .attr('height',function(d){
-    //   if(d.name=='France')
-    //     return '37'
-    //   else
-    //   return document.querySelector("#iso-"+d.id+"").getBBox().height
-    // });
 
     var $rect = group.append('rect')
       .attr("class", "country-wrapper")
       // .attr("data-country-name", function(d) {
       //   return d.name;
       // })
-      .attr("x", function (d) {return d.bounds[0][0];})
-      .attr("y", function (d) {return d.bounds[0][1];})
+      .attr("x", function (d) {
+        return d.bounds[0][0];
+      })
+      .attr("y", function (d) {
+        return d.bounds[0][1];
+      })
       .attr("width", function (d) {
-        return d.bounds[1][0] - d.bounds[0][0];}
-      )
-      .attr("height", function (d) {return d.bounds[1][1] - d.bounds[0][1];})
+        return d.bounds[1][0] - d.bounds[0][0];
+      })
+      .attr("height", function (d) {
+        return d.bounds[1][1] - d.bounds[0][1];
+      })
       .attr("preserveAspectRatio", "none")
       .attr("clip-path", function(d) {
         return "url(#iso-" + d.id + ")";
       })
+
       .attr("opacity",function(d){
         if (isGlobalMap === true) {
           if (window.available_map_countries.indexOf(d.name) > -1) {
@@ -288,7 +305,7 @@ $(document).ready(function() {
           return "#f7f4ed"; // change color here;
         }
 
-        if (d.name == selected_country)
+        if (d.name == selectedCountry)
           return 'none';
         else
           return "#f7f4ed"; // change color here;
@@ -299,7 +316,7 @@ $(document).ready(function() {
         if (window.available_map_countries.indexOf(d.name) > -1) {
           var link = d.name.toLowerCase();
           // "/countries/eu_country_profiles/"+link+"";
-          location.href = link + '';
+          location.href = link;
           return true;
         }
       })
@@ -316,18 +333,5 @@ $(document).ready(function() {
       });
     }
 
-    // interior boundaries
-    svg.insert("path", ".graticule")
-      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a !== b; }))
-      .attr("class", "boundary")
-      .attr("clip-path", "url(#sphere)")
-      .attr("d", path);
-    // exterior boundaries
-    svg.insert("path", ".graticule")
-      .datum(topojson.mesh(world, world.objects.countries, function(a, b) { return a === b}))
-      .attr("d", path)
-      .attr("class", "boundary");
-
-    svg.style('transform', 'scale('+pos[0]+') translate('+pos[1]+'px, '+pos[2]+'px');
   }
 });
