@@ -39,6 +39,14 @@ svg-container {
   fill: none;
 }
 
+.lines {
+  fill: none;
+  /* stroke: #79A09E; */
+  stroke: black;
+  stroke-width: 0.6;
+  stroke-dasharray: 8,2;
+}
+
 rect {
   transition: all 400ms;
 }

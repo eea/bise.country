@@ -73,7 +73,7 @@ function zoomToCountry(
         .scale(1)
         .translate([0, 0]);
 
-      projection.scale(600).translate([300, 900]);
+      projection.scale(680).translate([200, 960]);
       return;
     }
 
@@ -198,7 +198,13 @@ $(document).ready(function() {
     var new_path = d3.select('#sphere').attr('d').replace(/,/g, ' ');
 
     // this acts as a layer over the flags
-    var graticule = d3.geo.graticule();
+    var graticule = d3.geo.graticule().step([10, 10]);
+
+    var lines = svg.selectAll('path.lines').data([graticule()]);
+    lines.enter().append('path').classed('lines', true);
+    lines.attr('d', path);
+    lines.exit().remove();
+
     svg.append("path")
       .datum(graticule)
       .attr("class", "graticule")

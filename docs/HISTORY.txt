@@ -3,6 +3,8 @@ Changelog
 
 2.6.dev0 - (unreleased)
 -----------------------
+- Improve country factsheet map (show graticule lines)
+  [tiberich #85826]
 
 2.5 - (2017-10-11)
 ------------------
