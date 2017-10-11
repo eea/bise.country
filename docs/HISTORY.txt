@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.5.dev0 - (unreleased)
------------------------
+2.5 - (2017-10-11)
+------------------
 - Fix country factsheet page (bring back commented code)
   [tiberich #85826]
 
