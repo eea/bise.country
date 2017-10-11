@@ -70,16 +70,16 @@
           </ul>
         </div>
 
-        <!-- <div class="panel&#45;body"> -->
-        <!--   <div class="tab&#45;content" tal:condition="tabs"> -->
-        <!--     <div -->
-        <!--        tal:repeat="lc tabs" -->
-        <!--        tal:attributes="id string:#t&#45;${repeat/lc/index}" -->
-        <!--        tal:content="structure python: view.view_page(lc[1])"> -->
-        <!--       page inside here -->
-        <!--     </div> -->
-        <!--   </div> -->
-        <!-- </div> -->
+        <div class="panel-body">
+          <div class="tab-content" tal:condition="tabs">
+            <div
+               tal:repeat="lc tabs"
+               tal:attributes="id string:#t-${repeat/lc/index}"
+               tal:content="structure python: view.view_page(lc[1])">
+              page inside here
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>
