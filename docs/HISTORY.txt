@@ -3,6 +3,8 @@ Changelog
 
 2.4.dev0 - (unreleased)
 -----------------------
+- Improve country factsheets map
+  [tiberich, krisztina #85826]
 
 2.3 - (2017-10-10)
 ------------------
