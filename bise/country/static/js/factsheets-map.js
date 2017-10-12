@@ -26,6 +26,13 @@ function setCountryFlags(countries, flags) {
 
 function setCountryBounds(countries, path) {
   countries = countries.filter(function(d) {
+    // France includes territory in South America, we don't include that in
+    // bounds calculation
+    if (d.name === 'France') {
+      if (d.geometry.coordinates.length === 3) {
+        d.geometry.coordinates = d.geometry.coordinates.slice(1);
+      }
+    }
     return d.bounds = path.bounds(d);
   });
   return countries;
@@ -61,6 +68,12 @@ function getSelectedCountry() {
 function zoomToCountry(
   selectedCountry, countries, path, projection, width, height
 ) {
+  var defaultScale = 680;
+  var defaultPos = [200, 960];
+
+  projection
+    .scale(1)
+    .translate([0, 0]);
 
   if (selectedCountry) {
     var zoomCountries = countries.filter(function(d) {
@@ -68,42 +81,24 @@ function zoomToCountry(
     });
 
     var country = zoomCountries[0];
-    if (!country) {
-      projection
-        .scale(1)
-        .translate([0, 0]);
-
-      projection.scale(680).translate([200, 960]);
-      return;
+    if (!country) {   // generic settings, from tryouts
+      return projection.scale(defaultScale).translate(defaultPos);
     }
 
-    projection
-        .scale(1)
-        .translate([0, 0]);
-
-    // TODO: fix France, should hardcode values here
-    var b = path.bounds(country),
-        s = 0.12 / Math.min(
-          (b[1][0] - b[0][0]) / width,
-          (b[1][1] - b[0][1]) / height
-        ),
-        t = [
-          (width - s * (b[1][0] + b[0][0])) / 2,    // / 2,
-          (height - s * (b[1][1] + b[0][1])) / 2    // / 2
-        ];
-
-    projection
-        .scale(s)
-        .translate(t);
+    var b = path.bounds(country);
+    var vRatio = (height/width * 0.8);    // viewport ratio
+    var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
+    var chRatio = (b[1][1] - b[0][1]) / height;   // bounds to height ratio
+    var s =  vRatio / Math.min(cwRatio, chRatio);
+    t = [
+      (width - s * (b[1][0] + b[0][0])) / 2,
+      (height - s * (b[1][1] + b[0][1])) / 2
+    ];
 
     console.log("Scale", s, "t", t);
+    return projection.scale(s).translate(t);
   } else {
-    projection
-        .scale(1)
-        .translate([0, 0]);
-
-    projection.scale(600).translate([300, 900]);
-    return;
+    return projection.scale(defaultScale).translate(defaultPos);
   }
 }
 
@@ -123,7 +118,7 @@ $(document).ready(function() {
         '</svg-container>' +
       '</div>'
     );      // viewBox="0 0 1200 300"
-    height = 360;
+    height = 380;
   }
 
   var selectedCountry = getSelectedCountry();
@@ -153,7 +148,7 @@ $(document).ready(function() {
 
     // read geometry of countries. See https://github.com/topojson/world-atlas
     var countries = topojson.feature(world, world.objects.countries).features;
-    var projection = d3.geo.robinson().precision(.1);
+    var projection = d3.geo.robinson().precision(0.1);
 
     var path = d3.geo.path().projection(projection);
 
@@ -198,11 +193,20 @@ $(document).ready(function() {
     var new_path = d3.select('#sphere').attr('d').replace(/,/g, ' ');
 
     // this acts as a layer over the flags
-    var graticule = d3.geo.graticule().step([10, 10]);
+    var gStep = isGlobalMap ? [10, 10] : [4, 4];
+    var graticule = d3.geo.graticule().step(gStep);
 
     var lines = svg.selectAll('path.lines').data([graticule()]);
     lines.enter().append('path').classed('lines', true);
     lines.attr('d', path);
+    lines.attr("id", function(d) {    // set the id, based on coordinates
+      if (d.coordinates[0][0] == d.coordinates[1][0]) {
+        return (d.coordinates[0][0] < 0) ? -d.coordinates[0][0] + "W" : d.coordinates[0][0] + "E";
+      }
+      else if (d.coordinates[0][1] == d.coordinates[1][1]) {
+        return (d.coordinates[0][1] < 0) ? -d.coordinates[0][1] + "S" : d.coordinates[0][1] + "N";
+      }
+    });
     lines.exit().remove();
 
     svg.append("path")
@@ -250,34 +254,24 @@ $(document).ready(function() {
         }
       })
       .attr("x", function (d) {
-        if (d.name == 'France') {     // France has French Guyana in SA
-          return '250';
-        }
         return d.bounds[0][0];}
       )
       .attr("y", function (d) {
         return d.bounds[0][1];
       })
       .attr("width", function (d) {
-        if (d.name == 'France') {     // France has French Guyana in SA
-          return (d.bounds[1][0] - d.bounds[0][0]) / 5;
-        }
         return d.bounds[1][0] - d.bounds[0][0];
       })
       .attr("height", function (d) {
         return d.bounds[1][1] - d.bounds[0][1];}
       )
       .attr("preserveAspectRatio", "none")
-
       .attr("clip-path", function(d) {
         return "url(#iso-" + d.id + ")";
       });
 
     var $rect = group.append('rect')
       .attr("class", "country-wrapper")
-      // .attr("data-country-name", function(d) {
-      //   return d.name;
-      // })
       .attr("x", function (d) {
         return d.bounds[0][0];
       })
@@ -307,13 +301,32 @@ $(document).ready(function() {
           if (window.available_map_countries.indexOf(d.name) > -1) {
             return '#41b664';
           }
-          return "#f7f4ed"; // change color here;
+          return "#efe7d4";     // "#f7f4ed"; // change color here;    //
         }
 
         if (d.name == selectedCountry)
           return 'none';
         else
-          return "#f7f4ed"; // change color here;
+          return "#efe7d4";     // "#f7f4ed"; // change color here;
+      });
+
+    // add the coordinates on the side of the map
+    var latitudes = graticule.lines().filter(function(d){
+      return d.coordinates.length == 3;
+    });
+
+    svg.selectAll('text')
+      .data(latitudes)
+      .enter()
+      .append("text")
+      .text(function(d) {
+        var c = d.coordinates[0][0] + "°"
+        return c;
+      })
+      .attr("class","label")
+      .attr("dx", 20)
+      .attr("dy", function(d) {
+        return projection([0, d.coordinates[0][0]])[1] - 6;
       });
 
     if (isGlobalMap) {
@@ -337,6 +350,5 @@ $(document).ready(function() {
         }
       });
     }
-
   }
 });

@@ -10,7 +10,7 @@ svg-container {
   width: 100%;
   position: relative;
   display: block;
-  top: 32px;
+  top: 1em;
 }
 
 #countryfactsheets-map {
@@ -47,8 +47,17 @@ svg-container {
   stroke-dasharray: 8,2;
 }
 
+.label {
+  font: 100 9px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-anchor: end;
+  fill: black;
+}
+
 rect {
   transition: all 400ms;
+}
+.country-wrapper {
+  /* fill: red; */
 }
 
 .country-wrapper:hover {
