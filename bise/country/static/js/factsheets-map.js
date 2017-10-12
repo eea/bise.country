@@ -83,7 +83,7 @@ function zoomToCountry(
 
     // TODO: fix France, should hardcode values here
     var b = path.bounds(country),
-        s = 0.1 / Math.min(
+        s = 0.12 / Math.min(
           (b[1][0] - b[0][0]) / width,
           (b[1][1] - b[0][1]) / height
         ),
@@ -112,7 +112,7 @@ $(document).ready(function() {
 
   var isGlobalMap = $("svg-container").data('globalmap') === 'global';
 
-  var width = 1200;
+  var width = $(window).width();
   var height = 560;
 
   if ($('svg-container').length === 0) {
