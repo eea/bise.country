@@ -712,15 +712,6 @@ body {
 
 /***** contributions sidebar *****/
 
-.mtr-container .target1Bg td p,
-.mtr-container .target2Bg td p,
-.mtr-container .target3Bg td p,
-.mtr-container .target4Bg td p,
-.mtr-container .target5Bg td p,
-.mtr-container .target6Bg td p {
-  display: none;
-}
-
 .mtr-container .target1Bg,
 .mtr-container .target2Bg,
 .mtr-container .target3Bg,
@@ -729,8 +720,11 @@ body {
 .mtr-container .target6Bg {
   background-color: transparent;
 }
+
 .mtr-container .country-table p {
   padding-left: 0!important;
+  margin: 13px 0;
+  text-align: left !important;
 }
 
 .mtr-container .country-table tr {
@@ -739,7 +733,7 @@ body {
 }
 
 .mtr-container .country-table td:first-child + td {
-    padding: 8px 0 !important;
+    padding: 0 !important;
     text-align: left !important;
   }
 
@@ -757,19 +751,23 @@ body {
 .mtr-container .country-table h2 {
   color: #748284 !important;
   font-weight: bold;
-  margin-top: 15px;
   padding-left: 0 !important;
+  text-align: left !important;
 }
 
 .mtr-container [data-tooltip] {
-  display: inline;
+  display: inherit;
 }
 
 #mtr-wrapper {
   min-height: 100vh;
   height: 100%;
   width: 100%;
-  padding: 0 20px;
+  padding-top: 30px;
+}
+
+#srow:before {
+    border-top: 2px solid black;
 }
 
 #mtr-main-wrapper {
@@ -860,6 +858,38 @@ body {
   padding-left: 20px;
 }
 
+.mobile-sidebar,
+.mobile-only {
+  display: none;
+  cursor: pointer;
+}
+
+.close-sidebar {
+  color: grey;
+  padding: 15px;
+  font-size: 1.3rem;
+  width: 100%;
+}
+
+.close-sidebar i {
+  float: right;
+}
+
+.mobile-sidebar {
+  float: right;
+  background-color: white;
+  width: 100%;
+  height: 50px;
+}
+
+.mobile-content {
+  float: right;
+}
+
+.mobile-sidebar i {
+  font-size: 1rem;
+}
+
 @media (min-width: 992px) {
   #mtr-main-wrapper {
     float:right;
@@ -868,14 +898,24 @@ body {
 
 @media (max-width: 992px) {
   #mtr-main-wrapper {
-    padding-top: 30px;
+    padding:  30px 10px ;
+    overflow-y: initial;
   }
 
   #sidebar-wrapper {
-    position: static;
-    height:auto;
-    max-height: 350px;
-    width: 100%;
+    position: fixed;
+    height: 100%;
+    background-color: white;
+    z-index: 9999;
+    width: 50%;
     border-right:0;
+    box-shadow: 5px 0 5px -2px rgba(0, 0, 0, 0.40);
+    display: none;
+    left: 0;
+  }
+
+  .mobile-sidebar,
+  .mobile-only {
+    display: block;
   }
 }

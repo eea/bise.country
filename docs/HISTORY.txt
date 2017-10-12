@@ -3,6 +3,8 @@ Changelog
 
 2.6.dev0 - (unreleased)
 -----------------------
+- Fix tabs in IE, improve contributions sidebar on tablet/mobile
+  [krisztina #85826]
 - Improve country factsheet map (show graticule lines)
   [tiberich #85826]
 
@@ -86,4 +88,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

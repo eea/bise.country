@@ -46,7 +46,7 @@ function getSelectedCountry() {
   if(sc) {
     // TODO: use a better method to uppercase first letter of words
     sc =  sc[0].toUpperCase() + sc.slice(1);
-    if (sc.includes('#')) {
+    if (sc.indexOf("#") >= 0) {
       sc = sc.substring(0, sc.indexOf('#'))
     }
     sc = sc.replace('-', ' ');
