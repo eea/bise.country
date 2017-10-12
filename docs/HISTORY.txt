@@ -3,6 +3,8 @@ Changelog
 
 2.6.dev0 - (unreleased)
 -----------------------
+- Fix nested tables, code cleanup
+  [krisztina #85826]
 - Fix tabs in IE, improve contributions sidebar on tablet/mobile
   [krisztina #85826]
 - Improve country factsheet map (show graticule lines)

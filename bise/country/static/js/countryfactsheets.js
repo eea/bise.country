@@ -137,16 +137,6 @@ $(document).ready(function(){
 
     });
 
-    $('td').each(function(){
-      var cls = $('td').attr('class');
-
-      if (cls && cls.indexOf('action') !== -1) {
-        $('td').css('margin-top', '25px;');
-      }
-
-    });
-
-
     var $ssidebar = $('<div id="sidebar-wrapper" class="i-sticky col-md-3 sidebar"/>');
     var $menu = $('<ul class="nav nav-list nav-menu-list-style"/>');
     var $mclose = $('<div class="mobile-only close-sidebar"><i class="fa fa-times" aria-hidden="true"></i></div>');
@@ -202,11 +192,6 @@ $(document).ready(function(){
       $tdp.css('display', 'none');
     }
 
-
-    $('.mtr-container td').filter(function() {
-        return $.trim($(this).text()) === '' && $(this).children().length == 0
-    }).remove();
-
     $('.mtr-container b').filter(function() {
         return $.trim($(this).text()) === '' && $(this).children().length == 0
     }).remove();
@@ -241,7 +226,7 @@ $(document).ready(function(){
       $('.tree-toggle').parent().children('ul.trees').toggle(200);
     });
 
-    $('.sidebar li ul li span').click(function(e) {
+    $('.sidebar li ul li span').click(function() {
       $('.sidebar li ul li span').removeClass('selected');
       $(this).addClass('selected');
       $('#sidebar-wrapper').hide();

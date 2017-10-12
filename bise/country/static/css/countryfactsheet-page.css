@@ -727,24 +727,24 @@ body {
   text-align: left !important;
 }
 
-.mtr-container .country-table tr {
+.mtr-container .country-table > tbody > tr {
   display: block;
   padding-left: 0!important;
 }
 
-.mtr-container .country-table td:first-child + td {
+.mtr-container .country-table > tbody > tr >td:first-child + td {
     padding: 0 !important;
     text-align: left !important;
   }
 
-.mtr-container .country-table td {
+.mtr-container .country-table > tbody > tr > td {
   width: 100% !important;
   border-bottom: none;
   display: inline-block;
   padding-left: 0!important;
 }
 
-.mtr-container .country-table td:first-child {
+.mtr-container .country-table > tbody > tr > td:first-child {
   display: inline;
 }
 
