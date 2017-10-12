@@ -1,8 +1,8 @@
 Changelog
 =========
 
-2.6.dev0 - (unreleased)
------------------------
+2.6 - (2017-10-12)
+------------------
 - Fix nested tables, code cleanup
   [krisztina #85826]
 - Fix tabs in IE, improve contributions sidebar on tablet/mobile
@@ -90,3 +90,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
