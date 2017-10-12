@@ -724,7 +724,11 @@ body {
 .mtr-container .country-table p {
   padding-left: 0!important;
   margin: 13px 0;
-  text-align: left !important;
+  text-align: justify !important;
+}
+
+.mtr-container .country-table ul {
+  margin: 0;
 }
 
 .mtr-container .country-table > tbody > tr {
@@ -733,14 +737,11 @@ body {
 }
 
 .mtr-container .country-table > tbody > tr >td:first-child + td {
-    padding: 0 !important;
     text-align: left !important;
   }
 
 .mtr-container .country-table > tbody > tr > td {
-  width: 100% !important;
   border-bottom: none;
-  display: inline-block;
   padding-left: 0!important;
 }
 
@@ -772,7 +773,7 @@ body {
 
 #mtr-main-wrapper {
   height: 100%;
-  overflow-y: auto;
+  word-break: break-word;
 }
 
 #srow {
@@ -790,7 +791,7 @@ body {
 .mtr-container .i-sticky {
   position: sticky;
   position: -webkit-sticky;
-  top: 0;
+  top: -1px;
 }
 
 .mtr-container .sidebar ul {
@@ -879,11 +880,12 @@ body {
   float: right;
   background-color: white;
   width: 100%;
-  height: 50px;
+  height: 35px;
 }
 
 .mobile-content {
   float: right;
+  margin-top: 8px;
 }
 
 .mobile-sidebar i {
@@ -894,12 +896,20 @@ body {
   #mtr-main-wrapper {
     float:right;
   }
+  .mtr-container .country-table > tbody > tr > td {
+    width: 100% !important;
+  }
+  .mtr-container .country-table > tbody > tr >td:first-child + td {
+      padding: 0 !important;
+      display: inline-block;
+  }
 }
 
 @media (max-width: 992px) {
   #mtr-main-wrapper {
     padding:  30px 10px ;
     overflow-y: initial;
+    word-break: break-word;
   }
 
   #sidebar-wrapper {

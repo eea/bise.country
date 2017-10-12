@@ -216,6 +216,10 @@ $(document).ready(function(){
       $('#sidebar-wrapper').hide();
     });
 
+    if ($('.country-table table').width() > 500) {
+      $('.country-table table').css("width", "100%");
+    }
+
     $('.i-sticky').iSticky();   // activate sticky plugin/polyfill for sidebar
 
     $('.tree-toggle').click(function () {
