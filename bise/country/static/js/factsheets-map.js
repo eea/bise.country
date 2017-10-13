@@ -25,11 +25,11 @@ function setCountryBounds(countries, path) {
     // bounds calculation
     // TODO: maybe a better way would be to give a set of coordinates and only
     // include geometries that are in bounds of those
-    if (d.name === 'France') {
-      if (d.geometry.coordinates.length === 3) {
-        d.geometry.coordinates = d.geometry.coordinates.slice(1);
-      }
-    }
+    // if (d.name === 'France') {
+    //   if (d.geometry.coordinates.length === 3) {
+    //     d.geometry.coordinates = d.geometry.coordinates.slice(1);
+    //   }
+    // }
     return d.bounds = path.bounds(d);
   });
   return countries;
@@ -65,50 +65,59 @@ function getSelectedCountry() {
 function zoomToCountry(
   selectedCountry, countries, path, projection, width, height
 ) {
-  // var defaultScale = 680;    // best for robinson projection
-  // var defaultPos = [200, 960];
-
-  var defaultScale = 780;
-  var defaultPos = [260, 1000];
 
   projection
     .scale(1)
     .translate([0, 0]);
 
-  if (selectedCountry) {
+  var b, t, s, vRatio;
+  // var vRatio = (height/width * 1.0);    // viewport ratio
+
+  if (window.isGlobalMap) {
+    // Make a new feature collection of all desired countries,
+    // to calculate zoom bounds
+    var features = {
+      type: "FeatureCollection",
+      features: []
+    }
+    countries.forEach(function(c) {
+      if (window.available_map_countries.indexOf(c.name) === -1) {
+        return;
+      }
+      features.features.push(c);
+    });
+    b = path.bounds(features);    // d3.geo
+    vRatio = 0.9; // hardcode a ratio because it can vary widely from phone to desktop
+  } else {
     var zoomCountries = countries.filter(function(d) {
       return d.name === selectedCountry;
     });
 
     var country = zoomCountries[0];
-    if (!country) {   // generic settings, from tryouts
-      return projection.scale(defaultScale).translate(defaultPos);
-    }
 
-    var b = path.bounds(country);
-    // var vRatio = (height/width * 1.0);    // viewport ratio
-    var vRatio = 0.5; // hardcode a ratio because it can vary widely from phone to desktop
-    var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
-    var chRatio = (b[1][1] - b[0][1]) / height;   // bounds to height ratio
-    var s =  vRatio / Math.max(cwRatio, chRatio);
-    t = [
-      (width - s * (b[1][0] + b[0][0])) / 2,
-      (height - s * (b[1][1] + b[0][1])) / 2
-    ];
-
-    // console.log("Scale", s, "t", t);
-    return projection.scale(s).translate(t);
-  } else {
-    return projection.scale(defaultScale).translate(defaultPos);
+    b = path.bounds(country);
+    vRatio = 0.5; // hardcode a ratio because it can vary widely from phone to desktop
   }
+
+  var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
+  var chRatio = (b[1][1] - b[0][1]) / height;   // bounds to height ratio
+  var s =  vRatio / Math.max(cwRatio, chRatio);
+  t = [
+    (width - s * (b[1][0] + b[0][0])) / 2,
+    (height - s * (b[0][1] + b[1][1])) / 2
+  ];
+
+  // console.log('Scale, trans', s, t);
+  return projection.scale(s).translate(t);
 }
 
 $(document).ready(function() {
   $('body').addClass('factsheets');
 
-  var isGlobalMap = $("svg-container").data('globalmap') === 'global';
+  window.isGlobalMap = $("svg-container").data('globalmap') === 'global';
 
-  var width = $(window).width();
+  var width = isGlobalMap ? $('svg').width() : $(window).width();
+  console.log('SVG width', width);
   var height = 560;
 
   if ($('svg-container').length === 0) {
@@ -189,7 +198,7 @@ $(document).ready(function() {
     var new_path = d3.select('#sphere').attr('d').replace(/,/g, ' ');
 
     // this acts as a layer over the flags
-    var gStep = isGlobalMap ? [10, 10] : [4, 4];
+    var gStep = window.isGlobalMap ? [10, 10] : [4, 4];
     var graticule = d3.geo.graticule().step(gStep);
 
     var lines = svg.selectAll('path.lines').data([graticule()]);
@@ -247,7 +256,7 @@ $(document).ready(function() {
       .attr("class", "country")
       .attr("href", function (d){
         if (window.available_map_countries.indexOf(d.name) > -1) {
-          if (isGlobalMap) return d.url;
+          if (window.isGlobalMap) return d.url;
           if (selectedCountry && selectedCountry === d.name) return d.url;
         }
       })
@@ -288,14 +297,14 @@ $(document).ready(function() {
         return "url(#iso-" + d.id + ")";
       })
       .attr("opacity",function(d){
-        if (isGlobalMap === true) {
+        if (window.isGlobalMap === true) {
           if (window.available_map_countries.indexOf(d.name) > -1) {
             return "0.98";
           }
         }
       })
       .attr("fill",function(d){
-        if (isGlobalMap === true) {
+        if (window.isGlobalMap === true) {
           if (window.available_map_countries.indexOf(d.name) > -1) {
             return '#41b664';
           }
@@ -327,7 +336,7 @@ $(document).ready(function() {
         return projection([0, d.coordinates[0][0]])[1] - 6;
       });
 
-    if (isGlobalMap) {
+    if (window.isGlobalMap) {
       $rect.on('click', function(d){
         // console.log('you clicked', d.name, d);
         if (window.available_map_countries.indexOf(d.name) > -1) {
