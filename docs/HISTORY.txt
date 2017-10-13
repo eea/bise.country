@@ -5,6 +5,8 @@ Changelog
 -----------------------
 - Small fixes
   [krisztina #85826]
+- Improve country factsheet map
+  [tiberich #85826]
 
 2.6 - (2017-10-12)
 ------------------
