@@ -2,23 +2,18 @@ function fLoc(fname) {
   return window.location.origin + "/++resource++bise.country/js/countries/" + fname;
 }
 
-function setCountryNames(countries, names) {
-  // TODO: rewrite, this is stupid
-  countries.filter(function(d) {
-    return names.some(function(n) {
-      if (d.id == n.id) {
-        return d.name = n.name;
-      } else {
-      }
-    });
+function setCountryNames(countries) {
+  countries.forEach(function(d) {
+    d.name = d.properties.name;
   });
 }
 
 function setCountryFlags(countries, flags) {
-  countries.filter(function(d) {
-    return flags.some(function(n) {
-      if (d.id == n.id) {
-        return d.url = n.url;
+  countries.forEach(function(c) {
+    var cname = c.name.replace(' ', '_');
+    flags.forEach(function(f) {
+      if (f.url.indexOf(cname) > -1) {
+        c.url = f.url;
       }
     });
   });
@@ -28,6 +23,8 @@ function setCountryBounds(countries, path) {
   countries = countries.filter(function(d) {
     // France includes territory in South America, we don't include that in
     // bounds calculation
+    // TODO: maybe a better way would be to give a set of coordinates and only
+    // include geometries that are in bounds of those
     if (d.name === 'France') {
       if (d.geometry.coordinates.length === 3) {
         d.geometry.coordinates = d.geometry.coordinates.slice(1);
@@ -51,16 +48,16 @@ function getSelectedCountry() {
   }
 
   if(sc) {
-    // TODO: use a better method to uppercase first letter of words
-    sc =  sc[0].toUpperCase() + sc.slice(1);
     if (sc.indexOf("#") >= 0) {
       sc = sc.substring(0, sc.indexOf('#'))
     }
     sc = sc.replace('-', ' ');
     sc = sc.split('.')[0];    // for testing
 
-    if (sc == 'Czech republic') sc = 'Czech Republic';
-    if (sc == 'United kingdom') sc = 'United Kingdom';
+    // Uppercase first letters of words
+    sc = sc.split(" ").map(function(w) {
+      return w[0].toUpperCase() + w.slice(1);
+    }).join(" ");
   }
   return sc;
 }
@@ -68,8 +65,11 @@ function getSelectedCountry() {
 function zoomToCountry(
   selectedCountry, countries, path, projection, width, height
 ) {
-  var defaultScale = 680;
-  var defaultPos = [200, 960];
+  // var defaultScale = 680;    // best for robinson projection
+  // var defaultPos = [200, 960];
+
+  var defaultScale = 780;
+  var defaultPos = [260, 1000];
 
   projection
     .scale(1)
@@ -86,16 +86,16 @@ function zoomToCountry(
     }
 
     var b = path.bounds(country);
-    var vRatio = (height/width * 0.8);    // viewport ratio
+    var vRatio = (height/width * 1.3);    // viewport ratio
     var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
     var chRatio = (b[1][1] - b[0][1]) / height;   // bounds to height ratio
-    var s =  vRatio / Math.min(cwRatio, chRatio);
+    var s =  vRatio / Math.max(cwRatio, chRatio);
     t = [
       (width - s * (b[1][0] + b[0][0])) / 2,
       (height - s * (b[1][1] + b[0][1])) / 2
     ];
 
-    console.log("Scale", s, "t", t);
+    // console.log("Scale", s, "t", t);
     return projection.scale(s).translate(t);
   } else {
     return projection.scale(defaultScale).translate(defaultPos);
@@ -125,36 +125,32 @@ $(document).ready(function() {
   console.log("Selected country", selectedCountry);
 
   var wflags = fLoc("countries.tsv");
-  var w110 = fLoc("world-110m.json");
-  var wnames = fLoc("world-country-names.tsv");
+  var w110 = fLoc("countries.geo.json");
 
   var q = queue()
     .defer(d3.json, w110)
-    .defer(d3.tsv, wnames)
+    // .defer(d3.tsv, wnames)
     .defer(d3.tsv, wflags)
     .await(ready);
 
-  function ready(error, world, names, flags) {
+  function ready(error, world, flags) {   // names,
 
     if (error) {
       alert('error: ' + error);
       return;
     }
 
-    flags.forEach(function (d) { d.id = +d.id;});
-    flags.sort(function(a,b) {
-      return +a.id < +b.id ? -1 : +a.id > +b.id ? +1 : 0;
-    });
-
     // read geometry of countries. See https://github.com/topojson/world-atlas
-    var countries = topojson.feature(world, world.objects.countries).features;
-    var projection = d3.geo.robinson().precision(0.1);
+    // countries.geo.json comes from https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json
+
+    var countries = world.features;
+    var projection = d3.geo.azimuthalEquidistant().precision(0.1); // robinson
+    // var projection = d3.geo.robinson().precision(0.1); // robinson
 
     var path = d3.geo.path().projection(projection);
 
     // Augument the countries GeoJSON data with names, bounds and flags
-
-    setCountryNames(countries, names);
+    setCountryNames(countries);
     setCountryFlags(countries, flags);
     setCountryBounds(countries, path);
 
@@ -162,8 +158,6 @@ $(document).ready(function() {
 
     // we need to reset the country bounds because of the zoom
     setCountryBounds(countries, path);
-
-    // path.projection(projection.scale(300));  // .translate([110,100]));
 
     var svg = d3
       .select("body")
@@ -190,6 +184,7 @@ $(document).ready(function() {
 
     // TODO: can this be optimized, do the replacement before setting the attr?
     // console.log("The D: ", d3.select('#sphere').attr('d'));
+    // TODO: is replace() still needed?
     var new_path = d3.select('#sphere').attr('d').replace(/,/g, ' ');
 
     // this acts as a layer over the flags
@@ -240,6 +235,7 @@ $(document).ready(function() {
       .enter()
       .append('g');
 
+    // better stroke for the countries
     group.append("path").attr('class', 'country-stroke').attr('d', path);
 
     // This inserts the flags as images in the svg
@@ -270,6 +266,7 @@ $(document).ready(function() {
         return "url(#iso-" + d.id + ")";
       });
 
+    // one rect for each country, masked by a clip mask
     var $rect = group.append('rect')
       .attr("class", "country-wrapper")
       .attr("x", function (d) {
@@ -288,7 +285,6 @@ $(document).ready(function() {
       .attr("clip-path", function(d) {
         return "url(#iso-" + d.id + ")";
       })
-
       .attr("opacity",function(d){
         if (isGlobalMap === true) {
           if (window.available_map_countries.indexOf(d.name) > -1) {
@@ -331,6 +327,7 @@ $(document).ready(function() {
 
     if (isGlobalMap) {
       $rect.on('click', function(d){
+        // console.log('you clicked', d.name, d);
         if (window.available_map_countries.indexOf(d.name) > -1) {
           var link = d.name.toLowerCase();
           // "/countries/eu_country_profiles/"+link+"";
