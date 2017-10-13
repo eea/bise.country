@@ -155,7 +155,7 @@ $(document).ready(function() {
 
     var countries = world.features;
     var projection = d3.geo.azimuthalEquidistant().precision(0.1); // robinson
-    // var projection = d3.geo.robinson().precision(0.1); // robinson
+    // var projection = d3.geo.conicEquidistant().precision(0.1); // robinson
 
     var path = d3.geo.path().projection(projection);
 
@@ -197,10 +197,10 @@ $(document).ready(function() {
     // TODO: is replace() still needed?
     var new_path = d3.select('#sphere').attr('d').replace(/,/g, ' ');
 
-    // this acts as a layer over the flags
     var gStep = window.isGlobalMap ? [10, 10] : [4, 4];
     var graticule = d3.geo.graticule().step(gStep);
 
+    // draw the graticule lines
     var lines = svg.selectAll('path.lines').data([graticule()]);
     lines.enter().append('path').classed('lines', true);
     lines.attr('d', path);
@@ -214,6 +214,7 @@ $(document).ready(function() {
     });
     lines.exit().remove();
 
+    // functions as a mask for the country flags
     svg.append("path")
       .datum(graticule)
       .attr("class", "graticule")
@@ -237,6 +238,45 @@ $(document).ready(function() {
       })
       .append("path")
       .attr("d", path);
+    //
+    // add the coordinates on the side of the map
+    var latitudes = [];
+    for (var i=-180; i < 180; i+=10) {
+      for (var j=-180; j < 180; j+=10) {
+        latitudes.push({type: 'Point', coordinates:[i, j]});
+      }
+    }
+    console.log("Latitudes", latitudes);
+
+    var centerPos = projection.invert([width/2,height/2]);
+    var arc = d3.geo.greatArc();
+
+    svg.selectAll('text')
+      .data(latitudes)
+      .enter()
+      .append("text")
+      .text(function(d) {
+        var c = d.coordinates[0] + "°"
+        return c;
+      })
+      .style("display",function(d) {
+        var dist = arc.distance({
+          source: d.coordinates,
+          target: centerPos
+        });
+        var res = dist;
+        console.log(d.coordinates, dist);
+        return (dist < 0.5) ? 'inline' : 'none';
+      })
+      .attr("class","label")
+      .attr('text-anchor', 'start')
+      .attr("dx", function(d) {
+        return projection(d.coordinates)[0] + 24;
+      })
+      .attr("dy", function(d) {
+        // return projection([0, d.coordinates[0]])[1] - 6;
+        return projection(d.coordinates)[1] - 6;
+      });
 
     // create an svg group for each country
     var group = svg
@@ -317,24 +357,6 @@ $(document).ready(function() {
           return "#efe7d4";     // "#f7f4ed"; // change color here;
       });
 
-    // add the coordinates on the side of the map
-    var latitudes = graticule.lines().filter(function(d){
-      return d.coordinates.length == 3;
-    });
-
-    svg.selectAll('text')
-      .data(latitudes)
-      .enter()
-      .append("text")
-      .text(function(d) {
-        var c = d.coordinates[0][0] + "°"
-        return c;
-      })
-      .attr("class","label")
-      .attr("dx", 20)
-      .attr("dy", function(d) {
-        return projection([0, d.coordinates[0][0]])[1] - 6;
-      });
 
     if (window.isGlobalMap) {
       $rect.on('click', function(d){
