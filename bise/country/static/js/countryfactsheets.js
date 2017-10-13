@@ -93,7 +93,7 @@ $(document).ready(function(){
   var $smwrap = $('<div id="mtr-wrapper" class="mtr-container"/>');
   var $srow = $('<div id="srow" class="row"/>');
   var $swrap = $('<div id="mtr-main-wrapper" class="tab-content col-md-9 "/>');
-  var $mwrap = $('<div class="i-sticky mobile-only mobile-sidebar"><div class="mobile-content">Menu <i class="fa fa-bars" aria-hidden="true"></i></div></div>');
+  var $mwrap = $('<div class="i-sticky mobile-only mobile-sidebar"><div class="mobile-content">Contributions Menu <i class="fa fa-bars" aria-hidden="true"></i></div></div>');
 
   $('.country-table').wrapAll($smwrap);
   $('.country-table').wrapAll($srow);
@@ -128,7 +128,7 @@ $(document).ready(function(){
         var klass = $td.attr('class');
         var text = $td.text().trim();
 
-        if (text.indexOf('Action') === 0) {
+        if (text.indexOf('Action') === 0 && text.indexOf('Action concerning') ===  -1) {
           _gtarc += 1;
           $td.attr('id', 'gtarc-' + _gtarc);
           sections[sections.length - 1][2].push([text, [_gtarc]]);
@@ -233,7 +233,9 @@ $(document).ready(function(){
     $('.sidebar li ul li span').click(function() {
       $('.sidebar li ul li span').removeClass('selected');
       $(this).addClass('selected');
-      $('#sidebar-wrapper').hide();
+      if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
+        $('#sidebar-wrapper').hide();
+      }
       return true;
     });
 

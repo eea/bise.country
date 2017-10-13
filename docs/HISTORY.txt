@@ -3,6 +3,8 @@ Changelog
 
 2.8.dev0 - (unreleased)
 -----------------------
+- Improve country factsheets on tablet/mobile
+  [krisztina #85826]
 
 2.7 - (2017-10-13)
 ------------------
@@ -100,4 +102,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

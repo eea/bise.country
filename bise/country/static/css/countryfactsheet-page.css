@@ -764,7 +764,8 @@ body {
   min-height: 100vh;
   height: 100%;
   width: 100%;
-  padding-top: 30px;
+  padding-top: 15px;
+  border-top: 1px solid #efe9db;
 }
 
 #srow:before {
@@ -880,16 +881,23 @@ body {
   float: right;
   background-color: white;
   width: 100%;
-  height: 35px;
+  height: 45px;
+  z-index: 99;
 }
 
 .mobile-content {
   float: right;
   margin-top: 8px;
+  background-color: #36b76d;
+  padding: 7px;
+  border-radius: 3px;
+  color: white;
+  text-align: center;
 }
 
 .mobile-sidebar i {
   font-size: 1rem;
+  padding-left: 10px;
 }
 
 @media (min-width: 992px) {
@@ -927,5 +935,9 @@ body {
   .mobile-sidebar,
   .mobile-only {
     display: block;
+  }
+
+  dl.portalMessage {
+    margin-top: 4em;
   }
 }
