@@ -86,7 +86,8 @@ function zoomToCountry(
     }
 
     var b = path.bounds(country);
-    var vRatio = (height/width * 1.3);    // viewport ratio
+    // var vRatio = (height/width * 1.0);    // viewport ratio
+    var vRatio = 0.5; // hardcode a ratio because it can vary widely from phone to desktop
     var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
     var chRatio = (b[1][1] - b[0][1]) / height;   // bounds to height ratio
     var s =  vRatio / Math.max(cwRatio, chRatio);
@@ -246,7 +247,8 @@ $(document).ready(function() {
       .attr("class", "country")
       .attr("href", function (d){
         if (window.available_map_countries.indexOf(d.name) > -1) {
-          return d.url;
+          if (isGlobalMap) return d.url;
+          if (selectedCountry && selectedCountry === d.name) return d.url;
         }
       })
       .attr("x", function (d) {
