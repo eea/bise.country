@@ -88,7 +88,8 @@ function zoomToCountry(
     });
     b = path.bounds(features);    // d3.geo
     vRatio = 0.9; // hardcode a ratio because it can vary widely from phone to desktop
-  } else {
+  }
+  else {
     var zoomCountries = countries.filter(function(d) {
       return d.name === selectedCountry;
     });
@@ -107,7 +108,6 @@ function zoomToCountry(
     (height - s * (b[0][1] + b[1][1])) / 2
   ];
 
-  // console.log('Scale, trans', s, t);
   return projection.scale(s).translate(t);
 }
 
@@ -153,12 +153,11 @@ $(document).ready(function() {
     // read geometry of countries. See https://github.com/topojson/world-atlas
     // countries.geo.json comes from https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json
 
-    var countries = world.features; // conicEquidistant()
-    // var projection = d3.geo.robinson().precision(0.1); // robinson
+    var countries = world.features;
     var projection = d3.geo
-      .robinson()   // azimuthalEquidistant
+      .robinson()   // azimuthalEquidistant conicEquidistant()
       .precision(0.1)
-      .clipAngle(90); // robinson
+      .clipAngle(90);
 
     var path = d3.geo.path().projection(projection);
 
