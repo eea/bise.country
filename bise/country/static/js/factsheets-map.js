@@ -153,9 +153,12 @@ $(document).ready(function() {
     // read geometry of countries. See https://github.com/topojson/world-atlas
     // countries.geo.json comes from https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json
 
-    var countries = world.features;
-    var projection = d3.geo.azimuthalEquidistant().precision(0.1); // robinson
-    // var projection = d3.geo.conicEquidistant().precision(0.1); // robinson
+    var countries = world.features; // conicEquidistant()
+    // var projection = d3.geo.robinson().precision(0.1); // robinson
+    var projection = d3.geo
+      .robinson()   // azimuthalEquidistant
+      .precision(0.1)
+      .clipAngle(90); // robinson
 
     var path = d3.geo.path().projection(projection);
 
@@ -192,6 +195,12 @@ $(document).ready(function() {
       .attr("class", "fill")
       .attr("href", "#sphere");
 
+    // Calculate the center meridian for the sphere. It serves to calculate
+    // clipping of coordinate labels
+    var bbox = svg.node().getBBox();
+    var p = [bbox.x + bbox.width/2, bbox.y + bbox.height/2];
+    var cp = projection.invert(p);   // lon, lat
+
     // TODO: can this be optimized, do the replacement before setting the attr?
     // console.log("The D: ", d3.select('#sphere').attr('d'));
     // TODO: is replace() still needed?
@@ -213,6 +222,15 @@ $(document).ready(function() {
       }
     });
     lines.exit().remove();
+
+    var minorGraticule = d3.geo.graticule().step([gStep[0]/4, gStep[1]/4]);
+    svg.selectAll('path.sublines')
+      .data(minorGraticule.lines())    // .lines())
+      .enter()
+      .append("path")
+      .attr("class", "sublines")
+      .attr("d", path)
+    ;
 
     // functions as a mask for the country flags
     svg.append("path")
@@ -246,38 +264,55 @@ $(document).ready(function() {
         latitudes.push({type: 'Point', coordinates:[i, j]});
       }
     }
-    console.log("Latitudes", latitudes);
 
     var centerPos = projection.invert([width/2,height/2]);
     var arc = d3.geo.greatArc();
 
-    svg.selectAll('text')
-      .data(latitudes)
-      .enter()
-      .append("text")
-      .text(function(d) {
-        var c = d.coordinates[0] + "°"
-        return c;
-      })
-      .style("display",function(d) {
-        var dist = arc.distance({
-          source: d.coordinates,
-          target: centerPos
-        });
-        var res = dist;
-        console.log(d.coordinates, dist);
-        return (dist < 0.5) ? 'inline' : 'none';
-      })
-      .attr("class","label")
-      .attr('text-anchor', 'start')
-      .attr("dx", function(d) {
-        return projection(d.coordinates)[0] + 24;
-      })
-      .attr("dy", function(d) {
-        // return projection([0, d.coordinates[0]])[1] - 6;
-        return projection(d.coordinates)[1] - 6;
-      });
-
+    // show text coordinates
+    // svg.selectAll('text')
+    //   .data(latitudes)
+    //   .enter()
+    //   .append("text")
+    //   .text(function(d) {
+    //     var c = d.coordinates[1] + "°"
+    //     return c;
+    //   })
+    //   // .style("display",function(d) {
+    //   //   var dist = arc.distance({
+    //   //     source: d.coordinates,
+    //   //     target: centerPos
+    //   //   });
+    //   //   var res = dist;
+    //   //   console.log(d.coordinates, dist);
+    //   //   return (dist < 0.5) ? 'inline' : 'none';
+    //   // })
+    //
+    //   .attr('display', function(d) {
+    //     // var rev = projection(d.coordinates);
+    //     var b = path.bounds(d);
+    //     console.log(b, d.coordinates);
+    //     function ip(c) {
+    //       return Number.isFinite(c) && c >= 0;
+    //     }
+    //     if (!(b[0].every(ip) && b[1].every(ip))) return 'none';
+    //
+    //     var lon = d.coordinates[0]
+    //     if ((cp[0] - lon) >= 90) return 'none';
+    //     if ((cp[0] - lon) <= -90) return 'none';
+    //
+    //     return  'inline';
+    //   })
+    //
+    //   .attr("class","label")
+    //   .attr('text-anchor', 'start')
+    //   .attr("dx", function(d) {
+    //     return projection(d.coordinates)[0] + 24;
+    //   })
+    //   .attr("dy", function(d) {
+    //     // return projection([0, d.coordinates[0]])[1] - 6;
+    //     return projection(d.coordinates)[1] - 6;
+    //   });
+    //
     // create an svg group for each country
     var group = svg
       .selectAll("country")
@@ -301,17 +336,22 @@ $(document).ready(function() {
         }
       })
       .attr("x", function (d) {
-        return d.bounds[0][0];}
+        var x = d.bounds[0][0];
+        return Number.isFinite(x) ? x : 0;
+      }
       )
       .attr("y", function (d) {
-        return d.bounds[0][1];
+        var y = d.bounds[0][1];
+        return Number.isFinite(y) ? y : 0;
       })
       .attr("width", function (d) {
-        return d.bounds[1][0] - d.bounds[0][0];
+        var w = d.bounds[1][0] - d.bounds[0][0];
+        return Number.isFinite(w) ? w : 0;
       })
       .attr("height", function (d) {
-        return d.bounds[1][1] - d.bounds[0][1];}
-      )
+        var h = d.bounds[1][1] - d.bounds[0][1];
+        return Number.isFinite(h) ? h : 0;
+      })
       .attr("preserveAspectRatio", "none")
       .attr("clip-path", function(d) {
         return "url(#iso-" + d.id + ")";
@@ -321,16 +361,20 @@ $(document).ready(function() {
     var $rect = group.append('rect')
       .attr("class", "country-wrapper")
       .attr("x", function (d) {
-        return d.bounds[0][0];
+        var x = d.bounds[0][0];
+        return Number.isFinite(x) ? x : 0;
       })
       .attr("y", function (d) {
-        return d.bounds[0][1];
+        var y = d.bounds[0][1];
+        return Number.isFinite(y) ? y : 0;
       })
       .attr("width", function (d) {
-        return d.bounds[1][0] - d.bounds[0][0];
+        var w = d.bounds[1][0] - d.bounds[0][0];
+        return Number.isFinite(w) ? w : 0;
       })
       .attr("height", function (d) {
-        return d.bounds[1][1] - d.bounds[0][1];
+        var h = d.bounds[1][1] - d.bounds[0][1];
+        return Number.isFinite(h) ? h : 0;
       })
       .attr("preserveAspectRatio", "none")
       .attr("clip-path", function(d) {

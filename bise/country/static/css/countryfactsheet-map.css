@@ -42,9 +42,17 @@ svg-container {
 .lines {
   fill: none;
   /* stroke: #79A09E; */
-  stroke: black;
+  stroke: #333366;
   stroke-width: 0.6;
   stroke-dasharray: 8,2;
+}
+
+.sublines {
+  fill: none;
+  /* stroke: #79A09E; */
+  stroke: #666;
+  stroke-width: 0.16;
+  stroke-dasharray: 16,2;
 }
 
 .label {
