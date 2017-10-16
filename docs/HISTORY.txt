@@ -3,6 +3,8 @@ Changelog
 
 2.8.dev0 - (unreleased)
 -----------------------
+- Fix action title on country factsheets sidebar
+  [krisztina #85826]
 - Improve country factsheets on tablet/mobile
   [krisztina #85826]
 

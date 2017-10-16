@@ -128,10 +128,14 @@ $(document).ready(function(){
         var klass = $td.attr('class');
         var text = $td.text().trim();
 
-        if (text.indexOf('Action') === 0 && text.indexOf('Action concerning') ===  -1) {
-          _gtarc += 1;
-          $td.attr('id', 'gtarc-' + _gtarc);
-          sections[sections.length - 1][2].push([text, [_gtarc]]);
+        if (text.indexOf('Action') === 0) {
+          var getChar = text.charAt(7);
+          var conChar = parseInt(getChar);
+          if (!isNaN(conChar)) {
+            _gtarc += 1;
+            $td.attr('id', 'gtarc-' + _gtarc);
+            sections[sections.length - 1][2].push([text, [_gtarc]]);
+          }
         }
       })
 
