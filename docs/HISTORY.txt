@@ -3,6 +3,8 @@ Changelog
 
 2.9.dev0 - (unreleased)
 -----------------------
+- Fix target title on country factsheets sidebar
+  [krisztina #85826]
 
 2.8 - (2017-10-16)
 ------------------
@@ -107,4 +109,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

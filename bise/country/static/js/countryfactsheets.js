@@ -151,7 +151,7 @@ $(document).ready(function(){
 
     for (var i = 0; i < sections.length; i++) {
 
-      var sectionTitle= sections[i][0].toString().slice(3);
+      var sectionTitle = sections[i][0].toString().slice(3).trim();
       var sectionTitle = sectionTitle.charAt(0).toUpperCase() + sectionTitle.slice(1).toLowerCase();
       var sectionDescr = sections[i][1];
       var targetID = sectionTitle.slice(-1);
