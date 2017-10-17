@@ -39,7 +39,7 @@ function getSelectedCountry() {
   // get the "desired country" from the window location
 
   var sc;
-  var frags = window.location.href.split("/").reverse();
+  var frags = window.location.pathname.split("/").reverse();
   for (var f=0; f<frags.length; f++) {
     if (frags[f].length) {
       sc = frags[f];
