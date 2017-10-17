@@ -911,7 +911,7 @@ body {
     width: 100% !important;
   }
   .mtr-container .country-table > tbody > tr >td:first-child + td {
-      padding: 0 !important;
+      padding: 10px !important;
       display: inline-block;
   }
 }
