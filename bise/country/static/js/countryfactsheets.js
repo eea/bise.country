@@ -157,7 +157,7 @@ $(document).ready(function(){
       var targetID = sectionTitle.slice(-1);
 
       var loc = 'eu-target-' + targetID;
-      var $sa = $('<a/>').attr('href', document.location.pathname + '#' + loc);
+      var $sa = $('<p/>');
       $sa.data('wloc', loc)
       $sa.on('click', function() {
         document.location.hash = $(this).data('wloc');
@@ -166,7 +166,7 @@ $(document).ready(function(){
       $sa.text(sectionTitle);
       var $sp = $('<p/>');
       $sp.text(sectionDescr);
-      var $ss = $('<span class="tree-toggle nav-header"/>');
+      var $ss = $('<a class="tree-toggle nav-header"/>').attr('href', document.location.pathname + '#' + loc);
       $ss.append($sa);
       $ss.append($sp);
       var $sli = $('<li/>');
@@ -182,9 +182,9 @@ $(document).ready(function(){
         var subTitle = subText[0];
         var subDescription = subText[1];
         var actionID = sectionActions[j][1];
-        var navActionTitle = $('<a class="action-title"/>').attr('href', document.location.pathname + '#gtarc-' + actionID).text(subTitle);
+        var navActionTitle = $('<p class="action-title"/>').text(subTitle);
         var navActionDescription = $('<p class="action-description" />').text(subDescription);
-        var $sp = $('<span/>').append(navActionTitle, navActionDescription);
+        var $sp = $('<a/>').attr('href', document.location.pathname + '#gtarc-' + actionID).append(navActionTitle, navActionDescription);
         var $ali = $('<li/>');
         $ali.append($sp);
         $sul.append($ali);
@@ -234,8 +234,8 @@ $(document).ready(function(){
       $('.tree-toggle').parent().children('ul.trees').toggle(200);
     });
 
-    $('.sidebar li ul li span').click(function() {
-      $('.sidebar li ul li span').removeClass('selected');
+    $('.sidebar li ul li a').click(function() {
+      $('.sidebar li ul li a').removeClass('selected');
       $(this).addClass('selected');
       if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
         $('#sidebar-wrapper').hide();

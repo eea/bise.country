@@ -3,6 +3,8 @@ Changelog
 
 2.9.dev0 - (unreleased)
 -----------------------
+- Fix navigation links in sidebar
+  [krisztina #85826]
 - Fix target title on country factsheets sidebar
   [krisztina #85826]
 
