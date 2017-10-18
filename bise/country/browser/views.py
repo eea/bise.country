@@ -1,11 +1,16 @@
 from lxml.builder import E
 from lxml.html import fromstring, tostring
+
+from plone.api.user import has_permission
 from plone.subrequest import subrequest
 
 
 class CountryFactsheetView(object):
     """
     """
+
+    def can_edit(self, obj):
+        return has_permission('Modify portal content', obj=obj)
 
     def view_page(self, obj):
         al = self.request.get('ajax_load')

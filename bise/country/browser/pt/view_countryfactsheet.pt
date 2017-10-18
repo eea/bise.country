@@ -75,8 +75,13 @@
             <div
                tal:repeat="lc tabs"
                tal:attributes="id string:#t-${repeat/lc/index}"
-               tal:content="structure python: view.view_page(lc[1])">
-              page inside here
+               >
+               <div tal:condition="python: view.can_edit(lc[1])" tal:define="obj python: lc[1]">
+                 <a href="" target="_blank" tal:attributes="href string:${obj/absolute_url}/edit">Edit this page</a>
+               </div>
+               <div tal:content="structure python: view.view_page(lc[1])">
+                 page inside here
+               </div>
             </div>
           </div>
         </div>
