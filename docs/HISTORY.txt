@@ -3,6 +3,8 @@ Changelog
 
 2.9.dev0 - (unreleased)
 -----------------------
+- Highlight current sidebar item on scroll
+  [krisztina #85826]
 - Add value for the first default option in country dropdown
   [krisztina #85826]
 - Fix navigation links in sidebar

@@ -210,8 +210,13 @@ $(document).ready(function(){
        aLink.css('display',  'block');
     }
 
+    if ($('.country-table table').width() > 500) {
+      $('.country-table table').css("width", "100%");
+    }
+
     $("#mtr-main-wrapper").insertAfter("#sidebar-wrapper");
 
+    // show/hide sidebar on mobile
     $('.mobile-sidebar').click(function () {
       $('#sidebar-wrapper').toggle("slide");
     });
@@ -220,12 +225,9 @@ $(document).ready(function(){
       $('#sidebar-wrapper').hide();
     });
 
-    if ($('.country-table table').width() > 500) {
-      $('.country-table table').css("width", "100%");
-    }
-
     $('.i-sticky').iSticky();   // activate sticky plugin/polyfill for sidebar
 
+    // toggle sidebar item on click
     $('.tree-toggle').click(function () {
       $(this).parent().children('ul.trees').toggle(200);
     });
@@ -234,14 +236,55 @@ $(document).ready(function(){
       $('.tree-toggle').parent().children('ul.trees').toggle(200);
     });
 
-    $('.sidebar li ul li a').click(function() {
-      $('.sidebar li ul li a').removeClass('selected');
-      $(this).addClass('selected');
+    $('.sidebar a').click(function() {
+      // $('.sidebar a').removeClass('selected');
+      // $(this).addClass('selected');
+      var anchID = $(this).attr('href');
+      var anchID = anchID.split('#')[1];
+      var anchID = '#' + anchID;
+
+      var target = $(anchID).offset().top;
+
+      $('html, body').animate({ scrollTop: target }, 500);
+
       if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
         $('#sidebar-wrapper').hide();
       }
       return true;
     });
+
+
+    // highlight current sidebar item on scroll
+    $(window).scroll(function() {
+      position = $(this).scrollTop();     // get the current vertical position of the scroll bar
+
+      $('.sidebar a').each(function() {
+          var anchID = $(this).attr('href');
+          var anchID = anchID.split('#')[1];
+          var anchID = '#' + anchID;
+          var target = $(anchID).offset().top + (-35);
+
+          if (position >= target) {
+              // console.log('position', anchID, position);
+              // console.log('target', anchID, target);
+              $('.sidebar a').removeClass('selected');
+              $(this).addClass('selected');
+          }
+      })
+
+      // toggle  current sidebar item on scroll
+      $('.nav-header').each(function() {
+          var anchID = $(this).attr('href');
+          var anchID = anchID.split('#')[1];
+          var anchID = '#' + anchID;
+          var target = $(anchID).offset().top + (-35);
+
+          if (position >= target) {
+              $('.tree-toggle').parent().children('ul.trees').hide();
+              $(this).parent().children('ul.trees').show();
+          }
+      })
+    })
 
   })
 

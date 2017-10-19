@@ -721,6 +721,10 @@ body {
   background-color: transparent;
 }
 
+.mtr-container .country-table {
+  margin-bottom: 200px;
+}
+
 .mtr-container .country-table p {
   padding-left: 0!important;
   margin: 13px 0;
@@ -911,7 +915,7 @@ body {
     width: 100% !important;
   }
   .mtr-container .country-table > tbody > tr >td:first-child + td {
-      padding: 10px !important;
+      padding: 0 10px !important;
       display: inline-block;
   }
 }
