@@ -1,3 +1,7 @@
+Number.isFinite = Number.isFinite || function(value) {
+    return typeof value === 'number' && isFinite(value);
+}
+
 function fLoc(fname) {
   return window.location.origin + "/++resource++bise.country/js/countries/" + fname;
 }
