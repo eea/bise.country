@@ -3,6 +3,8 @@ Changelog
 
 3.0.dev0 - (unreleased)
 -----------------------
+- Small fix on mobile
+  [krisztina #85826]
 
 2.9 - (2017-10-20)
 ------------------
@@ -120,4 +122,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

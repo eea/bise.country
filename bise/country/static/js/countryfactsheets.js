@@ -236,6 +236,12 @@ $(document).ready(function(){
       $('.tree-toggle').parent().children('ul.trees').toggle(200);
     });
 
+    $('.sidebar li ul li a').click(function() {
+      if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
+        $('#sidebar-wrapper').hide();
+      }
+    });
+
     $('.sidebar a').click(function() {
       // $('.sidebar a').removeClass('selected');
       // $(this).addClass('selected');
@@ -247,9 +253,6 @@ $(document).ready(function(){
 
       $('html, body').animate({ scrollTop: target }, 500);
 
-      if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
-        $('#sidebar-wrapper').hide();
-      }
       return true;
     });
 
