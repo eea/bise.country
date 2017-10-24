@@ -3,6 +3,8 @@ Changelog
 
 3.0.dev0 - (unreleased)
 -----------------------
+- Fix current tab when selecting different country from dropdown menu
+  [krisztina #85826]
 - Small fix on mobile
   [krisztina #85826]
 

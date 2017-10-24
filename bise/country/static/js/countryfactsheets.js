@@ -22,6 +22,7 @@ $(document).ready(function(){
   var countrytabs = $('#country-tabs').children();
 
   var getTabFromHash = function(hash) {
+    hash = hash.replace('#', '');
     if (hash !== '') {
       var sp = hash.split('-');
       if (sp && sp[0] === 't') {
@@ -159,9 +160,9 @@ $(document).ready(function(){
       var loc = 'eu-target-' + targetID;
       var $sa = $('<p/>');
       $sa.data('wloc', loc)
-      $sa.on('click', function() {
-        document.location.hash = $(this).data('wloc');
-      });
+      // $sa.on('click', function() {
+      //   document.location.hash = $(this).data('wloc');
+      // });
 
       $sa.text(sectionTitle);
       var $sp = $('<p/>');
@@ -227,15 +228,6 @@ $(document).ready(function(){
 
     $('.i-sticky').iSticky();   // activate sticky plugin/polyfill for sidebar
 
-    // toggle sidebar item on click
-    $('.tree-toggle').click(function () {
-      $(this).parent().children('ul.trees').toggle(200);
-    });
-
-    $(function() {
-      $('.tree-toggle').parent().children('ul.trees').toggle(200);
-    });
-
     $('.sidebar li ul li a').click(function() {
       if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
         $('#sidebar-wrapper').hide();
@@ -243,8 +235,6 @@ $(document).ready(function(){
     });
 
     $('.sidebar a').click(function() {
-      // $('.sidebar a').removeClass('selected');
-      // $(this).addClass('selected');
       var anchID = $(this).attr('href');
       var anchID = anchID.split('#')[1];
       var anchID = '#' + anchID;
@@ -253,7 +243,7 @@ $(document).ready(function(){
 
       $('html, body').animate({ scrollTop: target }, 500);
 
-      return true;
+      return false;
     });
 
 

@@ -836,6 +836,10 @@ body {
   cursor: pointer;
 }
 
+.mtr-container .nav-list li a:focus {
+  background-color: #f7f4ed;
+}
+
 .mtr-container .selected {
   background-color: #f7f4ed;
   border-left: 3px solid #36b76d !important;
