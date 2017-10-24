@@ -801,6 +801,7 @@ body {
 
 .mtr-container .sidebar ul {
   margin: 2px 0;
+  padding-left: 0;
 }
 
 .mtr-container .sidebar li a p:first-child {
@@ -836,8 +837,9 @@ body {
   cursor: pointer;
 }
 
-.mtr-container .nav-list li a:focus {
-  background-color: #f7f4ed;
+.mtr-container ul,
+.mtr-container li {
+  list-style-type: none;
 }
 
 .mtr-container .selected {

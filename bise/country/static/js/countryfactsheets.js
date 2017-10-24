@@ -143,7 +143,7 @@ $(document).ready(function(){
     });
 
     var $ssidebar = $('<div id="sidebar-wrapper" class="i-sticky col-md-3 sidebar"/>');
-    var $menu = $('<ul class="nav nav-list nav-menu-list-style"/>');
+    var $menu = $('<ul class="nav-list nav-menu-list-style"/>');
     var $mclose = $('<div class="mobile-only close-sidebar"><i class="fa fa-times" aria-hidden="true"></i></div>');
 
     $ssidebar.append($mclose);
@@ -174,7 +174,7 @@ $(document).ready(function(){
       $sli.append($ss);
       $menu.append($sli);
       var sectionActions = sections[i][2];
-      var $sul = $('<ul class="nav nav-list trees bullets"/>');
+      var $sul = $('<ul class="nav-list trees bullets"/>');
       $sli.append($sul);
 
       for (var j = 0; j < sectionActions.length; j++) {
