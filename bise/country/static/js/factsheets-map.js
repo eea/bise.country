@@ -1,5 +1,5 @@
 Number.isFinite = Number.isFinite || function(value) {
-    return typeof value === 'number' && isFinite(value);
+  return typeof value === 'number' && isFinite(value);
 }
 
 function fLoc(fname) {
@@ -127,9 +127,9 @@ $(document).ready(function() {
   if ($('svg-container').length === 0) {
     $('#site-body').prepend(
       '<div class="header-bg">' +
-        '<svg-container>' +
-          '<svg ></svg>' +
-        '</svg-container>' +
+      '<svg-container>' +
+      '<svg ></svg>' +
+      '</svg-container>' +
       '</div>'
     );      // viewBox="0 0 1200 300"
     height = 380;
@@ -143,7 +143,7 @@ $(document).ready(function() {
 
   var q = queue()
     .defer(d3.json, w110)
-    // .defer(d3.tsv, wnames)
+  // .defer(d3.tsv, wnames)
     .defer(d3.tsv, wflags)
     .await(ready);
 
@@ -198,49 +198,6 @@ $(document).ready(function() {
       .attr("class", "fill")
       .attr("href", "#sphere");
 
-    // Calculate the center meridian for the sphere. It serves to calculate
-    // clipping of coordinate labels
-    var bbox = svg.node().getBBox();
-    var p = [bbox.x + bbox.width/2, bbox.y + bbox.height/2];
-    var cp = projection.invert(p);   // lon, lat
-
-    // TODO: can this be optimized, do the replacement before setting the attr?
-    // console.log("The D: ", d3.select('#sphere').attr('d'));
-    // TODO: is replace() still needed?
-    var new_path = d3.select('#sphere').attr('d').replace(/,/g, ' ');
-
-    var gStep = window.isGlobalMap ? [10, 10] : [4, 4];
-    var graticule = d3.geo.graticule().step(gStep);
-
-    // draw the graticule lines
-    var lines = svg.selectAll('path.lines').data([graticule()]);
-    lines.enter().append('path').classed('lines', true);
-    lines.attr('d', path);
-    lines.attr("id", function(d) {    // set the id, based on coordinates
-      if (d.coordinates[0][0] == d.coordinates[1][0]) {
-        return (d.coordinates[0][0] < 0) ? -d.coordinates[0][0] + "W" : d.coordinates[0][0] + "E";
-      }
-      else if (d.coordinates[0][1] == d.coordinates[1][1]) {
-        return (d.coordinates[0][1] < 0) ? -d.coordinates[0][1] + "S" : d.coordinates[0][1] + "N";
-      }
-    });
-    lines.exit().remove();
-
-    var minorGraticule = d3.geo.graticule().step([gStep[0]/4, gStep[1]/4]);
-    svg.selectAll('path.sublines')
-      .data(minorGraticule.lines())    // .lines())
-      .enter()
-      .append("path")
-      .attr("class", "sublines")
-      .attr("d", path)
-    ;
-
-    // functions as a mask for the country flags
-    svg.append("path")
-      .datum(graticule)
-      .attr("class", "graticule")
-      .attr("d", new_path);
-
     // create clip paths for the country rects
     defs
       .selectAll("mask")
@@ -259,78 +216,47 @@ $(document).ready(function() {
       })
       .append("path")
       .attr("d", path);
-    //
-    // add the coordinates on the side of the map
-    var latitudes = [];
-    for (var i=-180; i < 180; i+=10) {
-      for (var j=-180; j < 180; j+=10) {
-        latitudes.push({type: 'Point', coordinates:[i, j]});
-      }
-    }
 
-    var centerPos = projection.invert([width/2,height/2]);
-    var arc = d3.geo.greatArc();
+    // Calculate the center meridian for the sphere. It serves to calculate
+    // clipping of coordinate labels
+    var bbox = svg.node().getBBox();
+    var p = [bbox.x + bbox.width/2, bbox.y + bbox.height/2];
+    var cp = projection.invert(p);   // lon, lat
 
-    // show text coordinates
-    // svg.selectAll('text')
-    //   .data(latitudes)
-    //   .enter()
-    //   .append("text")
-    //   .text(function(d) {
-    //     var c = d.coordinates[1] + "°"
-    //     return c;
-    //   })
-    //   // .style("display",function(d) {
-    //   //   var dist = arc.distance({
-    //   //     source: d.coordinates,
-    //   //     target: centerPos
-    //   //   });
-    //   //   var res = dist;
-    //   //   console.log(d.coordinates, dist);
-    //   //   return (dist < 0.5) ? 'inline' : 'none';
-    //   // })
-    //
-    //   .attr('display', function(d) {
-    //     // var rev = projection(d.coordinates);
-    //     var b = path.bounds(d);
-    //     console.log(b, d.coordinates);
-    //     function ip(c) {
-    //       return Number.isFinite(c) && c >= 0;
-    //     }
-    //     if (!(b[0].every(ip) && b[1].every(ip))) return 'none';
-    //
-    //     var lon = d.coordinates[0]
-    //     if ((cp[0] - lon) >= 90) return 'none';
-    //     if ((cp[0] - lon) <= -90) return 'none';
-    //
-    //     return  'inline';
-    //   })
-    //
-    //   .attr("class","label")
-    //   .attr('text-anchor', 'start')
-    //   .attr("dx", function(d) {
-    //     return projection(d.coordinates)[0] + 24;
-    //   })
-    //   .attr("dy", function(d) {
-    //     // return projection([0, d.coordinates[0]])[1] - 6;
-    //     return projection(d.coordinates)[1] - 6;
-    //   });
-    //
+    var gStep = window.isGlobalMap ? [10, 10] : [4, 4];
+    var graticule = d3.geo.graticule().step(gStep);
+
+    // draw the graticule lines
+    var lines = svg.selectAll('path.lines').data([graticule()]);
+    lines.enter().append('path').classed('lines', true);
+    lines.attr('d', path);
+    lines.exit().remove();
+
+    var minorGraticule = d3.geo.graticule().step([gStep[0]/4, gStep[1]/4]);
+    svg.selectAll('path.sublines')
+      .data(minorGraticule.lines())    // .lines())
+      .enter()
+      .append("path")
+      .attr("class", "sublines")
+      .attr("d", path)
+    ;
+
+    // functions as a mask for the country flags
+    svg.append("path")
+      .attr("class", "flagmask")
+      .attr("d", path);
+
     // create an svg group for each country
     var group = svg
       .selectAll("country")
       .data(countries)
       .enter()
-      .append('g');
-
-    // better stroke for the countries
-    group.append("path").attr('class', 'country-stroke').attr('d', path);
+      .append('g')
+    ;
 
     // This inserts the flags as images in the svg
-    svg.selectAll("country")
-      .data(countries)
-      .enter()
-      .insert("image", ".graticule")
+    group
+      .insert("image", ".flagmask")
       .attr("class", "country")
       .attr("href", function (d){
         if (window.available_map_countries.indexOf(d.name) > -1) {
@@ -341,8 +267,7 @@ $(document).ready(function() {
       .attr("x", function (d) {
         var x = d.bounds[0][0];
         return Number.isFinite(x) ? x : 0;
-      }
-      )
+      })
       .attr("y", function (d) {
         var y = d.bounds[0][1];
         return Number.isFinite(y) ? y : 0;
@@ -358,11 +283,18 @@ $(document).ready(function() {
       .attr("preserveAspectRatio", "none")
       .attr("clip-path", function(d) {
         return "url(#iso-" + d.id + ")";
-      });
+      })
+    ;
 
     // one rect for each country, masked by a clip mask
     var $rect = group.append('rect')
-      .attr("class", "country-wrapper")
+      .attr("class", function(d) {
+        if (window.available_map_countries.indexOf(d.name) > -1) {
+          return "country-wrapper country-highlighted";
+        } else {
+          return "country-wrapper";
+        }
+      })
       .attr("x", function (d) {
         var x = d.bounds[0][0];
         return Number.isFinite(x) ? x : 0;
@@ -379,6 +311,7 @@ $(document).ready(function() {
         var h = d.bounds[1][1] - d.bounds[0][1];
         return Number.isFinite(h) ? h : 0;
       })
+      // .attr('transform', 'translate(-2, -2)')
       .attr("preserveAspectRatio", "none")
       .attr("clip-path", function(d) {
         return "url(#iso-" + d.id + ")";
@@ -390,20 +323,14 @@ $(document).ready(function() {
           }
         }
       })
-      .attr("fill",function(d){
-        if (window.isGlobalMap === true) {
-          if (window.available_map_countries.indexOf(d.name) > -1) {
-            return '#41b664';
-          }
-          return "#efe7d4";     // "#f7f4ed"; // change color here;    //
-        }
+    ;
 
-        if (d.name == selectedCountry)
-          return 'none';
-        else
-          return "#efe7d4";     // "#f7f4ed"; // change color here;
-      });
-
+    // better stroke for the countries
+    group
+      .append("path")
+      .attr('class', 'country-stroke')
+      .attr('d', path)
+    ;
 
     if (window.isGlobalMap) {
       $rect.on('click', function(d){
@@ -415,17 +342,20 @@ $(document).ready(function() {
           return true;
         }
       })
-      .on('mouseover', function(d){
-        if (window.available_map_countries.indexOf(d.name) > -1) {
-          // console.log("mouseover", this);
-          d3.select(this).attr('opacity','0');
-        }
-      })
-      .on('mouseout', function(d){
-        if (window.available_map_countries.indexOf(d.name) > -1) {
-          d3.select(this).attr('opacity','0.98');
-        }
-      });
+        .on('mouseover', function(d){
+          if (window.available_map_countries.indexOf(d.name) > -1) {
+            d3.select(this)
+              .attr('opacity','0')
+            ;
+          }
+        })
+        .on('mouseout', function(d){
+          if (window.available_map_countries.indexOf(d.name) > -1) {
+            d3.select(this)
+              .attr('opacity','0.98')
+            ;
+          }
+        });
     }
   }
 });
