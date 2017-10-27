@@ -346,6 +346,7 @@ $(document).ready(function() {
           if (window.available_map_countries.indexOf(d.name) > -1) {
             d3.select(this)
               .attr('opacity','0')
+            // .attr('transform', 'translate(2,2)')
             ;
           }
         })
@@ -353,6 +354,7 @@ $(document).ready(function() {
           if (window.available_map_countries.indexOf(d.name) > -1) {
             d3.select(this)
               .attr('opacity','0.98')
+            // .attr('transform', 'translate(-2,-2)')
             ;
           }
         });

@@ -25,8 +25,8 @@ svg-container {
 /* // TODO: create selector for global map, we want 1px stroke there */
 .country-stroke {
   fill: none;
-  stroke: green;
-  stroke-width: 2px;
+  stroke: black;
+  stroke-width: 0.8px;
 }
 
 .fill {
@@ -36,7 +36,7 @@ svg-container {
 
 .flagmask {
   /* goes on top of fill, hides the flags */
-  fill: none;
+  /* fill: none; */
 }
 
 .lines {
