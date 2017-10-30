@@ -125,7 +125,7 @@ $(document).ready(function() {
   var wflags = fLoc("countries.tsv");
   var w110 = fLoc("countries.geo.json");
 
-  var q = queue()
+  var q = d3.queue()
     .defer(d3.json, w110)
   // .defer(d3.tsv, wnames)
     .defer(d3.tsv, wflags)
@@ -142,12 +142,11 @@ $(document).ready(function() {
     // countries.geo.json comes from https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json
 
     var countries = world.features;
-    var projection = d3.geo
-      .robinson()   // azimuthalEquidistant conicEquidistant()
+    var projection = d3.geoRobinson()   // azimuthalEquidistant conicEquidistant()
       .precision(0.1)
       .clipAngle(90);
 
-    var path = d3.geo.path().projection(projection);
+    var path = d3.geoPath().projection(projection);
 
     // Augument the countries GeoJSON data with names, bounds and flags
     setCountryNames(countries);
@@ -208,17 +207,20 @@ $(document).ready(function() {
     var cp = projection.invert(p);   // lon, lat
 
     var gStep = window.isGlobalMap ? [10, 10] : [4, 4];
-    var graticule = d3.geo.graticule().step(gStep);
+    var graticule = d3.geoGraticule().step(gStep);
 
     // draw the graticule lines
-    var lines = svg.selectAll('path.lines').data([graticule()]);
-    lines.enter().append('path').classed('lines', true);
-    lines.attr('d', path);
-    lines.exit().remove();
+    var lines = svg.selectAll('path.lines')
+      .data([graticule()])
+      .enter()
+      .append('path')
+      .attr('class', 'lines')
+      .attr('d', path)
+    ;
 
-    var minorGraticule = d3.geo.graticule().step([gStep[0]/4, gStep[1]/4]);
+    var minorGraticule = d3.geoGraticule().step([gStep[0]/4, gStep[1]/4]);
     svg.selectAll('path.sublines')
-      .data(minorGraticule.lines())    // .lines())
+      .data(minorGraticule.lines())
       .enter()
       .append("path")
       .attr("class", "sublines")
