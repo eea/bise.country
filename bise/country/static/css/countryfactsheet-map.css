@@ -72,3 +72,20 @@ rect {
   fill: #41b664;
   cursor: pointer;
 }
+.malta-region-outline {
+  stroke: lightgray;
+  stroke-width: 2;
+  fill: rgb(48, 140, 168);
+}
+
+.malta-stroke {
+  fill: #41b664;
+  stroke: black;
+  stroke-width: 0.02;
+}
+
+.malta-label {
+}
+.malta-flag {
+  cursor: pointer;
+}

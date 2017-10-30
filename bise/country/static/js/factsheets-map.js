@@ -2,6 +2,69 @@ Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 }
 
+
+function addMaltaToMap(svg, height, malta) {
+  svg.append('rect')
+    .attr('class', 'malta-region-outline')
+    .attr('x', 20)
+    .attr('y', height - 120)
+    .attr('width', 100)
+    .attr('height', 100)
+  ;
+  var projection = d3.geoMercator();
+  // projection.scale(20);
+  // projection.translate([10, 20]);
+  var path = d3.geoPath().projection(projection);
+
+  var mstroke = svg
+    .datum(malta)
+    .append('path')
+    .attr('class', 'malta-stroke')
+    .attr('d', path)
+    .attr('x', 20)
+    .attr('y', height/2)
+    .attr('transform', 'translate(-25850, -6860), scale(50)')
+  ;
+
+  var clip = svg.selectAll('defs')
+    .datum(malta)
+    .append('clipPath')
+    .attr('id', 'malta-country-outline')
+    .append('path')
+    .attr('d', path)
+    .attr('x', 20)
+    .attr('y', height/2)
+    .attr('transform', 'translate(-25850, -6860), scale(50)')
+  ;
+
+  svg.append('image')
+    .attr('href', 'https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Malta.svg')
+    .attr('class', 'malta-flag')
+    .attr('x', 42)
+    .attr('y', height - 90)
+    .attr('width', 66)
+    .attr('clip-path', 'url(#malta-country-outline)')
+    .attr('opacity', '0')
+    .on('click', function(d){
+      window.location = 'malta';
+    })
+    .on('mouseover', function(d){
+      d3.select(this).attr('opacity', 1);
+    })
+    .on('mouseout', function(d){
+      d3.select(this).attr('opacity', 0);
+    })
+  ;
+
+  svg.append('text')
+    .attr('class', 'malta-label')
+    .attr('x', 76)
+    .attr('y', height - 84)
+    .html('Malta')
+  ;
+
+}
+
 function fLoc(fname) {
   return window.location.origin + "/++resource++bise.country/js/countries/" + fname;
 }
@@ -317,6 +380,12 @@ $(document).ready(function() {
       .attr('class', 'country-stroke')
       .attr('d', path)
     ;
+
+    var malta = countries.filter(function (c) {
+      return c.id === 'MLT'
+    })[0];
+
+    addMaltaToMap(svg, height, malta);
 
     if (window.isGlobalMap) {
       $rect.on('click', function(d){
