@@ -40,28 +40,17 @@ function setCountryBounds(countries, path) {
 }
 
 function getSelectedCountry() {
-  // get the "desired country" from the window location
+  // get the "desired country" from data attribute
+
+  window.isHeaderMap = $(".country-header").hasClass('country-header');
 
   var sc;
-  var frags = window.location.pathname.split("/").reverse();
-  for (var f=0; f<frags.length; f++) {
-    if (frags[f].length) {
-      sc = frags[f];
-      break;
-    }
-  }
 
-  if(sc) {
-    if (sc.indexOf("#") >= 0) {
-      sc = sc.substring(0, sc.indexOf('#'))
-    }
-    sc = sc.replace('-', ' ');
-    sc = sc.split('.')[0];    // for testing
-
-    // Uppercase first letters of words
-    sc = sc.split(" ").map(function(w) {
-      return w[0].toUpperCase() + w.slice(1);
-    }).join(" ");
+  if (window.isHeaderMap) {
+    var $cd = $(".country-header").data('zoom-country');
+    // uppercase the first letter
+    var w = $cd.charAt(0).toUpperCase() + $cd.slice(1);
+    sc = w
   }
   return sc;
 }
@@ -101,7 +90,7 @@ function zoomToCountry(
     var country = zoomCountries[0];
 
     b = path.bounds(country);
-    vRatio = 0.5; // hardcode a ratio because it can vary widely from phone to desktop
+    vRatio = 0.3; // hardcode a ratio because it can vary widely from phone to desktop
   }
 
   var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
@@ -124,15 +113,10 @@ $(document).ready(function() {
   console.log('SVG width', width);
   var height = 560;
 
-  if ($('svg-container').length === 0) {
-    $('#site-body').prepend(
-      '<div class="header-bg">' +
-      '<svg-container>' +
-      '<svg ></svg>' +
-      '</svg-container>' +
-      '</div>'
-    );      // viewBox="0 0 1200 300"
-    height = 380;
+  if ($('.svg-wrapper').length > 0) {
+    var $svg = $('.svg-wrapper').detach();
+    var $body = $('#site-body');
+    $body.prepend($svg);
   }
 
   var selectedCountry = getSelectedCountry();
