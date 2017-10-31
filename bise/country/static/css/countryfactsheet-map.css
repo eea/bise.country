@@ -75,20 +75,29 @@ rect {
 .country-selected {
   fill: none;
 }
-.malta-region-outline {
+
+
+.zoom-region-outline {
   stroke: lightgray;
   stroke-width: 2;
   fill: rgb(48, 140, 168);
 }
 
-.malta-stroke {
+.zoom-stroke {
   fill: #41b664;
   stroke: black;
-  stroke-width: 0.02;
+  stroke-width: 1;
 }
 
-.malta-label {
+.zoom-label {
+  /* TODO: set a nice proper font */
 }
-.malta-flag {
+
+.zoom-flag {
   cursor: pointer;
+}
+.zoom-text-bg {
+  fill: lightgray;
+  stroke-width: 2;
+  stroke: lightgray;
 }

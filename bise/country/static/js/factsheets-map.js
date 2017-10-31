@@ -2,48 +2,94 @@ Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 }
 
+function addMaltaToMap(svg, height, country, position) {
+  // cf = correction factor, based on position in left side rendering
 
-function addMaltaToMap(svg, height, malta) {
-  svg.append('rect')
-    .attr('class', 'malta-region-outline')
-    .attr('x', 20)
-    .attr('y', height - 120)
-    .attr('width', 100)
-    .attr('height', 100)
-  ;
+  var boxw = 70;
+  var boxh = 70;
+  var spacer = 20;
+
+  if (!position) {
+    position = 0;
+  }
+
+  //      box width
+  //  |  |-----|
+  //  |  |     | box height
+  //  |  |     |
+  //  |  |-----|
+  //  | spacer
+  //  ---------------
+
+  var totalboxh = (boxh + spacer);    // one box + its margin spacer
+  var corrh = totalboxh * position;   // correction in height, based on position
+  var bottomy = height - corrh;       // vertical position of bottom of current box
+
   var projection = d3.geoMercator();
-  // projection.scale(20);
-  // projection.translate([10, 20]);
+  projection
+    .scale(1)
+    .translate([0, 0]);
+
   var path = d3.geoPath().projection(projection);
 
-  var mstroke = svg
-    .datum(malta)
-    .append('path')
-    .attr('class', 'malta-stroke')
-    .attr('d', path)
-    .attr('x', 20)
-    .attr('y', height/2)
-    .attr('transform', 'translate(-25850, -6860), scale(50)')
+  var b = path.bounds(country);
+  vRatio = 0.5; // hardcode a ratio because it can vary widely from phone to desktop
+
+  var cwRatio = (b[1][0] - b[0][0]) / boxw;    // bounds to width ratio
+  var chRatio = (b[1][1] - b[0][1]) / boxh;   // bounds to height ratio
+  var s =  vRatio / Math.max(cwRatio, chRatio);
+  t = [
+    (boxw - s * (b[1][0] + b[0][0])) / 2,
+    (boxh - s * (b[0][1] + b[1][1])) / 2
+  ];
+
+  projection.scale(s).translate(t);
+
+  svg
+    .append('rect')
+    .attr('class', 'zoom-region-outline')
+    .attr('x', spacer)
+    .attr('y', bottomy - totalboxh)
+    .attr('width', boxw)
+    .attr('height', boxh)
   ;
+
+  svg
+    .datum(country)
+    .append('path')
+    .attr('d', path)
+    .attr('class', 'zoom-stroke')
+    .attr('transform', function(d) {
+      var nh = (bottomy - boxh - boxh/4).toString();
+      var t = 'translate(' + spacer + ',' + nh + ')';
+      return t;
+    })
+  ;
+
+  var cid = 'cp-' + country.id;
 
   var clip = svg.selectAll('defs')
-    .datum(malta)
+    .datum(country)
     .append('clipPath')
-    .attr('id', 'malta-country-outline')
+    .attr('id', cid)
     .append('path')
     .attr('d', path)
-    .attr('x', 20)
-    .attr('y', height/2)
-    .attr('transform', 'translate(-25850, -6860), scale(50)')
+    .attr('transform', function(d) {
+      var nh = (bottomy - boxh).toString();
+      var t = 'translate(0, ' + nh + ')';
+      return t;
+    })
   ;
 
+  var cb = path.bounds(country);    // country bounds, needed for flag
+
   svg.append('image')
-    .attr('href', 'https://upload.wikimedia.org/wikipedia/commons/7/73/Flag_of_Malta.svg')
-    .attr('class', 'malta-flag')
+    .attr('href', country.url)
+    .attr('class', 'zoom-flag')
     .attr('x', 42)
     .attr('y', height - 90)
     .attr('width', 66)
-    .attr('clip-path', 'url(#malta-country-outline)')
+    .attr('clip-path', 'url(#' + cid + ')')
     .attr('opacity', '0')
     .on('click', function(d){
       window.location = 'malta';
@@ -56,12 +102,31 @@ function addMaltaToMap(svg, height, malta) {
     })
   ;
 
-  svg.append('text')
-    .attr('class', 'malta-label')
-    .attr('x', 76)
-    .attr('y', height - 84)
-    .html('Malta')
+  var label = svg.append('text')
+    .attr('class', 'zoom-label')
+    .attr('x', spacer)
+    .attr('y', 0)
+    .html(country.name)
   ;
+
+  var lbbox = label.node().getBBox();
+  label
+    .attr('y', bottomy - boxh - lbbox.height - (-1 * lbbox.y / 1.6))
+    .attr('x', boxw / 2 - lbbox.width / 2 + spacer)
+  ;
+
+  var textboxh = lbbox.height + lbbox.height / 4;
+
+  svg
+    .append('rect')
+    .attr('class', 'zoom-text-bg')
+    .attr('x', spacer)
+    .attr('y', bottomy - totalboxh - textboxh)
+    .attr('width', boxw)
+    .attr('height', textboxh)
+  ;
+
+  label.raise();
 
 }
 
@@ -391,7 +456,7 @@ $(document).ready(function() {
         return c.id === 'MLT'
       })[0];
 
-      addMaltaToMap(svg, height, malta);
+      addMaltaToMap(svg, height, malta, 2);
     }
 
     if (window.isGlobalMap) {
