@@ -4,6 +4,14 @@ Number.isFinite = Number.isFinite || function(value) {
 
 function addMaltaToMap(svg, height, country, position) {
   // cf = correction factor, based on position in left side rendering
+  //
+  //      box width
+  //  |  |-----|
+  //  |  |     | box height
+  //  |  |     |
+  //  |  |-----|
+  //  | spacer
+  //  ---------------
 
   var boxw = 70;
   var boxh = 70;
@@ -12,14 +20,6 @@ function addMaltaToMap(svg, height, country, position) {
   if (!position) {
     position = 0;
   }
-
-  //      box width
-  //  |  |-----|
-  //  |  |     | box height
-  //  |  |     |
-  //  |  |-----|
-  //  | spacer
-  //  ---------------
 
   var totalboxh = (boxh + spacer);    // one box + its margin spacer
   var corrh = totalboxh * position;   // correction in height, based on position
@@ -67,6 +67,7 @@ function addMaltaToMap(svg, height, country, position) {
   ;
 
   var cid = 'cp-' + country.id;
+  var nh = (bottomy - boxh).toString();
 
   var clip = svg.selectAll('defs')
     .datum(country)
@@ -75,31 +76,34 @@ function addMaltaToMap(svg, height, country, position) {
     .append('path')
     .attr('d', path)
     .attr('transform', function(d) {
-      var nh = (bottomy - boxh).toString();
-      var t = 'translate(0, ' + nh + ')';
-      return t;
+      return 'translate(0, ' + nh + ')';
     })
   ;
 
   var cb = path.bounds(country);    // country bounds, needed for flag
+  var cbw = cb[1][0] - cb[0][0];
+  var cbh = cb[1][1] - cb[0][1];
+  console.log(cbw, cbh);
 
   svg.append('image')
     .attr('href', country.url)
     .attr('class', 'zoom-flag')
-    .attr('x', 42)
-    .attr('y', height - 90)
-    .attr('width', 66)
-    .attr('clip-path', 'url(#' + cid + ')')
+    .attr('width', cbw)
+    .attr('y', nh)
+    .attr('x', spacer)
+    // .attr('x', cb.x)
+    // .attr('y', cb.y - cb.height)
+    // .attr('clip-path', 'url(#' + cid + ')')
     .attr('opacity', '0')
-    .on('click', function(d){
-      window.location = 'malta';
-    })
-    .on('mouseover', function(d){
-      d3.select(this).attr('opacity', 1);
-    })
-    .on('mouseout', function(d){
-      d3.select(this).attr('opacity', 0);
-    })
+    // .on('click', function(d){
+    //   window.location = 'malta';
+    // })
+    // .on('mouseover', function(d){
+    //   d3.select(this).attr('opacity', 1);
+    // })
+    // .on('mouseout', function(d){
+    //   d3.select(this).attr('opacity', 0);
+    // })
   ;
 
   var label = svg.append('text')
@@ -127,7 +131,6 @@ function addMaltaToMap(svg, height, country, position) {
   ;
 
   label.raise();
-
 }
 
 function fLoc(fname) {
