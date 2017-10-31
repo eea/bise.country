@@ -30,10 +30,20 @@
       <!-- Factsheet tab -->
       <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css" />
       <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css" />
-      <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-      <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf-8"></script>
-      <script src="http://d3js.org/topojson.v1.min.js"></script>
-      <script src="http://d3js.org/queue.v1.min.js"></script>
+
+      <!-- d3 v3 files -->
+      <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf&#45;8"></script> -->
+      <!-- <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf&#45;8"></script> -->
+      <!-- <script src="http://d3js.org/topojson.v1.min.js"></script> -->
+      <!-- <script src="http://d3js.org/queue.v1.min.js"></script> -->
+
+      <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+      <script src="https://d3js.org/d3-array.v1.min.js"></script>
+      <script src="https://d3js.org/d3-geo.v1.min.js"></script>
+      <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
+      <script src="https://unpkg.com/topojson@3"></script>
+      <script src="https://d3js.org/d3-queue.v3.min.js"></script>
+
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="/++resource++bise.biodiversityfactsheet/mapsConfig.js" ></script>
       <script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.5" ></script>
