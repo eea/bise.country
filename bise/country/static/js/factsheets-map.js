@@ -338,10 +338,15 @@ $(document).ready(function() {
     // one rect for each country, masked by a clip mask
     var $rect = group.append('rect')
       .attr("class", function(d) {
-        if (window.available_map_countries.indexOf(d.name) > -1) {
-          return "country-wrapper country-highlighted";
+        if (window.isGlobalMap &&
+          window.available_map_countries.indexOf(d.name) > -1) {
+          return 'country-wrapper country-highlighted';
         } else {
-          return "country-wrapper";
+          if (selectedCountry === d.name) {
+            return 'country-selected';
+          } else {
+            return 'country-wrapper';
+          }
         }
       })
       .attr("x", function (d) {
@@ -381,11 +386,13 @@ $(document).ready(function() {
       .attr('d', path)
     ;
 
-    var malta = countries.filter(function (c) {
-      return c.id === 'MLT'
-    })[0];
+    if (window.isGlobalMap) {
+      var malta = countries.filter(function (c) {
+        return c.id === 'MLT'
+      })[0];
 
-    addMaltaToMap(svg, height, malta);
+      addMaltaToMap(svg, height, malta);
+    }
 
     if (window.isGlobalMap) {
       $rect.on('click', function(d){

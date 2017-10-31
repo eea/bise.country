@@ -72,6 +72,9 @@ rect {
   fill: #41b664;
   cursor: pointer;
 }
+.country-selected {
+  fill: none;
+}
 .malta-region-outline {
   stroke: lightgray;
   stroke-width: 2;
