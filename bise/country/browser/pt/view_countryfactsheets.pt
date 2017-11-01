@@ -32,6 +32,8 @@
       data-posscale="6"
       data-posx="-26"
       data-posy="-10"
+      tal:define="countries_json python: str([x.Title() for x in context.listFolderContents()])"
+      tal:attributes="data-available-countries countries_json"
       id="countryfactsheets-map">
       <svg ></svg>
     </svg-container>

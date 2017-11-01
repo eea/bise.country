@@ -103,3 +103,9 @@ rect {
   stroke-width: 2;
   stroke: lightgray;
 }
+
+.extra-outline {
+  fill: #efe7d4;
+  stroke: black;
+  stroke-width: 1;
+}

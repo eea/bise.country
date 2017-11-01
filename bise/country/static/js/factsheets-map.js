@@ -2,7 +2,7 @@ Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 }
 
-function addComposedCountryToMap(svg, height, countries, focusName, position) {
+function addComposedCountryToMap(svg, height, countries, focusId, position) {
   // Adds a zoom to the desired country, added to the left side of the map
   //
   // cf = correction factor, based on position in left side rendering
@@ -34,9 +34,13 @@ function addComposedCountryToMap(svg, height, countries, focusName, position) {
 
   var path = d3.geoPath().projection(projection);
 
-  var b = path.bounds(countries);
+  var zoomCountries = countries.filter(function(d) {
+    return d.id === focusId;
+  });
 
-  console.log("Bounds", b);
+  var country = zoomCountries[0];
+  var b = path.bounds(country);
+
   vRatio = 0.5; // hardcode a ratio because it can vary widely from phone to desktop
 
   var cwRatio = (b[1][0] - b[0][0]) / boxw;    // bounds to width ratio
@@ -58,11 +62,37 @@ function addComposedCountryToMap(svg, height, countries, focusName, position) {
     .attr('height', boxh)
   ;
 
-  svg
-    .datum(country)
+  var defs = svg.append('defs');
+
+  defs
+    .append('clipPath')
+    .attr('id', 'region-outline-' + country.id)
+    .append('rect')
+    .attr('x', spacer)
+    .attr('y', bottomy - totalboxh)
+    .attr('width', boxw)
+    .attr('height', boxh)
+  ;
+
+  var g = svg
+    .append('g')
+    .attr('id', 'extra-countries-' + country.id)
+    .attr('clip-path', 'url(#region-outline-' + country.id + ')')
+  ;
+
+  g
+    .selectAll('path')
+    .data(countries)
+    .enter()
     .append('path')
+    .attr('class', function(d) {
+      if (d.id === focusId) {
+        return 'zoom-stroke';
+      } else {
+        return 'extra-outline';
+      }
+    })
     .attr('d', path)
-    .attr('class', 'zoom-stroke')
     .attr('transform', function(d) {
       var nh = (bottomy - boxh - boxh/4).toString();
       var t = 'translate(' + spacer + ',' + nh + ')';
@@ -70,10 +100,22 @@ function addComposedCountryToMap(svg, height, countries, focusName, position) {
     })
   ;
 
+  // svg
+  //   .datum(country)
+  //   .append('path')
+  //   .attr('d', path)
+  //   .attr('class', 'zoom-stroke')
+  //   .attr('transform', function(d) {
+  //     var nh = (bottomy - boxh - boxh/4).toString();
+  //     var t = 'translate(' + spacer + ',' + nh + ')';
+  //     return t;
+  //   })
+  // ;
+
   var cid = 'cp-' + country.id;
   var nh = (bottomy - boxh).toString();
 
-  var clip = svg.selectAll('defs')
+  defs
     .datum(country)
     .append('clipPath')
     .attr('id', cid)
@@ -87,7 +129,7 @@ function addComposedCountryToMap(svg, height, countries, focusName, position) {
   var cb = path.bounds(country);    // country bounds, needed for flag
   var cbw = cb[1][0] - cb[0][0];
   var cbh = cb[1][1] - cb[0][1];
-  console.log(cbw, cbh);
+  // console.log(cbw, cbh);
 
   svg.append('image')
     .attr('href', country.url)
@@ -98,7 +140,7 @@ function addComposedCountryToMap(svg, height, countries, focusName, position) {
     // .attr('x', cb.x)
     // .attr('y', cb.y - cb.height)
     // .attr('clip-path', 'url(#' + cid + ')')
-    .attr('opacity', '0')
+    .attr('opacity', '1')
     // .on('click', function(d){
     //   window.location = 'malta';
     // })
@@ -334,7 +376,8 @@ $(document).ready(function() {
         return d.bounds[1][1] - d.bounds[0][1];
       })
       .append("path")
-      .attr("d", path);
+      .attr("d", path)
+    ;
 
     // Calculate the center meridian for the sphere. It serves to calculate
     // clipping of coordinate labels
@@ -460,16 +503,12 @@ $(document).ready(function() {
     ;
 
     if (window.isGlobalMap) {
-      ['MLT', 'LUX', 'CYP'].forEach(function(name, index) {
-        addComposedCountryToMap(svg, height, countries, name, index);
+      ['LUX', 'MLT', 'CYP'].forEach(function(id, index) {
+        // TODO: check if it's in window.available_map_countries;
+        // TODO: change available_map_countries to be a data attribute passable
+        // from template
+        addComposedCountryToMap(svg, height, countries, id, index);
       })
-
-      // ['MLT', 'LUX', 'CYP'].forEach(function(name, index) {
-      //   var country = countries.filter(function (c) {
-      //     return c.id === name;
-      //   })[0]
-      //   addComposedCountryToMap(svg, height, country, index);
-      // });
     }
 
     if (window.isGlobalMap) {
