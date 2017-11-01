@@ -2,7 +2,7 @@ Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 }
 
-function addMaltaToMap(svg, height, country, position) {
+function addCountryToMap(svg, height, country, position) {
   // cf = correction factor, based on position in left side rendering
   //
   //      box width
@@ -459,7 +459,17 @@ $(document).ready(function() {
         return c.id === 'MLT'
       })[0];
 
-      addMaltaToMap(svg, height, malta, 2);
+      var luxembourg = countries.filter(function (c) {
+        return c.id === 'LUX'
+      })[0];
+
+      var cyprus = countries.filter(function (c) {
+        return c.id === 'CYP'
+      })[0];
+
+      addCountryToMap(svg, height, luxembourg, 0);
+      addCountryToMap(svg, height, malta, 1);
+      addCountryToMap(svg, height, cyprus, 2);
     }
 
     if (window.isGlobalMap) {
