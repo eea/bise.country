@@ -91,6 +91,8 @@ rect {
 
 .zoom-label {
   /* TODO: set a nice proper font */
+  font-family: 'Roboto', Arial, sans-serif;
+  font-size: 0.8rem;
 }
 
 .zoom-flag {

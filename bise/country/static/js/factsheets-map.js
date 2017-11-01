@@ -2,7 +2,9 @@ Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 }
 
-function addCountryToMap(svg, height, country, position) {
+function addComposedCountryToMap(svg, height, countries, focusName, position) {
+  // Adds a zoom to the desired country, added to the left side of the map
+  //
   // cf = correction factor, based on position in left side rendering
   //
   //      box width
@@ -32,7 +34,9 @@ function addCountryToMap(svg, height, country, position) {
 
   var path = d3.geoPath().projection(projection);
 
-  var b = path.bounds(country);
+  var b = path.bounds(countries);
+
+  console.log("Bounds", b);
   vRatio = 0.5; // hardcode a ratio because it can vary widely from phone to desktop
 
   var cwRatio = (b[1][0] - b[0][0]) / boxw;    // bounds to width ratio
@@ -115,7 +119,7 @@ function addCountryToMap(svg, height, country, position) {
 
   var lbbox = label.node().getBBox();
   label
-    .attr('y', bottomy - boxh - lbbox.height - (-1 * lbbox.y / 1.6))
+    .attr('y', bottomy - boxh - lbbox.height - spacer - (lbbox.y / 1.2))
     .attr('x', boxw / 2 - lbbox.width / 2 + spacer)
   ;
 
@@ -284,6 +288,7 @@ $(document).ready(function() {
     setCountryFlags(countries, flags);
     setCountryBounds(countries, path);
 
+    // TODO: use world instead of countries
     zoomToCountry(selectedCountry, countries, path, projection, width, height);
 
     // we need to reset the country bounds because of the zoom
@@ -455,21 +460,16 @@ $(document).ready(function() {
     ;
 
     if (window.isGlobalMap) {
-      var malta = countries.filter(function (c) {
-        return c.id === 'MLT'
-      })[0];
+      ['MLT', 'LUX', 'CYP'].forEach(function(name, index) {
+        addComposedCountryToMap(svg, height, countries, name, index);
+      })
 
-      var luxembourg = countries.filter(function (c) {
-        return c.id === 'LUX'
-      })[0];
-
-      var cyprus = countries.filter(function (c) {
-        return c.id === 'CYP'
-      })[0];
-
-      addCountryToMap(svg, height, luxembourg, 0);
-      addCountryToMap(svg, height, malta, 1);
-      addCountryToMap(svg, height, cyprus, 2);
+      // ['MLT', 'LUX', 'CYP'].forEach(function(name, index) {
+      //   var country = countries.filter(function (c) {
+      //     return c.id === name;
+      //   })[0]
+      //   addComposedCountryToMap(svg, height, country, index);
+      // });
     }
 
     if (window.isGlobalMap) {
