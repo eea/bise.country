@@ -2,6 +2,7 @@ Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 }
 
+// TODO: we need to detect if we need to hide the maplets for small res
 function addComposedCountryToMap(svg, height, countries, focusId, position) {
   // Adds a zoom to the desired country, added to the left side of the map
   //
@@ -25,6 +26,10 @@ function addComposedCountryToMap(svg, height, countries, focusId, position) {
 
   var totalboxh = (boxh + spacer);    // one box + its margin spacer
   var corrh = totalboxh * position;   // correction in height, based on position
+
+  var totalboxw = (boxw + spacer);    // one box + its margin spacer
+  var corrw = totalboxw * position;   // correction in width, based on position
+
   var bottomy = height - corrh;       // vertical position of bottom of current box
 
   var projection = d3.geoMercator();
@@ -80,6 +85,12 @@ function addComposedCountryToMap(svg, height, countries, focusId, position) {
     .attr('clip-path', 'url(#region-outline-' + country.id + ')')
   ;
 
+  var cb = path.bounds(country);    // country bounds, needed for flag
+  var cbw = cb[1][0] - cb[0][0];
+  var cbh = cb[1][1] - cb[0][1];
+
+  var deltax = (boxw - cbw) / 2;
+
   g
     .selectAll('path')
     .data(countries)
@@ -95,61 +106,69 @@ function addComposedCountryToMap(svg, height, countries, focusId, position) {
     .attr('d', path)
     .attr('transform', function(d) {
       var nh = (bottomy - boxh - boxh/4).toString();
-      var t = 'translate(' + spacer + ',' + nh + ')';
+      var t = 'translate(' + deltax + ',' + nh + ')';
       return t;
     })
   ;
 
-  // svg
-  //   .datum(country)
-  //   .append('path')
-  //   .attr('d', path)
-  //   .attr('class', 'zoom-stroke')
-  //   .attr('transform', function(d) {
-  //     var nh = (bottomy - boxh - boxh/4).toString();
-  //     var t = 'translate(' + spacer + ',' + nh + ')';
-  //     return t;
-  //   })
-  // ;
-
-  var cid = 'cp-' + country.id;
   var nh = (bottomy - boxh).toString();
 
   defs
     .datum(country)
     .append('clipPath')
-    .attr('id', cid)
+    .attr('id', function(d) {
+      return 'cp-' + d.id;
+    })
     .append('path')
     .attr('d', path)
     .attr('transform', function(d) {
-      return 'translate(0, ' + nh + ')';
+      var nh = (bottomy - boxh - boxh/4).toString();
+      var t = 'translate(' + deltax + ',' + nh + ')';
+      return t;
     })
   ;
 
-  var cb = path.bounds(country);    // country bounds, needed for flag
-  var cbw = cb[1][0] - cb[0][0];
-  var cbh = cb[1][1] - cb[0][1];
-  // console.log(cbw, cbh);
-
-  svg.append('image')
+  svg
+    .data([country])
+    .append('image')
     .attr('href', country.url)
     .attr('class', 'zoom-flag')
-    .attr('width', cbw)
-    .attr('y', nh)
-    .attr('x', spacer)
-    // .attr('x', cb.x)
-    // .attr('y', cb.y - cb.height)
-    // .attr('clip-path', 'url(#' + cid + ')')
-    .attr('opacity', '1')
-    // .on('click', function(d){
-    //   window.location = 'malta';
-    // })
-    // .on('mouseover', function(d){
-    //   d3.select(this).attr('opacity', 1);
-    // })
-    // .on('mouseout', function(d){
-    //   d3.select(this).attr('opacity', 0);
-    // })
+    .attr('clip-path', function(d) {
+      return 'url(#cp-' + d.id + ')';
+    })
+    .attr("x", function (d) {
+      var x = cb[0][0];
+      return Number.isFinite(x) ? x + spacer - 2 : 0;
+    })
+    .attr("y", function (d) {
+      var y = cb[0][1];
+      return Number.isFinite(y) ? y + (bottomy - boxh - spacer - 2) : 0;
+    })
+    .attr("width", function (d) {
+      var w = cb[1][0] - cb[0][0];
+      return Number.isFinite(w) ? w + 7 : 0;
+    })
+    .attr("height", function (d) {
+      var h = cb[1][1] - cb[0][1];
+      return Number.isFinite(h) ? h + 7: 0;
+    })
+    .attr("preserveAspectRatio", "none")
+    .attr('opacity', '0')
+
+    .on('mouseover', function(d){
+      d3.select(this).attr('opacity', 1);
+    })
+    .on('mouseout', function(d){
+      d3.select(this).attr('opacity', 0);
+    })
+    .on('click', function(d){
+      if (window.available_map_countries.indexOf(d.name) > -1) {
+        var link = d.name.toLowerCase();
+        // "/countries/eu_country_profiles/"+link+"";
+        location.href = link;
+        return true;
+      }
+    })
   ;
 
   var label = svg.append('text')
@@ -178,6 +197,7 @@ function addComposedCountryToMap(svg, height, countries, focusId, position) {
 
   label.raise();
 }
+
 
 function fLoc(fname) {
   return window.location.origin + "/++resource++bise.country/js/countries/" + fname;
@@ -287,7 +307,6 @@ $(document).ready(function() {
   window.isGlobalMap = $("svg-container").data('globalmap') === 'global';
 
   var width = isGlobalMap ? $('svg').width() : $(window).width();
-  console.log('SVG width', width);
   var height = 560;
 
   if ($('.svg-wrapper').length > 0) {
@@ -503,15 +522,6 @@ $(document).ready(function() {
     ;
 
     if (window.isGlobalMap) {
-      ['LUX', 'MLT', 'CYP'].forEach(function(id, index) {
-        // TODO: check if it's in window.available_map_countries;
-        // TODO: change available_map_countries to be a data attribute passable
-        // from template
-        addComposedCountryToMap(svg, height, countries, id, index);
-      })
-    }
-
-    if (window.isGlobalMap) {
       $rect.on('click', function(d){
         // console.log('you clicked', d.name, d);
         if (window.available_map_countries.indexOf(d.name) > -1) {
@@ -538,5 +548,25 @@ $(document).ready(function() {
           }
         });
     }
+
+    var available_map_country_ids = countries.map(function(d) {
+      if (window.available_map_countries.indexOf(d.name) > -1) {
+        return d.id;
+      }
+    });
+    console.log('Countries', available_map_country_ids);
+
+    if (window.isGlobalMap) {
+      ['LUX', 'MLT', 'CYP'].forEach(function(id, index) {
+        // TODO: check if it's in window.available_map_countries;
+        // TODO: change available_map_countries to be a data attribute passable
+        // from template
+
+        if (available_map_country_ids.indexOf(id) > -1) {
+          addComposedCountryToMap(svg, height, countries, id, index);
+        }
+      })
+    }
+
   }
 });
