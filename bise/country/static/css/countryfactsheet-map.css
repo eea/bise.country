@@ -22,24 +22,45 @@ svg-container {
   border: 2px solid lightgray;
 }
 
-/* // TODO: create selector for global map, we want 1px stroke there */
+
 .country-stroke {
-  fill: none;
+  fill: #efe7d4;
   stroke: black;
-  stroke-width: 0.8px;
+  stroke-width: 1;
 }
 
-.fill {
-  /* water color */
+.country-focus {
+  fill: #41b664;
+}
+
+.country-focus-text-bg {
+  fill: #666;
+  stroke: black;
+  stroke-width: 2;
+}
+.country-focus-label {
+  fill: white;
+  stroke: none;
+  text-anchor: middle;
+  font: 600 9px "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.maplet-outline {
+  fill: none;
+  stroke: black;
+  stroke-width: 2;
+}
+
+.sphere {
+  stroke: none;
   fill: rgb(48, 140, 168);
 }
 
-.flagmask {
-  /* goes on top of fill, hides the flags */
-  /* fill: none; */
+.country-flag {
+  cursor: pointer;
 }
 
-.lines {
+.main-lines {
   fill: none;
   /* stroke: #79A09E; */
   stroke: #333366;
@@ -47,7 +68,7 @@ svg-container {
   stroke-dasharray: 8,2;
 }
 
-.sublines {
+.sub-lines {
   fill: none;
   /* stroke: #79A09E; */
   stroke: #666;
@@ -55,57 +76,8 @@ svg-container {
   stroke-dasharray: 16,2;
 }
 
-.label {
-  font: 100 9px "Helvetica Neue", Helvetica, Arial, sans-serif;
-  text-anchor: end;
-  fill: black;
-}
-
-rect {
-  transition: all 400ms;
-}
-.country-wrapper {
-  fill: #efe7d4;
-}
-
-.country-highlighted {
-  fill: #41b664;
-  cursor: pointer;
-}
-.country-selected {
+.graticule {
   fill: none;
-}
-
-
-.zoom-region-outline {
-  stroke: lightgray;
-  stroke-width: 2;
-  fill: rgb(48, 140, 168);
-}
-
-.zoom-stroke {
-  fill: #41b664;
   stroke: black;
-  stroke-width: 1;
-}
-
-.zoom-label {
-  /* TODO: set a nice proper font */
-  font-family: 'Roboto', Arial, sans-serif;
-  font-size: 0.8rem;
-}
-
-.zoom-flag {
-  cursor: pointer;
-}
-.zoom-text-bg {
-  fill: lightgray;
   stroke-width: 2;
-  stroke: lightgray;
-}
-
-.extra-outline {
-  fill: #efe7d4;
-  stroke: black;
-  stroke-width: 1;
 }

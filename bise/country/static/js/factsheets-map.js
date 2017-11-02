@@ -2,11 +2,308 @@ Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 }
 
+function makeid() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+  for (var i = 0; i < 5; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
+
+function filterCountriesById(countries, filterIds){
+    var features = {
+      type: "FeatureCollection",
+      features: []
+    }
+    countries.forEach(function(c) {
+      if (filterIds.indexOf(c.id) === -1) {
+        return;
+      }
+      features.features.push(c);
+    });
+  return features;
+}
+
+
+function travelToOppositeMutator(start, viewport, delta) {
+  // point: the point we want to mutate
+  // start: starting point (the initial anchor point)
+  // viewport: array of width, height
+  // delta: array of dimensions to travel
+
+  center = findCenter(viewport);
+
+  var dirx = start[0] > center[0] ? -1 : 1;
+  var diry = start[1] > center[1] ? -1 : 1;
+
+  return function(point) {
+    var res = [
+      point[0] + delta[0] * dirx,
+      point[1] + delta[1] * diry
+    ];
+    return res;
+  }
+}
+
+
+function findCenter(viewport) {
+  return [viewport[0] / 2, viewport[1] / 2];
+}
+
+
+function getMapletStartingPoint(
+  viewport,   // an array of two integers, width and height
+  startPoint, // an array of two numbers, x, y for position in viewport
+  index,      // integer, position in layout
+  side,       // one of ['top', 'bottom', 'left', right']
+  spacer,     // integer with amount of space to leave between Maplets
+  boxDim,      // array of two numbers, box width and box height
+  titleHeight // height of title box
+) {
+
+  // return value is array of x,y
+  // x: horizontal coordinate
+  // y: vertical coordinate
+
+  var bws = boxDim[0] + spacer;   // box width including space to the right
+  var bhs = boxDim[1] + spacer + titleHeight;
+
+  var mutator = travelToOppositeMutator(startPoint, viewport, [bws, bhs]);
+
+  var mutPoint = [startPoint[0], startPoint[1]];
+
+  for (var i = 0; i < index; i++) {
+    mutPoint = mutator(mutPoint, index);
+  }
+
+  // TODO: this could be improved, there are many edge cases
+  switch (side) {
+    case 'top':
+      mutPoint[0] = mutPoint[0];
+      mutPoint[1] = startPoint[1];
+      break;
+    case 'bottom':
+      mutPoint[1] = startPoint[1] - bhs;
+      break;
+    case 'left':
+      mutPoint[0] = startPoint[0];
+      mutPoint[1] = mutPoint[1];
+      break;
+    case 'right':
+      mutPoint[0] = startPoint[0] - bws;
+      mutPoint[1] = mutPoint[1];
+      break;
+  }
+
+  return {
+    x: mutPoint[0],
+    y: mutPoint[1]
+  };
+}
+
+
+function drawCountries(
+  svg,        // d3 selector for a svg element
+  x,          // coordinate in svg for x
+  y,          // coordinate in svg for y
+  width,      // width of desired map
+  height,     // height of desired map
+  countries,  // topojson with country as features
+  focusIds,   // country ids where we zoom focus
+  projection, // desired projection (ex: mercator projection d3 object)
+  graticules  // array of graticules and css classes
+              //    [[gr1, 'main-lines'], [gr2, 'secondary-lines]]
+) {
+  // Draw the countries in the specified viewport
+
+  var focusCountriesFeature = filterCountriesById(countries, focusIds);
+  console.log('focus', focusCountriesFeature);
+
+  var path = d3.geoPath().projection(projection);   // the path transformer
+
+  var cprectid = makeid();
+  var defs = svg.append('defs');
+
+  defs
+    .append('clipPath')
+    .attr('id', cprectid)
+    .append('rect')
+    .attr('x', x)
+    .attr('y', y)
+    .attr('height', height)
+    .attr('width', width)
+  ;
+
+  var g = svg
+    .append('g')
+    .attr('clip-path', 'url(#' + cprectid + ')')
+  ;
+
+  var b = path.bounds(focusCountriesFeature);
+  vRatio = 0.5; // hardcode a ratio because it can vary widely from phone to desktop
+  var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
+  var chRatio = (b[1][1] - b[0][1]) / height;   // bounds to height ratio
+  var s =  vRatio / Math.max(cwRatio, chRatio);
+  t = [
+    (width - s * (b[1][0] + b[0][0])) / 2 + x,
+    (height - s * (b[0][1] + b[1][1])) / 2 + y
+  ];
+  projection.scale(s).translate(t);
+
+  g     // the world sphere, acts as ocean
+    .append("path")
+    .datum(
+      {
+        type: "Sphere"
+      }
+    )
+    .attr("class", "sphere")
+    .attr("d", path)
+  ;
+
+  graticules = graticules || [];
+  console.log('grats', graticules);
+
+  if (graticules.length) {
+    var grat = g.append('g');
+    grat.selectAll('path')
+      .data([graticules[0][0].lines()])
+      .enter()
+      .append("path")
+      .attr('d', path)
+      .attr('class', 'graticules')
+    ;
+    grat.exit().remove();
+  }
+
+
+
+  // var grats = g.append('g');
+  //
+  // graticules = graticules || [];
+  // graticules.forEach(function(gc) {
+  //   var gf = {
+  //     type: "FeatureCollection",
+  //     features: gc[0].lines()
+  //   }
+  //   console.log('drawing lines', gc);
+  //   grats
+  //     .attr('class', 'graticules')
+  //     .selectAll('path')
+  //     .data(gc[0].lines())
+  //     .enter()
+  //     .append('path')
+  //     .attr('class', gc[1])
+  //     .attr('x', x)
+  //     .attr('y', y)
+  //     .attr('d', path)
+  //   ;
+  // });
+
+  g     // draw all countries
+    .selectAll('path')
+    .data(countries)
+    .enter()
+    .append('path')
+    .attr('id', function(d) {
+      return 'c-' + cprectid + '-' + d.id;
+    })
+    .attr('class', function(d) {
+      if (focusIds.indexOf(d.id) > -1) {
+        return 'country-stroke country-focus';
+      }
+      return 'country-stroke';
+    })
+    .attr('d', path)
+    .attr('x', x)
+    .attr('y', y)
+  ;
+
+  // define clipping paths for all focused countries
+  defs
+    .selectAll('clipPath')
+    .data(countries)
+    .enter()
+    .append('clipPath')
+    .attr('id', function(d) {
+      return 'cp-' + cprectid + '-' + d.id;
+    })
+    .append('path')
+    .attr('d', path)
+    .attr('x', x)
+    .attr('y', y)
+  ;
+
+  var cb = path.bounds(focusCountriesFeature);
+
+  var imgs = svg.append('g');
+  imgs
+    .selectAll('image')
+    .attr('class', 'country-flags')
+    .data(focusCountriesFeature.features)
+    .enter()
+    .append('image')
+    .attr('href', function(d) {
+      return d.url;
+    })
+    .attr('class', 'country-flag')
+    .attr('clip-path', function(d) {
+      return 'url(#cp-' + cprectid + '-' + d.id + ')';
+    })
+    .attr("x", function (d) {
+      var pbox = d3.select('#c-' + cprectid + '-' + d.id).node().getBBox();
+      return pbox.x;
+    })
+    .attr("y", function (d) {
+      var pbox = d3.select('#c-' + cprectid + '-' + d.id).node().getBBox();
+      return pbox.y;
+    })
+    .attr("width", function (d) {
+      var pbox = d3.select('#c-' + cprectid + '-' + d.id).node().getBBox();
+      return pbox.width;
+    })
+    .attr("height", function (d) {
+      var pbox = d3.select('#c-' + cprectid + '-' + d.id).node().getBBox();
+      return pbox.height;
+    })
+    .attr("preserveAspectRatio", "none")
+    .attr('opacity', '0')
+
+    .on('mouseover', function(d){
+      d3.select(this).attr('opacity', 1);
+    })
+    .on('mouseout', function(d){
+      d3.select(this).attr('opacity', 0);
+    })
+    .on('click', function(d){
+      // handleClick(d);
+      if (window.available_map_countries.indexOf(d.name) > -1) {
+        var link = d.name.toLowerCase();
+        // "/countries/eu_country_profiles/"+link+"";
+        location.href = link;
+        return true;
+      }
+    })
+  ;
+}
+
+
 // TODO: we need to detect if we need to hide the maplets for small res
-function addComposedCountryToMap(svg, height, countries, focusId, position) {
+function addComposedCountryToMap(
+  svg,
+  viewport,
+  countries,
+  focusId,
+  index,
+  startPoint,
+  side,
+  projection
+) {
   // Adds a zoom to the desired country, added to the left side of the map
   //
-  // cf = correction factor, based on position in left side rendering
+  // cf = correction factor, based on index in left side rendering
   //
   //      box width
   //  |  |-----|
@@ -20,182 +317,79 @@ function addComposedCountryToMap(svg, height, countries, focusId, position) {
   var boxh = 70;
   var spacer = 20;
 
-  if (!position) {
-    position = 0;
+  if (!index) {
+    index = 0;
   }
 
-  var totalboxh = (boxh + spacer);    // one box + its margin spacer
-  var corrh = totalboxh * position;   // correction in height, based on position
+  if (!index) {
+    index = 0;
+  }
 
-  var totalboxw = (boxw + spacer);    // one box + its margin spacer
-  var corrw = totalboxw * position;   // correction in width, based on position
+  var msp = getMapletStartingPoint(
+    viewport,
+    startPoint,
+    index,
+    side,
+    20,
+    [60, 60],
+    10
+  );
 
-  var bottomy = height - corrh;       // vertical position of bottom of current box
-
-  var projection = d3.geoMercator();
-  projection
-    .scale(1)
-    .translate([0, 0]);
-
-  var path = d3.geoPath().projection(projection);
-
-  var zoomCountries = countries.filter(function(d) {
-    return d.id === focusId;
-  });
-
-  var country = zoomCountries[0];
-  var b = path.bounds(country);
-
-  vRatio = 0.5; // hardcode a ratio because it can vary widely from phone to desktop
-
-  var cwRatio = (b[1][0] - b[0][0]) / boxw;    // bounds to width ratio
-  var chRatio = (b[1][1] - b[0][1]) / boxh;   // bounds to height ratio
-  var s =  vRatio / Math.max(cwRatio, chRatio);
-  t = [
-    (boxw - s * (b[1][0] + b[0][0])) / 2,
-    (boxh - s * (b[0][1] + b[1][1])) / 2
-  ];
-
-  projection.scale(s).translate(t);
+  drawCountries(
+    svg,
+    msp.x,
+    msp.y,
+    boxw,
+    boxh,
+    countries,
+    [focusId],
+    projection
+  );
 
   svg
     .append('rect')
-    .attr('class', 'zoom-region-outline')
-    .attr('x', spacer)
-    .attr('y', bottomy - totalboxh)
+    .attr('class', 'maplet-outline')
+    .attr('x', msp.x)
+    .attr('y', msp.y)
     .attr('width', boxw)
     .attr('height', boxh)
-  ;
-
-  var defs = svg.append('defs');
-
-  defs
-    .append('clipPath')
-    .attr('id', 'region-outline-' + country.id)
-    .append('rect')
-    .attr('x', spacer)
-    .attr('y', bottomy - totalboxh)
-    .attr('width', boxw)
-    .attr('height', boxh)
-  ;
-
-  var g = svg
-    .append('g')
-    .attr('id', 'extra-countries-' + country.id)
-    .attr('clip-path', 'url(#region-outline-' + country.id + ')')
-  ;
-
-  var cb = path.bounds(country);    // country bounds, needed for flag
-  var cbw = cb[1][0] - cb[0][0];
-  var cbh = cb[1][1] - cb[0][1];
-
-  var deltax = (boxw - cbw) / 2;
-
-  g
-    .selectAll('path')
-    .data(countries)
-    .enter()
-    .append('path')
-    .attr('class', function(d) {
-      if (d.id === focusId) {
-        return 'zoom-stroke';
-      } else {
-        return 'extra-outline';
-      }
-    })
-    .attr('d', path)
-    .attr('transform', function(d) {
-      var nh = (bottomy - boxh - boxh/4).toString();
-      var t = 'translate(' + deltax + ',' + nh + ')';
-      return t;
-    })
-  ;
-
-  var nh = (bottomy - boxh).toString();
-
-  defs
-    .datum(country)
-    .append('clipPath')
-    .attr('id', function(d) {
-      return 'cp-' + d.id;
-    })
-    .append('path')
-    .attr('d', path)
-    .attr('transform', function(d) {
-      var nh = (bottomy - boxh - boxh/4).toString();
-      var t = 'translate(' + deltax + ',' + nh + ')';
-      return t;
-    })
-  ;
-
-  svg
-    .data([country])
-    .append('image')
-    .attr('href', country.url)
-    .attr('class', 'zoom-flag')
-    .attr('clip-path', function(d) {
-      return 'url(#cp-' + d.id + ')';
-    })
-    .attr("x", function (d) {
-      var x = cb[0][0];
-      return Number.isFinite(x) ? x + spacer - 2 : 0;
-    })
-    .attr("y", function (d) {
-      var y = cb[0][1];
-      return Number.isFinite(y) ? y + (bottomy - boxh - spacer - 2) : 0;
-    })
-    .attr("width", function (d) {
-      var w = cb[1][0] - cb[0][0];
-      return Number.isFinite(w) ? w + 7 : 0;
-    })
-    .attr("height", function (d) {
-      var h = cb[1][1] - cb[0][1];
-      return Number.isFinite(h) ? h + 7: 0;
-    })
-    .attr("preserveAspectRatio", "none")
-    .attr('opacity', '0')
-
-    .on('mouseover', function(d){
-      d3.select(this).attr('opacity', 1);
-    })
-    .on('mouseout', function(d){
-      d3.select(this).attr('opacity', 0);
-    })
-    .on('click', function(d){
-      if (window.available_map_countries.indexOf(d.name) > -1) {
-        var link = d.name.toLowerCase();
-        // "/countries/eu_country_profiles/"+link+"";
-        location.href = link;
-        return true;
-      }
-    })
+    .append('text')
+    .html(index)
   ;
 
   var label = svg.append('text')
-    .attr('class', 'zoom-label')
-    .attr('x', spacer)
+    .attr('x', 0)
     .attr('y', 0)
-    .html(country.name)
+    // .attr('width', boxw)
+    // .append('tspan')
+    .attr('class', 'country-focus-label')
+    .attr('text-anchor', 'middle')
+    .text(focusId)
   ;
 
   var lbbox = label.node().getBBox();
-  label
-    .attr('y', bottomy - boxh - lbbox.height - spacer - (lbbox.y / 1.2))
-    .attr('x', boxw / 2 - lbbox.width / 2 + spacer)
-  ;
+  // bottomy - boxh - lbbox.height - spacer - (lbbox.y / 1.2)
+  // boxw / 2 - lbbox.width / 2 + spacer
 
   var textboxh = lbbox.height + lbbox.height / 4;
 
+  label
+    .attr('x', msp.x + boxw/2)
+    .attr('y', msp.y - textboxh / 3)
+  ;
+
+
   svg
     .append('rect')
-    .attr('class', 'zoom-text-bg')
-    .attr('x', spacer)
-    .attr('y', bottomy - totalboxh - textboxh)
+    .attr('class', 'country-focus-text-bg')
+    .attr('x', msp.x)
+    .attr('y', msp.y - textboxh)
     .attr('width', boxw)
     .attr('height', textboxh)
   ;
 
   label.raise();
+
 }
 
 
@@ -220,22 +414,6 @@ function setCountryFlags(countries, flags) {
   });
 }
 
-function setCountryBounds(countries, path) {
-  countries = countries.filter(function(d) {
-    // France includes territory in South America, we don't include that in
-    // bounds calculation
-    // TODO: maybe a better way would be to give a set of coordinates and only
-    // include geometries that are in bounds of those
-    // if (d.name === 'France') {
-    //   if (d.geometry.coordinates.length === 3) {
-    //     d.geometry.coordinates = d.geometry.coordinates.slice(1);
-    //   }
-    // }
-    return d.bounds = path.bounds(d);
-  });
-  return countries;
-}
-
 function getSelectedCountry() {
   // get the "desired country" from data attribute
 
@@ -252,54 +430,6 @@ function getSelectedCountry() {
   return sc;
 }
 
-function zoomToCountry(
-  selectedCountry, countries, path, projection, width, height
-) {
-
-  projection
-    .scale(1)
-    .translate([0, 0]);
-
-  var b, t, s, vRatio;
-  // var vRatio = (height/width * 1.0);    // viewport ratio
-
-  if (window.isGlobalMap) {
-    // Make a new feature collection of all desired countries,
-    // to calculate zoom bounds
-    var features = {
-      type: "FeatureCollection",
-      features: []
-    }
-    countries.forEach(function(c) {
-      if (window.available_map_countries.indexOf(c.name) === -1) {
-        return;
-      }
-      features.features.push(c);
-    });
-    b = path.bounds(features);    // d3.geo
-    vRatio = 0.9; // hardcode a ratio because it can vary widely from phone to desktop
-  }
-  else {
-    var zoomCountries = countries.filter(function(d) {
-      return d.name === selectedCountry;
-    });
-
-    var country = zoomCountries[0];
-
-    b = path.bounds(country);
-    vRatio = 0.3; // hardcode a ratio because it can vary widely from phone to desktop
-  }
-
-  var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
-  var chRatio = (b[1][1] - b[0][1]) / height;   // bounds to height ratio
-  var s =  vRatio / Math.max(cwRatio, chRatio);
-  t = [
-    (width - s * (b[1][0] + b[0][0])) / 2,
-    (height - s * (b[0][1] + b[1][1])) / 2
-  ];
-
-  return projection.scale(s).translate(t);
-}
 
 $(document).ready(function() {
   $('body').addClass('factsheets');
@@ -338,22 +468,16 @@ $(document).ready(function() {
     // countries.geo.json comes from https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json
 
     var countries = world.features;
-    var projection = d3.geoRobinson()   // azimuthalEquidistant conicEquidistant()
-      .precision(0.1)
-      .clipAngle(90);
+    var projection = d3.geoRobinson();   // azimuthalEquidistant conicEquidistant()
+    projection
+          .scale(1)
+          .translate([0, 0]);
 
-    var path = d3.geoPath().projection(projection);
+    // var path = d3.geoPath().projection(projection);
 
     // Augument the countries GeoJSON data with names, bounds and flags
     setCountryNames(countries);
     setCountryFlags(countries, flags);
-    setCountryBounds(countries, path);
-
-    // TODO: use world instead of countries
-    zoomToCountry(selectedCountry, countries, path, projection, width, height);
-
-    // we need to reset the country bounds because of the zoom
-    setCountryBounds(countries, path);
 
     var svg = d3
       .select("body")
@@ -361,193 +485,21 @@ $(document).ready(function() {
       .attr("width", width)
       .attr("height", height);
 
-    // elements defined in defs can be reused with <use>
-    var defs = svg.append("defs");
-    defs
-      .append("path")
-      .datum(
-        {
-          type: "Sphere"
-        }
-      )
-      .attr("id", "sphere")
-      .attr("d", path);
-
-    svg
-      .append("use")
-      .attr("class", "fill")
-      .attr("href", "#sphere");
-
-    // create clip paths for the country rects
-    defs
-      .selectAll("mask")
-      .data(countries)
-      .enter()
-      .append("clipPath")
-      .attr("class", "mask")
-      .attr("id", function(d) {
-        return "iso-" + d.id;
-      })
-      .attr("width", function (d) {
-        return d.bounds[1][0] - d.bounds[0][0];}
-      )
-      .attr("height", function (d) {
-        return d.bounds[1][1] - d.bounds[0][1];
-      })
-      .append("path")
-      .attr("d", path)
-    ;
-
-    // Calculate the center meridian for the sphere. It serves to calculate
-    // clipping of coordinate labels
-    var bbox = svg.node().getBBox();
-    var p = [bbox.x + bbox.width/2, bbox.y + bbox.height/2];
-    var cp = projection.invert(p);   // lon, lat
-
     var gStep = window.isGlobalMap ? [10, 10] : [4, 4];
     var graticule = d3.geoGraticule().step(gStep);
-
-    // draw the graticule lines
-    var lines = svg.selectAll('path.lines')
-      .data([graticule()])
-      .enter()
-      .append('path')
-      .attr('class', 'lines')
-      .attr('d', path)
-    ;
-
     var minorGraticule = d3.geoGraticule().step([gStep[0]/4, gStep[1]/4]);
-    svg.selectAll('path.sublines')
-      .data(minorGraticule.lines())
-      .enter()
-      .append("path")
-      .attr("class", "sublines")
-      .attr("d", path)
-    ;
 
-    // functions as a mask for the country flags
-    svg.append("path")
-      .attr("class", "flagmask")
-      .attr("d", path);
-
-    // create an svg group for each country
-    var group = svg
-      .selectAll("country")
-      .data(countries)
-      .enter()
-      .append('g')
-    ;
-
-    // This inserts the flags as images in the svg
-    group
-      .insert("image", ".flagmask")
-      .attr("class", "country")
-      .attr("href", function (d){
-        if (window.available_map_countries.indexOf(d.name) > -1) {
-          if (window.isGlobalMap) return d.url;
-          if (selectedCountry && selectedCountry === d.name) return d.url;
-        }
-      })
-      .attr("x", function (d) {
-        var x = d.bounds[0][0];
-        return Number.isFinite(x) ? x : 0;
-      })
-      .attr("y", function (d) {
-        var y = d.bounds[0][1];
-        return Number.isFinite(y) ? y : 0;
-      })
-      .attr("width", function (d) {
-        var w = d.bounds[1][0] - d.bounds[0][0];
-        return Number.isFinite(w) ? w : 0;
-      })
-      .attr("height", function (d) {
-        var h = d.bounds[1][1] - d.bounds[0][1];
-        return Number.isFinite(h) ? h : 0;
-      })
-      .attr("preserveAspectRatio", "none")
-      .attr("clip-path", function(d) {
-        return "url(#iso-" + d.id + ")";
-      })
-    ;
-
-    // one rect for each country, masked by a clip mask
-    var $rect = group.append('rect')
-      .attr("class", function(d) {
-        if (window.isGlobalMap &&
-          window.available_map_countries.indexOf(d.name) > -1) {
-          return 'country-wrapper country-highlighted';
-        } else {
-          if (selectedCountry === d.name) {
-            return 'country-selected';
-          } else {
-            return 'country-wrapper';
-          }
-        }
-      })
-      .attr("x", function (d) {
-        var x = d.bounds[0][0];
-        return Number.isFinite(x) ? x : 0;
-      })
-      .attr("y", function (d) {
-        var y = d.bounds[0][1];
-        return Number.isFinite(y) ? y : 0;
-      })
-      .attr("width", function (d) {
-        var w = d.bounds[1][0] - d.bounds[0][0];
-        return Number.isFinite(w) ? w : 0;
-      })
-      .attr("height", function (d) {
-        var h = d.bounds[1][1] - d.bounds[0][1];
-        return Number.isFinite(h) ? h : 0;
-      })
-      // .attr('transform', 'translate(-2, -2)')
-      .attr("preserveAspectRatio", "none")
-      .attr("clip-path", function(d) {
-        return "url(#iso-" + d.id + ")";
-      })
-      .attr("opacity",function(d){
-        if (window.isGlobalMap === true) {
-          if (window.available_map_countries.indexOf(d.name) > -1) {
-            return "0.98";
-          }
-        }
-      })
-    ;
-
-    // better stroke for the countries
-    group
-      .append("path")
-      .attr('class', 'country-stroke')
-      .attr('d', path)
-    ;
-
-    if (window.isGlobalMap) {
-      $rect.on('click', function(d){
-        // console.log('you clicked', d.name, d);
-        if (window.available_map_countries.indexOf(d.name) > -1) {
-          var link = d.name.toLowerCase();
-          // "/countries/eu_country_profiles/"+link+"";
-          location.href = link;
-          return true;
-        }
-      })
-        .on('mouseover', function(d){
-          if (window.available_map_countries.indexOf(d.name) > -1) {
-            d3.select(this)
-              .attr('opacity','0')
-            // .attr('transform', 'translate(2,2)')
-            ;
-          }
-        })
-        .on('mouseout', function(d){
-          if (window.available_map_countries.indexOf(d.name) > -1) {
-            d3.select(this)
-              .attr('opacity','0.98')
-            // .attr('transform', 'translate(-2,-2)')
-            ;
-          }
-        });
-    }
+    drawCountries(
+      svg,
+      0,
+      0,
+      width,
+      height,
+      countries,
+      ['CYP', 'ROU'],
+      projection,
+      [[graticule, 'main-lines'], [minorGraticule, 'sub-lines']]
+    );
 
     var available_map_country_ids = countries.map(function(d) {
       if (window.available_map_countries.indexOf(d.name) > -1) {
@@ -556,14 +508,32 @@ $(document).ready(function() {
     });
     console.log('Countries', available_map_country_ids);
 
+    console.log('width', width);
+    console.log('height', height);
     if (window.isGlobalMap) {
-      ['LUX', 'MLT', 'CYP'].forEach(function(id, index) {
+
+      //'MLT', 'CYP''LUX'
+      ['MLT', 'CYP', 'LUX'].forEach(function(id, index) {
         // TODO: check if it's in window.available_map_countries;
         // TODO: change available_map_countries to be a data attribute passable
         // from template
 
+        var p = d3.geoMercator();
+        p
+          .scale(1)
+          .translate([0, 0]);
+
         if (available_map_country_ids.indexOf(id) > -1) {
-          addComposedCountryToMap(svg, height, countries, id, index);
+          addComposedCountryToMap(
+            svg,
+            [width, height],
+            countries,
+            id,
+            index,
+            [10, 26],
+            'left',
+            p
+          );
         }
       })
     }
