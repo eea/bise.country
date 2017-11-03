@@ -476,6 +476,7 @@ $(document).ready(function() {
 
     var countries_Id = countries.map(function(d) {
       if (window.isGlobalMap) {
+
         if ($svgc.indexOf(d.name) > -1) {
           return d.id;
         }
@@ -490,8 +491,10 @@ $(document).ready(function() {
           return d.id;
         }
       }
+    }).filter(function(c) {
+      return c;
     });
-
+    console.log('countries id',countries_Id);
     drawCountries(
       svg,
       0,
