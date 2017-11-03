@@ -167,42 +167,28 @@ function drawCountries(
   console.log('grats', graticules);
 
   if (graticules.length) {
-    var grat = g.append('g');
-    grat.selectAll('path')
-      .data([graticules[0][0].lines()])
-      .enter()
-      .append("path")
-      .attr('d', path)
-      .attr('class', 'graticules')
+    var grat = g
+      .append('g')
+      .attr('class', 'ggroup')
+      .selectAll('path')
     ;
-    grat.exit().remove();
+
+    graticules.forEach(function(gc) {
+      grat
+        .data(gc[0].lines())
+        .enter()
+        .append('path')
+        .attr('class', gc[1])
+        .attr('x', x)
+        .attr('y', y)
+        .attr('d', path)
+      ;
+    });
   }
 
-
-
-  // var grats = g.append('g');
-  //
-  // graticules = graticules || [];
-  // graticules.forEach(function(gc) {
-  //   var gf = {
-  //     type: "FeatureCollection",
-  //     features: gc[0].lines()
-  //   }
-  //   console.log('drawing lines', gc);
-  //   grats
-  //     .attr('class', 'graticules')
-  //     .selectAll('path')
-  //     .data(gc[0].lines())
-  //     .enter()
-  //     .append('path')
-  //     .attr('class', gc[1])
-  //     .attr('x', x)
-  //     .attr('y', y)
-  //     .attr('d', path)
-  //   ;
-  // });
-
-  g     // draw all countries
+  // draw all countries
+  g
+    .append('g')
     .selectAll('path')
     .data(countries)
     .enter()

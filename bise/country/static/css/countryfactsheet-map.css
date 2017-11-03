@@ -76,7 +76,7 @@ svg-container {
   stroke-dasharray: 16,2;
 }
 
-.graticule {
+.graticules {
   fill: none;
   stroke: black;
   stroke-width: 2;
