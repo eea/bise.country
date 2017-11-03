@@ -26,11 +26,6 @@ function filterCountriesById(countries, filterIds){
   return features;
 }
 
-// get ratio from data attribute
-var gRatio = $(".svg-global-wrapper").data('ratio');       //  for global map
-var hRatio = $(".svg-header-wrapper").data('ratio');      //  for header map
-
-
 function travelToOppositeMutator(start, viewport, delta) {
   // point: the point we want to mutate
   // start: starting point (the initial anchor point)
@@ -147,12 +142,7 @@ function drawCountries(
 
   var b = path.bounds(focusCountriesFeature);
 
-  if (window.isGlobalMap) {
-    vRatio = gRatio; // hardcode a ratio because it can vary widely from phone to desktop
-  }
-  else {
-    vRatio = hRatio; // hardcode a ratio because it can vary widely from phone to desktop
-  }
+  var vRatio = window.vRatio;
   var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
   var chRatio = (b[1][1] - b[0][1]) / height;   // bounds to height ratio
   var s =  vRatio / Math.max(cwRatio, chRatio);
@@ -420,6 +410,8 @@ $(document).ready(function() {
 
   window.isHeaderMap = $(".country-header").hasClass('country-header');
   window.isGlobalMap = $("svg-container").data('globalmap') === 'global';
+  // get ratio from data attribute
+  window.vRatio = parseFloat($("svg-container").data('ratio'));
 
   var width = isGlobalMap ? $('svg').width() : $(window).width();
   var height = 560;
@@ -494,7 +486,7 @@ $(document).ready(function() {
     }).filter(function(c) {
       return c;
     });
-    console.log('countries id',countries_Id);
+
     drawCountries(
       svg,
       0,
@@ -504,13 +496,18 @@ $(document).ready(function() {
       countries,
       countries_Id,
       projection,
-      [[graticule, 'main-lines'], [minorGraticule, 'sub-lines']]
+      [
+        [graticule, 'main-lines'],
+        [minorGraticule, 'sub-lines']
+      ]
     );
 
     var available_map_country_ids = countries.map(function(d) {
       if ($svgc.indexOf(d.name) > -1) {
         return d.id;
       }
+    }).filter(function(c) {
+      return c;
     });
     console.log('Countries', available_map_country_ids);
 
