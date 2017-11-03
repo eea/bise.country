@@ -2,6 +2,7 @@ Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 };
 
+
 function makeid() {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -11,6 +12,7 @@ function makeid() {
 
   return text;
 }
+
 
 function filterCountriesById(countries, filterIds){
   var features = {
@@ -25,6 +27,7 @@ function filterCountriesById(countries, filterIds){
   });
   return features;
 }
+
 
 function travelToOppositeMutator(start, viewport, delta) {
   // point: the point we want to mutate
@@ -80,7 +83,6 @@ function getMapletStartingPoint(
   // TODO: this could be improved, there are many edge cases
   switch (side) {
   case 'top':
-    mutPoint[0] = mutPoint[0];
     mutPoint[1] = startPoint[1];
     break;
   case 'bottom':
@@ -88,11 +90,9 @@ function getMapletStartingPoint(
     break;
   case 'left':
     mutPoint[0] = startPoint[0];
-    mutPoint[1] = mutPoint[1];
     break;
   case 'right':
     mutPoint[0] = startPoint[0] - bws;
-    mutPoint[1] = mutPoint[1];
     break;
   }
 
@@ -354,16 +354,12 @@ function addComposedCountryToMap(
   ;
 
   var lbbox = label.node().getBBox();
-  // bottomy - boxh - lbbox.height - spacer - (lbbox.y / 1.2)
-  // boxw / 2 - lbbox.width / 2 + spacer
-
   var textboxh = lbbox.height + lbbox.height / 4;
 
   label
     .attr('x', msp.x + boxw/2)
     .attr('y', msp.y - textboxh / 3)
   ;
-
 
   svg
     .append('rect')
@@ -383,11 +379,13 @@ function fLoc(fname) {
   return window.location.origin + "/++resource++bise.country/js/countries/" + fname;
 }
 
+
 function setCountryNames(countries) {
   countries.forEach(function(d) {
     d.name = d.properties.name;
   });
 }
+
 
 function setCountryFlags(countries, flags) {
   countries.forEach(function(c) {
@@ -399,6 +397,7 @@ function setCountryFlags(countries, flags) {
     });
   });
 }
+
 
 $(document).ready(function() {
   // get available countries from data attribute
