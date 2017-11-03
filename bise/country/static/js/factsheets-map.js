@@ -265,7 +265,7 @@ function drawCountries(
     })
     .on('click', function(d){
       // handleClick(d);
-      if (window.available_map_countries.indexOf(d.name) > -1) {
+      if (window.available_map_countries.indexOf(d.id) > -1) {
         var link = d.name.toLowerCase();
         // "/countries/eu_country_profiles/"+link+"";
         location.href = link;
@@ -486,6 +486,7 @@ $(document).ready(function() {
     }).filter(function(c) {
       return c;
     });
+    window.available_map_countries = countries_Id;
 
     drawCountries(
       svg,
