@@ -410,23 +410,6 @@ function setCountryFlags(countries, flags) {
   });
 }
 
-// function getSelectedCountry() {
-//   // get the "desired country" from data attribute
-//
-//   window.isHeaderMap = $(".country-header").hasClass('country-header');
-//
-//   var sc;
-//
-//   if (window.isHeaderMap) {
-//     var $cd = $(".country-header").data('zoom-country');
-//     // uppercase the first letter
-//     var w = $cd.charAt(0).toUpperCase() + $cd.slice(1);
-//     sc = w
-//   }
-//   return sc;
-// }
-
-
 $(document).ready(function() {
   // get available countries from data attribute
   var $svgc = $("svg-container").data('available-countries');
@@ -436,7 +419,6 @@ $(document).ready(function() {
   $('body').addClass('factsheets');
 
   window.isHeaderMap = $(".country-header").hasClass('country-header');
-
   window.isGlobalMap = $("svg-container").data('globalmap') === 'global';
 
   var width = isGlobalMap ? $('svg').width() : $(window).width();
@@ -450,9 +432,6 @@ $(document).ready(function() {
     var $body = $('#site-body');
     $body.prepend($svgw);
   }
-
-  // var selectedCountry = getSelectedCountry();
-  // console.log("Selected country", selectedCountry);
 
   var wflags = fLoc("countries.tsv");
   var w110 = fLoc("countries.geo.json");

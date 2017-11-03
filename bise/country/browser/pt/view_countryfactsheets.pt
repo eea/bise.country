@@ -39,8 +39,6 @@
     </svg-container>
 
     <div tal:replace="structure context/text/output | nothing">Text here</div>
-    <!-- <script tal:define="countries_json python: str([x.Title() for x in context.listFolderContents()])"
-           tal:content="string: var available_map_countries = ${countries_json};"></script> -->
 
   </body>
 

@@ -3,6 +3,8 @@ Changelog
 
 3.2.dev0 - (unreleased)
 -----------------------
+- Remove unused code
+  [krisztina #85826]
 - Get countries from data attribute, improve map
   [krisztina #85826]
 - Fix country header map position
