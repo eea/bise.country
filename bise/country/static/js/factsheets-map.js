@@ -440,9 +440,12 @@ $(document).ready(function() {
   var height = 560;
 
   if ($('.svg-wrapper').length > 0) {
-    var $svg = $('.svg-wrapper').detach();
+    var $svgh = $('<div class="header-bg"/>');
+    var $svg = $('.svg-wrapper');
+    $svgh.append($svg);
+    var $svgw = $svgh.detach();
     var $body = $('#site-body');
-    $body.prepend($svg);
+    $body.prepend($svgw);
   }
 
   var selectedCountry = getSelectedCountry();

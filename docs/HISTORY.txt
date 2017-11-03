@@ -3,6 +3,8 @@ Changelog
 
 3.2.dev0 - (unreleased)
 -----------------------
+- Fix country header map position
+  [krisztina #85826]
 
 3.1 - (2017-11-01)
 ------------------
@@ -134,4 +136,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
