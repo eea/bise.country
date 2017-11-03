@@ -28,10 +28,9 @@
     <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
 
     <svg-container
+      class="svg-global-wrapper"
       data-globalmap="global"
-      data-posscale="6"
-      data-posx="-26"
-      data-posy="-10"
+      data-ratio="0.9"
       tal:define="countries_json python: ','.join([x.Title() for x in context.listFolderContents()])"
       tal:attributes="data-available-countries countries_json;
                       data-maplets string:CYP,LUX,MLT"
@@ -40,8 +39,8 @@
     </svg-container>
 
     <div tal:replace="structure context/text/output | nothing">Text here</div>
-    <script tal:define="countries_json python: str([x.Title() for x in context.listFolderContents()])"
-           tal:content="string: var available_map_countries = ${countries_json};"></script>
+    <!-- <script tal:define="countries_json python: str([x.Title() for x in context.listFolderContents()])"
+           tal:content="string: var available_map_countries = ${countries_json};"></script> -->
 
   </body>
 

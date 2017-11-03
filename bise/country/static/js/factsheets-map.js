@@ -26,6 +26,10 @@ function filterCountriesById(countries, filterIds){
   return features;
 }
 
+// get ratio from data attribute
+var gRatio = $(".svg-global-wrapper").data('ratio');       //  for global map
+var hRatio = $(".svg-header-wrapper").data('ratio');      //  for header map
+
 
 function travelToOppositeMutator(start, viewport, delta) {
   // point: the point we want to mutate
@@ -142,7 +146,13 @@ function drawCountries(
   ;
 
   var b = path.bounds(focusCountriesFeature);
-  vRatio = 0.5; // hardcode a ratio because it can vary widely from phone to desktop
+
+  if (window.isGlobalMap) {
+    vRatio = gRatio; // hardcode a ratio because it can vary widely from phone to desktop
+  }
+  else {
+    vRatio = hRatio; // hardcode a ratio because it can vary widely from phone to desktop
+  }
   var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
   var chRatio = (b[1][1] - b[0][1]) / height;   // bounds to height ratio
   var s =  vRatio / Math.max(cwRatio, chRatio);
@@ -400,42 +410,49 @@ function setCountryFlags(countries, flags) {
   });
 }
 
-function getSelectedCountry() {
-  // get the "desired country" from data attribute
-
-  window.isHeaderMap = $(".country-header").hasClass('country-header');
-
-  var sc;
-
-  if (window.isHeaderMap) {
-    var $cd = $(".country-header").data('zoom-country');
-    // uppercase the first letter
-    var w = $cd.charAt(0).toUpperCase() + $cd.slice(1);
-    sc = w
-  }
-  return sc;
-}
+// function getSelectedCountry() {
+//   // get the "desired country" from data attribute
+//
+//   window.isHeaderMap = $(".country-header").hasClass('country-header');
+//
+//   var sc;
+//
+//   if (window.isHeaderMap) {
+//     var $cd = $(".country-header").data('zoom-country');
+//     // uppercase the first letter
+//     var w = $cd.charAt(0).toUpperCase() + $cd.slice(1);
+//     sc = w
+//   }
+//   return sc;
+// }
 
 
 $(document).ready(function() {
+  // get available countries from data attribute
+  var $svgc = $("svg-container").data('available-countries');
+  // get focused countries for maplets from data attribute
+  var $svgm = $("svg-container").data('maplets');
+
   $('body').addClass('factsheets');
+
+  window.isHeaderMap = $(".country-header").hasClass('country-header');
 
   window.isGlobalMap = $("svg-container").data('globalmap') === 'global';
 
   var width = isGlobalMap ? $('svg').width() : $(window).width();
   var height = 560;
 
-  if ($('.svg-wrapper').length > 0) {
+  if ($('.svg-header-wrapper').length > 0) {
     var $svgh = $('<div class="header-bg"/>');
-    var $svg = $('.svg-wrapper');
+    var $svg = $('.svg-header-wrapper');
     $svgh.append($svg);
     var $svgw = $svgh.detach();
     var $body = $('#site-body');
     $body.prepend($svgw);
   }
 
-  var selectedCountry = getSelectedCountry();
-  console.log("Selected country", selectedCountry);
+  // var selectedCountry = getSelectedCountry();
+  // console.log("Selected country", selectedCountry);
 
   var wflags = fLoc("countries.tsv");
   var w110 = fLoc("countries.geo.json");
@@ -478,6 +495,24 @@ $(document).ready(function() {
     var graticule = d3.geoGraticule().step(gStep);
     var minorGraticule = d3.geoGraticule().step([gStep[0]/4, gStep[1]/4]);
 
+    var countries_Id = countries.map(function(d) {
+      if (window.isGlobalMap) {
+        if ($svgc.indexOf(d.name) > -1) {
+          return d.id;
+        }
+      }
+
+      if (window.isHeaderMap) {
+        // get selected country from data attribute
+        var $cd = $(".country-header").data('zoom-country');
+        var wd = $cd.charAt(0).toUpperCase() + $cd.slice(1);
+
+        if (wd.indexOf(d.name) > -1) {
+          return d.id;
+        }
+      }
+    });
+
     drawCountries(
       svg,
       0,
@@ -485,13 +520,13 @@ $(document).ready(function() {
       width,
       height,
       countries,
-      ['CYP', 'ROU'],
+      countries_Id,
       projection,
       [[graticule, 'main-lines'], [minorGraticule, 'sub-lines']]
     );
 
     var available_map_country_ids = countries.map(function(d) {
-      if (window.available_map_countries.indexOf(d.name) > -1) {
+      if ($svgc.indexOf(d.name) > -1) {
         return d.id;
       }
     });
@@ -499,13 +534,11 @@ $(document).ready(function() {
 
     console.log('width', width);
     console.log('height', height);
-    if (window.isGlobalMap) {
 
-      //'MLT', 'CYP''LUX'
-      ['MLT', 'CYP', 'LUX'].forEach(function(id, index) {
-        // TODO: check if it's in window.available_map_countries;
-        // TODO: change available_map_countries to be a data attribute passable
-        // from template
+    if (window.isGlobalMap) {
+      var focusCountries = $svgm.split(',');
+
+      focusCountries.forEach(function(id, index) {
 
         var p = d3.geoMercator();
         p

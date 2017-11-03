@@ -10,12 +10,8 @@ body {
   top: 92px;
 }
 
-/*#site-body .svg-wrapper {
-  top: auto;
-}*/
-
 .factsheets #site-body {
-  padding-top: 275px;
+  padding-top: 345px;
 }
 
 .nav {
