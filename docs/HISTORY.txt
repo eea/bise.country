@@ -3,7 +3,9 @@ Changelog
 
 3.6.dev0 - (unreleased)
 -----------------------
-- Feature: Improve sidebar on small screen sizes 
+- Feature: Customize edit button
+  [krisztina #85826]
+- Feature: Improve sidebar on small screen sizes
   [krisztina #85826]
 - Bug fix: Hide dropdown default arrow in firefox and IE
   [krisztina #85826]

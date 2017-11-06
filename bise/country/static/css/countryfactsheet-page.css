@@ -918,6 +918,15 @@ body {
   padding-left: 10px;
 }
 
+.edit-button {
+  position: absolute;
+  top: 22px;
+}
+
+.content-wrapper {
+  margin-top: 35px;
+}
+
 @media (min-width: 992px) {
   #mtr-main-wrapper {
     float:right;
