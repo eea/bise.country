@@ -3,11 +3,14 @@ Changelog
 
 3.4.dev0 - (unreleased)
 -----------------------
+- Feature: Watch resize event to redraw map and replace maplets in different
+  position
+  [tiberich, krisztina #85826]
 
 3.3 - (2017-11-06)
 ------------------
 - Bug fix: Directly show flag if on country page
-  [tiberich]
+  [tiberich, krisztina #85826]
 
 3.2 - (2017-11-03)
 ------------------
