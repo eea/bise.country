@@ -1,8 +1,8 @@
 Changelog
 =========
 
-3.6.dev0 - (unreleased)
------------------------
+3.6 - (2017-11-06)
+------------------
 - Feature: Customize edit button
   [krisztina #85826]
 - Feature: Improve sidebar on small screen sizes
@@ -165,3 +165,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
