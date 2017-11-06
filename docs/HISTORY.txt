@@ -3,6 +3,8 @@ Changelog
 
 3.6.dev0 - (unreleased)
 -----------------------
+- Bug fix: Hide dropdown default arrow in firefox and IE 
+  [krisztina #85826]
 
 3.5 - (2017-11-06)
 ------------------
@@ -159,4 +161,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

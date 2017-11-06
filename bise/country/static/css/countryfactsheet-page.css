@@ -624,6 +624,11 @@ body {
   text-indent: 0.01px;
   text-overflow: '';
   -webkit-appearance: button; /* hide default arrow in chrome OSX */
+  -moz-appearance: none;      /* hide default arrow in firefox */
+}
+
+.custom-dropdown select::-ms-expand {
+    display: none;   /* hide default arrow in IE */
 }
 
 .custom-dropdown::before, .custom-dropdown::after {
