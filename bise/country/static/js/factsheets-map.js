@@ -1,10 +1,11 @@
 Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
-}
+};
+
 
 function makeid() {
-  var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  var text = '';
+  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
 
   for (var i = 0; i < 5; i++)
     text += possible.charAt(Math.floor(Math.random() * possible.length));
@@ -12,19 +13,21 @@ function makeid() {
   return text;
 }
 
+
 function filterCountriesById(countries, filterIds){
-    var features = {
-      type: "FeatureCollection",
-      features: []
+  var features = {
+    type: 'FeatureCollection',
+    features: []
+  };
+  countries.forEach(function(c) {
+    if (filterIds.indexOf(c.id) === -1) {
+      return;
     }
-    countries.forEach(function(c) {
-      if (filterIds.indexOf(c.id) === -1) {
-        return;
-      }
-      features.features.push(c);
-    });
+    features.features.push(c);
+  });
   return features;
 }
+
 
 function travelToOppositeMutator(start, viewport, delta) {
   // point: the point we want to mutate
@@ -32,7 +35,7 @@ function travelToOppositeMutator(start, viewport, delta) {
   // viewport: array of width, height
   // delta: array of dimensions to travel
 
-  center = findCenter(viewport);
+  var center = findCenter(viewport);
 
   var dirx = start[0] > center[0] ? -1 : 1;
   var diry = start[1] > center[1] ? -1 : 1;
@@ -43,7 +46,7 @@ function travelToOppositeMutator(start, viewport, delta) {
       point[1] + delta[1] * diry
     ];
     return res;
-  }
+  };
 }
 
 
@@ -79,21 +82,18 @@ function getMapletStartingPoint(
 
   // TODO: this could be improved, there are many edge cases
   switch (side) {
-    case 'top':
-      mutPoint[0] = mutPoint[0];
-      mutPoint[1] = startPoint[1];
-      break;
-    case 'bottom':
-      mutPoint[1] = startPoint[1] - bhs;
-      break;
-    case 'left':
-      mutPoint[0] = startPoint[0];
-      mutPoint[1] = mutPoint[1];
-      break;
-    case 'right':
-      mutPoint[0] = startPoint[0] - bws;
-      mutPoint[1] = mutPoint[1];
-      break;
+  case 'top':
+    mutPoint[1] = startPoint[1];
+    break;
+  case 'bottom':
+    mutPoint[1] = startPoint[1] - bhs;
+    break;
+  case 'left':
+    mutPoint[0] = startPoint[0];
+    break;
+  case 'right':
+    mutPoint[0] = startPoint[0] - bws;
+    break;
   }
 
   return {
@@ -113,12 +113,11 @@ function drawCountries(
   focusIds,   // country ids where we zoom focus
   projection, // desired projection (ex: mercator projection d3 object)
   graticules  // array of graticules and css classes
-              //    [[gr1, 'main-lines'], [gr2, 'secondary-lines]]
+  //    [[gr1, 'main-lines'], [gr2, 'secondary-lines]]
 ) {
   // Draw the countries in the specified viewport
 
   var focusCountriesFeature = filterCountriesById(countries, focusIds);
-  console.log('focus', focusCountriesFeature);
 
   var path = d3.geoPath().projection(projection);   // the path transformer
 
@@ -146,7 +145,7 @@ function drawCountries(
   var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
   var chRatio = (b[1][1] - b[0][1]) / height;   // bounds to height ratio
   var s =  vRatio / Math.max(cwRatio, chRatio);
-  t = [
+  var t = [
     (width - s * (b[1][0] + b[0][0])) / 2 + x,
     (height - s * (b[0][1] + b[1][1])) / 2 + y
   ];
@@ -164,7 +163,6 @@ function drawCountries(
   ;
 
   graticules = graticules || [];
-  console.log('grats', graticules);
 
   if (graticules.length) {
     var grat = g
@@ -222,8 +220,6 @@ function drawCountries(
     .attr('y', y)
   ;
 
-  var cb = path.bounds(focusCountriesFeature);
-
   var imgs = svg.append('g');
   imgs
     .selectAll('image')
@@ -255,16 +251,16 @@ function drawCountries(
       return pbox.height;
     })
     .attr("preserveAspectRatio", "none")
-    .attr('opacity', function(d) {
+    .attr('opacity', function() {
       return (window.available_map_countries.length === 1) ? '1' : '0';
     })
-    .on('mouseover', function(d){
+    .on('mouseover', function(){
       if (window.available_map_countries.length === 1) {
         return;
       }
       d3.select(this).attr('opacity', 1);
     })
-    .on('mouseout', function(d){
+    .on('mouseout', function(){
       if (window.available_map_countries.length === 1) {
         return;
       }
@@ -277,7 +273,6 @@ function drawCountries(
       // handleClick(d);
       if (window.available_map_countries.indexOf(d.id) > -1) {
         var link = d.name.toLowerCase();
-        // "/countries/eu_country_profiles/"+link+"";
         location.href = link;
         return true;
       }
@@ -309,13 +304,10 @@ function addComposedCountryToMap(
   //  | spacer
   //  ---------------
 
-  var boxw = 70;
-  var boxh = 70;
+  var boxw = 60;
+  var boxh = 60;
   var spacer = 20;
-
-  if (!index) {
-    index = 0;
-  }
+  var boxtitle = 10;
 
   if (!index) {
     index = 0;
@@ -326,9 +318,9 @@ function addComposedCountryToMap(
     startPoint,
     index,
     side,
-    20,
-    [60, 60],
-    10
+    spacer,
+    [boxw, boxh],
+    boxtitle
   );
 
   drawCountries(
@@ -356,24 +348,18 @@ function addComposedCountryToMap(
   var label = svg.append('text')
     .attr('x', 0)
     .attr('y', 0)
-    // .attr('width', boxw)
-    // .append('tspan')
     .attr('class', 'country-focus-label')
     .attr('text-anchor', 'middle')
     .text(focusId)
   ;
 
   var lbbox = label.node().getBBox();
-  // bottomy - boxh - lbbox.height - spacer - (lbbox.y / 1.2)
-  // boxw / 2 - lbbox.width / 2 + spacer
-
   var textboxh = lbbox.height + lbbox.height / 4;
 
   label
     .attr('x', msp.x + boxw/2)
     .attr('y', msp.y - textboxh / 3)
   ;
-
 
   svg
     .append('rect')
@@ -393,11 +379,13 @@ function fLoc(fname) {
   return window.location.origin + "/++resource++bise.country/js/countries/" + fname;
 }
 
+
 function setCountryNames(countries) {
   countries.forEach(function(d) {
     d.name = d.properties.name;
   });
 }
+
 
 function setCountryFlags(countries, flags) {
   countries.forEach(function(c) {
@@ -410,9 +398,11 @@ function setCountryFlags(countries, flags) {
   });
 }
 
+
 $(document).ready(function() {
   // get available countries from data attribute
   var $svgc = $("svg-container").data('available-countries');
+
   // get focused countries for maplets from data attribute
   var $svgm = $("svg-container").data('maplets');
 
@@ -420,10 +410,11 @@ $(document).ready(function() {
 
   window.isHeaderMap = $(".country-header").hasClass('country-header');
   window.isGlobalMap = $("svg-container").data('globalmap') === 'global';
+
   // get ratio from data attribute
   window.vRatio = parseFloat($("svg-container").data('ratio'));
 
-  var width = isGlobalMap ? $('svg').width() : $(window).width();
+  var width = window.isGlobalMap ? $('svg').width() : $(window).width();
   var height = 560;
 
   if ($('.svg-header-wrapper').length > 0) {
@@ -438,9 +429,9 @@ $(document).ready(function() {
   var wflags = fLoc("countries.tsv");
   var w110 = fLoc("countries.geo.json");
 
-  var q = d3.queue()
+  d3
+    .queue()
     .defer(d3.json, w110)
-  // .defer(d3.tsv, wnames)
     .defer(d3.tsv, wflags)
     .await(ready);
 
@@ -457,10 +448,8 @@ $(document).ready(function() {
     var countries = world.features;
     var projection = d3.geoRobinson();   // azimuthalEquidistant conicEquidistant()
     projection
-          .scale(1)
-          .translate([0, 0]);
-
-    // var path = d3.geoPath().projection(projection);
+      .scale(1)
+      .translate([0, 0]);
 
     // Augument the countries GeoJSON data with names, bounds and flags
     setCountryNames(countries);
@@ -520,10 +509,6 @@ $(document).ready(function() {
     }).filter(function(c) {
       return c;
     });
-    console.log('Countries', available_map_country_ids);
-
-    console.log('width', width);
-    console.log('height', height);
 
     if (window.isGlobalMap) {
       var focusCountries = $svgm.split(',');
@@ -547,8 +532,7 @@ $(document).ready(function() {
             p
           );
         }
-      })
+      });
     }
-
   }
 });
