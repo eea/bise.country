@@ -65,16 +65,24 @@
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-page.css" />
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
 
-      <span class="custom-dropdown" tal:condition="python: len(countries) > 1">
-        <select>
-          <option selected="selected" tal:attributes="value context/aq_parent/absolute_url">---</option>
-          <option tal:repeat="country countries"
-            tal:content="country/Title"
-            tal:attributes="value country/getURL; selected python: country.id == context.id">
-          12345678910112
-          </option>
-        </select>
-      </span>
+      <div class="map-title">
+        <h1 tal:content="context/Title"></h1>
+
+        <span class="custom-dropdown" tal:condition="python: len(countries) > 1">
+
+          <label for="country-dropdown-select">
+            <span class="sr-only">Country</span>
+          </label>
+          <select name="country-dropdown-select">
+            <option selected="selected" tal:attributes="value context/aq_parent/absolute_url">---</option>
+            <option tal:repeat="country countries"
+                    tal:content="country/Title"
+                    tal:attributes="value country/getURL; selected python: country.id == context.id">
+            12345678910112
+            </option>
+          </select>
+        </span>
+      </div>
 
       <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">
@@ -97,7 +105,7 @@
                tal:attributes="id string:#t-${repeat/lc/index}"
                >
                <div class="edit-button" tal:condition="python: view.can_edit(lc[1])" tal:define="obj python: lc[1]">
-                 <a href="" target="_blank" tal:attributes="href string:${obj/absolute_url}/edit">
+                 <a class="btn btn-secondary" href="" target="_blank" tal:attributes="href string:${obj/absolute_url}/edit">
                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                    Edit this page</a>
                </div>
@@ -113,8 +121,13 @@
 
     <script type="text/javascript">
 $(document).ready(function() {
-  $('.collapsible').collapsiblePanel({defaultOpen: 'content-header'});
+
+  $('h3.collapsible').collapsiblePanel({
+    // defaultOpen: 'content-header'
+  });
+
   $("body").addClass("claro");
+
   $("#targetFilter input:checkbox").change(function() {
     var filter = "?";
     if ($("#targetFilter input:checked").length > 0){
