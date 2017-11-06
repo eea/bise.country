@@ -137,6 +137,7 @@ function drawCountries(
 
   var g = svg
     .append('g')
+    .attr('class', 'country-maps')
     .attr('clip-path', 'url(#' + cprectid + ')')
   ;
 
@@ -223,6 +224,7 @@ function drawCountries(
 
   var imgs = svg.append('g');
   imgs
+    .attr('class', 'flag-images')
     .selectAll('image')
     .attr('class', 'country-flags')
     .data(focusCountriesFeature.features)
@@ -350,12 +352,16 @@ function addComposedCountryToMap(
     .html(index)
   ;
 
+  var countryName = countries.filter(function(d) {
+    return d.id === focusId;
+  })[0].name;
+
   var label = svg.append('text')
     .attr('x', 0)
     .attr('y', 0)
     .attr('class', 'country-focus-label')
     .attr('text-anchor', 'middle')
-    .text(focusId)
+    .text(countryName)
   ;
 
   var lbbox = label.node().getBBox();
@@ -451,11 +457,7 @@ $(document).ready(function() {
     // countries.geo.json comes from https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json
 
     var countries = world.features;
-    var projection = d3.geoRobinson();   // azimuthalEquidistant conicEquidistant()
-    projection
-      .scale(1)
-      .translate([0, 0]);
-
+    //
     // Augument the countries GeoJSON data with names, bounds and flags
     setCountryNames(countries);
     setCountryFlags(countries, flags);
@@ -492,54 +494,80 @@ $(document).ready(function() {
     });
     window.available_map_countries = countries_Id;
 
-    drawCountries(
-      svg,
-      0,
-      0,
-      width,
-      height,
-      countries,
-      countries_Id,
-      projection,
-      [
-        [graticule, 'main-lines'],
-        [minorGraticule, 'sub-lines']
-      ],
-      zoomLevel
-    );
+    var globalMapProjection = d3.geoRobinson();   // azimuthalEquidistant conicEquidistant()
 
-    var available_map_country_ids = countries.map(function(d) {
-      if ($svgc.indexOf(d.name) > -1) {
-        return d.id;
-      }
-    }).filter(function(c) {
-      return c;
-    });
+    function drawMap() {
 
-    if (window.isGlobalMap) {
-      var focusCountries = $svgm.split(',');
+      globalMapProjection
+        .scale(1)
+        .translate([0, 0]);
 
-      focusCountries.forEach(function(id, index) {
+      drawCountries(
+        svg,
+        0,
+        0,
+        width,
+        height,
+        countries,
+        countries_Id,
+        globalMapProjection,
+        [
+          [graticule, 'main-lines'],
+          [minorGraticule, 'sub-lines']
+        ],
+        zoomLevel
+      );
 
-        var p = d3.geoMercator();
-        p
-          .scale(1)
-          .translate([0, 0]);
-
-        if (available_map_country_ids.indexOf(id) > -1) {
-          addComposedCountryToMap(
-            svg,
-            [width, height],
-            countries,
-            id,
-            index,
-            [10, 26],
-            'left',
-            p,
-            0.6
-          );
+      var available_map_country_ids = countries.map(function(d) {
+        if ($svgc.indexOf(d.name) > -1) {
+          return d.id;
         }
+      }).filter(function(c) {
+        return c;
       });
+
+      if (window.isGlobalMap) {
+        var focusCountries = $svgm.split(',');
+
+        var orientation = 'left';
+        var start = [10, 26];
+
+        if ((height / width) > 1.2){
+          orientation =  'bottom';
+          start = [10, height + 20];
+        }
+
+        focusCountries.forEach(function(id, index) {
+
+          var p = d3.geoMercator();
+          p
+            .scale(1)
+            .translate([0, 0]);
+
+          if (available_map_country_ids.indexOf(id) > -1) {
+            addComposedCountryToMap(
+              svg,
+              [width, height],
+              countries,
+              id,
+              index,
+              start,
+              orientation,
+              p,
+              0.6
+            );
+          }
+        });
+      }
     }
+
+    drawMap();
+
+    $(window).resize(function() {
+      width = window.isGlobalMap ? $('svg').width() : $(window).width();
+      console.log("resized", width);
+      svg.selectAll("*").remove();
+      drawMap()
+    })
   }
 });

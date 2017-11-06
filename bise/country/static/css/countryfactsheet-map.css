@@ -34,20 +34,20 @@ svg-container {
 }
 
 .country-focus-text-bg {
-  fill: #666;
-  stroke: black;
+  fill: #333366;
+  stroke: #333366;
   stroke-width: 2;
 }
 .country-focus-label {
   fill: white;
   stroke: none;
   text-anchor: middle;
-  font: 600 9px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 600 8.4px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .maplet-outline {
   fill: none;
-  stroke: black;
+  stroke: #333366;
   stroke-width: 2;
 }
 
