@@ -255,24 +255,19 @@ function drawCountries(
     })
     .attr("preserveAspectRatio", "none")
     .attr('opacity', function() {
-      return (window.available_map_countries.length === 1) ? '1' : '0';
+      return window.isHeaderMap ? '1' : '0';
     })
     .on('mouseover', function(){
-      if (window.available_map_countries.length === 1) {
-        return;
-      }
+      if (window.isHeaderMap) return;
       d3.select(this).attr('opacity', 1);
     })
     .on('mouseout', function(){
-      if (window.available_map_countries.length === 1) {
-        return;
-      }
+      if (window.isHeaderMap) return;
       d3.select(this).attr('opacity', 0);
     })
     .on('click', function(d){
-      if (window.available_map_countries.length === 1) {
-        return;
-      }
+      if (window.isHeaderMap) return;
+      //
       // handleClick(d);
       if (window.available_map_countries.indexOf(d.id) > -1) {
         var link = d.name.toLowerCase();
@@ -474,7 +469,6 @@ $(document).ready(function() {
 
     var countries_Id = countries.map(function(d) {
       if (window.isGlobalMap) {
-
         if ($svgc.indexOf(d.name) > -1) {
           return d.id;
         }
@@ -492,6 +486,7 @@ $(document).ready(function() {
     }).filter(function(c) {
       return c;
     });
+
     window.available_map_countries = countries_Id;
 
     var globalMapProjection = d3.geoRobinson();   // azimuthalEquidistant conicEquidistant()
