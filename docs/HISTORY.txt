@@ -1,8 +1,8 @@
 Changelog
 =========
 
-3.5.dev0 - (unreleased)
------------------------
+3.5 - (2017-11-06)
+------------------
 - Feature: don't override the height set to the svg element in country maps
   [tiberich, krisztina #85826]
 
