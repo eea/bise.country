@@ -112,8 +112,9 @@ function drawCountries(
   countries,  // topojson with country as features
   focusIds,   // country ids where we zoom focus
   projection, // desired projection (ex: mercator projection d3 object)
-  graticules  // array of graticules and css classes
-  //    [[gr1, 'main-lines'], [gr2, 'secondary-lines]]
+  graticules, // array of graticules and css classes
+              //    [[gr1, 'main-lines'], [gr2, 'secondary-lines]]
+  zoomLevel   // correction factor for zoom
 ) {
   // Draw the countries in the specified viewport
 
@@ -141,10 +142,10 @@ function drawCountries(
 
   var b = path.bounds(focusCountriesFeature);
 
-  var vRatio = window.vRatio;
+  // var vRatio = window.vRatio;
   var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
   var chRatio = (b[1][1] - b[0][1]) / height;   // bounds to height ratio
-  var s =  vRatio / Math.max(cwRatio, chRatio);
+  var s =  zoomLevel / Math.max(cwRatio, chRatio);
   var t = [
     (width - s * (b[1][0] + b[0][0])) / 2 + x,
     (height - s * (b[0][1] + b[1][1])) / 2 + y
@@ -290,7 +291,8 @@ function addComposedCountryToMap(
   index,
   startPoint,
   side,
-  projection
+  projection,
+  zoomLevel
 ) {
   // Adds a zoom to the desired country, added to the left side of the map
   //
@@ -322,6 +324,7 @@ function addComposedCountryToMap(
     [boxw, boxh],
     boxtitle
   );
+  console.log("zoom level", zoomLevel);
 
   drawCountries(
     svg,
@@ -331,7 +334,9 @@ function addComposedCountryToMap(
     boxh,
     countries,
     [focusId],
-    projection
+    projection,
+    [],
+    zoomLevel
   );
 
   svg
@@ -412,7 +417,7 @@ $(document).ready(function() {
   window.isGlobalMap = $("svg-container").data('globalmap') === 'global';
 
   // get ratio from data attribute
-  window.vRatio = parseFloat($("svg-container").data('ratio'));
+  var zoomLevel = parseFloat($("svg-container").data('ratio'));
 
   var width = window.isGlobalMap ? $('svg').width() : $(window).width();
   var height = 560;
@@ -499,7 +504,8 @@ $(document).ready(function() {
       [
         [graticule, 'main-lines'],
         [minorGraticule, 'sub-lines']
-      ]
+      ],
+      zoomLevel
     );
 
     var available_map_country_ids = countries.map(function(d) {
@@ -529,7 +535,8 @@ $(document).ready(function() {
             index,
             [10, 26],
             'left',
-            p
+            p,
+            0.6
           );
         }
       });
