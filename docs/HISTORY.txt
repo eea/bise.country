@@ -3,7 +3,9 @@ Changelog
 
 3.6.dev0 - (unreleased)
 -----------------------
-- Bug fix: Hide dropdown default arrow in firefox and IE 
+- Feature: Improve sidebar on small screen sizes 
+  [krisztina #85826]
+- Bug fix: Hide dropdown default arrow in firefox and IE
   [krisztina #85826]
 
 3.5 - (2017-11-06)

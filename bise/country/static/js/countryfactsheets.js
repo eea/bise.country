@@ -218,13 +218,16 @@ $(document).ready(function(){
     $("#mtr-main-wrapper").insertAfter("#sidebar-wrapper");
 
     // show/hide sidebar on mobile
-    $('.mobile-sidebar').click(function () {
-      $('#sidebar-wrapper').toggle("slide");
+    $('.mobile-sidebar, .close-sidebar').click(function (e) {
+      e.stopPropagation();
+      $('#sidebar-wrapper').toggleClass("toggle-sidebar");
     });
 
-    $('.close-sidebar').click(function () {
-      $('#sidebar-wrapper').hide();
-    });
+    $('body').click(function() {
+      if ($('#sidebar-wrapper').hasClass('toggle-sidebar')) {
+        $("#sidebar-wrapper").toggleClass('toggle-sidebar')
+      }
+    })
 
     $('.i-sticky').iSticky();   // activate sticky plugin/polyfill for sidebar
 
@@ -239,7 +242,11 @@ $(document).ready(function(){
       var anchID = anchID.split('#')[1];
       var anchID = '#' + anchID;
 
-      var target = $(anchID).offset().top;
+      if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
+        var target = $(anchID).offset().top + (-60);
+      } else {
+        var target = $(anchID).offset().top;
+      }
 
       $('html, body').animate({ scrollTop: target }, 500);
 
