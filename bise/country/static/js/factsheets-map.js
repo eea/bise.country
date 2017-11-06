@@ -426,7 +426,7 @@ $(document).ready(function() {
   var zoomLevel = parseFloat($("svg-container").data('ratio'));
 
   var width = window.isGlobalMap ? $('svg').width() : $(window).width();
-  var height = 560;
+  var height = $('svg').height();
 
   if ($('.svg-header-wrapper').length > 0) {
     var $svgh = $('<div class="header-bg"/>');
@@ -457,7 +457,7 @@ $(document).ready(function() {
     // countries.geo.json comes from https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json
 
     var countries = world.features;
-    //
+
     // Augument the countries GeoJSON data with names, bounds and flags
     setCountryNames(countries);
     setCountryFlags(countries, flags);
@@ -466,7 +466,7 @@ $(document).ready(function() {
       .select("body")
       .select("svg")
       .attr("width", width)
-      .attr("height", height);
+    ;
 
     var gStep = window.isGlobalMap ? [10, 10] : [4, 4];
     var graticule = d3.geoGraticule().step(gStep);

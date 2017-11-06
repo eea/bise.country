@@ -24,7 +24,7 @@
             data-ratio="0.4"
             tal:define="countries_json python: ','.join([x.Title() for x in context.aq_parent.listFolderContents()])"
             tal:attributes="data-available-countries countries_json">
-          <svg></svg>
+          <svg height="520"></svg>
         </svg-container>
       </div>
 

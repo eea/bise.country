@@ -35,7 +35,7 @@
       tal:attributes="data-available-countries countries_json;
                       data-maplets string:CYP,LUX,MLT"
       id="countryfactsheets-map">
-      <svg ></svg>
+      <svg height="560"></svg>
     </svg-container>
 
     <div tal:replace="structure context/text/output | nothing">Text here</div>
