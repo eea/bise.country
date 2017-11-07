@@ -1,8 +1,8 @@
 Changelog
 =========
 
-3.7.dev0 - (unreleased)
------------------------
+3.7 - (2017-11-07)
+------------------
 - Improve country factsheet title
 
 3.6 - (2017-11-06)
