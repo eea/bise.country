@@ -4,6 +4,7 @@
 
 svg {
   width: 100%;
+  position: relative;
 }
 
 svg-container {
@@ -15,7 +16,7 @@ svg-container {
 
 #countryfactsheets-map {
   width: 100%;
-  position: initial;
+  position: relative;
   display: block;
   top: inherit;
   overflow: hidden;
@@ -80,4 +81,59 @@ svg-container {
   fill: none;
   stroke: black;
   stroke-width: 2;
+}
+
+/***** MAES map related *****/
+
+#countries-filter {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: auto;
+  width: 180px;
+  background-color: white;
+  border: 2px solid #333366;;
+  padding: 10px;
+  font-size: 0.85rem;
+}
+
+#countries-filter span {
+  font-weight: bold;
+}
+
+#countries-filter ul {
+  padding-left: 2px;
+  margin-bottom: 0;
+}
+
+#countries-filter ul li {
+  list-style-type: none;
+  padding: 4px 0
+}
+
+#countries-filter .color-box {
+  width: 18px;
+  height: 13px;
+  border: 1px solid black;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+@media (max-width: 767px)  {
+    #countries-filter {
+      width: 154px;
+      padding: 7px;
+      font-size: 10px;
+      right: auto;
+      left: 10px;
+  }
+
+  #countries-filter ul li {
+    padding: 2px 0
+  }
+
+  #countries-filter ul {
+    margin-top: 0;
+  }
+
 }

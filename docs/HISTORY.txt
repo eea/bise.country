@@ -3,6 +3,8 @@ Changelog
 
 3.8.dev0 - (unreleased)
 -----------------------
+- Feature: Refactor MAES countries map
+  [krisztina #89844]
 
 3.7 - (2017-11-07)
 ------------------
@@ -172,4 +174,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
