@@ -12,9 +12,6 @@ function makeid() {
   return text;
 }
 
-var maesCountries = JSON.parse(data);
-var types = maesCountries['types'];
-
 function filterCountriesById(countries, filterIds){
   var features = {
     type: 'FeatureCollection',
@@ -416,9 +413,11 @@ function setCountryFlags(countries, flags) {
 }
 
 
-$(document).ready(function() {
-  var getCountries = [];
-  var $ul = $('#countries-filter ul');
+function init(settings) {
+  var types = settings['filteredCountries'];
+
+  // var maesCountries = JSON.parse(data);
+  // var types = maesCountries['filteredCountries'];
 
   for (var i = 0; i < types.length; i++) {
     var $dbox = $('<li><div class="color-box"/><span class="type-title"/></li>');
@@ -593,4 +592,18 @@ $(document).ready(function() {
       drawMap()
     })
   }
+}
+
+
+$(document).ready(function() {
+  // TODO: generate the legend from JS
+  var getCountries = [];
+  var $ul = $('#countries-filter ul');
+
+  var settingsURL = $("svg-container").data('settings');
+  var showLegend = $("svg-container").data('show-legend') || false;    //  === 'true' ? true : false;
+  console.log("show legend", showLegend, typeof showLegend);
+
+  d3.json(settingsURL, init);
+
 });

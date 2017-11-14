@@ -1,8 +1,32 @@
+import json
+
 from lxml.builder import E
 from lxml.html import fromstring, tostring
 
 from plone.api.user import has_permission
 from plone.subrequest import subrequest
+
+
+class MapFolderListingSettings(object):
+    """
+    """
+
+    def __call__(self):
+        res = {
+            'filteredCountries': [
+                {
+                    "title": 'All countries',
+                    "color": "red",
+                    "countries": [x.Title()
+                                  for x in self.context.listFolderContents()]
+                }
+            ],
+            "maplets": "Malta,Luxembourg,Cyprus"
+        }
+
+        self.request.response.headers['Content-Type'] = 'application/json'
+
+        return json.dumps(res)
 
 
 class CountryFactsheetView(object):

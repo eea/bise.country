@@ -23,20 +23,23 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script src="/++resource++bise.country/js/countries/maes-countries.json"></script>
     <script src="/++resource++bise.country/js/maes-map.js"></script>
 
     <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
+
+      tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings "
 
     <svg-container
       class="svg-global-wrapper"
       data-globalmap="global"
       data-ratio="0.9"
-      tal:attributes="data-maplets string:Malta,Luxembourg,Cyprus"
+      data-settings="/++resource++bise.country/js/countries/maes-countries.json"
+      data-show-legend="true"
       id="countryfactsheets-map">
 
       <svg height="560"></svg>
 
+      <!-- TODO: generate this from JS -->
       <div id="countries-filter">
         <span>Report on MAES-related <br> developments</span>
         <ul></ul>

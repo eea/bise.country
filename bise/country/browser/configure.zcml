@@ -72,4 +72,12 @@
       template="pt/view_maes_map.pt"
       />
 
+    <browser:page
+      name="mapFolderListingSettings"
+      for="*"
+      class=".views.MapFolderListingSettings"
+      permission="zope2.View"
+      />
+
+
 </configure>

@@ -1,1 +1,11 @@
-data = '{"types":[{"title":"Updated 2017","color":"#f4ce63","countries":["Finland","Ireland","Netherlands","Italy","France"]},{"title":"Updated 2015/16","color":"#41b664","countries":["Estiona","Latvia","Lithuania","Germany","Belgium","Czech Republic","Austria","Hungary","Croatia","Romania","Portugal"]},{"title":"Available","color":"#ef8152","countries":["Sweden","United Kingdom","Spain","Poland","Slovakia","Greece","Bulgaria","Luxembourg","Malta"]},{"title":"Not available","color":"#aec4dc","countries":["Cyprus"]},{"title":"Outside data coverage","color":"#efe7d4","countries":[]}]}';
+{
+  "filteredCountries":
+  [
+    {"title":"Updated 2017", "color":"#f4ce63", "countries":["Finland","Ireland","Netherlands","Italy","France"]},
+    {"title":"Updated 2015/16","color":"#41b664","countries":["Estiona","Latvia","Lithuania","Germany","Belgium","Czech Republic","Austria","Hungary","Croatia","Romania","Portugal"]},
+    {"title":"Available","color":"#ef8152","countries":["Sweden","United Kingdom","Spain","Poland","Slovakia","Greece","Bulgaria","Luxembourg","Malta"]},
+    {"title":"Not available","color":"#aec4dc","countries":["Cyprus"]},
+    {"title":"Outside data coverage","color":"#efe7d4","countries":[]}
+  ],
+  "maplets": "Malta,Luxembourg,Cyprus"
+}
