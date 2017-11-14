@@ -11,7 +11,7 @@ function makeid() {
 
   return text;
 }
-var types;
+var countryGroups;
 
 function filterCountriesById(countries, filterIds){
   var features = {
@@ -197,10 +197,10 @@ function drawCountries(
       return 'c-' + cprectid + '-' + d.id;
     })
     .style("fill", function(d) {
-      for (var i = 0; i < types.length; i++) {
-        var c = types[i]['countries'];
+      for (var i = 0; i < countryGroups.length; i++) {
+        var c = countryGroups[i]['countries'];
         if (c.indexOf(d.name) > -1) {
-            return types[i]['color'];
+            return countryGroups[i]['color'];
         }
       }
       return 'country-stroke';
@@ -415,21 +415,21 @@ function setCountryFlags(countries, flags) {
 
 
 function init(settings) {
-  types = settings['filteredCountries'];
+  countryGroups = settings['filteredCountries'];
   var getCountries = [];
 
   var $sw = $('#countryfactsheets-map');
   var $dw = $('<div id="countries-filter"><span>Report on MAES-related <br> developments</span><ul class="filter-listing"></ul></div>');
   $sw.append($dw);
 
-  for (var i = 0; i < types.length; i++) {
+  for (var i = 0; i < countryGroups.length; i++) {
     var $dbox = $('<li><div class="color-box"/><span class="type-title"/></li>');
     $('.filter-listing').append($dbox);
     var eqColor = $('#countries-filter ul li div').eq(i);
     var eqTitle = $('.type-title').eq(i);
-    eqColor.css('background-color', types[i]['color']);
-    eqTitle.text(types[i]['title']);
-    getCountries.push(types[i]['countries']);
+    eqColor.css('background-color', countryGroups[i]['color']);
+    eqTitle.text(countryGroups[i]['title']);
+    getCountries.push(countryGroups[i]['countries']);
   }
 
   var allCountries = [].concat.apply([],getCountries);
