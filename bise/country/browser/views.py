@@ -29,6 +29,28 @@ class MapFolderListingSettings(object):
         return json.dumps(res)
 
 
+class MapSingleCountrySettings(object):
+    """
+    """
+
+    def __call__(self):
+        title = self.context.Title()
+        res = {
+            'filteredCountries': [
+                {
+                    "title": title,
+                    "color": "red",
+                    "countries": [title]
+                }
+            ],
+            "maplets": ""
+        }
+
+        self.request.response.headers['Content-Type'] = 'application/json'
+
+        return json.dumps(res)
+
+
 class CountryFactsheetView(object):
     """
     """

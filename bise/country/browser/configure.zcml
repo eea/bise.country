@@ -79,5 +79,12 @@
       permission="zope2.View"
       />
 
+    <browser:page
+      name="mapSingleCountrySettings"
+      for="*"
+      class=".views.MapSingleCountrySettings"
+      permission="zope2.View"
+      />
+
 
 </configure>
