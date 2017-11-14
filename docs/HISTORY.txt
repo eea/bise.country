@@ -3,6 +3,8 @@ Changelog
 
 3.8.dev0 - (unreleased)
 -----------------------
+- Feature: Generate the legend for MAES countries map
+  [krisztina #89844]
 - Feature: Refactor MAES countries map
   [krisztina #89844]
 

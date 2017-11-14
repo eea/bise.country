@@ -11,6 +11,7 @@ function makeid() {
 
   return text;
 }
+var types;
 
 function filterCountriesById(countries, filterIds){
   var features = {
@@ -414,14 +415,16 @@ function setCountryFlags(countries, flags) {
 
 
 function init(settings) {
-  var types = settings['filteredCountries'];
+  types = settings['filteredCountries'];
+  var getCountries = [];
 
-  // var maesCountries = JSON.parse(data);
-  // var types = maesCountries['filteredCountries'];
+  var $sw = $('#countryfactsheets-map');
+  var $dw = $('<div id="countries-filter"><span>Report on MAES-related <br> developments</span><ul class="filter-listing"></ul></div>');
+  $sw.append($dw);
 
   for (var i = 0; i < types.length; i++) {
     var $dbox = $('<li><div class="color-box"/><span class="type-title"/></li>');
-    $ul.append($dbox);
+    $('.filter-listing').append($dbox);
     var eqColor = $('#countries-filter ul li div').eq(i);
     var eqTitle = $('.type-title').eq(i);
     eqColor.css('background-color', types[i]['color']);
@@ -429,14 +432,11 @@ function init(settings) {
     getCountries.push(types[i]['countries']);
   }
 
-  var selectedCountries = [].concat.apply([],getCountries);
-  selectedCountries = selectedCountries;
+  var allCountries = [].concat.apply([],getCountries);
 
-  // get countries from maes_countries.json
-  var $svgc = selectedCountries;
-
-  // get focused countries for maplets from data attribute
-  var $svgm = $("svg-container").data('maplets');
+  // get countries and focused countries for maplets from maes_countries.json
+  var filteredCountries = allCountries;
+  var mapletsCountries = settings['maplets'];
 
   $('body').addClass('factsheets');
 
@@ -495,7 +495,7 @@ function init(settings) {
 
     var countries_Id = countries.map(function(d) {
       if (window.isGlobalMap) {
-        if ($svgc.indexOf(d.name) > -1) {
+        if (filteredCountries.indexOf(d.name) > -1) {
           return d.name;
         }
       }
@@ -540,7 +540,7 @@ function init(settings) {
       );
 
       var available_map_country_ids = countries.map(function(d) {
-        if ($svgc.indexOf(d.name) > -1) {
+        if (filteredCountries.indexOf(d.name) > -1) {
           return d.name;
         }
       }).filter(function(c) {
@@ -548,7 +548,7 @@ function init(settings) {
       });
 
       if (window.isGlobalMap) {
-        var focusCountries = $svgm.split(',');
+        var focusCountries = mapletsCountries.split(',');
 
         var orientation = 'left';
         var start = [10, 26];
@@ -596,9 +596,6 @@ function init(settings) {
 
 
 $(document).ready(function() {
-  // TODO: generate the legend from JS
-  var getCountries = [];
-  var $ul = $('#countries-filter ul');
 
   var settingsURL = $("svg-container").data('settings');
   var showLegend = $("svg-container").data('show-legend') || false;    //  === 'true' ? true : false;

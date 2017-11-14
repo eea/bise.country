@@ -27,8 +27,6 @@
 
     <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
 
-      tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings "
-
     <svg-container
       class="svg-global-wrapper"
       data-globalmap="global"
@@ -38,12 +36,6 @@
       id="countryfactsheets-map">
 
       <svg height="560"></svg>
-
-      <!-- TODO: generate this from JS -->
-      <div id="countries-filter">
-        <span>Report on MAES-related <br> developments</span>
-        <ul></ul>
-      </div>
 
     </svg-container>
 
