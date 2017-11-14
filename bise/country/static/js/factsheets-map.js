@@ -2,7 +2,6 @@ Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 };
 
-
 function makeid() {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -12,7 +11,7 @@ function makeid() {
 
   return text;
 }
-
+var countryGroups;
 
 function filterCountriesById(countries, filterIds){
   var features = {
@@ -20,7 +19,7 @@ function filterCountriesById(countries, filterIds){
     features: []
   };
   countries.forEach(function(c) {
-    if (filterIds.indexOf(c.id) === -1) {
+    if (filterIds.indexOf(c.name) === -1) {
       return;
     }
     features.features.push(c);
@@ -186,6 +185,7 @@ function drawCountries(
     });
   }
 
+
   // draw all countries
   g
     .append('g')
@@ -196,8 +196,18 @@ function drawCountries(
     .attr('id', function(d) {
       return 'c-' + cprectid + '-' + d.id;
     })
+    .style("fill", function(d) {
+      if ($('.maes-map').length > 0) {
+        for (var i = 0; i < countryGroups.length; i++) {
+          var c = countryGroups[i]['countries'];
+          if (c.indexOf(d.name) > -1) {
+            return countryGroups[i]['color'];
+          }
+        }
+      }
+    })
     .attr('class', function(d) {
-      if (focusIds.indexOf(d.id) > -1) {
+      if (focusIds.indexOf(d.name) > -1) {
         return 'country-stroke country-focus';
       }
       return 'country-stroke';
@@ -269,7 +279,7 @@ function drawCountries(
       if (window.isHeaderMap) return;
       //
       // handleClick(d);
-      if (window.available_map_countries.indexOf(d.id) > -1) {
+      if (window.available_map_countries.indexOf(d.name) > -1) {
         var link = d.name.toLowerCase();
         location.href = link;
         return true;
@@ -321,7 +331,7 @@ function addComposedCountryToMap(
     [boxw, boxh],
     boxtitle
   );
-  console.log("zoom level", zoomLevel);
+  // console.log("zoom level", zoomLevel);
 
   drawCountries(
     svg,
@@ -348,7 +358,7 @@ function addComposedCountryToMap(
   ;
 
   var countryName = countries.filter(function(d) {
-    return d.id === focusId;
+    return d.name === focusId;
   })[0].name;
 
   var label = svg.append('text')
@@ -405,12 +415,29 @@ function setCountryFlags(countries, flags) {
 }
 
 
-$(document).ready(function() {
-  // get available countries from data attribute
-  var $svgc = $("svg-container").data('available-countries');
+function init(settings) {
+  countryGroups = settings['filteredCountries'];
+  var getCountries = [];
 
-  // get focused countries for maplets from data attribute
-  var $svgm = $("svg-container").data('maplets');
+  var $sw = $('#countryfactsheets-map');
+  var $dw = $('<div id="countries-filter"><span>Report on MAES-related <br> developments</span><ul class="filter-listing"></ul></div>');
+  $sw.append($dw);
+
+  for (var i = 0; i < countryGroups.length; i++) {
+    var $dbox = $('<li><div class="color-box"/><span class="type-title"/></li>');
+    $('.filter-listing').append($dbox);
+    var eqColor = $('#countries-filter ul li div').eq(i);
+    var eqTitle = $('.type-title').eq(i);
+    eqColor.css('background-color', countryGroups[i]['color']);
+    eqTitle.text(countryGroups[i]['title']);
+    getCountries.push(countryGroups[i]['countries']);
+  }
+
+  var allCountries = [].concat.apply([],getCountries);
+
+  // get countries and focused countries for maplets from maes_countries.json
+  var filteredCountries = allCountries;
+  var mapletsCountries = settings['maplets'];
 
   $('body').addClass('factsheets');
 
@@ -468,20 +495,8 @@ $(document).ready(function() {
     var minorGraticule = d3.geoGraticule().step([gStep[0]/4, gStep[1]/4]);
 
     var countries_Id = countries.map(function(d) {
-      if (window.isGlobalMap) {
-        if ($svgc.indexOf(d.name) > -1) {
-          return d.id;
-        }
-      }
-
-      if (window.isHeaderMap) {
-        // get selected country from data attribute
-        var $cd = $(".country-header").data('zoom-country');
-        var wd = $cd.charAt(0).toUpperCase() + $cd.slice(1);
-
-        if (wd.indexOf(d.name) > -1) {
-          return d.id;
-        }
+      if (filteredCountries.indexOf(d.name) > -1) {
+        return d.name;
       }
     }).filter(function(c) {
       return c;
@@ -514,15 +529,15 @@ $(document).ready(function() {
       );
 
       var available_map_country_ids = countries.map(function(d) {
-        if ($svgc.indexOf(d.name) > -1) {
-          return d.id;
+        if (filteredCountries.indexOf(d.name) > -1) {
+          return d.name;
         }
       }).filter(function(c) {
         return c;
       });
 
       if (window.isGlobalMap) {
-        var focusCountries = $svgm.split(',');
+        var focusCountries = mapletsCountries.split(',');
 
         var orientation = 'left';
         var start = [10, 26];
@@ -549,6 +564,7 @@ $(document).ready(function() {
               start,
               orientation,
               p,
+
               0.6
             );
           }
@@ -560,9 +576,20 @@ $(document).ready(function() {
 
     $(window).resize(function() {
       width = window.isGlobalMap ? $('svg').width() : $(window).width();
-      console.log("resized", width);
+      // console.log("resized", width);
       svg.selectAll("*").remove();
       drawMap()
     })
   }
+}
+
+
+$(document).ready(function() {
+
+  var settingsURL = $("svg-container").data('settings');
+  var showLegend = $("svg-container").data('show-legend') || false;    //  === 'true' ? true : false;
+  console.log("show legend", showLegend, typeof showLegend);
+
+  d3.json(settingsURL, init);
+
 });

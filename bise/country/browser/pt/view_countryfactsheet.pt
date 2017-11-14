@@ -17,13 +17,11 @@
               )">
 
       <div
-          class="country-header"
-          tal:attributes="data-zoom-country context/getId" >
+          class="country-header" >
         <svg-container
             class="svg-header-wrapper"
             data-ratio="0.4"
-            tal:attributes="data-settings string:${context/absolute_url}/@@mapSingleCountrySettings
-            ">
+            tal:attributes="data-settings string:${context/absolute_url}/@@mapSingleCountrySettings">
           <svg height="520"></svg>
         </svg-container>
       </div>

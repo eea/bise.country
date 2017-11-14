@@ -23,12 +23,12 @@
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script src="/++resource++bise.country/js/maes-map.js"></script>
+    <script src="/++resource++bise.country/js/factsheets-map.js"></script>
 
     <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
 
     <svg-container
-      class="svg-global-wrapper"
+      class="svg-global-wrapper maes-map"
       data-globalmap="global"
       data-ratio="0.9"
       data-settings="/++resource++bise.country/js/countries/maes-countries.json"
