@@ -3,6 +3,8 @@ Changelog
 
 3.8.dev0 - (unreleased)
 -----------------------
+- Hide legend on factsheet map
+  [krisztina #89844]
 - Feature: Use factsheets-map js for MAES countries map
   [krisztina #89844]
 - Feature: Generate the legend for MAES countries map

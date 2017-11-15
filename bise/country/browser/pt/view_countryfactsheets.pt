@@ -32,7 +32,8 @@
       data-globalmap="global"
       data-ratio="0.9"
       tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
-      id="countryfactsheets-map">
+      id="countryfactsheets-map"
+      data-show-legend="false">
       <svg height="560"></svg>
     </svg-container>
 

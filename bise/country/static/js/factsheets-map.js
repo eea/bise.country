@@ -433,9 +433,14 @@ function init(settings) {
     getCountries.push(countryGroups[i]['countries']);
   }
 
+  var showLegend = $("svg-container").data('show-legend');
+
+  if (showLegend === false) {
+    $('#countries-filter').hide();
+  }
+
   var allCountries = [].concat.apply([],getCountries);
 
-  // get countries and focused countries for maplets from maes_countries.json
   var filteredCountries = allCountries;
   var mapletsCountries = settings['maplets'];
 
@@ -587,8 +592,6 @@ function init(settings) {
 $(document).ready(function() {
 
   var settingsURL = $("svg-container").data('settings');
-  var showLegend = $("svg-container").data('show-legend') || false;    //  === 'true' ? true : false;
-  console.log("show legend", showLegend, typeof showLegend);
 
   d3.json(settingsURL, init);
 
