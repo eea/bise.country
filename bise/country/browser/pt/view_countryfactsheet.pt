@@ -124,6 +124,17 @@ $(document).ready(function() {
     // defaultOpen: 'content-header'
   });
 
+  $('h3.collapsible').click(function() {
+    if ($('h3').hasClass('collapse-open')) {
+      $.each($("iframe"), function() {
+          $(this).attr({
+              src: $(this).attr("src")
+          });
+      });
+      return false;
+    }
+  });
+
   $("body").addClass("claro");
 
   $("#targetFilter input:checkbox").change(function() {
