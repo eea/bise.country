@@ -3,6 +3,9 @@ Changelog
 
 3.9.dev0 - (unreleased)
 -----------------------
+- Bug fix: include plone.app.workflow package, for the plone.DelegateRoles
+  permission
+  [tiberich #89953]
 
 3.8 - (2017-12-07)
 ------------------

@@ -8,6 +8,8 @@
 
   <five:registerPackage package="." initialize=".initialize" />
 
+  <include package="plone.app.workflow" />
+
   <include file="workflow.zcml" />
   <include file="upgrades.zcml" />
 
