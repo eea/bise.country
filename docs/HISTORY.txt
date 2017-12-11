@@ -3,6 +3,8 @@ Changelog
 
 4.0.dev0 - (unreleased)
 -----------------------
+- Fix mixed content on the https version of the website
+  [krisztina #87770]
 
 3.9 - (2017-12-08)
 ------------------
@@ -193,4 +195,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
