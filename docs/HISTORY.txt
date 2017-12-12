@@ -3,6 +3,8 @@ Changelog
 
 4.1.dev0 - (unreleased)
 -----------------------
+- Fix links
+  [krisztina #87770]
 
 4.0 - (2017-12-11)
 ------------------
@@ -198,4 +200,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
