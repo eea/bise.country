@@ -3,6 +3,8 @@ Changelog
 
 4.2.dev0 - (unreleased)
 -----------------------
+- Remove bad fix for daviz visualisations
+  [krisztina #89953]
 
 4.1 - (2017-12-12)
 ------------------
@@ -203,4 +205,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
