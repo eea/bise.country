@@ -267,13 +267,26 @@ function drawCountries(
     .attr('opacity', function() {
       return window.isHeaderMap ? '1' : '0';
     })
-    .on('mouseover', function(){
+    .on('mouseover', function(d) {
       if (window.isHeaderMap) return;
       d3.select(this).attr('opacity', 1);
+      var current_position = d3.mouse(this);
+      var tooltip = $('#tooltip');
+      if ($('#tooltip').length > 0) {
+        tooltip.html(d.name);
+        tooltip.css({
+          'left': (current_position[0])+'px',
+          'top': (current_position[1])+'px',
+          'display': 'block'
+        });
+      }
     })
-    .on('mouseout', function(){
+    .on('mouseout', function(d) {
       if (window.isHeaderMap) return;
       d3.select(this).attr('opacity', 0);
+      $('#tooltip').css({
+        'display': 'none'
+      });
     })
     .on('click', function(d){
       if (window.isHeaderMap) return;
@@ -421,7 +434,9 @@ function init(settings) {
 
   var $sw = $('#countryfactsheets-map');
   var $dw = $('<div id="countries-filter"><span>Report on MAES-related <br> developments</span><ul class="filter-listing"></ul></div>');
+  var $tt = $('<div id="tooltip"/>');
   $sw.append($dw);
+  $sw.append($tt);
 
   for (var i = 0; i < countryGroups.length; i++) {
     var $dbox = $('<li><div class="color-box"/><span class="type-title"/></li>');

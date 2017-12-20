@@ -18,11 +18,10 @@ svg-container {
   width: 100%;
   position: relative;
   display: block;
-  top: inherit;
   overflow: hidden;
   border: 2px solid lightgray;
+  top: inherit;
 }
-
 
 .country-stroke {
   fill: #efe7d4;
@@ -39,6 +38,7 @@ svg-container {
   stroke: #333366;
   stroke-width: 2;
 }
+
 .country-focus-label {
   fill: white;
   stroke: none;
@@ -81,6 +81,16 @@ svg-container {
   fill: none;
   stroke: black;
   stroke-width: 2;
+}
+
+#tooltip {
+  display:none;
+  position:absolute;
+  z-index:1001;
+  background-color: #2a2a2a;
+  color: white;
+  padding: 3px;
+  border-radius: 3px;
 }
 
 /***** MAES map related *****/

@@ -3,6 +3,8 @@ Changelog
 
 4.3.dev0 - (unreleased)
 -----------------------
+- Feature: Add country name tooltip on factsheet map
+  [krisztina #85826]
 
 4.2 - (2017-12-15)
 ------------------
@@ -208,4 +210,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
