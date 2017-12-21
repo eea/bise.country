@@ -3,6 +3,8 @@ Changelog
 
 4.3.dev0 - (unreleased)
 -----------------------
+- Feature: Mockups for country sections
+  [krisztina #90242]
 - Feature: Add country name tooltip on factsheet map
   [krisztina #85826]
 
