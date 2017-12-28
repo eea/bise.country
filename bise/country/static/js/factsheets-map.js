@@ -301,6 +301,123 @@ function drawCountries(
   ;
 }
 
+function drawCountriesForMinimap(
+  svg,        // d3 selector for a svg element
+  x,          // coordinate in svg for x
+  y,          // coordinate in svg for y
+  width,      // width of desired map
+  height,     // height of desired map
+  countries,  // topojson with country as features
+  focusIds,   // country ids where we zoom focus
+  projection, // desired projection (ex: mercator projection d3 object)
+  zoomLevel   // correction factor for zoom
+) {
+  // Draw the countries in the specified viewport
+
+  var focusCountriesFeature = filterCountriesById(countries, focusIds);
+
+  var path = d3.geoPath().projection(projection);   // the path transformer
+
+  var cprectid = makeid();
+  var defs = svg.append('defs');
+
+  defs
+    .append('clipPath')
+    .attr('id', cprectid)
+    .append('rect')
+    .attr('x', x)
+    .attr('y', y)
+    .attr('height', height)
+    .attr('width', width)
+  ;
+
+  var g = svg
+    .append('g')
+    .attr('class', 'country-maps')
+    .attr('clip-path', 'url(#' + cprectid + ')')
+  ;
+
+  var b = path.bounds(focusCountriesFeature);
+
+  // var vRatio = window.vRatio;
+  var cwRatio = (b[1][0] - b[0][0]) / width;    // bounds to width ratio
+  var chRatio = (b[1][1] - b[0][1]) / height;   // bounds to height ratio
+  var s =  zoomLevel / Math.max(cwRatio, chRatio);
+  var t = [
+    (width - s * (b[1][0] + b[0][0])) / 2 + x,
+    (height - s * (b[0][1] + b[1][1])) / 2 + y
+  ];
+  projection.scale(s).translate(t);
+
+  g     // the world sphere, acts as ocean
+    .append("path")
+    .datum(
+      {
+        type: "Sphere"
+      }
+    )
+    .attr("class", "sphere")
+    .attr("d", path)
+  ;
+
+  // draw all countries
+  var rect = g
+    .append('g')
+    .selectAll('path')
+    .data(countries)
+    .enter()
+    .append('path')
+    .attr('id', function(d) {
+      return 'c-' + cprectid + '-' + d.id;
+    })
+    .attr('class', function(d) {
+      if (focusIds.indexOf(d.name) > -1) {
+        return 'country-stroke minimap-country-focus';
+      }
+      return 'country-stroke';
+    })
+    .on('mouseover', function(d) {
+      $('path.minimap-country-focus').attr('class', 'country-stroke minimap-country')
+      var current_position = d3.mouse(this);
+      var tooltip = $('#tooltip');
+      if ($('path.minimap-country').length > 0) {
+        if ($('#tooltip').length > 0) {
+          tooltip.html('European Union');
+          tooltip.css({
+            'left': (current_position[0]) + 10 + 'px',
+            'top': (current_position[1]) + 10 + 'px',
+            'display': 'block'
+          });
+        }
+      }
+    })
+    .on('mouseout', function(d) {
+      $('path.minimap-country').attr('class', 'country-stroke minimap-country-focus')
+      $('#tooltip').css({
+        'display': 'none'
+      });
+    })
+    .attr('d', path)
+    .attr('x', x)
+    .attr('y', y)
+  ;
+
+  // define clipping paths for all focused countries
+  defs
+    .selectAll('clipPath')
+    .data(countries)
+    .enter()
+    .append('clipPath')
+    .attr('id', function(d) {
+      return 'cp-' + cprectid + '-' + d.id;
+    })
+    .append('path')
+    .attr('d', path)
+    .attr('x', x)
+    .attr('y', y)
+  ;
+}
+
 
 // TODO: we need to detect if we need to hide the maplets for small res
 function addComposedCountryToMap(
@@ -344,7 +461,6 @@ function addComposedCountryToMap(
     [boxw, boxh],
     boxtitle
   );
-  // console.log("zoom level", zoomLevel);
 
   drawCountries(
     svg,
@@ -403,6 +519,93 @@ function addComposedCountryToMap(
 
 }
 
+function addCountriesToMinimap(
+  svg,
+  viewport,
+  countries,
+  focusId,
+  startPoint,
+  side,
+  projection,
+  zoomLevel
+) {
+
+  var boxw = 170;
+  var boxh = 170;
+  var spacer = 0;
+  var boxtitle = 10;
+
+  var msp = getMapletStartingPoint(
+    viewport,
+    startPoint,
+    side,
+    spacer,
+    [boxw, boxh],
+    boxtitle
+  );
+
+  drawCountriesForMinimap(
+    svg,
+    msp.x,
+    msp.y,
+    boxw,
+    boxh,
+    countries,
+    focusId,
+    projection,
+    zoomLevel
+  );
+
+  svg
+    .append('rect')
+    .attr('class', 'maplet-outline minimap')
+    .attr('x', msp.x)
+    .attr('y', msp.y)
+    .attr('width', boxw)
+    .attr('height', boxh)
+    .append('text')
+  ;
+
+
+  var label = svg.append('text')
+    .attr('x', 0)
+    .attr('y', 0)
+    .attr('class', 'country-focus-label')
+    .attr('text-anchor', 'middle')
+    .text('European Union')
+  ;
+
+  var lbbox = label.node().getBBox();
+  var textboxh = lbbox.height + lbbox.height / 4;
+
+  label
+    .attr('x', msp.x + boxw/2)
+    .attr('y', msp.y - textboxh / 3)
+  ;
+
+  svg
+    .append('rect')
+    .attr('class', 'country-focus-text-bg')
+    .attr('x', msp.x)
+    .attr('y', msp.y - textboxh)
+    .attr('width', boxw)
+    .attr('height', textboxh)
+  ;
+
+  var img = svg.append('g');
+  img
+    .append('image')
+    .attr('class', 'eu-flag')
+    .attr('x', msp.x + 10)
+    .attr('y', msp.y - textboxh + 22)
+    .attr('width', 40)
+    .attr('height', 27)
+    .attr('href', 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg')
+  ;
+
+  label.raise();
+
+}
 
 function fLoc(fname) {
   return window.location.origin + "/++resource++bise.country/js/countries/" + fname;
@@ -559,20 +762,44 @@ function init(settings) {
       if (window.isGlobalMap) {
         var focusCountries = mapletsCountries.split(',');
 
-        var orientation = 'left';
-        var start = [10, 26];
+        var mp = d3.geoPatterson();
+        mp
+        .scale(1)
+        .translate([0, 0]);
 
-        if ((height / width) > 1.2){
-          orientation =  'bottom';
-          start = [10, height + 20];
+        var mside = 'left';
+        var mstart = [10, 26];
+
+        if ($('.maes-map').length > 0) {
+          addCountriesToMinimap(
+            svg,
+            [width, height],
+            countries,
+            countries_Id,
+            mstart,
+            mside,
+            mp,
+            0.9
+          );
         }
 
         focusCountries.forEach(function(id, index) {
+          if ($('.maes-map').length > 0) {
+            orientation =  'bottom';
+            start = [10, height + 20];
+          } else {
+            orientation = 'left';
+            start = [10, 26];
+            if ((height / width) > 1.2) {
+              orientation =  'bottom';
+              start = [10, height + 20];
+            }
+          }
 
           var p = d3.geoMercator();
           p
-            .scale(1)
-            .translate([0, 0]);
+          .scale(1)
+          .translate([0, 0]);
 
           if (available_map_country_ids.indexOf(id) > -1) {
             addComposedCountryToMap(
@@ -596,7 +823,6 @@ function init(settings) {
 
     $(window).resize(function() {
       width = window.isGlobalMap ? $('svg').width() : $(window).width();
-      // console.log("resized", width);
       svg.selectAll("*").remove();
       drawMap()
     })

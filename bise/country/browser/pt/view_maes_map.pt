@@ -30,7 +30,7 @@
     <svg-container
       class="svg-global-wrapper maes-map"
       data-globalmap="global"
-      data-ratio="0.9"
+      data-ratio="0.75"
       data-settings="/++resource++bise.country/js/countries/maes-countries.json"
       data-show-legend="true"
       id="countryfactsheets-map">

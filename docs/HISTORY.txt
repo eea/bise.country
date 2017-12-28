@@ -3,6 +3,8 @@ Changelog
 
 4.3.dev0 - (unreleased)
 -----------------------
+- Feature: EU minimap feature for MAES map
+  [krisztina #89844]
 - Feature: Mockups for country sections
   [krisztina #90242]
 - Feature: Add country name tooltip on factsheet map

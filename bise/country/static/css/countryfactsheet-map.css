@@ -33,6 +33,16 @@ svg-container {
   fill: #41b664;
 }
 
+.minimap-country-focus {
+  fill: #003399;
+  cursor: pointer;
+}
+
+.minimap-country {
+  fill: #FFCC00;
+  cursor: pointer;
+}
+
 .country-focus-text-bg {
   fill: #333366;
   stroke: #333366;
@@ -134,8 +144,8 @@ svg-container {
       width: 154px;
       padding: 7px;
       font-size: 10px;
-      right: auto;
-      left: 10px;
+      /* right: auto;
+      left: 10px; */
   }
 
   #countries-filter ul li {
