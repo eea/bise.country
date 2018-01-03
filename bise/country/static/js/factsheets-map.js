@@ -13,7 +13,7 @@ function makeid() {
 }
 var countryGroups;
 
-function filterCountriesById(countries, filterIds){
+function filterCountriesById(countries, filterIds) {
   var features = {
     type: 'FeatureCollection',
     features: []
@@ -81,18 +81,18 @@ function getMapletStartingPoint(
 
   // TODO: this could be improved, there are many edge cases
   switch (side) {
-  case 'top':
-    mutPoint[1] = startPoint[1];
-    break;
-  case 'bottom':
-    mutPoint[1] = startPoint[1] - bhs;
-    break;
-  case 'left':
-    mutPoint[0] = startPoint[0];
-    break;
-  case 'right':
-    mutPoint[0] = startPoint[0] - bws;
-    break;
+    case 'top':
+      mutPoint[1] = startPoint[1];
+      break;
+    case 'bottom':
+      mutPoint[1] = startPoint[1] - bhs;
+      break;
+    case 'left':
+      mutPoint[0] = startPoint[0];
+      break;
+    case 'right':
+      mutPoint[0] = startPoint[0] - bws;
+      break;
   }
 
   return {
@@ -275,8 +275,8 @@ function drawCountries(
       if ($('#tooltip').length > 0) {
         tooltip.html(d.name);
         tooltip.css({
-          'left': (current_position[0])+'px',
-          'top': (current_position[1])+'px',
+          'left': (current_position[0]) + 'px',
+          'top': (current_position[1]) + 'px',
           'display': 'block'
         });
       }
@@ -288,7 +288,7 @@ function drawCountries(
         'display': 'none'
       });
     })
-    .on('click', function(d){
+    .on('click', function(d) {
       if (window.isHeaderMap) return;
       //
       // handleClick(d);
@@ -530,8 +530,8 @@ function addCountriesToMinimap(
   zoomLevel
 ) {
 
-  var boxw = 170;
-  var boxh = 170;
+  var boxw = 150;
+  var boxh = 150;
   var spacer = 0;
   var boxtitle = 10;
 
@@ -617,7 +617,6 @@ function setCountryNames(countries) {
     d.name = d.properties.name;
   });
 }
-
 
 function setCountryFlags(countries, flags) {
   countries.forEach(function(c) {
@@ -768,7 +767,7 @@ function init(settings) {
         .translate([0, 0]);
 
         var mside = 'left';
-        var mstart = [10, 26];
+        var mstart = [10, 23];
 
         if ($('.maes-map').length > 0) {
           addCountriesToMinimap(

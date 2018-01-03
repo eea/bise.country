@@ -3,6 +3,8 @@ Changelog
 
 4.3.dev0 - (unreleased)
 -----------------------
+- MAES minimap fixes
+  [krisztina #89844]
 - Feature: EU minimap feature for MAES map
   [krisztina #89844]
 - Feature: Mockups for country sections

@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function() {
 
   // Add claro class for css; used by dojo
   $("body").addClass("claro");
@@ -13,8 +13,8 @@ $(document).ready(function(){
     document.location = url;
   });
 
-  $.each($('.fact-contents'), function (index, value) {
-    $(value).find("iframe").prop("src", function(){
+  $.each($('.fact-contents'), function(index, value) {
+    $(value).find("iframe").prop("src", function() {
       return $(this).data("src");
     });
   });
@@ -54,13 +54,12 @@ $(document).ready(function(){
       currentTab = getTabFromHash(element_id);
 
       siblings = $(this).siblings()
-      $.each(siblings, function (index, value) {
+      $.each(siblings, function(index, value) {
         element_id = $(this).children('a')[0].hash;
         element = document.getElementById(element_id);
         $(element).hide();
       });
-    }
-    else {
+    } else {
       element_id = $(this).children('a')[0].hash;
       currentTab = getTabFromHash(element_id);
       element = document.getElementById(element_id);
@@ -68,7 +67,7 @@ $(document).ready(function(){
       $(element).show();
 
       siblings = $(this).siblings()
-      $.each(siblings, function (index, value) {
+      $.each(siblings, function(index, value) {
         element_id = $(this).children('a')[0].hash;
         element = document.getElementById(element_id);
         $(element).hide();
@@ -104,13 +103,13 @@ $(document).ready(function(){
 
   $mwrap.insertBefore(".country-table");
 
-  var _gtarc = 0;    // global counter for name targets
+  var _gtarc = 0; // global counter for name targets
 
-  $(function(){
+  $(function() {
     var $sidebar = $('#sidebar-wrapper');
     var sections = [];
 
-    $('tr').each(function(){
+    $('tr').each(function() {
       var $tr = $(this);
       var section_title = $('h2', this).text();
       var cl = $tr.attr('class');
@@ -198,17 +197,17 @@ $(document).ready(function(){
     }
 
     $('.mtr-container b').filter(function() {
-        return $.trim($(this).text()) === '' && $(this).children().length == 0
+      return $.trim($(this).text()) === '' && $(this).children().length == 0
     }).remove();
 
     $('p').filter(function() {
-        return $.trim($(this).text()) === '' && $(this).children().length == 0
+      return $.trim($(this).text()) === '' && $(this).children().length == 0
     }).remove();
 
     var aLink = $('.mtr-container .anchor-link');
 
     if (aLink.css('display') == 'none') {
-       aLink.css('display',  'block');
+      aLink.css('display', 'block');
     }
 
     if ($('.country-table table').width() > 500) {
@@ -218,7 +217,7 @@ $(document).ready(function(){
     $("#mtr-main-wrapper").insertAfter("#sidebar-wrapper");
 
     // show/hide sidebar on mobile
-    $('.mobile-sidebar, .close-sidebar').click(function (e) {
+    $('.mobile-sidebar, .close-sidebar').click(function(e) {
       e.stopPropagation();
       $('#sidebar-wrapper').toggleClass("toggle-sidebar");
     });
@@ -229,7 +228,7 @@ $(document).ready(function(){
       }
     })
 
-    $('.i-sticky').iSticky();   // activate sticky plugin/polyfill for sidebar
+    $('.i-sticky').iSticky(); // activate sticky plugin/polyfill for sidebar
 
     $('.sidebar li ul li a').click(function() {
       if (navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i)) {
@@ -248,7 +247,9 @@ $(document).ready(function(){
         var target = $(anchID).offset().top;
       }
 
-      $('html, body').animate({ scrollTop: target }, 500);
+      $('html, body').animate({
+        scrollTop: target
+      }, 500);
 
       return false;
     });
@@ -256,33 +257,33 @@ $(document).ready(function(){
 
     // highlight current sidebar item on scroll
     $(window).scroll(function() {
-      position = $(this).scrollTop();     // get the current vertical position of the scroll bar
+      position = $(this).scrollTop(); // get the current vertical position of the scroll bar
 
       $('.sidebar a').each(function() {
-          var anchID = $(this).attr('href');
-          var anchID = anchID.split('#')[1];
-          var anchID = '#' + anchID;
-          var target = $(anchID).offset().top + (-35);
+        var anchID = $(this).attr('href');
+        var anchID = anchID.split('#')[1];
+        var anchID = '#' + anchID;
+        var target = $(anchID).offset().top + (-35);
 
-          if (position >= target) {
-              // console.log('position', anchID, position);
-              // console.log('target', anchID, target);
-              $('.sidebar a').removeClass('selected');
-              $(this).addClass('selected');
-          }
+        if (position >= target) {
+          // console.log('position', anchID, position);
+          // console.log('target', anchID, target);
+          $('.sidebar a').removeClass('selected');
+          $(this).addClass('selected');
+        }
       })
 
       // toggle  current sidebar item on scroll
       $('.nav-header').each(function() {
-          var anchID = $(this).attr('href');
-          var anchID = anchID.split('#')[1];
-          var anchID = '#' + anchID;
-          var target = $(anchID).offset().top + (-35);
+        var anchID = $(this).attr('href');
+        var anchID = anchID.split('#')[1];
+        var anchID = '#' + anchID;
+        var target = $(anchID).offset().top + (-35);
 
-          if (position >= target) {
-              $('.tree-toggle').parent().children('ul.trees').hide();
-              $(this).parent().children('ul.trees').show();
-          }
+        if (position >= target) {
+          $('.tree-toggle').parent().children('ul.trees').hide();
+          $(this).parent().children('ul.trees').show();
+        }
       })
     })
 

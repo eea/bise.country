@@ -3,24 +3,24 @@
 }
 
 svg {
-  width: 100%;
   position: relative;
+  width: 100%;
 }
 
 svg-container {
-  width: 100%;
-  position: relative;
   display: block;
+  position: relative;
   top: 1em;
+  width: 100%;
 }
 
 #countryfactsheets-map {
-  width: 100%;
-  position: relative;
+  border: 2px solid lightgray;
   display: block;
   overflow: hidden;
-  border: 2px solid lightgray;
+  position: relative;
   top: inherit;
+  width: 100%;
 }
 
 .country-stroke {
@@ -34,13 +34,13 @@ svg-container {
 }
 
 .minimap-country-focus {
-  fill: #003399;
   cursor: pointer;
+  fill: #003399;
 }
 
 .minimap-country {
-  fill: #FFCC00;
   cursor: pointer;
+  fill: #FFCC00;
 }
 
 .country-focus-text-bg {
@@ -51,9 +51,9 @@ svg-container {
 
 .country-focus-label {
   fill: white;
+  font: 600 8.4px "Helvetica Neue", Helvetica, Arial, sans-serif;
   stroke: none;
   text-anchor: middle;
-  font: 600 8.4px "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .maplet-outline {
@@ -63,8 +63,8 @@ svg-container {
 }
 
 .sphere {
-  stroke: none;
   fill: rgb(48, 140, 168);
+  stroke: none;
 }
 
 .country-flag {
@@ -75,16 +75,16 @@ svg-container {
   fill: none;
   /* stroke: #79A09E; */
   stroke: #333366;
-  stroke-width: 0.6;
   stroke-dasharray: 8,2;
+  stroke-width: 0.6;
 }
 
 .sub-lines {
   fill: none;
   /* stroke: #79A09E; */
   stroke: #666;
-  stroke-width: 0.16;
   stroke-dasharray: 16,2;
+  stroke-width: 0.16;
 }
 
 .graticules {
@@ -94,27 +94,27 @@ svg-container {
 }
 
 #tooltip {
-  display:none;
-  position:absolute;
-  z-index:1001;
   background-color: #2a2a2a;
-  color: white;
-  padding: 3px;
   border-radius: 3px;
+  color: white;
+  display: none;
+  padding: 3px;
+  position: absolute;
+  z-index: 1001;
 }
 
 /***** MAES map related *****/
 
 #countries-filter {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  height: auto;
-  width: 180px;
   background-color: white;
-  border: 2px solid #333366;;
-  padding: 10px;
+  border: 2px solid #333366;
   font-size: 0.85rem;
+  height: auto;
+  padding: 10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 180px;
 }
 
 #countries-filter span {
@@ -122,8 +122,8 @@ svg-container {
 }
 
 #countries-filter ul {
-  padding-left: 2px;
   margin-bottom: 0;
+  padding-left: 2px;
 }
 
 #countries-filter ul li {
@@ -132,28 +132,25 @@ svg-container {
 }
 
 #countries-filter .color-box {
-  width: 18px;
-  height: 13px;
   border: 1px solid black;
   display: inline-block;
+  height: 13px;
   margin-right: 10px;
+  width: 18px;
 }
 
-@media (max-width: 767px)  {
-    #countries-filter {
-      width: 154px;
-      padding: 7px;
-      font-size: 10px;
-      /* right: auto;
+@media (max-width: 767px) {
+  #countries-filter {
+    font-size: 10px;
+    padding: 7px;
+    width: 154px;
+    /* right: auto;
       left: 10px; */
   }
-
   #countries-filter ul li {
     padding: 2px 0
   }
-
   #countries-filter ul {
     margin-top: 0;
   }
-
 }
