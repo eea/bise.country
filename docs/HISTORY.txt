@@ -3,6 +3,8 @@ Changelog
 
 4.3.dev0 - (unreleased)
 -----------------------
+- Replace factsheet map to MAES map in mockup
+  [krisztina #90242]
 - Mockup improvements
   [krisztina #90242]
 - MAES minimap fixes

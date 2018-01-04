@@ -165,13 +165,15 @@
     </ul>
 
     <svg-container
-      class="svg-global-wrapper"
-      data-globalmap="global"
-      data-ratio="0.9"
-      tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
-      id="countryfactsheets-map"
-      data-show-legend="false">
-      <svg height="500"></svg>
+        class="svg-global-wrapper maes-map"
+        data-globalmap="global"
+        data-ratio="0.75"
+        data-settings="/++resource++bise.country/js/countries/maes-countries.json"
+        data-show-legend="true"
+        id="countryfactsheets-map">
+
+        <svg height="500"></svg>
+
     </svg-container>
 
 
