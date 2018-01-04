@@ -56,6 +56,12 @@
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-page.css" />
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
 
+      <div class="intro-wrapper">
+        <h1> Countries </h1>
+        <p>  Welcome to the Countries section of the Biodiversity Information System for Europe. </p>
+        <p>  Here you can find EU Member State national reports related to biodiversity and information related to indicators organised by country, by clicking on the map for a specific Member State .</p>
+        <p>The 2010 EU Biodiversity Action Plan Report is available online on Community level and for comparison across EU Member States.</p>
+      </div>
 
       <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">
