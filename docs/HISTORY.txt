@@ -3,6 +3,8 @@ Changelog
 
 4.3.dev0 - (unreleased)
 -----------------------
+- Edit page for Biodiversity factsheets
+  [krisztina #90236]
 - Replace factsheet map to MAES map in mockup
   [krisztina #90242]
 - Mockup improvements

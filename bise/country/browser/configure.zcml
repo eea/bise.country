@@ -107,4 +107,11 @@
           template="pt/view_countries_sections_v0.pt"
           />
 
+          <browser:page
+            name="manage-factsheets"
+            for="*"
+            permission="zope2.View"
+            template="pt/view_manage_factsheets.pt"
+            />
+
 </configure>

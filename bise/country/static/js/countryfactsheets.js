@@ -33,7 +33,7 @@ $(document).ready(function() {
     return -1;
   };
   var currentTab = getTabFromHash(window.location.hash.substr(1));
-  console.log("Current tab: ", currentTab);
+  // console.log("Current tab: ", currentTab);
 
   // debugger;
   if (countrytabs.length > 0) {
@@ -87,8 +87,28 @@ $(document).ready(function() {
   });
 
 
-  // contributions sidebar
+  // edit page of biodiversity factsheets
+  $(function() {
+    $('#country-select').change(function() {
+      $('form').submit();
+      })
+  });
 
+  var mainTitle = $('.main-title').text();
+  var mainTitle = mainTitle.charAt(0).toUpperCase() + mainTitle.slice(1);
+  var mainTitle = 'Biodiversity factsheet for' +  ' ' + mainTitle;
+  $('.main-title').text(mainTitle);
+
+  $('.fact-section a[href$="/@@simple-edit"]').prepOverlay(
+     {
+      subtype: 'ajax',
+      filter: common_content_filter,
+      formselector: 'form.kssattr-formname-simple-edit',
+     }
+  );
+
+
+  // contributions sidebar
   $('.anchor-link').hide();
   var $smwrap = $('<div id="mtr-wrapper" class="mtr-container"/>');
   var $srow = $('<div id="srow" class="row"/>');
@@ -266,8 +286,6 @@ $(document).ready(function() {
         var target = $(anchID).offset().top + (-35);
 
         if (position >= target) {
-          // console.log('position', anchID, position);
-          // console.log('target', anchID, target);
           $('.sidebar a').removeClass('selected');
           $(this).addClass('selected');
         }
