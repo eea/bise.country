@@ -65,53 +65,60 @@
     template="pt/view_countryfactsheets.pt"
     />
 
-    <browser:page
-      name="maes-map"
-      for="*"
-      permission="zope2.View"
-      template="pt/view_maes_map.pt"
-      />
+  <browser:page
+    name="maes-map"
+    for="*"
+    permission="zope2.View"
+    template="pt/view_maes_map.pt"
+    />
+
+  <browser:page
+    name="mapFolderListingSettings"
+    for="*"
+    class=".views.MapFolderListingSettings"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    name="mapSingleCountrySettings"
+    for="*"
+    class=".views.MapSingleCountrySettings"
+    permission="zope2.View"
+    />
 
     <browser:page
-      name="mapFolderListingSettings"
-      for="*"
-      class=".views.MapFolderListingSettings"
-      permission="zope2.View"
-      />
+    name="countries-sections-v0"
+    for="*"
+    permission="zope2.View"
+    template="pt/view_countries_sections_v0.pt"
+    />
 
-    <browser:page
-      name="mapSingleCountrySettings"
-      for="*"
-      class=".views.MapSingleCountrySettings"
-      permission="zope2.View"
-      />
+  <browser:page
+    name="countries-sections-v1"
+    for="*"
+    permission="zope2.View"
+    template="pt/view_countries_sections_v1.pt"
+    />
 
-      <browser:page
-        name="countries-sections-v1"
-        for="*"
-        permission="zope2.View"
-        template="pt/view_countries_sections_v1.pt"
-        />
+  <browser:page
+    name="countries-sections-v2"
+    for="*"
+    permission="zope2.View"
+    template="pt/view_countries_sections_v2.pt"
+    />
 
-      <browser:page
-        name="countries-sections-v2"
-        for="*"
-        permission="zope2.View"
-        template="pt/view_countries_sections_v2.pt"
-        />
+  <browser:page
+    name="countries-sections-v3"
+    for="*"
+    permission="zope2.View"
+    template="pt/view_countries_sections_v3.pt"
+    />
 
-        <browser:page
-          name="countries-sections-v0"
-          for="*"
-          permission="zope2.View"
-          template="pt/view_countries_sections_v0.pt"
-          />
-
-          <browser:page
-            name="manage-factsheets"
-            for="*"
-            permission="zope2.View"
-            template="pt/view_manage_factsheets.pt"
-            />
+  <browser:page
+    name="manage-factsheets"
+    for="*"
+    permission="zope2.View"
+    template="pt/view_manage_factsheets.pt"
+    />
 
 </configure>

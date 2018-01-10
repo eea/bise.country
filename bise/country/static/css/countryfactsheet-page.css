@@ -1004,20 +1004,17 @@ body {
   }
 }
 
-.template-countries-sections-v1 {
+/* countries sections mockup css */
+
+.template-countries-sections-v2 {
   background-color: #F7F4ED;
 }
 
-.template-countries-sections-v1 .countries-list {
+.template-countries-sections-v2 .countries-list {
   margin: 0 !important;
 }
 
-.template-countries-sections-v1 .nav-tabs li,
-.template-countries-sections-v2 .nav-tabs li {
-  cursor: pointer;
-}
-
-.template-countries-sections-v1 .countries-list li {
+.template-countries-sections-v2 .countries-list li {
   list-style-type: none;
   cursor: pointer;
   font-weight: bold;
@@ -1025,104 +1022,78 @@ body {
   padding-top: 4px;
 }
 
-.template-countries-sections-v1 .countries-list li:hover,
-.template-countries-sections-v2 .countries-list li:hover  {
+.template-countries-sections-v2 .countries-list li:hover,
+.template-countries-sections-v3 .countries-list li:hover  {
   color: #41b664
 }
 
-.template-countries-sections-v1 .section-title,
-.template-countries-sections-v2 .section-title {
-  width: 90%;
-  margin-bottom: 2rem !important;
+.template-countries-sections-v2 .section-title,
+.template-countries-sections-v3 .section-title,
+.template-countries-sections-v4 .section-title {
+  width: 75%;
   color: #ef8152 !important;
   display: block;
 }
 
-.template-countries-sections-v1 #site-body {
+.template-countries-sections-v2 #site-body {
   padding-top: 125px;
 }
 
-.template-countries-sections-v1 #portal-breadcrumbs {
-    top: -113px;
-    color: #748284;
-    text-shadow: none;
-    font-weight: normal;
-  }
-
-.template-countries-sections-v1 #portal-breadcrumbs a {
-    color: #1f8cc9
-}
-
-.template-countries-sections-v1 .section-wrapper,
-.template-countries-sections-v2 .section-wrapper {
-  position: relative;
-}
-
-.template-countries-sections-v1 .column-9,
-.template-countries-sections-v2 .column-9 {
-  width: 80%;
-  float: left;
-}
-
-.template-countries-sections-v1 .column-3,
-.template-countries-sections-v2 .column-3 {
-  width: 20%;
-  float: left;
-}
-
-.template-countries-sections-v1 .countries-list {
-  border-top: 2px solid lightgray;
-  border-right: 2px solid lightgray;
-  border-bottom: 2px solid lightgray;
-  background-color: white;
-  height: 643px;
-  padding: 10px;
-}
-
-.template-countries-sections-v1 .section-description,
-.template-countries-sections-v2 .section-description {
+.template-countries-sections-v2 .section-description,
+.template-countries-sections-v3 .section-description {
   clear: both;
   margin-top: 20px;
   display: inline-block;
 }
 
-.template-countries-sections-v2 #site-body {
+.template-countries-sections-v3 #site-body,
+.template-countries-sections-v4 #site-body  {
   padding-top: 475px;
 }
 
-.template-countries-sections-v2 #portal-breadcrumbs {
+.template-countries-sections-v3 #portal-breadcrumbs,
+.template-countries-sections-v4 #portal-breadcrumbs {
     top: -458px;
   }
 
-.template-countries-sections-v2 #countryfactsheets-map {
+.template-countries-sections-v3 #countryfactsheets-map,
+.template-countries-sections-v4 #countryfactsheets-map {
   border: none;
   top: 30px;
 }
 
-.template-countries-sections-v2 .countries-list-wrapper {
+.template-countries-sections-v3 .countries-list-wrapper {
   width: 15%;
   float: left;
 }
 
-.template-countries-sections-v2 .countries-list {
+.template-countries-sections-v3 .countries-list {
   border-right: 1px solid #e5dfd1;
   padding-left: 0;
 }
-.template-countries-sections-v2 .countries-list {
+
+.template-countries-sections-v3 .countries-list {
   list-style-type: none;
   cursor: pointer;
   font-weight: bold;
   color: #308ca8;
 }
 
-.template-countries-sections-v2 .countries-list li {
+.template-countries-sections-v3 .countries-list li {
   padding-top: 8px;
 }
 
-.template-countries-sections-v2 .content-wrapper {
+.template-countries-sections-v3 .content-wrapper {
   width: 85%;
   float: right;
   padding-left: 20px;
+  margin-top: 10px;
+}
+
+.template-countries-sections-v4 .countries-list-wrapper {
+  position: absolute;
+  top: 30px;
+  right: 30px;
 }
 
 .tabs-content {
@@ -1135,7 +1106,7 @@ body {
 
 .intro-wrapper {
   position: absolute;
-  top: -340px;
+  top: -300px;
   left: 0px;
   color: white;
   width: 290px;
@@ -1145,4 +1116,8 @@ body {
 .intro-wrapper h1 {
   color: #41b664;
   font-weight: bold !important;
+}
+
+.intro-wrapper p {
+  font-weight: bold;
 }

@@ -9,7 +9,7 @@
 
     <!-- d3 v3 files -->
     <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf&#45;8"></script> -->
-    <!-- <script src="http://d3js.org/d3.geo.projection.v1.min.js" charset="utf&#45;8"></script> -->
+    <!-- <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf&#45;8"></script> -->
     <!-- <script src="http://d3js.org/topojson.v1.min.js"></script> -->
     <!-- <script src="http://d3js.org/queue.v1.min.js"></script> -->
 
@@ -123,16 +123,6 @@
           cursor: pointer;
       }
 
-      .template-countries-sections-v1 #plone-document-byline {
-        visibility: hidden;
-      }
-
-      .template-countries-sections-v1 .section-title {
-        position: absolute;
-        top: 30px;
-        width: 80%;
-      }
-
     </style>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -140,9 +130,31 @@
     <script src="/++resource++bise.country/js/factsheets-map.js"></script>
 
     <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
+        <!-- <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-page.css" /> -->
+
+      <h1 class="first-heading"> Countries </h1>
+
+      <p>  Welcome to the Countries section of the Biodiversity Information System for Europe. </p>
+
+      <p>  Here you can find EU Member State national reports related to biodiversity and information related to indicators organised by country, by clicking on the map for a specific Member State .</p>
+
+    <svg-container
+      class="svg-global-wrapper"
+      data-globalmap="global"
+      data-ratio="0.9"
+      tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
+      id="countryfactsheets-map"
+      data-show-legend="false">
+      <svg height="500"></svg>
+    </svg-container>
 
     <ul class="nav nav-tabs nav-sections">
       <li class="active">
+        <a>
+          Country profiles
+        </a>
+      </li>
+      <li>
         <a>
           Factsheet
         </a>
@@ -164,25 +176,17 @@
       </li>
     </ul>
 
-    <svg-container
-        class="svg-global-wrapper maes-map"
-        data-globalmap="global"
-        data-ratio="0.75"
-        data-settings="/++resource++bise.country/js/countries/maes-countries.json"
-        data-show-legend="true"
-        id="countryfactsheets-map">
-
-        <svg height="500"></svg>
-
-    </svg-container>
-
 
     <div class="panel-body">
       <div id="tab-1" class="tabs-content active">
-         <h1 class="section-title">EU biodiversity factsheets for EU Member States</h1>
-        <p class="section-description">Content</p>
+        <h1 class="section-title">Country profiles</h1>
+        <p class="section-description">The 2010 EU Biodiversity Action Plan Report is available online on Community level and for comparison across EU Member States.</p>
       </div>
       <div id="tab-2" class="tabs-content">
+         <h1 class="section-title">EU biodiversity factsheets for EU Member States</h1>
+         <p class="section-description">Content</p>
+      </div>
+      <div id="tab-3" class="tabs-content">
         <h1 class="section-title">EU Member States contribution to the mid-term review of the EU biodiversity strategy to 2020 based on the 5th national reports to CBD</h1>
 
         <p class="section-description">In an effort to minimize the reporting burden of EU Member States, the European Commission and Member States agreed that the Commission would extract relevant information from the 5th national reports to the Convention on Biological Diversity (CBD) of EU Member States, to report on progress to the EU 2020 biodiversity strategy.</p>
@@ -196,7 +200,7 @@
       <p>According to the suggested structure for the 5th national reports from the CBD, part III of the reports shall outline the progress towards the Aichi Biodiversity Targets. The analysis therefore focused on this part of the reports.</p>
       </div>
 
-      <div id="tab-3" class="tabs-content">
+      <div id="tab-4" class="tabs-content">
         <h1 class="section-title">MAES-related developments in the European Union</h1>
 
         <p class="section-description">In 2013 the European Commission adopted a Green Infrastructure Strategy, 'to promote the deployment of green infrastructure in the EU in urban and rural areas'. This is a key step in implementing the EU 2020 Biodiversity Strategy and specifically Target 2 that requires that 'by 2020, ecosystems and their services are maintained and enhanced by establishing green infrastructure and restoring at least 15% of degraded ecosystems'. Restoration action is also seen as a crucial response to climate change.</p>
@@ -206,7 +210,7 @@
         <p>Click on the map to see the overview on GI-related developments in a specific Member State.</p>
       </div>
 
-      <div id="tab-4" class="tabs-content">
+      <div id="tab-5" class="tabs-content">
         <h1 class="section-title">GI-related developments in the European Union</h1>
 
         <p class="section-description">Target 2 Action 5 of the EU biodiversity strategy to 2020 states that "Member States, with the assistance of the Commission, will map and assess the state of ecosystems and their services in their national territory by 2014, assess the economic value of such services, and promote the integration of these values into accounting and reporting systems at EU and national level by 2020." In order to deliver Action 5 the Working Group MAES (Mapping and Assessment of Ecosystems and their Services) was established in 2012 under the Common Implementation Framework (CIF).</p>
@@ -229,4 +233,5 @@
     </script>
 
   </body>
+
 </html>

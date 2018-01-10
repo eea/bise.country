@@ -72,7 +72,10 @@
             <span class="sr-only">Country</span>
           </label>
           <select name="country-dropdown-select">
-            <option selected="selected" tal:attributes="value context/aq_parent/absolute_url">---</option>
+            <option selected="selected"
+                         tal:attributes="value context/aq_parent/absolute_url">
+              ---
+            </option>
             <option tal:repeat="country countries"
                     tal:content="country/Title"
                     tal:attributes="value country/getURL; selected python: country.id == context.id">
@@ -102,12 +105,22 @@
                tal:repeat="lc tabs"
                tal:attributes="id string:#t-${repeat/lc/index}"
                >
-               <div class="edit-button" tal:condition="python: view.can_edit(lc[1])" tal:define="obj python: lc[1]">
-                 <a class="btn btn-secondary" href="" target="_blank" tal:attributes="href string:${obj/absolute_url}/edit">
+               <div class="edit-button"
+                       tal:condition="python: view.can_edit(lc[1])"
+                       tal:define="obj python: lc[1]"
+                 >
+                 <a href=""
+                      target="_blank"
+                      class="btn btn-secondary"
+                      tal:attributes="href string:${obj/absolute_url}/edit"
+                   >
                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                   Edit this page</a>
+                   Edit this page
+                 </a>
                </div>
-               <div class="content-wrapper" tal:content="structure python: view.view_page(lc[1])">
+               <div class="content-wrapper"
+                       tal:content="structure python: view.view_page(lc[1])"
+                 >
                  page inside here
                </div>
             </div>
@@ -118,34 +131,33 @@
     </div>
 
     <script type="text/javascript">
-$(document).ready(function() {
+        $(document).ready(function() {
 
-  $('h3.collapsible').collapsiblePanel({
-    // defaultOpen: 'content-header'
-  });
+          $('h3.collapsible').collapsiblePanel({
+            // defaultOpen: 'content-header'
+          });
 
-  $("body").addClass("claro");
+          $("body").addClass("claro");
 
-  $("#targetFilter input:checkbox").change(function() {
-    var filter = "?";
-    if ($("#targetFilter input:checked").length > 0){
-      var targets = "";
-      for(i=0; i <  $("#targetFilter input:checked").length; i++){
-        targets += $("input:checked")[i].value + ","
-      }
-      targets = targets.substring(0, targets.length - 1)
-      filter += "targets=" + targets;
-    }
-    if (window.location.pathname.endsWith("/view")){
-      window.location.href = window.location.pathname + filter;
-    }else if (window.location.pathname.endsWith("/")){
-      window.location.href = window.location.pathname + "view" + filter;
-    }else{
-      window.location.href = window.location.pathname + "/view" + filter;
-    }
-  })
-});
+          $("#targetFilter input:checkbox").change(function() {
+            var filter = "?";
+            if ($("#targetFilter input:checked").length > 0) {
+              var targets = "";
+              for (i=0; i <  $("#targetFilter input:checked").length; i++) {
+                targets += $("input:checked")[i].value + ","
+              }
+              targets = targets.substring(0, targets.length - 1)
+              filter += "targets=" + targets;
+            }
+            if (window.location.pathname.endsWith("/view")) {
+              window.location.href = window.location.pathname + filter;
+            } else if (window.location.pathname.endsWith("/")) {
+              window.location.href = window.location.pathname + "view" + filter;
+            } else {
+              window.location.href = window.location.pathname + "/view" + filter;
+            }
+          })
+        });
     </script>
-
   </body>
 </html>

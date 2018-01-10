@@ -3,6 +3,8 @@ Changelog
 
 4.3.dev0 - (unreleased)
 -----------------------
+- Style fixes and added dropdown version for country selection
+  [krisztina #90242]
 - Edit page for Biodiversity factsheets
   [krisztina #90236]
 - Replace factsheet map to MAES map in mockup
