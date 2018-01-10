@@ -123,6 +123,49 @@
           cursor: pointer;
       }
 
+      .map-helper {
+        height: 160px;
+        width: 220px;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        position: absolute;
+        top: 205px;
+        right: 260px;
+        z-index: 99;
+      }
+
+      .map-helper-wrapper {
+        height: 100%;
+        width: 100%;
+        position: relative;
+        padding: 15px;
+      }
+
+      .map-helper-wrapper span {
+        display: inline-block;
+        font-weight: bold;
+        line-height: 25px;
+      }
+
+      .map-helper-wrapper button {
+        margin-top: 25px;
+        float: right;
+      }
+
+       .map-helper-wrapper::after {
+        position: absolute;
+        top: 50%;
+        content: ' ';
+        right: 100%;
+        margin-top: -15px;
+        border-right-color: inherit;
+        width: 0;
+        height: 0;
+        border-top: 15px solid transparent;
+        border-right: 15px solid rgba(0, 0, 0, 0.7);
+        border-bottom: 15px solid transparent;
+       }
+
     </style>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -138,15 +181,24 @@
 
       <p>  Here you can find EU Member State national reports related to biodiversity and information related to indicators organised by country, by clicking on the map for a specific Member State .</p>
 
-    <svg-container
-      class="svg-global-wrapper"
-      data-globalmap="global"
-      data-ratio="0.9"
-      tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
-      id="countryfactsheets-map"
-      data-show-legend="false">
-      <svg height="500"></svg>
-    </svg-container>
+      <div style="position: relative">
+        <div class="map-helper">
+          <div class="map-helper-wrapper">
+            <span>Click on a specific Member State to see more information.</span>
+            <button class="btn btn-primary">Got it!</button>
+          </div>
+        </div>
+
+        <svg-container
+          class="svg-global-wrapper"
+          data-globalmap="global"
+          data-ratio="0.9"
+          tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
+          id="countryfactsheets-map"
+          data-show-legend="false">
+          <svg height="500"></svg>
+        </svg-container>
+      </div>
 
     <ul class="nav nav-tabs nav-sections">
       <li class="active">
@@ -156,7 +208,7 @@
       </li>
       <li>
         <a>
-          Factsheet
+          Factsheets
         </a>
       </li>
       <li >
@@ -220,6 +272,12 @@
     </div>
 
     <script type="text/javascript">
+      $('.map-helper').show();
+
+      $('.map-helper button').click(function () {
+        $('.map-helper').hide();
+      });
+
         $("ul.nav-tabs li a").each(function(i) {
             $(this).attr('href', "#tab-" + (i + 1));
         });

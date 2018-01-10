@@ -86,13 +86,6 @@
     permission="zope2.View"
     />
 
-    <browser:page
-    name="countries-sections-v0"
-    for="*"
-    permission="zope2.View"
-    template="pt/view_countries_sections_v0.pt"
-    />
-
   <browser:page
     name="countries-sections-v1"
     for="*"

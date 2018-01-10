@@ -738,6 +738,12 @@ body {
   .asidetrigger {
     display: none;
   }
+  .intro-wrapper {
+    display: none;
+  }
+  .map-helper {
+    right: 0 !important;
+  }
 }
 
 .legendContainer {
@@ -1027,9 +1033,9 @@ body {
   color: #41b664
 }
 
+.template-countries-sections-v1 .section-title,
 .template-countries-sections-v2 .section-title,
-.template-countries-sections-v3 .section-title,
-.template-countries-sections-v4 .section-title {
+.template-countries-sections-v3 .section-title {
   width: 75%;
   color: #ef8152 !important;
   display: block;
@@ -1047,17 +1053,17 @@ body {
 }
 
 .template-countries-sections-v3 #site-body,
-.template-countries-sections-v4 #site-body  {
+.template-countries-sections-v3 #site-body  {
   padding-top: 475px;
 }
 
 .template-countries-sections-v3 #portal-breadcrumbs,
-.template-countries-sections-v4 #portal-breadcrumbs {
+.template-countries-sections-v3 #portal-breadcrumbs {
     top: -458px;
   }
 
 .template-countries-sections-v3 #countryfactsheets-map,
-.template-countries-sections-v4 #countryfactsheets-map {
+.template-countries-sections-v3 #countryfactsheets-map {
   border: none;
   top: 30px;
 }
@@ -1084,13 +1090,10 @@ body {
 }
 
 .template-countries-sections-v3 .content-wrapper {
-  width: 85%;
-  float: right;
-  padding-left: 20px;
   margin-top: 10px;
 }
 
-.template-countries-sections-v4 .countries-list-wrapper {
+.template-countries-sections-v3 .countries-list-wrapper {
   position: absolute;
   top: 30px;
   right: 30px;
@@ -1106,7 +1109,7 @@ body {
 
 .intro-wrapper {
   position: absolute;
-  top: -300px;
+  top: -325px;
   left: 0px;
   color: white;
   width: 290px;
@@ -1121,3 +1124,45 @@ body {
 .intro-wrapper p {
   font-weight: bold;
 }
+
+.map-helper {
+  height: 160px;
+  width: 220px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  position: absolute;
+  top: -300px;
+  right: 300px;
+}
+
+.map-helper-wrapper {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  padding: 15px;
+}
+
+.map-helper-wrapper span {
+  display: inline-block;
+  font-weight: bold;
+  line-height: 25px;
+}
+
+.map-helper-wrapper button {
+  margin-top: 25px;
+  float: right;
+}
+
+ .map-helper-wrapper::after {
+  position: absolute;
+  top: 50%;
+  content: ' ';
+  right: 100%;
+  margin-top: -15px;
+  border-right-color: inherit;
+  width: 0;
+  height: 0;
+  border-top: 15px solid transparent;
+  border-right: 15px solid rgba(0, 0, 0, 0.7);
+  border-bottom: 15px solid transparent;
+ }

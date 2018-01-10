@@ -3,6 +3,8 @@ Changelog
 
 4.3.dev0 - (unreleased)
 -----------------------
+- Mockup improvements
+  [krisztina #90242]
 - Style fixes and added dropdown version for country selection
   [krisztina #90242]
 - Edit page for Biodiversity factsheets
