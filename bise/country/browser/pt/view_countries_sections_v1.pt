@@ -7,12 +7,6 @@
 
   <body metal:fill-slot="content-core">
 
-    <!-- d3 v3 files -->
-    <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf&#45;8"></script> -->
-    <!-- <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf&#45;8"></script> -->
-    <!-- <script src="http://d3js.org/topojson.v1.min.js"></script> -->
-    <!-- <script src="http://d3js.org/queue.v1.min.js"></script> -->
-
     <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
     <script src="https://d3js.org/d3-array.v1.min.js"></script>
     <script src="https://d3js.org/d3-geo.v1.min.js"></script>
@@ -21,35 +15,9 @@
     <script src="https://d3js.org/d3-queue.v3.min.js"></script>
 
     <style>
-      .template-countries-sections-v1  .aside {
-        display: none;
-      }
 
-      .template-countries-sections-v1  .asidetrue {
-        width: 100%;
-        left: 0;
-      }
-
-      .template-countries-sections-v1 .documentFirstHeading {
-      display: none;
-      }
-
-      .template-countries-sections-v1 .first-heading {
-        position: absolute;
-        top: 23px;
-      }
-
-      .template-countries-sections-v1 .nav-sections {
-         font-size: 20px;
-      }
-
-      .template-countries-sections-v1 .nav-sections li.active::before {
-          content: '';
-          position: absolute;
-          top: -4px;
-          border-radius: 5px 5px 0 0;
-          width: 100%;
-          border-top: 8px solid #e99279;
+      a {
+         outline: 0;
       }
 
       .template-countries-sections-v1 .tabs-content {
@@ -60,67 +28,118 @@
           display: block;
       }
 
-      .template-countries-sections-v1 .panel-body {
-          margin-top: 40px;
+      .template-countries-sections-v1 .nav-tabs-wrapper {
+        float: left;
+        width: 25%;
+        height: 100%;
       }
 
-      .template-countries-sections-v1 .nav {
-          margin-left: 0;
-          margin-bottom: 20px;
-          list-style: none;
-          padding-left: 0;
+      .template-countries-sections-v1 .map-wrapper {
+        float: right;
+        width:75%;
+        padding: 20px;
       }
 
-      .template-countries-sections-v1 .nav > li > a {
-          display: block;
+      .panel-body {
+       clear: both;
+       margin-top: 20px;
+      }
+
+      .map-container {
+        border: 2px solid lightgray;
+        height: 550px;
+        position: relative;
+        top: -30px;
+      }
+
+      .nav-tabs {
+        margin: 0 !important;
+        padding-left: 0;
+        height: 100%;
+        background-color: #f2f2f0;
+        border-right: 2px solid lightgray;
+      }
+
+      .nav-tabs li {
+        list-style-type: none;
+        border-bottom: 2px solid lightgray;
+        background-color: #f2f2f0;
+        position: relative;
+        height: 110px;
+        cursor: pointer;
+      }
+
+      .nav-tabs li .nav-title-wrapper {
           position: relative;
-          padding: 10px 15px;
+          top: 50%;
+          transform: translateY(-50%);
       }
 
-      .template-countries-sections-v1 .nav > li > a:hover,
-      .template-countries-sections-v1 .nav > li > a:focus {
-          text-decoration: none;
-          background-color: #eeeeee;
+      .nav-sections li:last-child {
+        height: 108px;
       }
 
-      .template-countries-sections-v1 .nav-tabs:before,
-      .template-countries-sections-v1 .nav-tabs:after {
-          display: table;
-          content: "";
+      .nav-sections li.active {
+        border-right: 2px solid white;
+        background-color: white;
+        border-left: 6px solid #41b664;
       }
 
-      .template-countries-sections-v1 .nav-tabs:after {
-          clear: both;
+      .nav-sections li.active a {
+        color: #41b664;
       }
 
-      .template-countries-sections-v1 .nav-tabs > li {
-          float: left;
-          position: relative;
+      .nav-sections li a:hover {
+        color: #41b664;
       }
 
-      .template-countries-sections-v1 .nav-tabs {
-          border-bottom: 2px solid #ddd;
+      .nav-sections li.active::after {
+        content:' ';
+        width: 3px;
+        background-color: white;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: -4px;
       }
 
-      .template-countries-sections-v1 .nav-tabs > li {
-          margin-bottom: -2px;
+      .nav-tabs li a {
+        padding-left: 15px;
+        font-weight: bold;
+        display: block;
       }
 
-      .template-countries-sections-v1 .nav-tabs > li > a {
-          padding: 12px;
-          line-height: 20px;
-          border-radius: 4px 4px 0 0;
+      .nav-tabs li span {
+        padding: 5px 0 0 15px;
+        font-size: 13px;
+        display: block;
+        width: 80%;
       }
 
-      .template-countries-sections-v1 .nav-tabs > .active > a,
-      .template-countries-sections-v1 .nav-tabs > .active > a:hover,
-      .template-countries-sections-v1 .nav-tabs > .active > a:focus {
-          color: #555;
-          background-color: #fff;
-          border-left: 2px solid #ddd;
-          border-right: 2px solid #ddd;
-          border-bottom-color: transparent;
-          cursor: pointer;
+      .template-countries-sections-v1  .aside {
+        display: none;
+      }
+
+      .template-countries-sections-v1  .asidetrue {
+        width: 100%;
+        left: 0;
+      }
+
+      .template-countries-sections-v1 .documentFirstHeading {
+        display: none;
+      }
+
+      .template-countries-sections-v1 .first-heading {
+        position: relative;
+        top: -57px;
+      }
+
+      .template-countries-sections-v1 .nav-sections {
+         font-size: 20px;
+      }
+
+      .template-countries-sections-v1 #plone-document-byline {
+        visibility: hidden;
       }
 
       .map-helper {
@@ -130,7 +149,7 @@
         color: white;
         position: absolute;
         top: 205px;
-        right: 260px;
+        right: 180px;
         z-index: 99;
       }
 
@@ -166,6 +185,10 @@
         border-bottom: 15px solid transparent;
        }
 
+       .template-countries-sections-v1 .section-title {
+        color: #ef8152 !important;
+       }
+
     </style>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -173,73 +196,84 @@
     <script src="/++resource++bise.country/js/factsheets-map.js"></script>
 
     <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
-        <!-- <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-page.css" /> -->
 
-      <h1 class="first-heading"> Countries </h1>
+    <div class="first-heading">
+      <h1> Countries </h1>
 
       <p>  Welcome to the Countries section of the Biodiversity Information System for Europe. </p>
 
       <p>  Here you can find EU Member State national reports related to biodiversity and information related to indicators organised by country, by clicking on the map for a specific Member State .</p>
+    </div>
 
-      <div style="position: relative">
-        <div class="map-helper">
-          <div class="map-helper-wrapper">
-            <span>Click on a specific Member State to see more information.</span>
-            <button class="btn btn-primary">Got it!</button>
-          </div>
-        </div>
-
-        <svg-container
-          class="svg-global-wrapper"
-          data-globalmap="global"
-          data-ratio="0.9"
-          tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
-          id="countryfactsheets-map"
-          data-show-legend="false">
-          <svg height="500"></svg>
-        </svg-container>
+    <div class="map-container">
+      <div class="nav-tabs-wrapper">
+        <ul class="nav nav-tabs nav-sections">
+          <li class="active">
+            <div class="nav-title-wrapper">
+              <a>Country profiles</a>
+              <span>Action Plan Report</span>
+            </div>
+          </li>
+          <li>
+            <div class="nav-title-wrapper">
+              <a>Factsheets</a>
+              <span>Biodiversity factsheets for EU Members</span>
+            </div>
+          </li>
+          <li>
+            <div class="nav-title-wrapper">
+              <a>Contributions</a>
+              <span>EU Member States contribution to the mid-term review.</span>
+            </div>
+          </li>
+          <li>
+            <div class="nav-title-wrapper">
+              <a>MAES</a>
+              <span>MAES-related developments in the European Union</span>
+            </div>
+          </li>
+          <li>
+            <div class="nav-title-wrapper">
+              <a>Green infrastructure</a>
+              <span>GI-related developments in the European Union</span>
+            </div>
+          </li>
+        </ul>
       </div>
 
-    <ul class="nav nav-tabs nav-sections">
-      <li class="active">
-        <a>
-          Country profiles
-        </a>
-      </li>
-      <li>
-        <a>
-          Factsheets
-        </a>
-      </li>
-      <li >
-        <a>
-          Contributions
-        </a>
-      </li>
-      <li >
-        <a>
-          MAES related developments
-        </a>
-      </li>
-      <li >
-        <a>
-          Green infrastructure
-        </a>
-      </li>
-    </ul>
+      <div class="map-wrapper">
+        <div style="position: relative">
+          <div class="map-helper">
+            <div class="map-helper-wrapper">
+              <span>Click on a specific Member State to see more information.</span>
+              <button class="btn btn-primary">Got it!</button>
+            </div>
+          </div>
 
+          <svg-container
+            class="svg-global-wrapper"
+            data-globalmap="global"
+            data-ratio="0.9"
+            tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
+            id="countryfactsheets-map"
+            data-show-legend="false">
+            <svg height="500"></svg>
+          </svg-container>
+        </div>
+      </div>
+    </div>
 
     <div class="panel-body">
       <div id="tab-1" class="tabs-content active">
-        <h1 class="section-title">Country profiles</h1>
+        <h3 class="section-title">Country profiles</h3>
         <p class="section-description">The 2010 EU Biodiversity Action Plan Report is available online on Community level and for comparison across EU Member States.</p>
       </div>
       <div id="tab-2" class="tabs-content">
-         <h1 class="section-title">EU biodiversity factsheets for EU Member States</h1>
+         <h3 class="section-title">EU biodiversity factsheets for EU Member States</h3>
          <p class="section-description">Content</p>
       </div>
       <div id="tab-3" class="tabs-content">
-        <h1 class="section-title">EU Member States contribution to the mid-term review of the EU biodiversity strategy to 2020 based on the 5th national reports to CBD</h1>
+        <h3 class="section-title">EU Member States contribution to the mid-term review of the EU biodiversity strategy to 2020 based on the 5th national reports to CBD</h3>
 
         <p class="section-description">In an effort to minimize the reporting burden of EU Member States, the European Commission and Member States agreed that the Commission would extract relevant information from the 5th national reports to the Convention on Biological Diversity (CBD) of EU Member States, to report on progress to the EU 2020 biodiversity strategy.</p>
 
@@ -253,7 +287,7 @@
       </div>
 
       <div id="tab-4" class="tabs-content">
-        <h1 class="section-title">MAES-related developments in the European Union</h1>
+        <h3 class="section-title">MAES-related developments in the European Union</h3>
 
         <p class="section-description">In 2013 the European Commission adopted a Green Infrastructure Strategy, 'to promote the deployment of green infrastructure in the EU in urban and rural areas'. This is a key step in implementing the EU 2020 Biodiversity Strategy and specifically Target 2 that requires that 'by 2020, ecosystems and their services are maintained and enhanced by establishing green infrastructure and restoring at least 15% of degraded ecosystems'. Restoration action is also seen as a crucial response to climate change.</p>
 
@@ -263,7 +297,7 @@
       </div>
 
       <div id="tab-5" class="tabs-content">
-        <h1 class="section-title">GI-related developments in the European Union</h1>
+        <h3 class="section-title">GI-related developments in the European Union</h3>
 
         <p class="section-description">Target 2 Action 5 of the EU biodiversity strategy to 2020 states that "Member States, with the assistance of the Commission, will map and assess the state of ecosystems and their services in their national territory by 2014, assess the economic value of such services, and promote the integration of these values into accounting and reporting systems at EU and national level by 2020." In order to deliver Action 5 the Working Group MAES (Mapping and Assessment of Ecosystems and their Services) was established in 2012 under the Common Implementation Framework (CIF).</p>
 
@@ -272,24 +306,23 @@
     </div>
 
     <script type="text/javascript">
-      $('.map-helper').show();
+        $('.map-helper').show();
 
-      $('.map-helper button').click(function () {
-        $('.map-helper').hide();
-      });
+        $('.map-helper button').click(function () {
+          $('.map-helper').hide();
+        });
 
         $("ul.nav-tabs li a").each(function(i) {
             $(this).attr('href', "#tab-" + (i + 1));
         });
 
-        $('ul.nav-tabs li a ').click(function() {
-            var attrValue = $(this).attr('href');
-            $(this).parent('li').addClass('active').siblings().removeClass('active');
+        $('ul.nav-tabs li').click(function() {
+            var attrValue = $(this).children().children('a').attr('href');
+            $(this).addClass('active').siblings().removeClass('active');
             $(attrValue).show().siblings().hide();
             return false;
         })
     </script>
 
   </body>
-
 </html>

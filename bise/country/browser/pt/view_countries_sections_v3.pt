@@ -26,12 +26,6 @@
       <link rel="stylesheet" href="https://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css"/>
       <link rel="stylesheet" href="https://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css"/>
 
-      <!-- d3 v3 files -->
-      <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf&#45;8"></script> -->
-      <!-- <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf&#45;8"></script> -->
-      <!-- <script src="http://d3js.org/topojson.v1.min.js"></script> -->
-      <!-- <script src="http://d3js.org/queue.v1.min.js"></script> -->
-
       <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
       <script src="https://d3js.org/d3-array.v1.min.js"></script>
       <script src="https://d3js.org/d3-geo.v1.min.js"></script>

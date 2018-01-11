@@ -3,6 +3,8 @@ Changelog
 
 4.3.dev0 - (unreleased)
 -----------------------
+- Mockup with vertical tabs
+  [krisztina #90242]
 - Mockup improvements
   [krisztina #90242]
 - Style fixes and added dropdown version for country selection
