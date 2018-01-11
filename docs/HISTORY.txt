@@ -3,6 +3,8 @@ Changelog
 
 4.4.dev0 - (unreleased)
 -----------------------
+- Update permission for manage factsheets page
+  [krisztina #90242]
 
 4.3 - (2018-01-11)
 ------------------
@@ -231,4 +233,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

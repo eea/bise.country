@@ -110,7 +110,7 @@
   <browser:page
     name="manage-factsheets"
     for="*"
-    permission="zope2.View"
+    permission="cmf.ModifyContent"
     template="pt/view_manage_factsheets.pt"
     />
 
