@@ -110,7 +110,7 @@
   <browser:page
     name="manage-factsheets"
     for="*"
-    permission="cmf.ModifyContent"
+    permission="cmf.ModifyPortalContent"
     template="pt/view_manage_factsheets.pt"
     />
 

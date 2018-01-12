@@ -3,6 +3,8 @@ Changelog
 
 4.4.dev0 - (unreleased)
 -----------------------
+- Fix permission for manage factsheets page
+  [krisztina #90242]
 - Update permission for manage factsheets page
   [krisztina #90242]
 
