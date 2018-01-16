@@ -104,6 +104,8 @@ $(document).ready(function() {
       subtype: 'ajax',
       filter: common_content_filter,
       formselector: 'form.kssattr-formname-simple-edit',
+      closeselector: 'input#form-buttons-cancel[name="form.buttons.cancel"]',
+      noform: 'reload',
      }
   );
 

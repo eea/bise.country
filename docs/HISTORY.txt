@@ -3,6 +3,8 @@ Changelog
 
 4.4.dev0 - (unreleased)
 -----------------------
+- Fix factsheets edit popup to reload the page or close the window after action is executed
+  [krisztina #90236]
 - Fix permission for manage factsheets page
   [krisztina #90242]
 - Update permission for manage factsheets page
