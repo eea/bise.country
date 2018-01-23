@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.5.dev0 - (unreleased)
+-----------------------
+
 4.4 - (2018-01-23)
 ------------------
 - Fix factsheets edit popup to reload the page or close the window after action is executed
