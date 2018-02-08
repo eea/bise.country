@@ -339,5 +339,36 @@
         })
     </script>
 
+  <script>
+function setMaes() {
+  var svg = $('svg-container');
+
+  svg.toggleClass('general-map');
+  svg.toggleClass('maes-map');
+  svg.data('ratio', '0.9');
+  svg.data('show-legend', true);
+
+  var settingsURL = "http://localhost:6080/++resource++bise.country/js/countries/maes-countries.json";
+  d3.json(settingsURL, init);
+
+}
+
+function setCountries() {
+  var svg = $('svg-container');
+
+  svg.toggleClass('general-map');
+  svg.toggleClass('maes-map');
+  svg.data('ratio', '0.75');
+  svg.data('show-legend', false);
+
+  var settingsURL = "http://localhost:6080/++resource++bise.country/js/countries/maes-countries.json";
+  d3.json(settingsURL, init);
+
+}
+  </script>
+
+  <button onclick="setMaes()">Maes</button>
+  <button onclick="setCountries()">Countries</button>
+
   </body>
 </html>

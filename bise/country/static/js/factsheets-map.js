@@ -668,12 +668,18 @@ function setCountryFlags(countries, flags) {
 
 
 function init(settings) {
+  console.log("initializing using settings: ", settings);
   countryGroups = settings['filteredCountries'];
   var getCountries = [];
 
+  d3.select("body").select("#countryfactsheets-map svg").selectAll("*").remove();
+  $("#countries-filter").detach();
+
   var $sw = $('#countryfactsheets-map');
   // countries filter legend for MAES map
-  var $dw = $('<div id="countries-filter"><span>Report on MAES-related <br> developments</span><ul class="filter-listing"></ul></div>');
+  var $dw = $('<div id="countries-filter">' +
+    '<span>Report on MAES-related <br> developments</span>' +
+    '<ul class="filter-listing"></ul></div>');
   // helper tooltip for maps
   var $tt = $('<div id="tooltip"/>');
   $sw.append($dw);
@@ -689,9 +695,11 @@ function init(settings) {
     getCountries.push(countryGroups[i]['countries']);
   }
 
-  var showLegend = $("svg-container").data('show-legend');
+  var showLegend = $("#countryfactsheets-map").data('show-legend');
+  console.log("Showing legend", showLegend);
 
   if (showLegend === false) {
+    console.log("Will hide filter");
     $('#countries-filter').hide();
   }
 
@@ -709,13 +717,13 @@ function init(settings) {
   $('body').addClass('factsheets');
 
   window.isHeaderMap = $(".country-header").hasClass('country-header');
-  window.isGlobalMap = $("svg-container").data('globalmap') === 'global';
+  window.isGlobalMap = $("#countryfactsheets-map").data('globalmap') === 'global';
 
   // get ratio from data attribute
-  var zoomLevel = parseFloat($("svg-container").data('ratio'));
+  var zoomLevel = parseFloat($("#countryfactsheets-map").data('ratio'));
 
-  var width = window.isGlobalMap ? $('svg').width() : $(window).width();
-  var height = $('svg').height();
+  var width = window.isGlobalMap ? $('#countryfactsheets-map svg').width() : $(window).width();
+  var height = $('#countryfactsheets-map svg').height();
 
   if ($('.svg-header-wrapper').length > 0) {
     var $svgh = $('<div class="header-bg"/>');
@@ -753,7 +761,7 @@ function init(settings) {
 
     var svg = d3
       .select("body")
-      .select("svg")
+      .select("#countryfactsheets-map svg")
       .attr("width", width)
     ;
 
@@ -866,7 +874,10 @@ function init(settings) {
     drawMap();
 
     $(window).resize(function() {
-      width = window.isGlobalMap ? $('svg').width() : $(window).width();
+      width = window.isGlobalMap
+        ? $('#countryfactsheets-map svg').width()
+        : $(window).width()
+      ;
       svg.selectAll("*").remove();
       drawMap()
     })
@@ -876,7 +887,7 @@ function init(settings) {
 
 $(document).ready(function() {
 
-  var settingsURL = $("svg-container").data('settings');
+  var settingsURL = $("#countryfactsheets-map").data('settings');
 
   d3.json(settingsURL, init);
 

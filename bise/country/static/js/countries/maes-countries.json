@@ -7,5 +7,6 @@
     {"title":"Not available","color":"#fff","countries":["Cyprus"]},
     {"title":"Outside data coverage","color":"#efe7d4","countries":[]}
   ],
-  "maplets": "Malta,Luxembourg,Cyprus"
+  "maplets": "Malta,Luxembourg,Cyprus",
+  "nonEuMembers": []
 }

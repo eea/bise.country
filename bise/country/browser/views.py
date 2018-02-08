@@ -6,6 +6,24 @@ from lxml.html import fromstring, tostring
 from plone.api.user import has_permission
 from plone.subrequest import subrequest
 
+NONEU = [
+    "Albania",
+    "Bosnia and Herzegovina",
+    "Norway",
+    "Turkey",
+    "Republic of Serbia",
+    "Montenegro",
+    "Kosovo",
+    "Switzerland",
+    "Macedonia",
+]
+
+MAPLETS = [
+    "Malta",
+    "Luxembourg",
+    "Cyprus"
+]
+
 
 class MapFolderListingSettings(object):
     """
@@ -21,8 +39,8 @@ class MapFolderListingSettings(object):
                                   for x in self.context.listFolderContents()]
                 }
             ],
-            "maplets": "Malta,Luxembourg,Cyprus",
-            "nonEuMembers": ["Albania", "Bosnia and Herzegovina", "Norway", "Turkey", "Republic of Serbia", "Montenegro", "Kosovo", "Switzerland", "Macedonia"]
+            "maplets": ','.join(MAPLETS),
+            "nonEuMembers": NONEU,
         }
 
         self.request.response.headers['Content-Type'] = 'application/json'
