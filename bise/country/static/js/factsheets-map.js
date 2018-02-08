@@ -703,6 +703,14 @@ function init(settings) {
     $('#countries-filter').hide();
   }
 
+  var showMapFilter = $("#countryfactsheets-map").data('show-map-filter');
+
+  if (showMapFilter === false) {
+    $('.eu-map-filter').hide();
+  } else {
+    $('.eu-map-filter').show();
+  }
+
   // select only one checkbox at a time
   $(".countries-checkbox").change(function() {
     $('.countries-checkbox').not(this).prop('checked', false);

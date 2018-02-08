@@ -209,31 +209,31 @@
       <div class="nav-tabs-wrapper">
         <ul class="nav nav-tabs nav-sections">
           <li class="active">
-            <div class="nav-title-wrapper country-profile">
+            <div class="nav-title-wrapper general-eu-map">
               <a>Country profiles</a>
               <span>Action Plan Report</span>
             </div>
           </li>
           <li>
-            <div class="nav-title-wrapper">
+            <div class="nav-title-wrapper general-eu-map">
               <a>Factsheets</a>
               <span>Biodiversity factsheets for EU Members</span>
             </div>
           </li>
           <li>
-            <div class="nav-title-wrapper">
+            <div class="nav-title-wrapper general-eu-map">
               <a>Contributions</a>
               <span>EU Member States contribution to the mid-term review.</span>
             </div>
           </li>
           <li>
-            <div class="nav-title-wrapper">
+            <div class="nav-title-wrapper maes-eu-map">
               <a>MAES</a>
               <span>MAES-related developments in the European Union</span>
             </div>
           </li>
           <li>
-            <div class="nav-title-wrapper">
+            <div class="nav-title-wrapper general-eu-map">
               <a>Green infrastructure</a>
               <span>GI-related developments in the European Union</span>
             </div>
@@ -261,7 +261,7 @@
 
             <div class="eu-map-filter">
               <div class="checkb-wrapper">
-                <input type="radio" class='countries-checkbox' id="checkb_1" checked/>
+                <input type="radio" class='countries-checkbox' id="checkb_1"/>
                 <label for="checkb_1" style="color: #41b664">EU Members</label>
               </div>
               <div class="checkb-wrapper">
@@ -269,7 +269,7 @@
                 <label for="checkb_2" style="color: #ffa349">Non EU Members</label>
               </div>
               <div class="checkb-wrapper">
-                <input type="radio" class='countries-checkbox' id="checkb_3"/>
+                <input type="radio" class='countries-checkbox' id="checkb_3" checked/>
                 <label for="checkb_3" style="color: #666">All countries</label>
               </div>
             </div>
@@ -339,36 +339,34 @@
         })
     </script>
 
-  <script>
-function setMaes() {
-  var svg = $('svg-container');
+    <script>
+      $('.general-eu-map').click(function() {
+        var svg = $('#countryfactsheets-map');
 
-  svg.toggleClass('general-map');
-  svg.toggleClass('maes-map');
-  svg.data('ratio', '0.9');
-  svg.data('show-legend', true);
+        svg.addClass('general-map');
+        svg.removeClass('maes-map');
+        svg.attr('data-ratio', '0.75');
+        svg.data('show-legend', false);
+        svg.data('show-map-filter', true);
 
-  var settingsURL = "http://localhost:6080/++resource++bise.country/js/countries/maes-countries.json";
-  d3.json(settingsURL, init);
+        var settingsURL = "http://localhost:6080/++resource++bise.country/js/countries/maes-countries.json";
+        d3.json(settingsURL, init);
+      })
 
-}
+      $('.maes-eu-map').click(function() {
+        var svg = $('#countryfactsheets-map');
 
-function setCountries() {
-  var svg = $('svg-container');
+        svg.removeClass('general-map');
+        svg.addClass('maes-map');
+        svg.attr('data-ratio', '0.9');
+        svg.data('show-legend', true);
+        svg.data('show-map-filter', false);
 
-  svg.toggleClass('general-map');
-  svg.toggleClass('maes-map');
-  svg.data('ratio', '0.75');
-  svg.data('show-legend', false);
+        var settingsURL = "http://localhost:6080/++resource++bise.country/js/countries/maes-countries.json";
+        d3.json(settingsURL, init);
+      })
 
-  var settingsURL = "http://localhost:6080/++resource++bise.country/js/countries/maes-countries.json";
-  d3.json(settingsURL, init);
-
-}
-  </script>
-
-  <button onclick="setMaes()">Maes</button>
-  <button onclick="setCountries()">Countries</button>
+    </script>
 
   </body>
 </html>
