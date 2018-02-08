@@ -103,6 +103,35 @@ svg-container {
   z-index: 1001;
 }
 
+.eu-map-filter {
+  background-color: #fff;
+  border: 2px solid #333366;
+  height: auto;
+  padding: 12px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 1001;
+  width: 170px;
+}
+
+.eu-map-filter input {
+  margin-right: 7px;
+}
+
+.eu-map-filter label {
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.eu-map-filter .checkb-wrapper:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.non-eu-country-focus {
+  fill: #ffa349;
+}
+
 /***** MAES map related *****/
 
 #countries-filter {

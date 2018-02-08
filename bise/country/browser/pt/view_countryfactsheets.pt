@@ -28,13 +28,28 @@
     <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
 
     <svg-container
-      class="svg-global-wrapper"
+      class="svg-global-wrapper general-map"
       data-globalmap="global"
       data-ratio="0.9"
       tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
       id="countryfactsheets-map"
       data-show-legend="false">
       <svg height="560"></svg>
+
+      <div class="eu-map-filter">
+        <div class="checkb-wrapper">
+          <input type="radio" class='countries-checkbox' id="checkb_1" checked />
+          <label for="checkb_1" style="color: #41b664">EU Members</label>
+        </div>
+        <div class="checkb-wrapper">
+          <input type="radio" class='countries-checkbox' id="checkb_2"/>
+          <label for="checkb_2" style="color: #ffa349">Non EU Members</label>
+        </div>
+        <div class="checkb-wrapper">
+          <input type="radio" class='countries-checkbox' id="checkb_3"/>
+          <label for="checkb_3" style="color: #666">All countries</label>
+        </div>
+      </div>
     </svg-container>
 
     <div tal:replace="structure context/text/output | nothing">Text here</div>

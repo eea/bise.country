@@ -3,6 +3,8 @@ Changelog
 
 4.5.dev0 - (unreleased)
 -----------------------
+- Feature: Add checkbox filter legend for the maps
+  [krisztina #90236]
 
 4.4 - (2018-01-23)
 ------------------
@@ -240,4 +242,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

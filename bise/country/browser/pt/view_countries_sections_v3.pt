@@ -11,7 +11,7 @@
 
       <div>
         <svg-container
-            class="svg-header-wrapper"
+            class="svg-header-wrapper general-map"
             data-ratio="0.7"
             tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
             data-show-legend="false"

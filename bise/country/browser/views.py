@@ -21,7 +21,8 @@ class MapFolderListingSettings(object):
                                   for x in self.context.listFolderContents()]
                 }
             ],
-            "maplets": "Malta,Luxembourg,Cyprus"
+            "maplets": "Malta,Luxembourg,Cyprus",
+            "nonEuMembers": ["Albania", "Bosnia and Herzegovina", "Norway", "Turkey", "Republic of Serbia", "Montenegro", "Kosovo", "Switzerland", "Macedonia"]
         }
 
         self.request.response.headers['Content-Type'] = 'application/json'

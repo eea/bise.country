@@ -209,7 +209,7 @@
       <div class="nav-tabs-wrapper">
         <ul class="nav nav-tabs nav-sections">
           <li class="active">
-            <div class="nav-title-wrapper">
+            <div class="nav-title-wrapper country-profile">
               <a>Country profiles</a>
               <span>Action Plan Report</span>
             </div>
@@ -251,13 +251,28 @@
           </div>
 
           <svg-container
-            class="svg-global-wrapper"
+            class="svg-global-wrapper general-map"
             data-globalmap="global"
             data-ratio="0.9"
             tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
             id="countryfactsheets-map"
             data-show-legend="false">
             <svg height="500"></svg>
+
+            <div class="eu-map-filter">
+              <div class="checkb-wrapper">
+                <input type="radio" class='countries-checkbox' id="checkb_1" checked/>
+                <label for="checkb_1" style="color: #41b664">EU Members</label>
+              </div>
+              <div class="checkb-wrapper">
+                <input type="radio" class='countries-checkbox' id="checkb_2"/>
+                <label for="checkb_2" style="color: #ffa349">Non EU Members</label>
+              </div>
+              <div class="checkb-wrapper">
+                <input type="radio" class='countries-checkbox' id="checkb_3"/>
+                <label for="checkb_3" style="color: #666">All countries</label>
+              </div>
+            </div>
           </svg-container>
         </div>
       </div>

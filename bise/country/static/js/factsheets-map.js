@@ -207,8 +207,10 @@ function drawCountries(
       }
     })
     .attr('class', function(d) {
-      if (focusIds.indexOf(d.name) > -1) {
-        return 'country-stroke country-focus';
+      if ($('.maes-map').length > 0) {
+        if (focusIds.indexOf(d.name) > -1) {
+          return 'country-stroke country-focus';
+        }
       }
       return 'country-stroke';
     })
@@ -216,6 +218,41 @@ function drawCountries(
     .attr('x', x)
     .attr('y', y)
   ;
+
+
+  d3.selectAll(".countries-checkbox").on("change", update);
+  update();
+
+  function update () {
+    if ($('.general-map').length > 0) {
+      d3.selectAll('.country-stroke').attr('class', function(d) {
+        var euCountries = window.available_map_countries.indexOf(d.name) > -1;
+        var nonEuCountries = nonEuMembers.indexOf(d.name) > -1;
+
+        // focus eu members on the map
+        if (d3.select("#checkb_1").property("checked")) {
+          if (euCountries) {
+            return 'country-stroke country-focus';
+          }
+        } else if (d3.select("#checkb_2").property("checked")) {
+          // focus non-eu members on the map
+            if (nonEuCountries) {
+              return 'country-stroke non-eu-country-focus';
+            }
+        } else if (d3.select("#checkb_3").property("checked")) {
+          // focus all countries on the map
+            if (nonEuCountries) {
+              return 'country-stroke non-eu-country-focus';
+            }
+            if (euCountries) {
+              return 'country-stroke country-focus';
+            }
+        }
+        return 'country-stroke';
+      })
+    }
+  }
+
 
   // define clipping paths for all focused countries
   defs
@@ -635,7 +672,9 @@ function init(settings) {
   var getCountries = [];
 
   var $sw = $('#countryfactsheets-map');
+  // countries filter legend for MAES map
   var $dw = $('<div id="countries-filter"><span>Report on MAES-related <br> developments</span><ul class="filter-listing"></ul></div>');
+  // helper tooltip for maps
   var $tt = $('<div id="tooltip"/>');
   $sw.append($dw);
   $sw.append($tt);
@@ -656,10 +695,16 @@ function init(settings) {
     $('#countries-filter').hide();
   }
 
+  // select only one checkbox at a time
+  $(".countries-checkbox").change(function() {
+    $('.countries-checkbox').not(this).prop('checked', false);
+  });
+
   var allCountries = [].concat.apply([],getCountries);
 
   var filteredCountries = allCountries;
   var mapletsCountries = settings['maplets'];
+  nonEuMembers = settings['nonEuMembers'];
 
   $('body').addClass('factsheets');
 
