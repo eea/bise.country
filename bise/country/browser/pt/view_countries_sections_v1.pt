@@ -349,7 +349,8 @@
         svg.data('show-legend', false);
         svg.data('show-map-filter', true);
 
-        var settingsURL = "http://localhost:6080/++resource++bise.country/js/countries/maes-countries.json";
+        var settingsURL = $(".general-map").data('settings');
+        console.log('will initialize with click:', settingsURL);
         d3.json(settingsURL, init);
       })
 

@@ -1,3 +1,5 @@
+var nonEuMembers;
+
 Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 };
@@ -670,6 +672,9 @@ function setCountryFlags(countries, flags) {
 function init(settings) {
   console.log("initializing using settings: ", settings);
   countryGroups = settings['filteredCountries'];
+  console.log("nonEuMembers:", nonEuMembers);
+  console.log("nonEuMembers settings:", settings.nonEuMembers);
+  nonEuMembers = settings.nonEuMembers;
   var getCountries = [];
 
   d3.select("body").select("#countryfactsheets-map svg").selectAll("*").remove();
