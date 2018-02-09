@@ -208,20 +208,20 @@
     <div class="map-container">
       <div class="nav-tabs-wrapper">
         <ul class="nav nav-tabs nav-sections">
-          <li class="active">
+          <li id="all-countries"  class="active">
             <div class="nav-title-wrapper general-eu-map">
               <a>Country profiles</a>
               <span>Action Plan Report</span>
             </div>
           </li>
-          <li>
+          <li id="eu-countries" >
             <div class="nav-title-wrapper general-eu-map">
               <a>Factsheets</a>
               <span>Biodiversity factsheets for EU Members</span>
             </div>
           </li>
-          <li>
-            <div class="nav-title-wrapper general-eu-map">
+          <li id="eu-countries" >
+            <div  class="nav-title-wrapper general-eu-map">
               <a>Contributions</a>
               <span>EU Member States contribution to the mid-term review.</span>
             </div>
@@ -232,7 +232,7 @@
               <span>MAES-related developments in the European Union</span>
             </div>
           </li>
-          <li>
+          <li id="eu-countries" >
             <div class="nav-title-wrapper general-eu-map">
               <a>Green infrastructure</a>
               <span>GI-related developments in the European Union</span>
@@ -340,6 +340,28 @@
     </script>
 
     <script>
+      $(document).ready(function() {
+
+
+      d3.selectAll('#eu-countries').on('click change', function() {
+        if ($(this).data('clicked', true)) {
+          $("#checkb_1").prop('checked', true);
+          //$('#checkb_1').not(this).prop('checked', false);
+          $('#checkb_2').prop('checked', false);
+          $('#checkb_3').prop('checked', false);
+        }
+      });
+
+      d3.selectAll('#all-countries').on('click change', function() {
+        if ($(this).data('clicked', true)) {
+          $("#checkb_3").prop('checked', true);
+          $('#checkb_1').prop('checked', false);
+          $('#checkb_2').prop('checked', false);
+        }
+      });
+
+    });
+
       $('.general-eu-map').click(function() {
         var svg = $('#countryfactsheets-map');
 
@@ -350,9 +372,9 @@
         svg.data('show-map-filter', true);
 
         var settingsURL = $(".general-map").data('settings');
-        console.log('will initialize with click:', settingsURL);
         d3.json(settingsURL, init);
       })
+
 
       $('.maes-eu-map').click(function() {
         var svg = $('#countryfactsheets-map');

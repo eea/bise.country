@@ -670,10 +670,8 @@ function setCountryFlags(countries, flags) {
 
 
 function init(settings) {
-  console.log("initializing using settings: ", settings);
+  // console.log("initializing using settings: ", settings);
   countryGroups = settings['filteredCountries'];
-  console.log("nonEuMembers:", nonEuMembers);
-  console.log("nonEuMembers settings:", settings.nonEuMembers);
   nonEuMembers = settings.nonEuMembers;
   var getCountries = [];
 
@@ -701,10 +699,8 @@ function init(settings) {
   }
 
   var showLegend = $("#countryfactsheets-map").data('show-legend');
-  console.log("Showing legend", showLegend);
 
   if (showLegend === false) {
-    console.log("Will hide filter");
     $('#countries-filter').hide();
   }
 
