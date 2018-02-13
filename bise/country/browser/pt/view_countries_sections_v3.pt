@@ -13,10 +13,26 @@
         <svg-container
             class="svg-header-wrapper general-map"
             data-ratio="0.7"
+            data-globalmap="global"
             tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
             data-show-legend="false"
             id="countryfactsheets-map">
           <svg height="600"></svg>
+
+          <div class="eu-map-filter">
+            <div class="checkb-wrapper">
+              <input type="radio" class='countries-checkbox' id="checkb_1"/>
+              <label for="checkb_1" style="color: #41b664">EU Members</label>
+            </div>
+            <div class="checkb-wrapper">
+              <input type="radio" class='countries-checkbox' id="checkb_2"/>
+              <label for="checkb_2" style="color: #f4ce62">Non EU Members</label>
+            </div>
+            <div class="checkb-wrapper">
+              <input type="radio" class='countries-checkbox' id="checkb_3" checked/>
+              <label for="checkb_3" style="color: #666">All countries</label>
+            </div>
+          </div>
         </svg-container>
       </div>
 
@@ -52,8 +68,7 @@
 
       <div class="intro-wrapper">
         <h1> Interactive <br> countries map</h1>
-        <p> Welcome to the Countries section of the Biodiversity Information System for Europe.</p>
-        <p>Here you can find EU Member State national reports related to biodiversity and information related to indicators organised by country.</p>
+        <p> Welcome to the Countries section of the Biodiversity Information System for Europe. Here you can find EU Member State national reports related to biodiversity and information related to indicators organised by country.</p>
       </div>
 
       <div class="map-helper">
@@ -103,27 +118,27 @@
         <div class="panel-heading">
           <ul class="nav nav-tabs" role="tablist" id="country-tabs">
             <li class="active">
-              <a>
+              <a id="all-countries"  class="general-eu-map">
                 Countries
               </a>
             </li>
             <li>
-              <a>
+              <a id="eu-countries" class="general-eu-map">
                 Factsheets
               </a>
             </li>
             <li>
-              <a>
+              <a id="eu-countries" class="general-eu-map">
                 Contributions
               </a>
             </li>
             <li>
-              <a>
+              <a class="maes-eu-map">
                 MAES
               </a>
             </li>
             <li>
-              <a>
+              <a id="eu-countries" class="general-eu-map">
                 Green infrastructure
               </a>
             </li>
@@ -214,6 +229,55 @@
         $(this).parent('li').addClass('active').siblings().removeClass('active');
         $(attrValue).show().siblings().hide();
         return false;
+      })
+    </script>
+
+    <script>
+      $(document).ready(function() {
+
+        d3.selectAll('#eu-countries').on('click change', function() {
+          if ($(this).data('clicked', true)) {
+            $("#checkb_1").prop('checked', true);
+            //$('#checkb_1').not(this).prop('checked', false);
+            $('#checkb_2').prop('checked', false);
+            $('#checkb_3').prop('checked', false);
+          }
+        });
+
+        d3.selectAll('#all-countries').on('click change', function() {
+          if ($(this).data('clicked', true)) {
+            $("#checkb_3").prop('checked', true);
+            $('#checkb_1').prop('checked', false);
+            $('#checkb_2').prop('checked', false);
+          }
+        });
+
+      });
+
+      $('.general-eu-map').click(function() {
+        var svg = $('#countryfactsheets-map');
+
+        svg.addClass('general-map');
+        svg.removeClass('maes-map');
+        svg.attr('data-ratio', '0.75');
+        svg.data('show-legend', false);
+        svg.data('show-map-filter', true);
+
+        var settingsURL = $(".general-map").data('settings');
+        d3.json(settingsURL, init);
+      })
+
+      $('.maes-eu-map').click(function() {
+        var svg = $('#countryfactsheets-map');
+
+        svg.removeClass('general-map');
+        svg.addClass('maes-map');
+        svg.attr('data-ratio', '0.9');
+        svg.data('show-legend', true);
+        svg.data('show-map-filter', false);
+
+        var settingsURL = "http://localhost:6080/++resource++bise.country/js/countries/maes-countries.json";
+        d3.json(settingsURL, init);
       })
     </script>
 

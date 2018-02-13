@@ -699,10 +699,6 @@ body {
 }
 
 
-
-
-
-
 #targetFilter {
   display: none;
 }
@@ -1108,7 +1104,7 @@ body {
 
 .intro-wrapper {
   position: absolute;
-  top: -325px;
+  top: -350px;
   left: 0px;
   color: white;
   width: 290px;

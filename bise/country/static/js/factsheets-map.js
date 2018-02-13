@@ -569,8 +569,8 @@ function addCountriesToMinimap(
   zoomLevel
 ) {
 
-  var boxw = 150;
-  var boxh = 150;
+  var boxw = 60;
+  var boxh = 60;
   var spacer = 0;
   var boxtitle = 10;
 
@@ -611,7 +611,7 @@ function addCountriesToMinimap(
     .attr('y', 0)
     .attr('class', 'country-focus-label')
     .attr('text-anchor', 'middle')
-    .text('European Union')
+    .text('EU')
   ;
 
   var lbbox = label.node().getBBox();
@@ -635,10 +635,14 @@ function addCountriesToMinimap(
   img
     .append('image')
     .attr('class', 'eu-flag')
-    .attr('x', msp.x + 10)
-    .attr('y', msp.y - textboxh + 22)
-    .attr('width', 40)
-    .attr('height', 27)
+    // .attr('x', msp.x + 10)
+    // .attr('y', msp.y - textboxh + 22)
+    .attr('x', msp.x + 5)
+    .attr('y', msp.y - textboxh + 15)
+    // .attr('width', 40)
+    // .attr('height', 27)
+    .attr('width', 20)
+    .attr('height', 14)
     .attr('href', 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg')
   ;
 
@@ -726,12 +730,27 @@ function init(settings) {
   $('body').addClass('factsheets');
 
   window.isHeaderMap = $(".country-header").hasClass('country-header');
+  window.isHeaderGlobalMap = $("#countryfactsheets-map").hasClass('svg-header-wrapper');
   window.isGlobalMap = $("#countryfactsheets-map").data('globalmap') === 'global';
 
   // get ratio from data attribute
   var zoomLevel = parseFloat($("#countryfactsheets-map").data('ratio'));
 
   var width = window.isGlobalMap ? $('#countryfactsheets-map svg').width() : $(window).width();
+
+  if (window.isHeaderGlobalMap) {
+    var width = $(window).width();
+    // hardcoded, it's not responsive - need to be fixed
+    $('.eu-map-filter').css({
+      'top': '100px',
+      'right': '368px'
+    });
+    $('#countries-filter').css({
+      'right': '368px',
+      'top': '100px'
+    });
+  }
+
   var height = $('#countryfactsheets-map svg').height();
 
   if ($('.svg-header-wrapper').length > 0) {
@@ -831,6 +850,13 @@ function init(settings) {
         var mside = 'left';
         var mstart = [10, 23];
 
+        // eu minimap position in header map
+        if (window.isHeaderGlobalMap) {
+          var mside = 'top';
+          var mstart = [370, 420];
+        }
+
+
         if ($('.maes-map').length > 0) {
           addCountriesToMinimap(
             svg,
@@ -840,15 +866,26 @@ function init(settings) {
             mstart,
             mside,
             mp,
-            0.9
+            0.8
           );
         }
 
         focusCountries.forEach(function(id, index) {
-          if ($('.maes-map').length > 0) {
+          var isMaesMap = $('.maes-map').length > 0;
+
+          if (isMaesMap) {
             orientation =  'bottom';
             start = [10, height + 20];
-          } else {
+              // maplets position in maes header map
+            if (window.isHeaderGlobalMap) {
+              orientation =  'top';
+              start = [450, 420];
+            }
+          } else if (window.isHeaderGlobalMap) {
+            orientation =  'top';
+            start = [370, 420];
+          }
+          else {
             orientation = 'left';
             start = [10, 26];
             if ((height / width) > 1.2) {

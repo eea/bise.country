@@ -44,8 +44,8 @@ svg-container {
 }
 
 .country-focus-text-bg {
-  fill: #333366;
-  stroke: #333366;
+  fill: #393939;
+  stroke: #393939;
   stroke-width: 2;
 }
 
@@ -58,7 +58,7 @@ svg-container {
 
 .maplet-outline {
   fill: none;
-  stroke: #333366;
+  stroke: #393939;
   stroke-width: 2;
 }
 
@@ -129,7 +129,7 @@ svg-container {
 }
 
 .non-eu-country-focus {
-  fill: #ffa349;
+  fill: #f4ce62;
 }
 
 /***** MAES map related *****/

@@ -214,13 +214,13 @@
               <span>Action Plan Report</span>
             </div>
           </li>
-          <li id="eu-countries" >
+          <li id="eu-countries">
             <div class="nav-title-wrapper general-eu-map">
               <a>Factsheets</a>
               <span>Biodiversity factsheets for EU Members</span>
             </div>
           </li>
-          <li id="eu-countries" >
+          <li id="eu-countries">
             <div  class="nav-title-wrapper general-eu-map">
               <a>Contributions</a>
               <span>EU Member States contribution to the mid-term review.</span>
@@ -232,7 +232,7 @@
               <span>MAES-related developments in the European Union</span>
             </div>
           </li>
-          <li id="eu-countries" >
+          <li id="eu-countries">
             <div class="nav-title-wrapper general-eu-map">
               <a>Green infrastructure</a>
               <span>GI-related developments in the European Union</span>
@@ -266,7 +266,7 @@
               </div>
               <div class="checkb-wrapper">
                 <input type="radio" class='countries-checkbox' id="checkb_2"/>
-                <label for="checkb_2" style="color: #ffa349">Non EU Members</label>
+                <label for="checkb_2" style="color: #f4ce62">Non EU Members</label>
               </div>
               <div class="checkb-wrapper">
                 <input type="radio" class='countries-checkbox' id="checkb_3" checked/>
@@ -342,25 +342,25 @@
     <script>
       $(document).ready(function() {
 
+        d3.selectAll('#eu-countries').on('click change', function() {
+          if ($(this).data('clicked', true)) {
+          console.log($(this));
+            $("#checkb_1").prop('checked', true);
+            //$('#checkb_1').not(this).prop('checked', false);
+            $('#checkb_2').prop('checked', false);
+            $('#checkb_3').prop('checked', false);
+          }
+        });
 
-      d3.selectAll('#eu-countries').on('click change', function() {
-        if ($(this).data('clicked', true)) {
-          $("#checkb_1").prop('checked', true);
-          //$('#checkb_1').not(this).prop('checked', false);
-          $('#checkb_2').prop('checked', false);
-          $('#checkb_3').prop('checked', false);
-        }
+        d3.selectAll('#all-countries').on('click change', function() {
+          if ($(this).data('clicked', true)) {
+            $("#checkb_3").prop('checked', true);
+            $('#checkb_1').prop('checked', false);
+            $('#checkb_2').prop('checked', false);
+          }
+        });
+
       });
-
-      d3.selectAll('#all-countries').on('click change', function() {
-        if ($(this).data('clicked', true)) {
-          $("#checkb_3").prop('checked', true);
-          $('#checkb_1').prop('checked', false);
-          $('#checkb_2').prop('checked', false);
-        }
-      });
-
-    });
 
       $('.general-eu-map').click(function() {
         var svg = $('#countryfactsheets-map');
@@ -375,7 +375,6 @@
         d3.json(settingsURL, init);
       })
 
-
       $('.maes-eu-map').click(function() {
         var svg = $('#countryfactsheets-map');
 
@@ -388,7 +387,6 @@
         var settingsURL = "http://localhost:6080/++resource++bise.country/js/countries/maes-countries.json";
         d3.json(settingsURL, init);
       })
-
     </script>
 
   </body>
