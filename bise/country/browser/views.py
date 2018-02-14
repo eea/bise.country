@@ -62,7 +62,8 @@ class MapSingleCountrySettings(object):
                     "countries": [title]
                 }
             ],
-            "maplets": ""
+            "maplets": "",
+            "nonEuMembers": ""
         }
 
         self.request.response.headers['Content-Type'] = 'application/json'

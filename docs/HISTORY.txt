@@ -3,6 +3,8 @@ Changelog
 
 4.5.dev0 - (unreleased)
 -----------------------
+- Fix country header map
+  [krisztina #90236]
 - EU map improvements
   [krisztina #90236]
 - Feature: Add checkbox filter legend for the maps

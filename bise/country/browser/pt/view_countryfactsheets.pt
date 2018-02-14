@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
 
     <svg-container
-      class="svg-global-wrapper general-map"
+      class="svg-global-wrapper svg-map-container general-map"
       data-globalmap="global"
       data-ratio="0.9"
       tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"

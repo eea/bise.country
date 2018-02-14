@@ -702,7 +702,7 @@ function init(settings) {
     getCountries.push(countryGroups[i]['countries']);
   }
 
-  var showLegend = $("#countryfactsheets-map").data('show-legend');
+  var showLegend = $(".svg-map-container").data('show-legend');
 
   if (showLegend === false) {
     $('#countries-filter').hide();
@@ -731,16 +731,17 @@ function init(settings) {
 
   window.isHeaderMap = $(".country-header").hasClass('country-header');
   window.isHeaderGlobalMap = $("#countryfactsheets-map").hasClass('svg-header-wrapper');
-  window.isGlobalMap = $("#countryfactsheets-map").data('globalmap') === 'global';
+  window.isGlobalMap = $(".svg-map-container").data('globalmap') === 'global';
 
   // get ratio from data attribute
-  var zoomLevel = parseFloat($("#countryfactsheets-map").data('ratio'));
+  var zoomLevel = parseFloat($(".svg-map-container").data('ratio'));
 
-  var width = window.isGlobalMap ? $('#countryfactsheets-map svg').width() : $(window).width();
+  var width = window.isGlobalMap ? $('.svg-map-container svg').width() : $(window).width();
 
   if (window.isHeaderGlobalMap) {
     var width = $(window).width();
-    // hardcoded, it's not responsive - need to be fixed
+
+    // TODO: legends are not responsive in the header map - need to be fixed
     $('.eu-map-filter').css({
       'top': '100px',
       'right': '368px'
@@ -751,7 +752,7 @@ function init(settings) {
     });
   }
 
-  var height = $('#countryfactsheets-map svg').height();
+  var height = $('.svg-map-container svg').height();
 
   if ($('.svg-header-wrapper').length > 0) {
     var $svgh = $('<div class="header-bg"/>');
@@ -789,7 +790,7 @@ function init(settings) {
 
     var svg = d3
       .select("body")
-      .select("#countryfactsheets-map svg")
+      .select(".svg-map-container svg")
       .attr("width", width)
     ;
 
@@ -921,7 +922,7 @@ function init(settings) {
 
     $(window).resize(function() {
       width = window.isGlobalMap
-        ? $('#countryfactsheets-map svg').width()
+        ? $('.svg-map-container svg').width()
         : $(window).width()
       ;
       svg.selectAll("*").remove();
@@ -933,7 +934,7 @@ function init(settings) {
 
 $(document).ready(function() {
 
-  var settingsURL = $("#countryfactsheets-map").data('settings');
+  var settingsURL = $(".svg-map-container").data('settings');
 
   d3.json(settingsURL, init);
 

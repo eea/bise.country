@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
 
     <svg-container
-      class="svg-global-wrapper maes-map"
+      class="svg-global-wrapper svg-map-container maes-map"
       data-globalmap="global"
       data-ratio="0.75"
       data-settings="/++resource++bise.country/js/countries/maes-countries.json"
