@@ -26,8 +26,6 @@
         </svg-container>
       </div>
 
-
-      <!-- TODO: test if links can work with https by replacing http with // -->
       <!-- This is for fixing the various maps that are included in the Biodiversity -->
       <!-- Factsheet tab -->
       <link rel="stylesheet" href="https://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css" />
@@ -88,6 +86,12 @@
       <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">
           <ul class="nav nav-tabs" role="tablist" id="country-tabs" tal:condition="tabs">
+            <li role="presentation">
+              <a href=""
+                 data-toggle="tab"
+                 tal:attributes="href string:#t-100"
+                 >Overview</a>
+            </li>
             <li role="presentation" tal:repeat="lc tabs">
               <a href=""
                  data-toggle="tab"
@@ -100,13 +104,36 @@
         </div>
 
         <div class="panel-body">
+          <div tal:content="python: context.relatedItems" />
+          <div tal:content="tabs" />
           <div class="tab-content" tal:condition="tabs">
+
+            <div id="t-100">
+              <div class="content-wrapper">
+
+                <h3 tal:content="python:context.Title()">Country Title</h3>
+                Content for the first tab
+
+                <div tal:content="structure context/text/output">Main text here</div>
+
+                Linkuri catre taburi
+                <ul>
+                  <li tal:repeat="lc tabs">
+                    <a tal:condition="python: lc[1]" href=""
+                                                     tal:attributes="href string:#t-${repeat/lc/index}"
+                                                     tal:content="python: lc[1].Title()"></a>
+                  </li>
+                </ul>
+
+              </div>
+            </div>
+
             <div
                tal:repeat="lc tabs"
                tal:attributes="id string:#t-${repeat/lc/index}"
                >
                <div class="edit-button"
-                       tal:condition="python: view.can_edit(lc[1])"
+                       tal:condition="python: (lc[1] is not None) and view.can_edit(lc[1])"
                        tal:define="obj python: lc[1]"
                  >
                  <a href=""
@@ -119,7 +146,7 @@
                  </a>
                </div>
                <div class="content-wrapper"
-                       tal:content="structure python: view.view_page(lc[1])"
+                       tal:content="structure python: (lc[1] is not None) and view.view_page(lc[1]) or ''"
                  >
                  page inside here
                </div>
