@@ -33,7 +33,7 @@ $(document).ready(function() {
     return -1;
   };
   var currentTab = getTabFromHash(window.location.hash.substr(1));
-  // console.log("Current tab: ", currentTab);
+  console.log("Current tab: ", currentTab);
 
   // debugger;
   if (countrytabs.length > 0) {
