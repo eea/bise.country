@@ -19,73 +19,99 @@ $(document).ready(function() {
     });
   });
 
-  var countrytabs = $('#country-tabs').children();
+  $('#country-tabs').each(function () {
+    var $activeTab, $tabContent, $links = $(this).find('a');
+    $activeTab = $($links.filter(
+      '[href="' + location.hash + '"]')[0] || $links[0]
+    );
+    $activeTab.parent().addClass('active');
+    $tabContent = $($activeTab[0].hash);
 
-  var getTabFromHash = function(hash) {
-    hash = hash.replace('#', '');
-    if (hash !== '') {
-      var sp = hash.split('-');
-      if (sp && sp[0] === 't') {
-        currentTab = parseInt(sp[1]);
-        return currentTab;
-      }
-    }
-    return -1;
-  };
-  var currentTab = getTabFromHash(window.location.hash.substr(1));
-  console.log("Current tab: ", currentTab);
-
-  // debugger;
-  if (countrytabs.length > 0) {
-    if (currentTab === -1) {
-      currentTab = 0;
-    }
-    countrytabs[currentTab].classList.add('active');
-  }
-
-  // This handles clicking on country tabs
-  var hide_show = function() {
-    klass = this.classList.value
-    var element_id;
-
-    if (klass === "active") {
-      element_id = $(this).children('a')[0].hash;
-      document.location.hash = element_id;
-      currentTab = getTabFromHash(element_id);
-
-      siblings = $(this).siblings()
-      $.each(siblings, function(index, value) {
-        element_id = $(this).children('a')[0].hash;
-        element = document.getElementById(element_id);
-        $(element).hide();
+     $links.not($activeTab).each(function () {
+        $(this.hash).hide();
       });
-    } else {
-      element_id = $(this).children('a')[0].hash;
-      currentTab = getTabFromHash(element_id);
-      element = document.getElementById(element_id);
-      document.location.hash = element_id;
-      $(element).show();
 
-      siblings = $(this).siblings()
-      $.each(siblings, function(index, value) {
-        element_id = $(this).children('a')[0].hash;
-        element = document.getElementById(element_id);
-        $(element).hide();
+      $(this).on('click', 'a', function() {
+        window.location.hash = this.hash;
+
+        $activeTab.removeClass('active');
+        $tabContent.hide();
+
+        $activeTab = $(this);
+        $tabContent = $(this.hash);
+
+        $activeTab.addClass('active');
+        $tabContent.show();
       });
-    }
-  };
-
-  $.each(countrytabs, function(index, node) {
-    node.addEventListener('click', hide_show);
-
-    klass = node.classList.value
-    if (klass != "active") {
-      element_id = $(node).children('a')[0].hash;
-      element = document.getElementById(element_id);
-      $(element).hide();
-    }
   });
 
+
+  // var countrytabs = $('#country-tabs').children();
+  //
+  // var getTabFromHash = function(hash) {
+  //   hash = hash.replace('#', '');
+  //   if (hash !== '') {
+  //     var sp = hash.split('-');
+  //     if (sp && sp[0] === 't') {
+  //       currentTab = parseInt(sp[1]);
+  //       return currentTab;
+  //     }
+  //   }
+  //   return -1;
+  // };
+  // var currentTab = getTabFromHash(window.location.hash.substr(1));
+  // console.log("Current tab: ", currentTab);
+  //
+  // // debugger;
+  // if (countrytabs.length > 0) {
+  //   if (currentTab === -1) {
+  //     currentTab = 0;
+  //   }
+  //   countrytabs[currentTab].classList.add('active');
+  // }
+  //
+  // // This handles clicking on country tabs
+  // var hide_show = function() {
+  //   klass = this.classList.value
+  //   var element_id;
+  //
+  //   if (klass === "active") {
+  //     element_id = $(this).children('a')[0].hash;
+  //     document.location.hash = element_id;
+  //     currentTab = getTabFromHash(element_id);
+  //
+  //     siblings = $(this).siblings()
+  //     $.each(siblings, function(index, value) {
+  //       element_id = $(this).children('a')[0].hash;
+  //       element = document.getElementById(element_id);
+  //       $(element).hide();
+  //     });
+  //   } else {
+  //     element_id = $(this).children('a')[0].hash;
+  //     currentTab = getTabFromHash(element_id);
+  //     element = document.getElementById(element_id);
+  //     document.location.hash = element_id;
+  //     $(element).show();
+  //
+  //     siblings = $(this).siblings()
+  //     $.each(siblings, function(index, value) {
+  //       element_id = $(this).children('a')[0].hash;
+  //       element = document.getElementById(element_id);
+  //       $(element).hide();
+  //     });
+  //   }
+  // };
+  //
+  // $.each(countrytabs, function(index, node) {
+  //   node.addEventListener('click', hide_show);
+  //
+  //   klass = node.classList.value
+  //   if (klass != "active") {
+  //     element_id = $(node).children('a')[0].hash;
+  //     element = document.getElementById(element_id);
+  //     $(element).hide();
+  //   }
+  // });
 
   // edit page of biodiversity factsheets
   $(function() {

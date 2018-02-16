@@ -106,7 +106,7 @@
         <div class="panel-body">
           <div class="tab-content" tal:condition="tabs">
 
-            <div id="#t-100">
+            <div id="t-100">
               <div class="content-wrapper">
 
                 <h3 tal:content="python:context.Title()">Country Title</h3>
@@ -128,7 +128,7 @@
 
             <div
                tal:repeat="lc tabs"
-               tal:attributes="id string:#t-${repeat/lc/index}"
+               tal:attributes="id string:t-${repeat/lc/index}"
                >
                <div class="edit-button"
                        tal:condition="python: (lc[1] is not None) and view.can_edit(lc[1])"
