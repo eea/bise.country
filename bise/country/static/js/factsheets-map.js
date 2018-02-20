@@ -213,6 +213,28 @@ function drawCountries(
         }
       }
     })
+    .on('mouseover', function(d) {
+      if (nonEuMembers.indexOf(d.name) > -1) {
+        return tooltip
+        .style("visibility", "visible")
+        .html(d.name);
+      }
+    })
+    .on('mousemove', function(d) {
+      if (nonEuMembers.indexOf(d.name) > -1) {
+        return tooltip
+        .style("visibility", "visible")
+        .style("top", (d3.event.pageY) + "px")
+        .style("left", (d3.event.pageX + 10) + "px")
+        .html(d.name);
+      }
+    })
+    .on('mouseout', function(d) {
+      if (nonEuMembers.indexOf(d.name) > -1) {
+        return tooltip
+        .style("visibility", "hidden");
+      }
+    })
     .attr('class', function(d) {
       if ($('.maes-map').length > 0) {
         if (focusIds.indexOf(d.name) > -1) {
