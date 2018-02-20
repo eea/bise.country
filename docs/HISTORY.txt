@@ -3,6 +3,8 @@ Changelog
 
 4.5.dev0 - (unreleased)
 -----------------------
+- Hide tooltip on country profile header map
+  [krisztina #90236]
 - Show tooltip for all eu countries
   [krisztina #90236]
 - Fix tooltip on country hover on the map

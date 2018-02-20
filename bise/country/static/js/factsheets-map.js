@@ -334,24 +334,33 @@ function drawCountries(
       return window.isHeaderMap ? '1' : '0';
     })
     .on('mouseover', function(d) {
-      if (window.isHeaderMap) return;
+      if (window.isHeaderMap) {
+        $('.country-flag').css('cursor', 'unset');
+        return;
+      }
       d3.select(this).attr('opacity', 1);
-      return tooltip
+      if (window.isGlobalMap) {
+        return tooltip
         .style("visibility", "visible")
         .html(d.name);
+      }
     })
     .on('mousemove', function(d) {
-      return tooltip
-       .style("visibility", "visible")
-       .style("top", (d3.event.pageY) + "px")
-       .style("left", (d3.event.pageX + 10) + "px")
-       .html(d.name);
+      if (window.isGlobalMap) {
+        return tooltip
+        .style("visibility", "visible")
+        .style("top", (d3.event.pageY) + "px")
+        .style("left", (d3.event.pageX + 10) + "px")
+        .html(d.name);
+      }
     })
     .on('mouseout', function(d) {
       if (window.isHeaderMap) return;
       d3.select(this).attr('opacity', 0);
-      return tooltip
-       .style("visibility", "hidden");
+      if (window.isGlobalMap) {
+        return tooltip
+        .style("visibility", "hidden");
+      }
     })
     .on('click', function(d) {
       if (window.isHeaderMap) return;
