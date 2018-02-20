@@ -187,6 +187,11 @@ function drawCountries(
     });
   }
 
+  // tooltip with country names on hover
+  var tooltip = d3.select("body")
+      .append("div")
+      .attr('class', 'tooltip')
+      ;
 
   // draw all countries
   g
@@ -309,27 +314,26 @@ function drawCountries(
     .on('mouseover', function(d) {
       if (window.isHeaderMap) return;
       d3.select(this).attr('opacity', 1);
-      var current_position = d3.mouse(this);
-      var tooltip = $('#tooltip');
-      if ($('#tooltip').length > 0) {
-        tooltip.html(d.name);
-        tooltip.css({
-          'left': (current_position[0]) + 'px',
-          'top': (current_position[1]) + 'px',
-          'display': 'block'
-        });
-      }
+      return tooltip
+        .style("visibility", "visible")
+        .html(d.name);
+    })
+    .on('mousemove', function(d) {
+      return tooltip
+       .style("visibility", "visible")
+       .style("top", (d3.event.pageY) + "px")
+       .style("left", (d3.event.pageX + 10) + "px")
+       .html(d.name);
     })
     .on('mouseout', function(d) {
       if (window.isHeaderMap) return;
       d3.select(this).attr('opacity', 0);
-      $('#tooltip').css({
-        'display': 'none'
-      });
+      return tooltip
+       .style("visibility", "hidden");
     })
     .on('click', function(d) {
       if (window.isHeaderMap) return;
-      //
+
       // handleClick(d);
       if (window.available_map_countries.indexOf(d.name) > -1) {
         var link = d.name.toLowerCase();
@@ -417,24 +421,9 @@ function drawCountriesForMinimap(
     })
     .on('mouseover', function(d) {
       $('path.minimap-country-focus').attr('class', 'country-stroke minimap-country')
-      var current_position = d3.mouse(this);
-      var tooltip = $('#tooltip');
-      if ($('path.minimap-country').length > 0) {
-        if ($('#tooltip').length > 0) {
-          tooltip.html('European Union');
-          tooltip.css({
-            'left': (current_position[0]) + 10 + 'px',
-            'top': (current_position[1]) + 10 + 'px',
-            'display': 'block'
-          });
-        }
-      }
     })
     .on('mouseout', function(d) {
       $('path.minimap-country').attr('class', 'country-stroke minimap-country-focus')
-      $('#tooltip').css({
-        'display': 'none'
-      });
     })
     .attr('d', path)
     .attr('x', x)
@@ -687,10 +676,7 @@ function init(settings) {
   var $dw = $('<div id="countries-filter">' +
     '<span>Report on MAES-related <br> developments</span>' +
     '<ul class="filter-listing"></ul></div>');
-  // helper tooltip for maps
-  var $tt = $('<div id="tooltip"/>');
   $sw.append($dw);
-  $sw.append($tt);
 
   for (var i = 0; i < countryGroups.length; i++) {
     var $dbox = $('<li><div class="color-box"/><span class="type-title"/></li>');

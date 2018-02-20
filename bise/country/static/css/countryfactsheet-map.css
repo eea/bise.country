@@ -93,14 +93,14 @@ svg-container {
   stroke-width: 2;
 }
 
-#tooltip {
-  background-color: #2a2a2a;
-  border-radius: 3px;
-  color: white;
-  display: none;
-  padding: 3px;
+.tooltip {
   position: absolute;
-  z-index: 1001;
+  z-index: 10;
+  color: white;
+  background-color: #2a2a2a;
+  padding: 3px;
+  border-radius: 3px;
+  visibility: hidden;
 }
 
 .eu-map-filter {
