@@ -31,12 +31,6 @@
       <link rel="stylesheet" href="https://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/dojo/dijit/themes/claro/claro.css" />
       <link rel="stylesheet" href="https://serverapi.arcgisonline.com/jsapi/arcgis/3.5/js/esri/css/esri.css" />
 
-      <!-- d3 v3 files -->
-      <!-- <script src="http://d3js.org/d3.v3.min.js" charset="utf&#45;8"></script> -->
-      <!-- <script src="http://d3js.org/d3.geo.projection.v0.min.js" charset="utf&#45;8"></script> -->
-      <!-- <script src="http://d3js.org/topojson.v1.min.js"></script> -->
-      <!-- <script src="http://d3js.org/queue.v1.min.js"></script> -->
-
       <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
       <script src="https://d3js.org/d3-array.v1.min.js"></script>
       <script src="https://d3js.org/d3-geo.v1.min.js"></script>
@@ -90,7 +84,7 @@
               <a href=""
                  data-toggle="tab"
                  tal:attributes="href string:#t-100"
-                 >Overview</a>
+                 >Country Overview</a>
             </li>
             <li role="presentation" tal:repeat="lc tabs">
               <a href=""
@@ -109,20 +103,53 @@
             <div id="t-100">
               <div class="content-wrapper">
 
-                <h3 tal:content="python:context.Title()">Country Title</h3>
-                Content for the first tab
+                <div class="country-overview" tal:content="structure context/text/output">Main text here</div>
 
-                <div tal:content="structure context/text/output">Main text here</div>
-
-                Linkuri catre taburi
+                <h2>Quick links</h2>
                 <ul>
                   <li tal:repeat="lc tabs">
-                    <a tal:condition="python: lc[1]" href=""
-                                                     tal:attributes="href string:#t-${repeat/lc/index}"
-                                                     tal:content="python: lc[1].Title()"></a>
+                    <a class="tabs-listing"
+                         href=""
+                         tal:condition="python: lc[1]"
+                         tal:attributes="href string:#t-${repeat/lc/index}"
+                         tal:content="python: lc[0]">
+                    </a>
                   </li>
                 </ul>
+                <tal:section repeat="section view/facts">
 
+                    <tal:fact define="section_obj section/object;
+                                               facts section/facts;
+                                               icon section_obj/getObject/fact_icon|string:">
+
+                      <h2 class="collapsible"
+                              tal:attributes="class string:collapsible ${icon}">
+                        <span tal:replace="section_obj/Title">
+                          Information
+                        </span>
+                        <span class="collapse-icon"></span>
+                      </h2>
+
+                      <div class="section-content"
+                              tal:attributes="id section_obj/getId;">
+
+                        <div class="description"
+                                tal:content="section_obj/Description"
+                                tal:condition="section_obj/Description">
+                            Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate
+                        </div>
+
+                        <div class="fact"
+                                tal:repeat="fact facts">
+                            <div tal:define="item fact/getObject"
+                                    tal:replace="structure item/@@factrenderview">
+                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi    metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate
+                            </div>
+                        </div>
+                      </div>
+
+                    </tal:fact>
+                </tal:section>
               </div>
             </div>
 

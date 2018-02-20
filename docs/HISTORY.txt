@@ -3,6 +3,8 @@ Changelog
 
 4.5.dev0 - (unreleased)
 -----------------------
+- Improve country profile overview
+  [krisztina #90236]
 - Fix country header map
   [krisztina #90236]
 - EU map improvements
