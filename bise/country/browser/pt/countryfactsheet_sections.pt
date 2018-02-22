@@ -1,0 +1,47 @@
+<div class="country-overview-section">
+  <h2>Quick links</h2>
+  <div
+    class="country-overview"
+    tal:condition="context/text"
+    tal:content="structure context/text/output">
+    Main text here
+  </div>
+
+  <div tal:content="view/facts" />
+
+  <tal:section repeat="section view/facts">
+
+    <tal:fact define="section_obj section/object;
+      facts section/facts;
+      icon section_obj/getObject/fact_icon|string:">
+
+      <h2 class="collapsible"
+        tal:attributes="class string:collapsible ${icon}">
+        <span tal:replace="section_obj/Title">
+          Information
+        </span>
+        <span class="collapse-icon"></span>
+      </h2>
+
+      <div class="section-content"
+        tal:attributes="id section_obj/getId;">
+
+        <div class="description"
+          tal:content="section_obj/Description"
+          tal:condition="section_obj/Description">
+          Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate
+        </div>
+
+        <div class="fact"
+          tal:repeat="fact facts">
+          <div tal:define="item fact/getObject"
+            tal:replace="structure item/@@factrenderview">
+            Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi    metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate
+          </div>
+        </div>
+      </div>
+
+    </tal:fact>
+  </tal:section>
+
+</div>
