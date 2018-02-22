@@ -7,9 +7,8 @@
 
   <body metal:fill-slot="body">
     <div tal:define="
-        tabs python: [r.to_object for r in context.relatedItems];
+        tabs view/tabs;
         labels python: context.tab_titles or ['Factsheet', 'Contributions', 'MAES'];
-        tabs python: zip(labels, tabs);
         countries python: context.aq_parent.getFolderContents(
               contentFilter={'portal_type': 'countryfactsheet',
                              'sort_on': 'sortable_title',
@@ -80,12 +79,6 @@
       <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">
           <ul class="nav nav-tabs" role="tablist" id="country-tabs" tal:condition="tabs">
-            <li role="presentation">
-              <a href=""
-                 data-toggle="tab"
-                 tal:attributes="href string:#t-100"
-                 >Country Overview</a>
-            </li>
             <li role="presentation" tal:repeat="lc tabs">
               <a href=""
                  data-toggle="tab"
@@ -99,59 +92,6 @@
 
         <div class="panel-body">
           <div class="tab-content" tal:condition="tabs">
-
-            <div id="t-100">
-              <div class="content-wrapper">
-
-                <div class="country-overview" tal:content="structure context/text/output">Main text here</div>
-
-                <h2>Quick links</h2>
-                <ul>
-                  <li tal:repeat="lc tabs">
-                    <a class="tabs-listing"
-                         href=""
-                         tal:condition="python: lc[1]"
-                         tal:attributes="href string:#t-${repeat/lc/index}"
-                         tal:content="python: lc[0]">
-                    </a>
-                  </li>
-                </ul>
-                <tal:section repeat="section view/facts">
-
-                    <tal:fact define="section_obj section/object;
-                                               facts section/facts;
-                                               icon section_obj/getObject/fact_icon|string:">
-
-                      <h2 class="collapsible"
-                              tal:attributes="class string:collapsible ${icon}">
-                        <span tal:replace="section_obj/Title">
-                          Information
-                        </span>
-                        <span class="collapse-icon"></span>
-                      </h2>
-
-                      <div class="section-content"
-                              tal:attributes="id section_obj/getId;">
-
-                        <div class="description"
-                                tal:content="section_obj/Description"
-                                tal:condition="section_obj/Description">
-                            Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate
-                        </div>
-
-                        <div class="fact"
-                                tal:repeat="fact facts">
-                            <div tal:define="item fact/getObject"
-                                    tal:replace="structure item/@@factrenderview">
-                                Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi    metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate
-                            </div>
-                        </div>
-                      </div>
-
-                    </tal:fact>
-                </tal:section>
-              </div>
-            </div>
 
             <div
                tal:repeat="lc tabs"

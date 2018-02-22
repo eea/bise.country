@@ -1,12 +1,18 @@
 import json
+import logging
 
 from lxml.builder import E
 from lxml.html import fromstring, tostring
+
+from Acquisition import aq_inner
+from plone import api
+from plone.api.user import has_permission
 from plone.app.contentlisting.interfaces import (IContentListing,
                                                  IContentListingObject)
-from Acquisition import aq_inner
-from plone.api.user import has_permission
 from plone.subrequest import subrequest
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
+logger = logging.getLogger('bise.country.views')
 
 NONEU = [
     "Albania",
@@ -74,9 +80,54 @@ class MapSingleCountrySettings(object):
 
 
 class CountryFactsheetView(object):
+    """ Main index page for a countryfactsheet content type
     """
-    """
+    sections_template = ViewPageTemplateFile('pt/countryfactsheet_sections.pt')
+    # <ul>
+    #   <li tal:repeat="lc view/tabs">
+    #     <a class="tabs-listing"
+    #       href=""
+    #       tal:condition="python: lc[1]"
+    #       tal:attributes="href string:#t-${repeat/lc/index}"
+    #       tal:content="python: lc[0]">aasdsa
+    #     </a>
+    #   </li>
+    # </ul>
+
+    _tab_labels = (
+        ('Country Overview', None),
+        ('EU Nature Directives', 'nature-directives/countries'),
+        ('EU Biodiversity Strategy', 'mtr/countries'),
+        ('MAES', 'maes/maes_countries'),
+        ('Green Infrastructure', 'countries/gi')
+    )
+
+    def tabs(self):
+        portal = api.portal.get()
+
+        tabs = []
+
+        country_id = self.context.getId()
+
+        for label, location in self._tab_labels:
+            if not location:
+                tabs.append((label, self.context))
+
+                continue
+            path = location + '/' + country_id
+            try:
+                dest = portal.restrictedTraverse(path)
+            except Exception:
+                logger.warning("Could not find path: %s", path)
+
+                continue
+            else:
+                tabs.append((label, dest))
+
+        return tabs
+
     def facts(self):
+        # TODO: should make this a function in bise.biodiversityfactsheet
         context = aq_inner(self.context)
         sections = context.getFolderContents({'portal_type': 'Section'})
         fact_data = []
@@ -118,6 +169,9 @@ class CountryFactsheetView(object):
         return has_permission('Modify portal content', obj=obj)
 
     def view_page(self, obj):
+        if obj is self.context:
+            return self.sections_template()
+
         al = self.request.get('ajax_load')
         self.request.set('ajax_load', True)
         path = '/'.join(obj.getPhysicalPath())
