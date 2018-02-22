@@ -3,6 +3,8 @@ Changelog
 
 4.5.dev0 - (unreleased)
 -----------------------
+- Improvements on country profile tabs, make GI content collapsible
+  [krisztina #90236]
 - Hide tooltip on country profile header map
   [krisztina #90236]
 - Show tooltip for all eu countries

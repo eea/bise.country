@@ -609,7 +609,7 @@ body {
 }
 
 .tabs-listing {
-  font-size: 21px;
+  font-size: 18px;
   font-weight: bold;
   text-align: left;
   padding-top: 20px;
@@ -1163,3 +1163,25 @@ body {
   border-right: 15px solid rgba(0, 0, 0, 0.7);
   border-bottom: 15px solid transparent;
  }
+
+/* collapsible content for green infrastracture on country pages */
+
+.content-green-infrastructure .gi-title-wrapper {
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+.content-green-infrastructure .gi-title-wrapper h3 {
+  display: inline-block;
+  padding: 8px 0;
+  margin-bottom: 0;
+}
+.content-green-infrastructure .gi-title-wrapper i {
+  float: right;
+  padding: 13px 0px;
+}
+.content-green-infrastructure .gi-content-wrapper {
+  display: none;
+}
+.content-green-infrastructure .portaltype-document {
+  margin-top: 30px;
+}

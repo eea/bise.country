@@ -46,6 +46,23 @@ $(document).ready(function() {
   });
 
 
+// make green infrastracture content collapsible on country pages
+var $htitle =  $('.content-green-infrastructure #parent-fieldname-text h3');
+
+$htitle.each(function (index) {
+  $(this).nextUntil($htitle).wrapAll("<div class='gi-content-wrapper'></div>");
+  $(this).wrap("<div class='gi-title-wrapper'></div>");
+});
+
+  var $icon = $('<i class="fa fa-plus"></i>');
+  $('.gi-title-wrapper').append($icon);
+
+  $('.gi-title-wrapper') .click(function() {
+    $(this).nextUntil('.gi-title-wrapper').slideToggle('slow');
+    $("i", this).toggleClass("fa-plus fa-minus");
+  });
+
+
   // var countrytabs = $('#country-tabs').children();
   //
   // var getTabFromHash = function(hash) {

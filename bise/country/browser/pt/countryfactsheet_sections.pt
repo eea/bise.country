@@ -1,13 +1,24 @@
 <div class="country-overview-section">
-  <h2>Quick links</h2>
   <div
-    class="country-overview"
-    tal:condition="context/text"
-    tal:content="structure context/text/output">
-    Main text here
+      class="country-overview"
+      tal:condition="context/text"
+      tal:content="structure context/text/output">
+      Main text here
   </div>
 
-  <div tal:content="view/facts" />
+  <h2>Quick links</h2>
+
+   <ul>
+      <li tal:repeat="lc python: view.tabs()[1:]">
+          <a class="tabs-listing"
+               href=""
+               tal:condition="python: lc[1]"
+               tal:attributes="href string:#t-${repeat/lc/index}"
+               tal:content="python: lc[0]">
+          </a>
+          <span tal:content="python: lc[2]"></span>
+        </li>
+    </ul>
 
   <tal:section repeat="section view/facts">
 

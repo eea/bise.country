@@ -111,7 +111,8 @@
                  </a>
                </div>
                <div class="content-wrapper"
-                       tal:content="structure python: (lc[1] is not None) and view.view_page(lc[1]) or ''"
+                      tal:attributes="class python: 'content-' + lc[0].lower().replace(' ', '-')"
+                      tal:content="structure python: (lc[1] is not None) and view.view_page(lc[1]) or ''"
                  >
                  page inside here
                </div>

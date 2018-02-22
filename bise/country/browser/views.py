@@ -83,23 +83,33 @@ class CountryFactsheetView(object):
     """ Main index page for a countryfactsheet content type
     """
     sections_template = ViewPageTemplateFile('pt/countryfactsheet_sections.pt')
-    # <ul>
-    #   <li tal:repeat="lc view/tabs">
-    #     <a class="tabs-listing"
-    #       href=""
-    #       tal:condition="python: lc[1]"
-    #       tal:attributes="href string:#t-${repeat/lc/index}"
-    #       tal:content="python: lc[0]">aasdsa
-    #     </a>
-    #   </li>
-    # </ul>
 
     _tab_labels = (
-        ('Country Overview', None),
-        ('EU Nature Directives', 'nature-directives/countries'),
-        ('EU Biodiversity Strategy', 'mtr/countries'),
-        ('MAES', 'maes/maes_countries'),
-        ('Green Infrastructure', 'countries/gi')
+        (
+            'Country Overview',
+            None,
+            ' '
+        ),
+        (
+            'EU Nature Directives',
+            'nature-directives/countries',
+            '- insert one sentence providing an overview of the information that can be found on this page'
+        ),
+        (
+            'EU Biodiversity Strategy',
+            'mtr/countries',
+            '- insert one sentence providing an overview of the information that can be found on this page'
+        ),
+        (
+            'MAES',
+            'maes/maes_countries',
+            '- insert one sentence providing an overview of the information that can be found on this page'
+        ),
+        (
+            'Green Infrastructure',
+            'countries/gi',
+            '- insert one sentence providing an overview of the information that can be found on this page'
+        )
     )
 
     def tabs(self):
@@ -109,7 +119,7 @@ class CountryFactsheetView(object):
 
         country_id = self.context.getId()
 
-        for label, location in self._tab_labels:
+        for label, location, description in self._tab_labels:
             if not location:
                 tabs.append((label, self.context))
 
@@ -122,7 +132,7 @@ class CountryFactsheetView(object):
 
                 continue
             else:
-                tabs.append((label, dest))
+                tabs.append((label, dest, description))
 
         return tabs
 

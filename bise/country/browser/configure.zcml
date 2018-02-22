@@ -58,6 +58,13 @@
     template="pt/view_countryfactsheet.pt"
     />
 
+<browser:page
+   name="countryfactsheets"
+   for="*"
+   permission="zope2.View"
+   template="pt/view_countryfactsheets.pt"
+/>
+
   <browser:page
     name="maes-map"
     for="*"
