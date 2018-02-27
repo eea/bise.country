@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.5.dev0 - (unreleased)
------------------------
+4.5 - (2018-02-27)
+------------------
 - Improvements on country profile tabs, make GI content collapsible
   [krisztina #90236]
 - Hide tooltip on country profile header map
@@ -256,3 +256,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
