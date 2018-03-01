@@ -3,6 +3,9 @@ Changelog
 
 4.6.dev0 - (unreleased)
 -----------------------
+- Bug fix: don't hardcode settings URL for MAES
+  [tiberich #90236]
+
 
 4.5 - (2018-02-27)
 ------------------

@@ -384,7 +384,7 @@
         svg.data('show-legend', true);
         svg.data('show-map-filter', false);
 
-        var settingsURL = "http://localhost:6080/++resource++bise.country/js/countries/maes-countries.json";
+        var settingsURL = "/++resource++bise.country/js/countries/maes-countries.json";
         d3.json(settingsURL, init);
       })
     </script>
