@@ -78,164 +78,117 @@
         </div>
       </div>
 
-      <div class="countries-list-wrapper">
-        <span class="country-dropdown">
-          <select>
-            <option selected="selected">Select country</option>
-            <option>Austria</option>
-            <option>Belgium</option>
-            <option>Bulgaria</option>
-            <option>Croatia</option>
-            <option>Cyprus</option>
-            <option>Czech Republic</option>
-            <option>Denmark</option>
-            <option>Estonia</option>
-            <option>Finland</option>
-            <option>France</option>
-            <option>Germany</option>
-            <option>Greece</option>
-            <option>Hungary</option>
-            <option>Ireland</option>
-            <option>Italy</option>
-            <option>Latvia</option>
-            <option>Lithuania</option>
-            <option>Luxembourg</option>
-            <option>Malta</option>
-            <option>Netherlands</option>
-            <option>Poland</option>
-            <option>Portugal</option>
-            <option>Romania</option>
-            <option>Slovakia</option>
-            <option>Slovenia</option>
-            <option>Spain</option>
-            <option>Sweden</option>
-            <option>United Kingdom</option>
-          </select>
-        </span>
-      </div>
+
 
       <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">
+
           <ul class="nav nav-tabs" role="tablist" id="country-tabs">
-            <li class="active">
-              <a id="all-countries"  class="general-eu-map">
-                Countries
-              </a>
-            </li>
-            <li>
-              <a id="eu-countries" class="general-eu-map">
-                Factsheets
-              </a>
-            </li>
-            <li>
-              <a id="eu-countries" class="general-eu-map">
-                Contributions
-              </a>
-            </li>
-            <li>
-              <a class="maes-eu-map">
-                MAES
-              </a>
-            </li>
-            <li>
-              <a id="eu-countries" class="general-eu-map">
-                Green infrastructure
+            <li tal:repeat="tab view/tabs">
+              <a class="" tal:attributes="class tab/class; href python:'#' + tab['label'].lower().replace(' ', '-')"
+                tal:content="tab/label"
+                >
+                Tab Label
               </a>
             </li>
           </ul>
         </div>
 
         <div class="panel-body">
-          <div id="tab-1" class="tabs-content active">
-            <h1 class="section-title">Country profiles</h1>
-            <div class="content-wrapper">
-              <p class="section-description">The 2010 EU Biodiversity Action Plan Report is available online on Community level and for comparison across EU Member States. You will also find it for each country by clicking on the map on a specific country or using
-                the dropdown menu from the right side.</p>
-            </div>
+
+          <tal:tab tal:repeat="tab view/tabs">
+          <div
+             id="maes"
+             tal:define="obj nocall:tab/obj"
+             tal:attributes="id python:tab['label'].lower().replace(' ', '-');
+                             class python: 'tabs-content ' + (repeat['tab'].index == 0 and 'active' or '')
+
+             "
+             class="tabs-content"
+             >
+             <h1 class="section-title" tal:content="obj/Title">Section title</h1>
+
+             <div class="countries-list-wrapper">
+               <span class="country-dropdown">
+                 <select>
+                   <option selected="selected">Select country</option>
+
+                   <!-- <option -->
+                   <!--         tal:repeat="country python: -->
+                   <!--         obj.getFolderContents(contentFilter={'portal_type': -->
+                   <!--         ['FolderishPage', 'BiodiversityFactsheet']})" -->
+                   <!--         tal:content="python: country.getId.title()">Country name</option> -->
+
+                   <option>Austria</option>
+                   <option>Belgium</option>
+                   <option>Bulgaria</option>
+                   <option>Croatia</option>
+                   <option>Cyprus</option>
+                   <option>Czech Republic</option>
+                   <option>Denmark</option>
+                   <option>Estonia</option>
+                   <option>Finland</option>
+                   <option>France</option>
+                   <option>Germany</option>
+                   <option>Greece</option>
+                   <option>Hungary</option>
+                   <option>Ireland</option>
+                   <option>Italy</option>
+                   <option>Latvia</option>
+                   <option>Lithuania</option>
+                   <option>Luxembourg</option>
+                   <option>Malta</option>
+                   <option>Netherlands</option>
+                   <option>Poland</option>
+                   <option>Portugal</option>
+                   <option>Romania</option>
+                   <option>Slovakia</option>
+                   <option>Slovenia</option>
+                   <option>Spain</option>
+                   <option>Sweden</option>
+                   <option>United Kingdom</option>
+
+                 </select>
+               </span>
+             </div>
+
+
+             <div class="content-wrapper"
+                  tal:content="structure python:obj.text.output">
+               Text with details
+             </div>
           </div>
-          <div id="tab-2" class="tabs-content">
-            <h1 class="section-title">EU biodiversity factsheets for EU Member States</h1>
-            <div class="content-wrapper">
-              <p class="section-description">Content</p>
-            </div>
-          </div>
-          <div id="tab-3" class="tabs-content">
-            <h1 class="section-title">EU Member States contribution to the mid-term review of the EU biodiversity strategy to 2020 based on the 5th national reports to CBD</h1>
-            <div class="content-wrapper">
+          </tal:tab>
 
-              <p class="section-description">In an effort to minimize the reporting burden of EU Member States, the European Commission and Member States agreed that the Commission would extract relevant information from the 5th national reports to the Convention
-                on Biological Diversity (CBD) of EU Member States, to report on progress to the EU 2020 biodiversity strategy.</p>
-
-              <p>At the time of finalization of the synthesis of the 5th national reports (26th of August 2015), all but 5 Member States had submitted their reports to the CBD. Of these 5 countries, Greece, Malta, Portugal and Lithuania provided information for
-                this synthesis prior to the finalization of their 5th national report.</p>
-
-              <p>The 5th national reports were examined for information that could be used for the reporting on selected actions under Targets 1-6 of the EU biodiversity strategy. The relevant information was directly copied from the national reports, and is thus
-                presented in its original language and wording.</p>
-
-              <p>The information was collected per country and the focus is on information that is particular to the respective Member State rather than referencing EU wide information. In addition, only information that is not directly reported to the European
-                Commission by member states was retrieved from the reports.</p>
-
-              <p>According to the suggested structure for the 5th national reports from the CBD, part III of the reports shall outline the progress towards the Aichi Biodiversity Targets. The analysis therefore focused on this part of the reports.</p>
-            </div>
-          </div>
-
-          <div id="tab-4" class="tabs-content">
-            <h1 class="section-title">MAES-related developments in the European Union</h1>
-            <div class="content-wrapper">
-              <p class="section-description">In 2013 the European Commission adopted a Green Infrastructure Strategy, 'to promote the deployment of green infrastructure in the EU in urban and rural areas'. This is a key step in implementing the EU 2020
-                Biodiversity Strategy and specifically Target 2 that requires that 'by 2020, ecosystems and their services are maintained and enhanced by establishing green infrastructure and restoring at least 15% of degraded ecosystems'. Restoration action is also
-                seen as a crucial response to climate change.</p>
-
-              <p>The country pages in BISE on Green Infrastructure provide an overview on the activities on Green Infrastructure within the Member States. The information presented on these pages has been compiled by Ecologic Institute within the scope of the
-                European Topic Centre on Biological Diversity (ETC-BD) and does not necessarily reflect the opinion of the European Commission or European Environment Agency. The text has been aligned with the Environmental Implementation Review (EIR), which
-                provides country-specific reports every two years focusing on essential topics in the area of environmental legislation such as green infrastructure. National experts have not yet appraised the information on the BISE GI country pages and will update
-                and amend as necessary upon their review.
-              </p>
-
-              <p>Click on the map to see the overview on GI-related developments in a specific Member State or for the European Union.</p>
-            </div>
-          </div>
-
-          <div id="tab-5" class="tabs-content">
-            <h1 class="section-title">GI-related developments in the European Union</h1>
-            <div class="content-wrapper">
-              <p class="section-description">Target 2 Action 5 of the EU biodiversity strategy to 2020 states that "Member States, with the assistance of the Commission, will map and assess the state of ecosystems and their services in their national territory by
-                2014, assess the economic value of such services, and promote the integration of these values into accounting and reporting systems at EU and national level by 2020." In order to deliver Action 5 the Working Group MAES (Mapping and Assessment of
-                Ecosystems and their Services) was established in 2012 under the Common Implementation Framework (CIF).</p>
-
-              <p>Click on the map to see the overview on MAES related developments in a specific Member State or for the European Union.</p>
-            </div>
-          </div>
         </div>
 
       </div>
     </div>
 
-    <script type="text/javascript">
-      $('.map-helper').show();
-
-      $('.map-helper button').click(function () {
-        $('.map-helper').hide();
-      });
-
-      $("ul.nav-tabs li a").each(function (i) {
-        $(this).attr('href', "#tab-" + (
-          i + 1
-        ));
-      });
-
-      $('ul.nav-tabs li a ').click(function () {
-        var attrValue = $(this).attr('href');
-        $(this).parent('li').addClass('active').siblings().removeClass('active');
-        $(attrValue).show().siblings().hide();
-        return false;
-      })
-    </script>
-
     <script>
       $(document).ready(function() {
 
-        d3.selectAll('#eu-countries').on('click change', function() {
+        $('.map-helper').show();
+
+        $('.map-helper button').click(function () {
+          $('.map-helper').hide();
+        });
+
+        // Code for the tabs implementation. Use in "country section view"
+        $("ul.nav-tabs li a").each(function (i) {
+          // $(this).attr('href', "#tab-" + (
+          //   i + 1
+          // ));
+
+          $(this).click(function () {
+            var attrValue = $(this).attr('href');
+            $(this).parent('li').addClass('active').siblings().removeClass('active');
+            $(attrValue).show().siblings().hide();
+            return false;
+          });
+        });
+
+        d3.selectAll('.eu-countries').on('click change', function() {
           if ($(this).data('clicked', true)) {
             $("#checkb_1").prop('checked', true);
             //$('#checkb_1').not(this).prop('checked', false);
@@ -244,7 +197,7 @@
           }
         });
 
-        d3.selectAll('#all-countries').on('click change', function() {
+        d3.selectAll('.all-countries').on('click change', function() {
           if ($(this).data('clicked', true)) {
             $("#checkb_3").prop('checked', true);
             $('#checkb_1').prop('checked', false);

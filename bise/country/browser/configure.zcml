@@ -89,6 +89,7 @@
     <browser:page
     name="countries-sections-v1"
     for="*"
+    class=".views.CountriesSection"
     permission="zope2.View"
     template="pt/view_countries_sections_v1.pt"
     />
@@ -97,6 +98,7 @@
     name="countries-sections-v2"
     for="*"
     permission="zope2.View"
+    class=".views.CountriesSection"
     template="pt/view_countries_sections_v2.pt"
     />
 
@@ -104,6 +106,7 @@
     name="countries-sections-v3"
     for="*"
     permission="zope2.View"
+    class=".views.CountriesSection"
     template="pt/view_countries_sections_v3.pt"
     />
 

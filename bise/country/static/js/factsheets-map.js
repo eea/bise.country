@@ -699,7 +699,8 @@ function init(settings) {
   nonEuMembers = settings.nonEuMembers;
   var getCountries = [];
 
-  d3.select("body").select("#countryfactsheets-map svg").selectAll("*").remove();
+  // temp disabled
+  // d3.select("body").select("#countryfactsheets-map svg").selectAll("*").remove();
   $("#countries-filter").detach();
 
   var $sw = $('#countryfactsheets-map');
@@ -798,6 +799,8 @@ function init(settings) {
 
     // read geometry of countries. See https://github.com/topojson/world-atlas
     // countries.geo.json comes from https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json
+
+    d3.select("body").select("#countryfactsheets-map svg").selectAll("*").remove();
 
     var countries = world.features;
 
@@ -950,9 +953,6 @@ function init(settings) {
 
 
 $(document).ready(function() {
-
   var settingsURL = $(".svg-map-container").data('settings');
-
-  d3.json(settingsURL, init);
-
+  if (settingsURL) d3.json(settingsURL, init);
 });

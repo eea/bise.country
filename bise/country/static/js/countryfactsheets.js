@@ -1,10 +1,13 @@
+// Code for the countries section
+// This is also loaded in a country page
+
 $(document).ready(function() {
 
   // Add claro class for css; used by dojo
   $("body").addClass("claro");
 
   // Dropdown + tab changing functionality
-
+  // This is the country selector in a country page view
   $('.custom-dropdown select').change(function() {
     var url = $(this).val()
     if (currentTab > -1) {
@@ -13,11 +16,13 @@ $(document).ready(function() {
     document.location = url;
   });
 
+  // workaround for lazy loading iframes
   $.each($('.fact-contents'), function(index, value) {
     $(value).find("iframe").prop("src", function() {
       return $(this).data("src");
     });
   });
+
 
   $('#country-tabs').each(function () {
     var $activeTab, $tabContent, $links = $(this).find('a');
@@ -27,32 +32,31 @@ $(document).ready(function() {
     $activeTab.parent().addClass('active');
     $tabContent = $($activeTab[0].hash);
 
-     $links.not($activeTab).each(function () {
-        $(this.hash).hide();
-      });
+    $links.not($activeTab).each(function () {
+      $(this.hash).hide();
+    });
 
-      $(this).on('click', 'a', function() {
-        window.location.hash = this.hash;
+    $(this).on('click', 'a', function() {
+      window.location.hash = this.hash;
 
-        $activeTab.removeClass('active');
-        $tabContent.hide();
+      $activeTab.removeClass('active');
+      $tabContent.hide();
 
-        $activeTab = $(this);
-        $tabContent = $(this.hash);
+      $activeTab = $(this);
+      $tabContent = $(this.hash);
 
-        $activeTab.addClass('active');
-        $tabContent.show();
-      });
+      $activeTab.addClass('active');
+      $tabContent.show();
+    });
   });
 
+  // make green infrastracture content collapsible on country pages
+  var $htitle =  $('.content-green-infrastructure #parent-fieldname-text h3');
 
-// make green infrastracture content collapsible on country pages
-var $htitle =  $('.content-green-infrastructure #parent-fieldname-text h3');
-
-$htitle.each(function (index) {
-  $(this).nextUntil($htitle).wrapAll("<div class='gi-content-wrapper'></div>");
-  $(this).wrap("<div class='gi-title-wrapper'></div>");
-});
+  $htitle.each(function (index) {
+    $(this).nextUntil($htitle).wrapAll("<div class='gi-content-wrapper'></div>");
+    $(this).wrap("<div class='gi-title-wrapper'></div>");
+  });
 
   var $icon = $('<i class="fa fa-plus"></i>');
   $('.gi-title-wrapper').append($icon);
@@ -62,73 +66,6 @@ $htitle.each(function (index) {
     $("i", this).toggleClass("fa-plus fa-minus");
   });
 
-
-  // var countrytabs = $('#country-tabs').children();
-  //
-  // var getTabFromHash = function(hash) {
-  //   hash = hash.replace('#', '');
-  //   if (hash !== '') {
-  //     var sp = hash.split('-');
-  //     if (sp && sp[0] === 't') {
-  //       currentTab = parseInt(sp[1]);
-  //       return currentTab;
-  //     }
-  //   }
-  //   return -1;
-  // };
-  // var currentTab = getTabFromHash(window.location.hash.substr(1));
-  // console.log("Current tab: ", currentTab);
-  //
-  // // debugger;
-  // if (countrytabs.length > 0) {
-  //   if (currentTab === -1) {
-  //     currentTab = 0;
-  //   }
-  //   countrytabs[currentTab].classList.add('active');
-  // }
-  //
-  // // This handles clicking on country tabs
-  // var hide_show = function() {
-  //   klass = this.classList.value
-  //   var element_id;
-  //
-  //   if (klass === "active") {
-  //     element_id = $(this).children('a')[0].hash;
-  //     document.location.hash = element_id;
-  //     currentTab = getTabFromHash(element_id);
-  //
-  //     siblings = $(this).siblings()
-  //     $.each(siblings, function(index, value) {
-  //       element_id = $(this).children('a')[0].hash;
-  //       element = document.getElementById(element_id);
-  //       $(element).hide();
-  //     });
-  //   } else {
-  //     element_id = $(this).children('a')[0].hash;
-  //     currentTab = getTabFromHash(element_id);
-  //     element = document.getElementById(element_id);
-  //     document.location.hash = element_id;
-  //     $(element).show();
-  //
-  //     siblings = $(this).siblings()
-  //     $.each(siblings, function(index, value) {
-  //       element_id = $(this).children('a')[0].hash;
-  //       element = document.getElementById(element_id);
-  //       $(element).hide();
-  //     });
-  //   }
-  // };
-  //
-  // $.each(countrytabs, function(index, node) {
-  //   node.addEventListener('click', hide_show);
-  //
-  //   klass = node.classList.value
-  //   if (klass != "active") {
-  //     element_id = $(node).children('a')[0].hash;
-  //     element = document.getElementById(element_id);
-  //     $(element).hide();
-  //   }
-  // });
 
   // edit page of biodiversity factsheets
   $(function() {

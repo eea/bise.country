@@ -9,6 +9,7 @@ from plone import api
 from plone.api.user import has_permission
 from plone.app.contentlisting.interfaces import (IContentListing,
                                                  IContentListingObject)
+from plone.memoize import view
 from plone.subrequest import subrequest
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
@@ -79,9 +80,40 @@ class MapSingleCountrySettings(object):
         return json.dumps(res)
 
 
+class CountriesSection(object):
+    """ View for the countries section
+    """
+
+    _tabs = (
+        ('Countries', 'countries', 'all-countries general-eu-map'),
+        ('Factsheets', 'countries/eu_country_profiles',
+         'eu-countries general-eu-map'),
+        ('Contributions', 'mtr/countries', 'eu-countries general-eu-map'),
+        ('MAES', 'maes/maes_countries', 'maes-eu-map'),
+        ('Green Infrastructure', 'countries/gi',
+         'eu-countries general-eu-map'),
+    )
+
+    @view.memoize
+    def tabs(self):
+        portal = api.portal.get()
+        res = []
+
+        for label, path, klass in self._tabs:
+            obj = portal.restrictedTraverse(path)
+            res.append({
+                'label': label,
+                'obj': obj,
+                'class': klass,
+            })
+
+        return res
+
+
 class CountryFactsheetView(object):
     """ Main index page for a countryfactsheet content type
     """
+
     sections_template = ViewPageTemplateFile('pt/countryfactsheet_sections.pt')
 
     _tab_labels = (
@@ -93,22 +125,26 @@ class CountryFactsheetView(object):
         (
             'EU Nature Directives',
             'nature-directives/countries',
-            '- insert one sentence providing an overview of the information that can be found on this page'
+            '- insert one sentence providing an overview of the information '
+            'that can be found on this page'
         ),
         (
             'EU Biodiversity Strategy',
             'mtr/countries',
-            '- insert one sentence providing an overview of the information that can be found on this page'
+            '- insert one sentence providing an overview of the information '
+            'that can be found on this page'
         ),
         (
             'MAES',
             'maes/maes_countries',
-            '- insert one sentence providing an overview of the information that can be found on this page'
+            '- insert one sentence providing an overview of the information '
+            'that can be found on this page'
         ),
         (
             'Green Infrastructure',
             'countries/gi',
-            '- insert one sentence providing an overview of the information that can be found on this page'
+            '- insert one sentence providing an overview of the information '
+            'that can be found on this page'
         )
     )
 
