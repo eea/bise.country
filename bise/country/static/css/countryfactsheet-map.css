@@ -60,7 +60,7 @@ svg-container {
 .maplet-outline {
   fill: none;
   stroke: #393939;
-  stroke-width: 0.2;
+  stroke-width: 0.6;
 }
 
 .sphere {

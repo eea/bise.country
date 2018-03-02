@@ -508,7 +508,7 @@ function addInsetCountryToMap(
   var boxw = 60;
   var boxh = 60;
   var spacer = 20;
-  var boxtitle = 10;
+  var boxtitle = 0;   // 10
 
   if (!index) {
     index = 0;
@@ -565,17 +565,17 @@ function addInsetCountryToMap(
 
   label
     .attr('x', msp.x + boxw/2)
-    .attr('y', msp.y - textboxh / 3)
+    .attr('y', msp.y + boxh - textboxh / 2)   //  - textboxh / 3
   ;
 
-  svg
-    .append('rect')
-    .attr('class', 'country-focus-text-bg')
-    .attr('x', msp.x)
-    .attr('y', msp.y - textboxh)
-    .attr('width', boxw)
-    .attr('height', textboxh)
-  ;
+  // svg
+  //   .append('rect')
+  //   .attr('class', 'country-focus-text-bg')
+  //   .attr('x', msp.x)
+  //   .attr('y', msp.y - textboxh)
+  //   .attr('width', boxw)
+  //   .attr('height', textboxh)
+  // ;
 
   label.raise();
 
