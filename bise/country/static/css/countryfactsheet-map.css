@@ -44,9 +44,10 @@ svg-container {
 }
 
 .country-focus-text-bg {
-  fill: #393939;
+  /* fill: #393939; */
+  fill: transparent;
   stroke: #393939;
-  stroke-width: 2;
+  stroke-width: 0.2;
 }
 
 .country-focus-label {
@@ -59,7 +60,7 @@ svg-container {
 .maplet-outline {
   fill: none;
   stroke: #393939;
-  stroke-width: 2;
+  stroke-width: 0.2;
 }
 
 .sphere {

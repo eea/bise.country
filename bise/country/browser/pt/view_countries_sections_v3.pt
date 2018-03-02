@@ -176,9 +176,6 @@
 
         // Code for the tabs implementation. Use in "country section view"
         $("ul.nav-tabs li a").each(function (i) {
-          // $(this).attr('href', "#tab-" + (
-          //   i + 1
-          // ));
 
           $(this).click(function () {
             var attrValue = $(this).attr('href');

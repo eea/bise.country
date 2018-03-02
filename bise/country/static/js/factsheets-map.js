@@ -386,7 +386,9 @@ function drawCountriesForMinimap(
   projection, // desired projection (ex: mercator projection d3 object)
   zoomLevel   // correction factor for zoom
 ) {
-  // Draw the countries in the specified viewport
+
+  // Specially made for the whole EU countries inset maplet
+  // Draws the countries in the specified viewport
 
   var focusCountriesFeature = filterCountriesById(countries, focusIds);
 
@@ -479,7 +481,7 @@ function drawCountriesForMinimap(
 
 
 // TODO: we need to detect if we need to hide the maplets for small res
-function addComposedCountryToMap(
+function addInsetCountryToMap(
   svg,
   viewport,
   countries,
@@ -490,9 +492,10 @@ function addComposedCountryToMap(
   projection,
   zoomLevel
 ) {
-  // Adds a zoom to the desired country, added to the left side of the map
   //
-  // cf = correction factor, based on index in left side rendering
+  // Adds a "zoom" to the desired country, added to the left side of the map
+  // Inset Maps are bits of the map highlighted. See
+  // http://gisgeography.com/map-elements-how-to-guide-map-making/
   //
   //      box width
   //  |  |-----|
@@ -624,7 +627,6 @@ function addCountriesToMinimap(
     .attr('height', boxh)
     .append('text')
   ;
-
 
   var label = svg.append('text')
     .attr('x', 0)
@@ -800,6 +802,7 @@ function init(settings) {
     // read geometry of countries. See https://github.com/topojson/world-atlas
     // countries.geo.json comes from https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json
 
+    // this refreshes the whole map. Used for changing the tabs
     d3.select("body").select("#countryfactsheets-map svg").selectAll("*").remove();
 
     var countries = world.features;
@@ -860,82 +863,16 @@ function init(settings) {
         return c;
       });
 
-      if (window.isGlobalMap) {
-        var focusCountries = mapletsCountries.split(',');
-
-        var mp = d3.geoPatterson();
-        mp
-        .scale(1)
-        .translate([0, 0]);
-
-        var mside = 'left';
-        var mstart = [10, 23];
-
-        // eu minimap position in header map
-        if (window.isHeaderGlobalMap) {
-          var mside = 'top';
-          var mstart = [370, 420];
-        }
-
-
-        if ($('.maes-map').length > 0) {
-          addCountriesToMinimap(
-            svg,
-            [width, height],
-            countries,
-            countries_Id,
-            mstart,
-            mside,
-            mp,
-            0.8
-          );
-        }
-
-        focusCountries.forEach(function(id, index) {
-          var isMaesMap = $('.maes-map').length > 0;
-
-          if (isMaesMap) {
-            orientation =  'bottom';
-            start = [10, height + 20];
-              // maplets position in maes header map
-            if (window.isHeaderGlobalMap) {
-              orientation =  'top';
-              start = [450, 420];
-            }
-          } else if (window.isHeaderGlobalMap) {
-            orientation =  'top';
-            start = [370, 420];
-          }
-          else {
-            orientation = 'left';
-            start = [10, 26];
-            if ((height / width) > 1.2) {
-              orientation =  'bottom';
-              start = [10, height + 20];
-            }
-          }
-
-          var p = d3.geoMercator();
-          p
-          .scale(1)
-          .translate([0, 0]);
-
-          if (available_map_country_ids.indexOf(id) > -1) {
-            addComposedCountryToMap(
-              svg,
-              [width, height],
-              countries,
-              id,
-              index,
-              start,
-              orientation,
-              p,
-
-              0.6
-            );
-          }
-        });
-      }
+      // add the maplet insets and other customization (EU maplet for MAES)
+      customizeMap(
+        svg,
+        settings,
+        available_map_country_ids,
+        width,
+        height,
+        countries,
+        countries_Id
+      )
     }
 
     drawMap();
@@ -956,3 +893,95 @@ $(document).ready(function() {
   var settingsURL = $(".svg-map-container").data('settings');
   if (settingsURL) d3.json(settingsURL, init);
 });
+
+
+function customizeMap(
+  svg,
+  settings,
+  available_map_country_ids,
+  width,
+  height,
+  countries,
+  countries_Id
+) {
+
+  var mapletsCountries = settings['maplets'];
+
+  if (window.isGlobalMap) {
+    var focusCountries = mapletsCountries.split(',');
+
+    var mp = d3.geoPatterson();
+    mp
+      .scale(1)
+      .translate([0, 0]);
+
+    var mside = 'left';
+    var mstart = [10, 23];
+
+    // eu minimap position in header map
+    if (window.isHeaderGlobalMap) {
+      var mside = 'top';
+      var mstart = [370, 420];
+    }
+
+    if ($('.maes-map').length > 0) {
+      addCountriesToMinimap(
+        svg,
+        [width, height],
+        countries,
+        countries_Id,
+        mstart,
+        mside,
+        mp,
+        0.8
+      );
+    }
+
+    focusCountries.forEach(function(id, index) {
+      var isMaesMap = $('.maes-map').length > 0;
+      var start;
+
+      if (isMaesMap) {
+        orientation = 'bottom';
+        start = [10, height + 20];
+        // maplets position in maes header map
+        if (window.isHeaderGlobalMap) {
+          orientation =  'top';
+          start = [450, 420];
+        }
+      } else if (window.isHeaderGlobalMap) {
+        orientation =  'top';
+        start = [370, 420];
+      }
+      else {
+        orientation = 'left';
+        start = [10, 26];
+
+        if ((height / width) > 1.2) {
+          orientation =  'bottom';
+          start = [10, height + 20];
+        }
+      }
+
+      var p = d3.geoMercator();
+      p
+        .scale(1)
+        .translate([0, 0]);
+
+      if (available_map_country_ids.indexOf(id) > -1) {
+        addInsetCountryToMap(
+          svg,
+          [width, height],
+          countries,
+          id,
+          index,
+          start,
+          orientation,
+          p,
+
+          0.6
+        );
+      }
+    });
+  }
+}
