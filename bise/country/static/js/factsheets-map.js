@@ -581,7 +581,7 @@ function addInsetCountryToMap(
 
 }
 
-function addCountriesToMinimap(
+function renderEUMinimap(
   svg,
   viewport,
   countries,
@@ -589,11 +589,13 @@ function addCountriesToMinimap(
   startPoint,
   side,
   projection,
-  zoomLevel
+  zoomLevel,
+  boxw,
+  boxh
 ) {
 
-  var boxw = 60;
-  var boxh = 60;
+  // var boxw = 60;
+  // var boxh = 60;
   var spacer = 0;
   var boxtitle = 10;
 
@@ -631,38 +633,24 @@ function addCountriesToMinimap(
   var label = svg.append('text')
     .attr('x', 0)
     .attr('y', 0)
-    .attr('class', 'country-focus-label')
+    .attr('class', 'eu-focus-label')
     .attr('text-anchor', 'middle')
     .text('EU')
   ;
 
   var lbbox = label.node().getBBox();
-  var textboxh = lbbox.height + lbbox.height / 4;
 
   label
-    .attr('x', msp.x + boxw/2)
-    .attr('y', msp.y - textboxh / 3)
-  ;
-
-  svg
-    .append('rect')
-    .attr('class', 'country-focus-text-bg')
-    .attr('x', msp.x)
-    .attr('y', msp.y - textboxh)
-    .attr('width', boxw)
-    .attr('height', textboxh)
+    .attr('x', msp.x + boxw / 2)
+    .attr('y', msp.y + boxh / 2 + lbbox.height / 2)
   ;
 
   var img = svg.append('g');
   img
     .append('image')
     .attr('class', 'eu-flag')
-    // .attr('x', msp.x + 10)
-    // .attr('y', msp.y - textboxh + 22)
     .attr('x', msp.x + 5)
-    .attr('y', msp.y - textboxh + 15)
-    // .attr('width', 40)
-    // .attr('height', 27)
+    .attr('y', msp.y)
     .attr('width', 20)
     .attr('height', 14)
     .attr('href', 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg')
@@ -762,14 +750,9 @@ function init(settings) {
     var width = $(window).width();
 
     // TODO: legends are not responsive in the header map - need to be fixed
-    $('.eu-map-filter').css({
+    $('.eu-map-filter, #countries-filter').css({
       'top': '100px',
-      'right': '368px'
-    });
-    $('#countries-filter').css({
-      'right': '368px',
-      'top': '100px'
-    });
+    }).css('right', function () { return getPageContentRight() +  'px' });
   }
 
   var height = $('.svg-map-container svg').height();
@@ -833,7 +816,7 @@ function init(settings) {
 
     var globalMapProjection = d3.geoRobinson();   // azimuthalEquidistant conicEquidistant()
 
-    function drawMap() {
+    function drawMap(width) {
 
       globalMapProjection
         .scale(1)
@@ -875,7 +858,7 @@ function init(settings) {
       )
     }
 
-    drawMap();
+    drawMap(width);
 
     $(window).resize(function() {
       width = window.isGlobalMap
@@ -883,7 +866,12 @@ function init(settings) {
         : $(window).width()
       ;
       svg.selectAll("*").remove();
-      drawMap()
+      drawMap(width);
+      if (window.isGlobalMap) {
+        $('.eu-map-filter, #countries-filter').css('right',
+          function() { return getPageContentRight() +  'px' }
+        );
+      }
     })
   }
 }
@@ -893,6 +881,14 @@ $(document).ready(function() {
   var settingsURL = $(".svg-map-container").data('settings');
   if (settingsURL) d3.json(settingsURL, init);
 });
+
+
+function getPageContentRight() {
+  var pc = $(".page-content").width();
+  var wh = $(window).width();
+  var right = (wh - pc) / 2;
+  return right;
+}
 
 
 function customizeMap(
@@ -918,14 +914,20 @@ function customizeMap(
     var mside = 'left';
     var mstart = [10, 23];
 
+    var mw = 60;  // maplet width and height
+    var mh = 60;
+
     // eu minimap position in header map
     if (window.isHeaderGlobalMap) {
       var mside = 'top';
-      var mstart = [370, 420];
+      mw = 124;
+      mh = 124;
+      var mstart = [$(window).width() - getPageContentRight() - mw, 300];
+      console.log("Mstart", mstart, width, height);
     }
 
     if ($('.maes-map').length > 0) {
-      addCountriesToMinimap(
+      renderEUMinimap(
         svg,
         [width, height],
         countries,
@@ -933,10 +935,13 @@ function customizeMap(
         mstart,
         mside,
         mp,
-        0.8
+        0.8,
+        mw,
+        mh
       );
     }
 
+    // add the zoomed countries (cyprus, malta, etc) as maplets
     focusCountries.forEach(function(id, index) {
       var isMaesMap = $('.maes-map').length > 0;
       var start;

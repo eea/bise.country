@@ -12,7 +12,7 @@
       <div>
         <svg-container
             class="svg-header-wrapper svg-map-container general-map"
-            data-ratio="0.7"
+            data-ratio="0.6"
             data-globalmap="global"
             tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
             data-show-legend="false"

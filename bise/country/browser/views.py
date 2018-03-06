@@ -85,13 +85,28 @@ class CountriesSection(object):
     """
 
     _tabs = (
-        ('Countries', 'countries', 'all-countries general-eu-map'),
-        ('Factsheets', 'countries/eu_country_profiles',
-         'eu-countries general-eu-map'),
-        ('Contributions', 'mtr/countries', 'eu-countries general-eu-map'),
-        ('MAES', 'maes/maes_countries', 'maes-eu-map'),
-        ('Green Infrastructure', 'countries/gi',
-         'eu-countries general-eu-map'),
+        ('Countries',
+         'countries',
+         'all-countries general-eu-map',
+         'Action Plan Report'
+         ),
+        ('Factsheets',
+         'countries/eu_country_profiles',
+         'eu-countries general-eu-map',
+         'Biodiversity factsheets for EU Members',
+         ),
+        ('Contributions',
+         'mtr/countries',
+         'eu-countries general-eu-map',
+         'EU Member States contribution to the mid-term review.'),
+        ('MAES',
+         'maes/maes_countries',
+         'maes-eu-map',
+         'MAES-related developments in the European Union'),
+        ('Green Infrastructure',
+         'countries/gi',
+         'eu-countries general-eu-map',
+         'GI-related developments in the European Union'),
     )
 
     @view.memoize
@@ -99,12 +114,13 @@ class CountriesSection(object):
         portal = api.portal.get()
         res = []
 
-        for label, path, klass in self._tabs:
+        for label, path, klass, desc in self._tabs:
             obj = portal.restrictedTraverse(path)
             res.append({
                 'label': label,
                 'obj': obj,
                 'class': klass,
+                'description': desc
             })
 
         return res

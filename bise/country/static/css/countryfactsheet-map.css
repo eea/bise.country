@@ -57,6 +57,13 @@ svg-container {
   text-anchor: middle;
 }
 
+.eu-focus-label {
+  fill: white;
+  font: 600 12px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  stroke: none;
+  text-anchor: middle;
+}
+
 .maplet-outline {
   fill: none;
   stroke: #393939;
