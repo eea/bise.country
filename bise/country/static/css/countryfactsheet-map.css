@@ -177,6 +177,12 @@ svg-container {
   width: 18px;
 }
 
+@media (max-width: 800px) {
+  #countries-filter, .eu-map-filter {
+    right: 15px !important;
+  }
+}
+
 @media (max-width: 767px) {
   #countries-filter {
     font-size: 10px;

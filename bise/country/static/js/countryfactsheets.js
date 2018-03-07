@@ -24,6 +24,28 @@ $(document).ready(function() {
   });
 
 
+$("#country-tabs li a").click(function() {
+  var $parent = $(this).parent();
+  centerLI($parent, 'ul#country-tabs');
+});
+
+  function centerLI(target, outer) {
+    var out = $(outer);
+    var tar = $(target);
+    var x = out.width() - 50;
+    var y = tar.outerWidth(true);
+    var z = tar.index();
+    var q = 0;
+    var m = out.find('li');
+    for (var i = 0; i < z; i++) {
+      q += $(m[i]).outerWidth(true);
+    }
+    //out.scrollLeft(Math.max(0, q - (x - y)/2));
+    out.animate({
+      scrollLeft: Math.max(0, q - (x - y) / 2)
+    }, 500);
+}
+
   $('#country-tabs').each(function () {
     var $activeTab, $tabContent, $links = $(this).find('a');
     $activeTab = $($links.filter(
