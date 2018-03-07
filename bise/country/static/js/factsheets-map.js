@@ -641,8 +641,8 @@ function renderEUMinimap(
   var lbbox = label.node().getBBox();
 
   label
-    .attr('x', msp.x + boxw / 2)
-    .attr('y', msp.y + boxh / 2 + lbbox.height / 2)
+    .attr('x', msp.x + 18)
+    .attr('y', msp.y + 40)
   ;
 
   var img = svg.append('g');
@@ -650,9 +650,9 @@ function renderEUMinimap(
     .append('image')
     .attr('class', 'eu-flag')
     .attr('x', msp.x + 5)
-    .attr('y', msp.y)
-    .attr('width', 20)
-    .attr('height', 14)
+    .attr('y', msp.y + 5)
+    .attr('width', 30)
+    .attr('height', 20)
     .attr('href', 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg')
   ;
 
