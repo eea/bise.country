@@ -9,7 +9,7 @@
   <body metal:fill-slot="body">
     <div>
 
-      <div>
+      <div class="header-bg">
         <svg-container
             class="svg-header-wrapper svg-map-container general-map"
             data-ratio="0.6"
@@ -30,7 +30,7 @@
             </div>
             <div class="checkb-wrapper">
               <input type="radio" class='countries-checkbox' id="checkb_3" checked/>
-              <label for="checkb_3" style="color: #666">All countries</label>
+              <label for="checkb_3" style="color: #666">All <span class="desktop-only">countries</span></label>
             </div>
           </div>
         </svg-container>
@@ -95,6 +95,49 @@
         </div>
 
         <div class="panel-body">
+          <div class="countries-list-wrapper">
+            <span class="country-dropdown">
+              <select>
+                <option selected="selected">Select country</option>
+
+                <!-- <option -->
+                <!--         tal:repeat="country python: -->
+                <!--         obj.getFolderContents(contentFilter={'portal_type': -->
+                <!--         ['FolderishPage', 'BiodiversityFactsheet']})" -->
+                <!--         tal:content="python: country.getId.title()">Country name</option> -->
+
+                <option>Austria</option>
+                <option>Belgium</option>
+                <option>Bulgaria</option>
+                <option>Croatia</option>
+                <option>Cyprus</option>
+                <option>Czech Republic</option>
+                <option>Denmark</option>
+                <option>Estonia</option>
+                <option>Finland</option>
+                <option>France</option>
+                <option>Germany</option>
+                <option>Greece</option>
+                <option>Hungary</option>
+                <option>Ireland</option>
+                <option>Italy</option>
+                <option>Latvia</option>
+                <option>Lithuania</option>
+                <option>Luxembourg</option>
+                <option>Malta</option>
+                <option>Netherlands</option>
+                <option>Poland</option>
+                <option>Portugal</option>
+                <option>Romania</option>
+                <option>Slovakia</option>
+                <option>Slovenia</option>
+                <option>Spain</option>
+                <option>Sweden</option>
+                <option>United Kingdom</option>
+
+              </select>
+            </span>
+          </div>
 
           <tal:tab tal:repeat="tab view/tabs">
           <div
@@ -106,51 +149,8 @@
              "
              class="tabs-content"
              >
+
              <h1 class="section-title" tal:content="obj/Title">Section title</h1>
-
-             <div class="countries-list-wrapper">
-               <span class="country-dropdown">
-                 <select>
-                   <option selected="selected">Select country</option>
-
-                   <!-- <option -->
-                   <!--         tal:repeat="country python: -->
-                   <!--         obj.getFolderContents(contentFilter={'portal_type': -->
-                   <!--         ['FolderishPage', 'BiodiversityFactsheet']})" -->
-                   <!--         tal:content="python: country.getId.title()">Country name</option> -->
-
-                   <option>Austria</option>
-                   <option>Belgium</option>
-                   <option>Bulgaria</option>
-                   <option>Croatia</option>
-                   <option>Cyprus</option>
-                   <option>Czech Republic</option>
-                   <option>Denmark</option>
-                   <option>Estonia</option>
-                   <option>Finland</option>
-                   <option>France</option>
-                   <option>Germany</option>
-                   <option>Greece</option>
-                   <option>Hungary</option>
-                   <option>Ireland</option>
-                   <option>Italy</option>
-                   <option>Latvia</option>
-                   <option>Lithuania</option>
-                   <option>Luxembourg</option>
-                   <option>Malta</option>
-                   <option>Netherlands</option>
-                   <option>Poland</option>
-                   <option>Portugal</option>
-                   <option>Romania</option>
-                   <option>Slovakia</option>
-                   <option>Slovenia</option>
-                   <option>Spain</option>
-                   <option>Sweden</option>
-                   <option>United Kingdom</option>
-
-                 </select>
-               </span>
-             </div>
 
 
              <div class="content-wrapper"
@@ -169,6 +169,7 @@
       $(document).ready(function() {
 
         $('.map-helper').show();
+
 
         $('.map-helper button').click(function () {
           $('.map-helper').hide();

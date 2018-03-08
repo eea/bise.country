@@ -6,6 +6,8 @@ Changelog
 
 4.6 - (2018-03-01)
 ------------------
+- Fixes on countries sections pages
+  [krisztina #90236]
 - Small adjusments on country sections tabs
   [krisztina #90236]
 - Fix country pages map and tabs on smaller screen size

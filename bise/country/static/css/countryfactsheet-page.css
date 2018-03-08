@@ -1072,9 +1072,9 @@ body {
 
 .template-countries-sections-v2 .section-title,
 .template-countries-sections-v3 .section-title {
-  width: 75%;
   color: #ef8152 !important;
-  display: block;
+  display: inline-block;
+  margin-top: 10px;
 }
 
 .template-countries-sections-v2 #site-body {
@@ -1098,15 +1098,15 @@ body {
     top: -458px;
   }
 
-.template-countries-sections-v3 #countryfactsheets-map,
 .template-countries-sections-v3 #countryfactsheets-map {
   border: none;
   top: 30px;
 }
 
 .template-countries-sections-v3 .countries-list-wrapper {
-  width: 15%;
-  float: left;
+  float: right;
+  clear: right;
+  display: block !important;
 }
 
 .template-countries-sections-v3 .countries-list {
@@ -1129,18 +1129,14 @@ body {
   margin-top: 10px;
 }
 
-.template-countries-sections-v3 .countries-list-wrapper {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-}
-
 .tabs-content {
   display: none;
+  padding: 0 17px;
 }
 
 .tabs-content.active {
   display: block;
+  padding: 0 17px;
 }
 
 .intro-wrapper {
@@ -1223,4 +1219,17 @@ body {
 }
 .content-green-infrastructure .portaltype-document {
   margin-top: 30px;
+}
+
+@media (max-width: 480px) {
+  .map-title {
+    left: 20px;
+  }
+  .custom-dropdown {
+    right: 0;
+  }
+  .template-countries-sections-v3 #countryfactsheets-map {
+    border: none;
+    top: 50px;
+  }
 }

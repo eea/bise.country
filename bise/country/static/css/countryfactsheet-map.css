@@ -177,6 +177,10 @@ svg-container {
   width: 18px;
 }
 
+.desktop-only {
+  display: inline-block;
+}
+
 @media (max-width: 800px) {
   #countries-filter, .eu-map-filter {
     right: 15px !important;
@@ -197,5 +201,19 @@ svg-container {
   }
   #countries-filter ul {
     margin-top: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .eu-map-filter {
+    width: 100%;
+    top: 154px !important;
+    background-color: rgba(255, 255, 255, 0.95);
+    left: 0;
+    border: none;
+  }
+  .checkb-wrapper {display: inline; margin-right: 3%;}
+  .desktop-only {
+    display: none;
   }
 }

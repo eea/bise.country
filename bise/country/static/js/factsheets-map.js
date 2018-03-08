@@ -757,10 +757,17 @@ function init(settings) {
 
   var height = $('.svg-map-container svg').height();
 
-  if ($('.svg-header-wrapper').length > 0) {
-    var $svgh = $('<div class="header-bg"/>');
-    var $svg = $('.svg-header-wrapper');
-    $svgh.append($svg);
+  // if ($('.svg-header-wrapper').length > 0) {
+  //   var $svgh = $('<div class="header-bg"/>');
+  //   var $svg = $('.svg-header-wrapper');
+  //   $svgh.append($svg);
+  //   var $svgw = $svgh.detach();
+  //   var $body = $('#site-body');
+  //   $body.prepend($svgw);
+  // }
+
+  if ($('.header-bg').length > 0) {
+    var $svgh = $('.header-bg');
     var $svgw = $svgh.detach();
     var $body = $('#site-body');
     $body.prepend($svgw);

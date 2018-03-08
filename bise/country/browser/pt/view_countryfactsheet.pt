@@ -16,7 +16,7 @@
               )">
 
       <div
-          class="country-header" >
+          class="country-header header-bg" >
         <svg-container
             class="svg-header-wrapper svg-map-container"
             data-ratio="0.4"
