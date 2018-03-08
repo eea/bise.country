@@ -6,6 +6,8 @@ Changelog
 
 4.6 - (2018-03-01)
 ------------------
+- Small adjusments on country sections tabs
+  [krisztina #90236]
 - Fix country pages map and tabs on smaller screen size
   [krisztina #90236]
 - Bug fix: don't hardcode settings URL for MAES

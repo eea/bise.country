@@ -721,7 +721,12 @@ body {
 @media (max-width: 800px) {
 
   .template-countries-sections-v3 #site-body {
-    padding-top: 360px !important;
+    padding-top: 410px !important;
+  }
+
+  .template-countries-sections-v3 #countryfactsheets-map,
+  .template-countries-sections-v3 #countryfactsheets-map {
+    top: 63px;
   }
 
     .template-countries-sections-v3 .header-bg {

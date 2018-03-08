@@ -23,50 +23,49 @@ $(document).ready(function() {
     });
   });
 
+  // center tabs menu items on click on small screen sizes
+  $("#country-tabs li a").click(function() {
+    var $parent = $(this).parent();
+    centerTabItem($parent, 'ul#country-tabs');
+  });
 
-$("#country-tabs li a").click(function() {
-  var $parent = $(this).parent();
-  centerLI($parent, 'ul#country-tabs');
-});
-
-  function centerLI(target, outer) {
-    var out = $(outer);
-    var tar = $(target);
-    var x = out.width() - 50;
-    var y = tar.outerWidth(true);
-    var z = tar.index();
+  function centerTabItem(target, outer) {
+    var outer = $(outer);
+    var target = $(target);
+    var outerW = outer.width() - 50;
+    var targetW = target.outerWidth(true);
+    var targetIn = target.index();
     var q = 0;
-    var m = out.find('li');
-    for (var i = 0; i < z; i++) {
-      q += $(m[i]).outerWidth(true);
-    }
-    //out.scrollLeft(Math.max(0, q - (x - y)/2));
-    out.animate({
-      scrollLeft: Math.max(0, q - (x - y) / 2)
-    }, 500);
-}
+    var centerElement = outer.find('li');
 
+    for (var i = 0; i < targetIn; i++) {
+      q += $(centerElement[i]).outerWidth(true);
+    }
+
+    outer.animate({
+      scrollLeft: Math.max(0, q - (outerW - targetW) / 2)
+    }, 500);
+  }
+
+  // tabs functionality
   $('#country-tabs').each(function () {
     var $activeTab, $tabContent, $links = $(this).find('a');
     $activeTab = $($links.filter(
       '[href="' + location.hash + '"]')[0] || $links[0]
     );
+
     $activeTab.parent().addClass('active');
     $tabContent = $($activeTab[0].hash);
-
     $links.not($activeTab).each(function () {
       $(this.hash).hide();
     });
 
     $(this).on('click', 'a', function() {
       window.location.hash = this.hash;
-
       $activeTab.removeClass('active');
       $tabContent.hide();
-
       $activeTab = $(this);
       $tabContent = $(this.hash);
-
       $activeTab.addClass('active');
       $tabContent.show();
     });
