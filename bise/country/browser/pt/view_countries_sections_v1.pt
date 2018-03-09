@@ -151,7 +151,7 @@
         position: absolute;
         top: 205px;
         right: 180px;
-        z-index: 99;
+        display: none;
       }
 
       .map-helper-wrapper {
@@ -294,7 +294,9 @@
     </div>
 
     <script type="text/javascript">
-        $('.map-helper').show();
+
+      $(document).ready(function() {
+        // $('.map-helper').show();
 
         $('.map-helper button').click(function () {
           $('.map-helper').hide();
@@ -306,15 +308,11 @@
         });
 
         $('ul.nav-tabs li').click(function() {
-            var attrValue = $(this).children().children('a').attr('href');
-            $(this).addClass('active').siblings().removeClass('active');
-            $(attrValue).show().siblings().hide();
-            return false;
+          var attrValue = $(this).children().children('a').attr('href');
+          $(this).addClass('active').siblings().removeClass('active');
+          $(attrValue).show().siblings().hide();
+          return false;
         })
-    </script>
-
-    <script>
-      $(document).ready(function() {
 
         // Switch the legend according to type of map. There are two types:
         // general EU map and MAES (which gets special colors and legend

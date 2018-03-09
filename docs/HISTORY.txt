@@ -6,6 +6,8 @@ Changelog
 
 4.6 - (2018-03-01)
 ------------------
+- Feature: add loading spinner for map
+  [krisztina #90236]
 - Fixes on countries sections pages
   [krisztina #90236]
 - Small adjusments on country sections tabs

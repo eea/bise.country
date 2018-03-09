@@ -33,6 +33,7 @@
       data-ratio="0.75"
       data-settings="/++resource++bise.country/js/countries/maes-countries.json"
       data-show-legend="true"
+      data-show-map-filter="false"
       id="countryfactsheets-map">
 
       <svg height="560"></svg>

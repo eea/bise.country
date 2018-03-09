@@ -689,6 +689,11 @@ function init(settings) {
   nonEuMembers = settings.nonEuMembers;
   var getCountries = [];
 
+  var $load = $('<div class="map-loader"><div class="loading-spinner"/></div>');
+
+  var $sw = $('#countryfactsheets-map');
+  $sw.append($load);
+
   // temp disabled
   // d3.select("body").select("#countryfactsheets-map svg").selectAll("*").remove();
   $("#countries-filter").detach();
@@ -696,7 +701,7 @@ function init(settings) {
   var $sw = $('#countryfactsheets-map');
   // countries filter legend for MAES map
   var $dw = $('<div id="countries-filter">' +
-    '<span>Report on MAES-related <br> developments</span>' +
+    '<span>Report on MAES-related <span class="break-p">developments</span></span>' +
     '<ul class="filter-listing"></ul></div>');
   $sw.append($dw);
 
@@ -753,6 +758,8 @@ function init(settings) {
     $('.eu-map-filter, #countries-filter').css({
       'top': '100px',
     }).css('right', function () { return getPageContentRight() +  'px' });
+    $('.intro-wrapper').css({
+    }).css('left', function () { return getPageContentRight() +  'px' });
   }
 
   var height = $('.svg-map-container svg').height();
@@ -775,7 +782,7 @@ function init(settings) {
 
   var wflags = fLoc("countries.tsv");
   var w110 = fLoc("countries.geo.json");
-
+  // $('.map-loader').show();
   d3
     .queue()
     .defer(d3.json, w110)
@@ -787,6 +794,13 @@ function init(settings) {
     if (error) {
       alert('error: ' + error);
       return;
+    }
+
+    $('.map-loader').hide();
+    $('.map-helper, .intro-wrapper').css('display', 'block');
+
+    if ($('.general-map').length > 0) {
+      $('.eu-map-filter').css('display', 'block');
     }
 
     // read geometry of countries. See https://github.com/topojson/world-atlas
@@ -877,6 +891,9 @@ function init(settings) {
       if (window.isGlobalMap) {
         $('.eu-map-filter, #countries-filter').css('right',
           function() { return getPageContentRight() +  'px' }
+        );
+        $('.intro-wrapper').css('left',
+          function() { console.log('gg');return getPageContentRight() +  'px' }
         );
       }
     })
