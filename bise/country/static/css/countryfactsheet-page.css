@@ -1245,4 +1245,7 @@ body {
   .custom-dropdown {
     right: 0;
   }
+  .intro-wrapper {
+    display: none !important;
+  }
 }
