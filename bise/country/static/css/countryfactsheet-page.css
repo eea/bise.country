@@ -1214,6 +1214,7 @@ body {
 .content-green-infrastructure .gi-title-wrapper {
   cursor: pointer;
   border-bottom: 1px solid #ddd;
+  padding: 6px;
 }
 .content-green-infrastructure .gi-title-wrapper h3 {
   display: inline-block;

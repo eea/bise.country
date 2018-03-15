@@ -3,6 +3,8 @@ Changelog
 
 4.8.dev0 - (unreleased)
 -----------------------
+- Fixes on GI collapsible and Nature directives tab
+  [krisztina, #90236]
 
 4.7 - (2018-03-12)
 ------------------
@@ -275,4 +277,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

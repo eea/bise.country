@@ -72,7 +72,11 @@ $(document).ready(function() {
   });
 
   // make green infrastracture content collapsible on country pages
-  var $htitle =  $('.content-green-infrastructure #parent-fieldname-text h3');
+  var $htitle =  $('.content-green-infrastructure #parent-fieldname-text h2');
+  $htitle.css({
+    'display': 'inline-block',
+    'margin-bottom': '0'
+  });
 
   $htitle.each(function (index) {
     $(this).nextUntil($htitle).wrapAll("<div class='gi-content-wrapper'></div>");

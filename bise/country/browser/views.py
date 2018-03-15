@@ -140,7 +140,7 @@ class CountryFactsheetView(object):
         ),
         (
             'EU Nature Directives',
-            'nature-directives/countries',
+            'countries/nature-directives',
             '- insert one sentence providing an overview of the information '
             'that can be found on this page'
         ),
