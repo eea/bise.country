@@ -73,21 +73,29 @@ $(document).ready(function() {
 
   // make green infrastracture content collapsible on country pages
   var $htitle =  $('.content-green-infrastructure #parent-fieldname-text h2');
-  $htitle.css({
-    'display': 'inline-block',
-    'margin-bottom': '0'
-  });
+  var $subTitle =  $('.content-green-infrastructure #parent-fieldname-text h3');
 
   $htitle.each(function (index) {
     $(this).nextUntil($htitle).wrapAll("<div class='gi-content-wrapper'></div>");
     $(this).wrap("<div class='gi-title-wrapper'></div>");
   });
 
+  $subTitle.each(function (index) {
+    $(this).nextUntil($subTitle).wrapAll("<div class='gi-sub-content-wrapper'></div>");
+    $(this).wrap("<div class='gi-sub-title-wrapper'></div>");
+  });
+
   var $icon = $('<i class="fa fa-plus"></i>');
   $('.gi-title-wrapper').append($icon);
+  $('.gi-sub-title-wrapper').append($icon);
 
   $('.gi-title-wrapper') .click(function() {
     $(this).nextUntil('.gi-title-wrapper').slideToggle('slow');
+    $("i", this).toggleClass("fa-plus fa-minus");
+  });
+
+  $('.gi-sub-title-wrapper') .click(function() {
+    $(this).nextUntil('.gi-sub-title-wrapper').slideToggle('slow');
     $("i", this).toggleClass("fa-plus fa-minus");
   });
 

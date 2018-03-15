@@ -762,6 +762,10 @@ body {
     white-space: nowrap;
   }
 
+  .nav-tabs  li  a {
+    padding: 15px;
+  }
+
   .factsheets .nav-tabs li.active:before {
     top: 0px;
     border-radius: 0;
@@ -1211,21 +1215,34 @@ body {
 
 /* collapsible content for green infrastracture on country pages */
 
-.content-green-infrastructure .gi-title-wrapper {
+.content-green-infrastructure #parent-fieldname-text h2,
+.content-green-infrastructure #parent-fieldname-text h3 {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
+.content-green-infrastructure .gi-title-wrapper,
+.content-green-infrastructure .gi-sub-title-wrapper {
   cursor: pointer;
   border-bottom: 1px solid #ddd;
   padding: 6px;
 }
-.content-green-infrastructure .gi-title-wrapper h3 {
+
+.content-green-infrastructure .gi-title-wrapper h2,
+.content-green-infrastructure .gi-sub-title-wrapper h3 {
   display: inline-block;
   padding: 8px 0;
   margin-bottom: 0;
 }
-.content-green-infrastructure .gi-title-wrapper i {
+
+.content-green-infrastructure .gi-title-wrapper i,
+.content-green-infrastructure .gi-sub-title-wrapper i {
   float: right;
   padding: 13px 0px;
 }
-.content-green-infrastructure .gi-content-wrapper {
+
+.content-green-infrastructure .gi-content-wrapper,
+.content-green-infrastructure .gi-sub-content-wrapper {
   display: none;
 }
 .content-green-infrastructure .portaltype-document {
