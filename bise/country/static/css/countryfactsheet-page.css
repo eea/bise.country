@@ -1224,7 +1224,7 @@ body {
 .content-green-infrastructure .gi-title-wrapper,
 .content-green-infrastructure .gi-sub-title-wrapper {
   cursor: pointer;
-  border-bottom: 1px solid #ddd;
+  /* border-bottom: 1px solid #ddd; */
   padding: 6px;
 }
 
@@ -1247,6 +1247,10 @@ body {
 }
 .content-green-infrastructure .portaltype-document {
   margin-top: 30px;
+}
+
+.fact h3 {
+  margin-left: 0 !important;
 }
 
 @media (max-width: 480px) {
