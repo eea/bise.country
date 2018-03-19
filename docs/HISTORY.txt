@@ -3,6 +3,8 @@ Changelog
 
 4.9.dev0 - (unreleased)
 -----------------------
+- Mobile fixes on country pages
+  [krisztina, #90236]
 
 4.8 - (2018-03-15)
 ------------------
@@ -280,4 +282,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

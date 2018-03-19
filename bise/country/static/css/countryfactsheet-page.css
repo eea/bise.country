@@ -31,7 +31,8 @@ body {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eeeeee;
+  /* background-color: #eeeeee; */
+  color: #e99279;
 }
 .nav > li.disabled > a {
   color: #777777;
@@ -1233,6 +1234,7 @@ body {
   display: inline-block;
   padding: 8px 0;
   margin-bottom: 0;
+  width: 90%;
 }
 
 .content-green-infrastructure .gi-title-wrapper i,
@@ -1253,10 +1255,20 @@ body {
   margin-left: 0 !important;
 }
 
+.gi-content-wrapper h3 {
+  margin-top: 1rem;
+}
+
 @media (max-width: 480px) {
   .template-countries-sections-v3 #countryfactsheets-map {
     border: none;
     top: 50px;
+  }
+  .content-green-infrastructure .gi-title-wrapper h2,
+  .content-green-infrastructure .gi-sub-title-wrapper h3,
+  .portaltype-biodiversityfactsheet h3.collapsible,
+  .fact h3 {
+    font-size: 1.3rem !important;
   }
 }
 
