@@ -50,10 +50,18 @@
           <label for="checkb_3" style="color: #666">All countries</label>
         </div>
       </div>
+      <div class="map-helper">
+        <div class="map-helper-wrapper">
+          <span>Click on a specific Member State to see more
+            information.</span>
+          <button class="btn btn-primary"><a>Got it!</a></button>
+        </div>
+      </div>
     </svg-container>
 
     <div tal:replace="structure context/text/output | nothing">Text here</div>
 
   </body>
+
 
 </html>

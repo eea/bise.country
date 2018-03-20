@@ -803,7 +803,7 @@ function init(settings) {
     }
 
     $('.map-loader').hide();
-    $('.map-helper, .intro-wrapper').css('display', 'block');
+    $('.intro-wrapper').css('display', 'block');
 
     if ($('.general-map').length > 0) {
       $('.eu-map-filter').css('display', 'block');
@@ -910,8 +910,31 @@ function init(settings) {
 $(document).ready(function() {
   var settingsURL = $(".svg-map-container").data('settings');
   if (settingsURL) d3.json(settingsURL, init);
-});
 
+  // set cookie for map helper
+  function mapHelper() {
+    days = 30;
+    myDate = new Date();
+    myDate.setTime(myDate.getTime()+(days*24*60*60*1000));
+    document.cookie = 'MapHelper=Accepted; expires=' + myDate.toGMTString();
+  }
+
+  var cookie = document.cookie.split(';')
+  .map(function(x) { return x.trim().split('='); })
+  .filter(function(x) { return x[0]==='MapHelper'; })
+  .pop();
+
+  if (cookie && cookie[1] === 'Accepted') {
+    $(".map-helper").hide();
+  }
+
+  $('.map-helper button a').on('click', function() {
+    mapHelper();
+    $(".map-helper").hide();
+    return false;
+  });
+
+});
 
 function getPageContentRight() {
   var pc = $(".page-content").width();

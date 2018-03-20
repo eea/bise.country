@@ -151,7 +151,6 @@
         position: absolute;
         top: 205px;
         right: 180px;
-        display: none;
         z-index: 9;
       }
 
@@ -241,7 +240,7 @@
             <div class="map-helper-wrapper">
               <span>Click on a specific Member State to see more
                 information.</span>
-              <button class="btn btn-primary">Got it!</button>
+              <button class="btn btn-primary"><a>Got it!</a></button>
             </div>
           </div>
 
@@ -298,11 +297,6 @@
     <script type="text/javascript">
 
       $(document).ready(function() {
-        // $('.map-helper').show();
-
-        $('.map-helper button').click(function () {
-          $('.map-helper').hide();
-        });
 
         $(function() {
           if (window.location.href.indexOf("##") == -1) {

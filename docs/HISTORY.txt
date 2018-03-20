@@ -3,6 +3,8 @@ Changelog
 
 5.0.dev0 - (unreleased)
 -----------------------
+- Set cookie for country page map helper
+  [krisztina, #90236]
 - Multiple fixes on country pages
   [krisztina, #90236]
 
