@@ -87,8 +87,10 @@
 
           <ul class="nav nav-tabs" role="tablist" id="country-tabs">
             <li tal:repeat="tab view/tabs">
-              <a class="" tal:attributes="class tab/class; href python:'#' + tab['label'].lower().replace(' ', '-')"
-                tal:content="tab/label"
+              <a class=""
+                    data-toggle="tab"
+                    tal:attributes="class tab/class; href python:'##' + tab['label'].lower().replace(' ', '-')"
+                    tal:content="tab/label"
                 >
                 Tab Label
               </a>
@@ -102,11 +104,13 @@
               <select>
                 <option selected="selected">Select country</option>
 
-                <!-- <option -->
-                <!--         tal:repeat="country python: -->
-                <!--         obj.getFolderContents(contentFilter={'portal_type': -->
-                <!--         ['FolderishPage', 'BiodiversityFactsheet']})" -->
-                <!--         tal:content="python: country.getId.title()">Country name</option> -->
+                 <!-- <option
+                      tal:repeat="country python:
+                     obj.getFolderContents(contentFilter={'portal_type':
+                    ['FolderishPage', 'BiodiversityFactsheet']})"
+                     tal:content="python: country.getId.title()">
+                     Country name
+                  </option> -->
 
                 <option>Austria</option>
                 <option>Belgium</option>
@@ -149,7 +153,7 @@
                              class python: 'tabs-content ' + (repeat['tab'].index == 0 and 'active' or '')
 
              "
-             class="tabs-content"
+             class="tab-pane tab-content"
              >
 
              <h1 class="section-title" tal:content="obj/Title">Section title</h1>
@@ -175,17 +179,6 @@
 
         $('.map-helper button').click(function () {
           $('.map-helper').hide();
-        });
-
-        // Code for the tabs implementation. Use in "country section view"
-        $("ul.nav-tabs li a").each(function (i) {
-
-          $(this).click(function () {
-            var attrValue = $(this).attr('href');
-            $(this).parent('li').addClass('active').siblings().removeClass('active');
-            $(attrValue).show().siblings().hide();
-            return false;
-          });
         });
 
         d3.selectAll('.eu-countries').on('click change', function() {

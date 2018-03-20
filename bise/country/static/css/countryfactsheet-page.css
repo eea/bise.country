@@ -1231,10 +1231,9 @@ body {
 
 .content-green-infrastructure .gi-title-wrapper h2,
 .content-green-infrastructure .gi-sub-title-wrapper h3 {
-  display: inline-block;
-  padding: 8px 0;
-  margin-bottom: 0;
+  padding: 6px 0;
   width: 90%;
+  font-size: 1.6rem !important;
 }
 
 .content-green-infrastructure .gi-title-wrapper i,
@@ -1249,6 +1248,14 @@ body {
 }
 .content-green-infrastructure .portaltype-document {
   margin-top: 30px;
+}
+
+.content-green-infrastructure .gi-content-wrapper p {
+  padding-left: 2rem;
+}
+
+#nature-directives {
+  margin: 1em 0;
 }
 
 .fact h3 {

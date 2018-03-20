@@ -214,25 +214,31 @@ function drawCountries(
       }
     })
     .on('mouseover', function(d) {
-      if (nonEuMembers.indexOf(d.name) > -1) {
-        return tooltip
-        .style("visibility", "visible")
-        .html(d.name);
-      }
+        if (!window.isHeaderMap) {
+          if (nonEuMembers.indexOf(d.name) > -1) {
+            return tooltip
+            .style("visibility", "visible")
+            .html(d.name);
+          }
+        }
     })
     .on('mousemove', function(d) {
-      if (nonEuMembers.indexOf(d.name) > -1) {
-        return tooltip
-        .style("visibility", "visible")
-        .style("top", (d3.event.pageY) + "px")
-        .style("left", (d3.event.pageX + 10) + "px")
-        .html(d.name);
+      if (!window.isHeaderMap) {
+        if (nonEuMembers.indexOf(d.name) > -1) {
+          return tooltip
+          .style("visibility", "visible")
+          .style("top", (d3.event.pageY) + "px")
+          .style("left", (d3.event.pageX + 10) + "px")
+          .html(d.name);
+        }
       }
     })
     .on('mouseout', function(d) {
-      if (nonEuMembers.indexOf(d.name) > -1) {
-        return tooltip
-        .style("visibility", "hidden");
+      if (!window.isHeaderMap) {
+        if (nonEuMembers.indexOf(d.name) > -1) {
+          return tooltip
+          .style("visibility", "hidden");
+        }
       }
     })
     .attr('class', function(d) {
@@ -507,7 +513,7 @@ function addInsetCountryToMap(
 
   var boxw = 60;
   var boxh = 60;
-  var spacer = 20;
+  var spacer = 10;
   var boxtitle = 0;   // 10
 
   if (!index) {
@@ -893,7 +899,7 @@ function init(settings) {
           function() { return getPageContentRight() +  'px' }
         );
         $('.intro-wrapper').css('left',
-          function() { console.log('gg');return getPageContentRight() +  'px' }
+          function() { return getPageContentRight() +  'px' }
         );
       }
     })
@@ -936,10 +942,10 @@ function customizeMap(
       .translate([0, 0]);
 
     var mside = 'left';
-    var mstart = [10, 23];
+    var mstart = [10, 10];
 
-    var mw = 60;  // maplet width and height
-    var mh = 60;
+    var mw = 120;  // maplet width and height
+    var mh = 120;
 
     // eu minimap position in header map
     if (window.isHeaderGlobalMap) {
@@ -972,7 +978,7 @@ function customizeMap(
 
       if (isMaesMap) {
         orientation = 'bottom';
-        start = [10, height + 20];
+        start = [10, height];
         // maplets position in maes header map
         if (window.isHeaderGlobalMap) {
           orientation =  'top';
@@ -984,7 +990,7 @@ function customizeMap(
       }
       else {
         orientation = 'left';
-        start = [10, 26];
+        start = [10, 10];
 
         if ((height / width) > 1.2) {
           orientation =  'bottom';

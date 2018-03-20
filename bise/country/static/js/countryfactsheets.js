@@ -8,13 +8,34 @@ $(document).ready(function() {
 
   // Dropdown + tab changing functionality
   // This is the country selector in a country page view
+
+  var getTabFromHash = function(hash) {
+    hash = hash.replace('##', '');
+    if (hash !== '') {
+      var sp = hash.split('-');
+      if (sp && sp[0] === 't') {
+        currentTab = parseInt(sp[1]);
+        return currentTab;
+      }
+    }
+    return -1;
+  };
+
+  var currentTab = getTabFromHash(window.location.hash.substr(2));
+
   $('.custom-dropdown select').change(function() {
     var url = $(this).val()
     if (currentTab > -1) {
-      url += "#t-" + currentTab;
+      url += "##t-" + currentTab;
     }
     document.location = url;
   });
+
+  $("#country-tabs li").click(function() {
+    var element_id = $(this).children('a')[0].hash;
+    currentTab = getTabFromHash(element_id)
+  });
+
 
   // workaround for lazy loading iframes
   $.each($('.fact-contents'), function(index, value) {
@@ -47,53 +68,77 @@ $(document).ready(function() {
     }, 500);
   }
 
+  $('.quick-links-list li').first().remove();
+
   // tabs functionality
-  $('#country-tabs').each(function () {
-    var $activeTab, $tabContent, $links = $(this).find('a');
-    $activeTab = $($links.filter(
-      '[href="' + location.hash + '"]')[0] || $links[0]
-    );
+  // $('#country-tabs').each(function () {
+  //   var $activeTab, $tabContent, $links = $(this).find('a');
+  //   $activeTab = $($links.filter(
+  //     '[href="' + location.hash + '"]')[0] || $links[0]
+  //   );
+  //
+  //   $activeTab.parent().addClass('active');
+  //   $tabContent = $($activeTab[0].hash);
+  //   $links.not($activeTab).each(function () {
+  //     $(this.hash).hide();
+  //   });
+  //
+  //   $(this).on('click', 'a', function() {
+  //     window.location.hash = this.hash;
+  //     $activeTab.removeClass('active');
+  //     $tabContent.hide();
+  //     $activeTab = $(this);
+  //     $tabContent = $(this.hash);
+  //     $activeTab.addClass('active');
+  //     $tabContent.show();
+  //   });
+  // });
 
-    $activeTab.parent().addClass('active');
-    $tabContent = $($activeTab[0].hash);
-    $links.not($activeTab).each(function () {
-      $(this.hash).hide();
-    });
+  $(function() {
+    if (window.location.href.indexOf("##") == -1) {
+      $('.tab-content #t-0').addClass('active');
+    }
+    var hash = window.location.hash;
+    hash && $('.nav-tabs a[href="' + hash + '"]').tab('show');
 
-    $(this).on('click', 'a', function() {
-      window.location.hash = this.hash;
-      $activeTab.removeClass('active');
-      $tabContent.hide();
-      $activeTab = $(this);
-      $tabContent = $(this.hash);
-      $activeTab.addClass('active');
-      $tabContent.show();
+    $('.nav-tabs a').click(function(e) {
+       $(this).tab('show');
+       window.location.hash = this.hash;
+       e.preventDefault();
     });
   });
+
+  $('.tabs-listing').click(function(e) {
+    var hash = window.location.hash;
+    $('a[href="' + $(this).attr('href') + '"]').tab('show');
+    window.location.hash = this.hash;
+    e.preventDefault();
+});
 
   // make green infrastracture content collapsible on country pages
   var $htitle =  $('.content-green-infrastructure #parent-fieldname-text h2');
   var $subTitle =  $('.content-green-infrastructure #parent-fieldname-text h3');
 
   $htitle.each(function (index) {
-    $(this).nextUntil($htitle).wrapAll("<div class='gi-content-wrapper'></div>");
-    $(this).wrap("<div class='gi-title-wrapper'></div>");
+    $(this).nextUntil($htitle).wrapAll("<div class='gi-content-wrapper'/>");
+    $(this).wrap("<div class='gi-title-wrapper'/>");
   });
 
   $subTitle.each(function (index) {
-    $(this).nextUntil($subTitle).wrapAll("<div class='gi-sub-content-wrapper'></div>");
-    $(this).wrap("<div class='gi-sub-title-wrapper'></div>");
+    $(this).nextUntil($subTitle).wrapAll("<div class='gi-sub-content-wrapper'/>");
+    $(this).wrap("<div class='gi-sub-title-wrapper'/>");
   });
 
-  var $icon = $('<i class="fa fa-plus"></i>');
+  var $icon = $('<i class="fa fa-plus"/>');
   $('.gi-title-wrapper').append($icon);
-  $('.gi-sub-title-wrapper').append($icon);
 
   $('.gi-title-wrapper') .click(function() {
     $(this).nextUntil('.gi-title-wrapper').slideToggle('slow');
     $("i", this).toggleClass("fa-plus fa-minus");
   });
 
+  var $sicon = $('<i class="sub--plus-icon fa fa-plus"/>');
+  $('.gi-sub-title-wrapper').append($sicon);
   $('.gi-sub-title-wrapper') .click(function() {
     $(this).nextUntil('.gi-sub-title-wrapper').slideToggle('slow');
     $("i", this).toggleClass("fa-plus fa-minus");

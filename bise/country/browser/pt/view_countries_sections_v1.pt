@@ -222,8 +222,9 @@
                 ">
                 <div class="nav-title-wrapper ">
                   <a
+                    data-toggle="tab"
                      tal:content="tab/label"
-                     tal:attributes="data-tab python: tab['label'].lower().replace(' ', '-');"
+                     tal:attributes="class tab/class; href python:'##' + tab['label'].lower().replace(' ', '-')"
                     >
                     Tab Label
                   </a>
@@ -282,7 +283,7 @@
           class python: 'tabs-content ' + (repeat['tab'].index == 0 and 'active' or '')
 
           "
-          class="tabs-content"
+          class="tab-pane tab-content"
           >
           <h3 class="section-title" tal:content="obj/Title">Section title</h3>
 
@@ -303,17 +304,19 @@
           $('.map-helper').hide();
         });
 
-        $("ul.nav-tabs li a").each(function() {
-          var target = $(this).data('tab');
-          $(this).attr('href', "#" + target);
-        });
+        $(function() {
+          if (window.location.href.indexOf("##") == -1) {
+            $('.tab-content #countries').addClass('active');
+          }
+          var hash = window.location.hash;
+          hash && $('.nav-tabs a[href="' + hash + '"]').tab('show');
 
-        $('ul.nav-tabs li').click(function() {
-          var attrValue = $(this).children().children('a').attr('href');
-          $(this).addClass('active').siblings().removeClass('active');
-          $(attrValue).show().siblings().hide();
-          return false;
-        })
+          $('.nav-sections li').click(function() {
+            var navLink = $(this).children('.nav-title-wrapper').find('a');
+            navLink.tab('show');
+            window.location.hash =  navLink[0].hash;
+          });
+        });
 
         // Switch the legend according to type of map. There are two types:
         // general EU map and MAES (which gets special colors and legend

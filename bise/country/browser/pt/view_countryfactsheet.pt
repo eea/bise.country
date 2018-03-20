@@ -82,7 +82,7 @@
             <li role="presentation" tal:repeat="lc tabs">
               <a href=""
                  data-toggle="tab"
-                 tal:attributes="href string:#t-${repeat/lc/index}"
+                 tal:attributes="href string:##t-${repeat/lc/index}"
                  tal:content="python: lc[0]">
                 Title
               </a>
@@ -94,6 +94,7 @@
           <div class="tab-content" tal:condition="tabs">
 
             <div
+              class="tab-pane"
                tal:repeat="lc tabs"
                tal:attributes="id string:t-${repeat/lc/index}"
                >
