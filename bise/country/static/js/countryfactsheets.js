@@ -96,7 +96,7 @@ $(document).ready(function() {
 
   $(function() {
     if (window.location.href.indexOf("##") == -1) {
-      $('.tab-content #t-0').addClass('active');
+      $('.tab-content #t-0, .nav-tabs li:first-child').addClass('active');
     }
     var hash = window.location.hash;
     hash && $('.nav-tabs a[href="' + hash + '"]').tab('show');
