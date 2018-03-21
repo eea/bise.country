@@ -41,7 +41,7 @@
           <div class="map-helper">
             <div class="map-helper-wrapper">
               <span>Click on a specific Member State to see more information.</span>
-              <button class="btn btn-primary"><a>Got it!</a></button>
+              <a class="btn btn-primary">Got it!</a>
             </div>
           </div>
         </svg-container>

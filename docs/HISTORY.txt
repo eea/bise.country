@@ -3,6 +3,8 @@ Changelog
 
 5.1.dev0 - (unreleased)
 -----------------------
+- Bug fix: Fix map helper in Firefox
+  [krisztina, #90236]
 
 5.0 - (2018-03-20)
 ------------------
@@ -292,4 +294,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

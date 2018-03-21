@@ -243,12 +243,9 @@ svg-container {
   line-height: 25px;
 }
 
-.map-helper-wrapper button {
+.map-helper-wrapper a {
   margin-top: 25px;
   float: right;
-}
-
-.map-helper-wrapper button a {
   color: #444;
 }
 

@@ -928,7 +928,7 @@ $(document).ready(function() {
     $(".map-helper").hide();
   }
 
-  $('.map-helper button a').on('click', function() {
+  $('.map-helper a').click(function() {
     mapHelper();
     $(".map-helper").hide();
     return false;
