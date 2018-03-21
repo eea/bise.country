@@ -295,9 +295,27 @@
     </div>
 
     <script type="text/javascript">
+      if (window.location.href.indexOf("##maes") > -1) {
+        $('#countryfactsheets-map').css('visibility', 'hidden');
+      }
+
+      window.onload =   function () {
+        if (window.location.href.indexOf("##maes") > -1) {
+          var svg = $('#countryfactsheets-map');
+
+          svg.removeClass('general-map');
+          svg.addClass('maes-map');
+          svg.attr('data-ratio', '0.9');
+          svg.data('show-legend', true);
+          svg.data('show-map-filter', false);
+
+          var settingsURL = "/++resource++bise.country/js/countries/maes-countries.json";
+          d3.json(settingsURL, init);
+          $('#countryfactsheets-map').css('visibility', 'visible');
+        }
+      }
 
       $(document).ready(function() {
-
         $(function() {
           if (window.location.href.indexOf("##") == -1) {
             $('.tab-content #countries').addClass('active');

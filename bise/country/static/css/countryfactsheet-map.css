@@ -113,7 +113,7 @@ svg-container {
 
 .eu-map-filter {
   background-color: #fff;
-  border: 2px solid #333366;
+  border: 2px solid lightgray;
   height: auto;
   padding: 12px;
   position: absolute;
@@ -145,7 +145,7 @@ svg-container {
 
 #countries-filter {
   background-color: white;
-  border: 2px solid #333366;
+  border: 2px solid lightgray;
   color: #666;
   font-size: 1rem;
   height: auto;

@@ -3,6 +3,8 @@ Changelog
 
 5.1.dev0 - (unreleased)
 -----------------------
+- Load maes map after page load
+  [krisztina, #90236]
 - Fix maplets position on header global map
   [krisztina, #90236]
 - Bug fix: Fix map helper in Firefox
