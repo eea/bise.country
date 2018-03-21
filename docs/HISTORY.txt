@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.1.dev0 - (unreleased)
------------------------
+5.1 - (2018-03-21)
+------------------
 - Load maes map after page load
   [krisztina, #90236]
 - Fix maplets position on header global map
@@ -298,3 +298,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
