@@ -981,6 +981,7 @@ function customizeMap(
       mw = 124;
       mh = 124;
       var mstart = [$(window).width() - getPageContentRight() - mw, 320];
+
       if (detectMobile || ($(window).width() < 800) ) {
         var mstart = [$(window).width() - getPageContentRight() - mw - 20, 180];
       }
@@ -1003,8 +1004,8 @@ function customizeMap(
 
     // add the zoomed countries (cyprus, malta, etc) as maplets
     focusCountries.forEach(function(id, index) {
-      var isMaesMap = $('.maes-map').length > 0;
       var start;
+      var isMaesMap = $('.maes-map').length > 0;
 
       if (isMaesMap) {
         orientation = 'bottom';
@@ -1013,18 +1014,18 @@ function customizeMap(
       else {
         orientation = 'left';
         start = [10, 10];
+      }
 
-        if (height / width) {
-          orientation =  'bottom';
-          start = [10, height];
-        }
+      if (detectMobile || ($(window).width() < 800)) {
+        orientation =  'bottom';
+        start = [10, height];
       }
 
       if (window.isHeaderGlobalMap) {
         orientation =  'bottom';
         start = [$(window).width() - getPageContentLeft(), 470];
 
-        if (detectMobile || ($(window).width() < 800) ) {
+        if (detectMobile || ($(window).width() < 800)) {
          orientation =  'left';
          start = [$(window).width() - getPageContentLeft() + 20, 170];
         }
