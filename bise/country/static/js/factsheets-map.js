@@ -201,7 +201,7 @@ function drawCountries(
     .enter()
     .append('path')
     .attr('id', function(d) {
-      return 'c-' + cprectid + '-' + d.id;
+      return 'c-' + cprectid + '-' + d.properties.id;
     })
     .style("fill", function(d) {
       if ($('.maes-map').length > 0) {
@@ -296,7 +296,7 @@ function drawCountries(
     .enter()
     .append('clipPath')
     .attr('id', function(d) {
-      return 'cp-' + cprectid + '-' + d.id;
+      return 'cp-' + cprectid + '-' + d.properties.id;
     })
     .append('path')
     .attr('d', path)
@@ -317,22 +317,22 @@ function drawCountries(
     })
     .attr('class', 'country-flag')
     .attr('clip-path', function(d) {
-      return 'url(#cp-' + cprectid + '-' + d.id + ')';
+      return 'url(#cp-' + cprectid + '-' + d.properties.id + ')';
     })
     .attr("x", function (d) {
-      var pbox = d3.select('#c-' + cprectid + '-' + d.id).node().getBBox();
+      var pbox = d3.select('#c-' + cprectid + '-' + d.properties.id).node().getBBox();
       return pbox.x;
     })
     .attr("y", function (d) {
-      var pbox = d3.select('#c-' + cprectid + '-' + d.id).node().getBBox();
+      var pbox = d3.select('#c-' + cprectid + '-' + d.properties.id).node().getBBox();
       return pbox.y;
     })
     .attr("width", function (d) {
-      var pbox = d3.select('#c-' + cprectid + '-' + d.id).node().getBBox();
+      var pbox = d3.select('#c-' + cprectid + '-' + d.properties.id).node().getBBox();
       return pbox.width;
     })
     .attr("height", function (d) {
-      var pbox = d3.select('#c-' + cprectid + '-' + d.id).node().getBBox();
+      var pbox = d3.select('#c-' + cprectid + '-' + d.properties.id).node().getBBox();
       return pbox.height;
     })
     .attr("preserveAspectRatio", "none")
@@ -450,7 +450,7 @@ function drawCountriesForMinimap(
     .enter()
     .append('path')
     .attr('id', function(d) {
-      return 'c-' + cprectid + '-' + d.id;
+      return 'c-' + cprectid + '-' + d.properties.id;
     })
     .attr('class', function(d) {
       if (focusIds.indexOf(d.name) > -1) {
@@ -476,7 +476,7 @@ function drawCountriesForMinimap(
     .enter()
     .append('clipPath')
     .attr('id', function(d) {
-      return 'cp-' + cprectid + '-' + d.id;
+      return 'cp-' + cprectid + '-' + d.properties.id;
     })
     .append('path')
     .attr('d', path)
@@ -673,7 +673,7 @@ function fLoc(fname) {
 
 function setCountryNames(countries) {
   countries.forEach(function(d) {
-    d.name = d.properties.name;
+    d.name = d.properties.SHRT_ENGL;
   });
 }
 
@@ -785,7 +785,7 @@ function init(settings) {
   }
 
   var wflags = fLoc("countries.tsv");
-  var w110 = fLoc("countries.geo.json");
+  var w110 = fLoc("eu-countries.geojson");
   d3
     .queue()
     .defer(d3.json, w110)

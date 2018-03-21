@@ -3,6 +3,8 @@ Changelog
 
 5.2.dev0 - (unreleased)
 -----------------------
+- Changed topojson file for countries map
+  [krisztina, #89854]
 
 5.1 - (2018-03-21)
 ------------------
@@ -301,4 +303,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
