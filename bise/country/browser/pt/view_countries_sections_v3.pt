@@ -66,9 +66,6 @@
       <script src="/++resource++bise.biodiversityfactsheet/layout.js"></script>
       <script src="/++resource++bise.biodiversityfactsheet/maps.js"></script>
 
-      <!-- this is used for loading spinner for maps -->
-      <script type="text/javascript" src="++resource++bise.country/js/jquery.showLoading.js"></script>
-
       <!-- This is used by the svg header map -->
       <script src="/++resource++bise.country/js/factsheets-map.js"></script>
 

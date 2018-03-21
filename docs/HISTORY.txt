@@ -3,6 +3,8 @@ Changelog
 
 5.1.dev0 - (unreleased)
 -----------------------
+- Fix maplets position on header global map
+  [krisztina, #90236]
 - Bug fix: Fix map helper in Firefox
   [krisztina, #90236]
 

@@ -760,12 +760,10 @@ function init(settings) {
   if (window.isHeaderGlobalMap) {
     var width = $(window).width();
 
-    // TODO: legends are not responsive in the header map - need to be fixed
     $('.eu-map-filter, #countries-filter').css({
       'top': '100px',
     }).css('right', function () { return getPageContentRight() +  'px' });
-    $('.intro-wrapper').css({
-    }).css('left', function () { return getPageContentRight() +  'px' });
+    $('.intro-wrapper').css('left', function () { return getPageContentRight() +  'px' });
   }
 
   var height = $('.svg-map-container svg').height();
@@ -788,7 +786,6 @@ function init(settings) {
 
   var wflags = fLoc("countries.tsv");
   var w110 = fLoc("countries.geo.json");
-  // $('.map-loader').show();
   d3
     .queue()
     .defer(d3.json, w110)
@@ -943,6 +940,12 @@ function getPageContentRight() {
   return right;
 }
 
+function getPageContentLeft() {
+  var pc = $(".page-content").width();
+  var wh = $(window).width();
+  var left = (wh + pc) / 2;
+  return left;
+}
 
 function customizeMap(
   svg,
@@ -970,13 +973,17 @@ function customizeMap(
     var mw = 120;  // maplet width and height
     var mh = 120;
 
+    var detectMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
     // eu minimap position in header map
     if (window.isHeaderGlobalMap) {
       var mside = 'top';
       mw = 124;
       mh = 124;
-      var mstart = [$(window).width() - getPageContentRight() - mw, 300];
-      console.log("Mstart", mstart, width, height);
+      var mstart = [$(window).width() - getPageContentRight() - mw, 320];
+      if (detectMobile || ($(window).width() < 800) ) {
+        var mstart = [$(window).width() - getPageContentRight() - mw - 20, 180];
+      }
     }
 
     if ($('.maes-map').length > 0) {
@@ -1002,22 +1009,24 @@ function customizeMap(
       if (isMaesMap) {
         orientation = 'bottom';
         start = [10, height];
-        // maplets position in maes header map
-        if (window.isHeaderGlobalMap) {
-          orientation =  'top';
-          start = [450, 420];
-        }
-      } else if (window.isHeaderGlobalMap) {
-        orientation =  'top';
-        start = [370, 420];
       }
       else {
         orientation = 'left';
         start = [10, 10];
 
-        if ((height / width) > 1.2) {
+        if (height / width) {
           orientation =  'bottom';
-          start = [10, height + 20];
+          start = [10, height];
+        }
+      }
+
+      if (window.isHeaderGlobalMap) {
+        orientation =  'bottom';
+        start = [$(window).width() - getPageContentLeft(), 470];
+
+        if (detectMobile || ($(window).width() < 800) ) {
+         orientation =  'left';
+         start = [$(window).width() - getPageContentLeft() + 20, 170];
         }
       }
 
