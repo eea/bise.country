@@ -12,10 +12,9 @@
       <div class="header-bg">
         <svg-container
             class="svg-header-wrapper svg-map-container general-map"
-            data-ratio="0.6"
+            data-ratio="0.65"
             data-globalmap="global"
             tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
-            data-show-legend="false"
             id="countryfactsheets-map">
           <svg height="600"></svg>
 
@@ -35,7 +34,7 @@
           </div>
           <div class="intro-wrapper">
             <h1> Interactive <br> countries map</h1>
-            <p> Welcome to the Countries section of the Biodiversity Information System for Europe. Here you can find EU Member State national reports related to biodiversity and information related to indicators organised by country.</p>
+            <p> Welcome to the Countries section. <br> Here you can find EU Member State national reports related to biodiversity and information related to indicators organised by country.</p>
           </div>
 
           <div class="map-helper">
@@ -96,75 +95,37 @@
         </div>
 
         <div class="panel-body">
-          <div class="countries-list-wrapper">
-            <span class="country-dropdown">
-              <select>
-                <option selected="selected">Select country</option>
-
-                 <!-- <option
-                      tal:repeat="country python:
-                     obj.getFolderContents(contentFilter={'portal_type':
-                    ['FolderishPage', 'BiodiversityFactsheet']})"
-                     tal:content="python: country.getId.title()">
-                     Country name
-                  </option> -->
-
-                <option>Austria</option>
-                <option>Belgium</option>
-                <option>Bulgaria</option>
-                <option>Croatia</option>
-                <option>Cyprus</option>
-                <option>Czech Republic</option>
-                <option>Denmark</option>
-                <option>Estonia</option>
-                <option>Finland</option>
-                <option>France</option>
-                <option>Germany</option>
-                <option>Greece</option>
-                <option>Hungary</option>
-                <option>Ireland</option>
-                <option>Italy</option>
-                <option>Latvia</option>
-                <option>Lithuania</option>
-                <option>Luxembourg</option>
-                <option>Malta</option>
-                <option>Netherlands</option>
-                <option>Poland</option>
-                <option>Portugal</option>
-                <option>Romania</option>
-                <option>Slovakia</option>
-                <option>Slovenia</option>
-                <option>Spain</option>
-                <option>Sweden</option>
-                <option>United Kingdom</option>
-
-              </select>
-            </span>
-          </div>
 
           <tal:tab tal:repeat="tab view/tabs">
-          <div
-             id="maes"
-             tal:define="obj nocall:tab/obj"
-             tal:attributes="id python:tab['label'].lower().replace(' ', '-');
-                             class python: 'tabs-content ' + (repeat['tab'].index == 0 and 'active' or '')
+            <div id="maes"
+                    class="tab-pane tab-content"
+                    tal:define="obj nocall:tab/obj; portal_types python: ['FolderishPage', 'BiodiversityFactsheet'];
+                                      portal_types python: 'green infrastructure' in tab['label'].lower() and ['Document'] or portal_types"
+                    tal:attributes="id python:tab['label'].lower().replace(' ', '-');
+                                            class python: 'tabs-content ' + (repeat['tab'].index == 0 and 'active' or '')">
 
-             "
-             class="tab-pane tab-content"
-             >
+               <h1 class="section-title" tal:content="obj/Title">Section title</h1>
 
-             <h1 class="section-title" tal:content="obj/Title">Section title</h1>
+               <span class="country-dropdown">
+                 <select>
+                   <option selected="selected">Select country</option>
+                   <option
+                     tal:repeat="country python:
+                     obj.getFolderContents(contentFilter={'portal_type': portal_types, 'sort_on': 'getId', 'review_state': 'published'})"
+                     tal:content="python: country.getId.title()">
+                     Country name
+                   </option>
+                 </select>
+               </span>
 
-
-             <div class="content-wrapper"
-                  tal:content="structure python:obj.text.output">
-               Text with details
+               <div class="content-wrapper"
+                      tal:content="structure python:obj.text.output">
+                 Text with details
+               </div>
              </div>
-          </div>
           </tal:tab>
 
         </div>
-
       </div>
     </div>
 
@@ -180,9 +141,7 @@
 
           svg.removeClass('general-map');
           svg.addClass('maes-map');
-          svg.attr('data-ratio', '0.9');
-          svg.data('show-legend', true);
-          svg.data('show-map-filter', false);
+          svg.attr('data-show-map-filter', false);
 
           var settingsURL = "/++resource++bise.country/js/countries/maes-countries.json";
           d3.json(settingsURL, init);
@@ -216,9 +175,7 @@
 
         svg.addClass('general-map');
         svg.removeClass('maes-map');
-        svg.attr('data-ratio', '0.7');
-        svg.data('show-legend', false);
-        svg.data('show-map-filter', true);
+        svg.attr('data-show-map-filter', true);
 
         var settingsURL = $(".general-map").data('settings');
         d3.json(settingsURL, init);
@@ -229,9 +186,7 @@
 
         svg.removeClass('general-map');
         svg.addClass('maes-map');
-        svg.attr('data-ratio', '0.7');
-        svg.data('show-legend', true);
-        svg.data('show-map-filter', false);
+        svg.attr('data-show-map-filter', false);
 
         var settingsURL = "/++resource++bise.country/js/countries/maes-countries.json";
         d3.json(settingsURL, init);

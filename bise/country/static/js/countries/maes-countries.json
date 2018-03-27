@@ -5,8 +5,8 @@
     {"title":"Updated 2015/16","color":"#276d3c","countries":["Estiona","Latvia","Lithuania","Germany","Belgium","Czech Republic","Austria","Hungary","Romania","Portugal", "Denmark", "Estonia", "Slovenia"]},
     {"title":"Available","color":"#41b664","countries":["Sweden","United Kingdom","Spain","Poland","Slovakia","Greece","Bulgaria","Luxembourg","Malta", "Croatia"]},
     {"title":"Not available","color":"#fff","countries":["Cyprus"]},
-    {"title":"Outside data coverage","color":"#efe7d4","countries":[]}
+    {"title":"Outside data coverage","color":"#e6dac0;","countries":["Liechtenstein"]}
   ],
-  "maplets": "Malta,Luxembourg,Cyprus",
+  "maplets": "Malta,Luxembourg,Cyprus,Liechtenstein",
   "nonEuMembers": []
 }

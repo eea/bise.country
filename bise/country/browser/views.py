@@ -23,14 +23,18 @@ NONEU = [
     "Republic of Serbia",
     "Montenegro",
     "Kosovo",
+    "Serbia",
     "Switzerland",
-    "Macedonia",
+    "Former Yugoslav Republic of Macedonia",
+    "Liechtenstein",
+    "Iceland"
 ]
 
 MAPLETS = [
     "Malta",
     "Luxembourg",
-    "Cyprus"
+    "Cyprus",
+    "Liechtenstein",
 ]
 
 

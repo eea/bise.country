@@ -1015,6 +1015,11 @@ body {
   margin-top: 35px;
 }
 
+.country-dropdown {
+  float: right;
+  padding: 10px 0;
+}
+
 @media (min-width: 992px) {
   #mtr-main-wrapper {
     float:right;

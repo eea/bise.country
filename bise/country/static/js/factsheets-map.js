@@ -1,4 +1,5 @@
 var nonEuMembers;
+var mapletsCountries;
 
 Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
@@ -205,10 +206,17 @@ function drawCountries(
     })
     .style("fill", function(d) {
       if ($('.maes-map').length > 0) {
+        var isMapletCountry = mapletsCountries.indexOf(d.name) > -1;
         for (var i = 0; i < countryGroups.length; i++) {
           var c = countryGroups[i]['countries'];
+          var filterTitle = countryGroups[i]['title'];
           if (c.indexOf(d.name) > -1) {
+            if (isMapletCountry) return countryGroups[i]['color'];
+            if ($('.maplet-container').length > 0) return '#b0b0b0';
             return countryGroups[i]['color'];
+          }
+          if (filterTitle === 'Outside data coverage') {
+            if ($('.maplet-container').length > 0) return '#b0b0b0';
           }
         }
       }
@@ -242,11 +250,6 @@ function drawCountries(
       }
     })
     .attr('class', function(d) {
-      if ($('.maes-map').length > 0) {
-        if (focusIds.indexOf(d.name) > -1) {
-          return 'country-stroke country-focus';
-        }
-      }
       return 'country-stroke';
     })
     .attr('d', path)
@@ -263,27 +266,34 @@ function drawCountries(
       d3.selectAll('.country-stroke').attr('class', function(d) {
         var euCountries = window.available_map_countries.indexOf(d.name) > -1;
         var nonEuCountries = nonEuMembers.indexOf(d.name) > -1;
+        var isMapletCountry = mapletsCountries.indexOf(d.name) > -1;
 
-        // focus eu members on the map
         if (d3.select("#checkb_1").property("checked")) {
+          // focus eu members on the map
           if (euCountries) {
-            return 'country-stroke country-focus';
+            if (isMapletCountry) return 'country-stroke country-focus';
+            return 'country-stroke country-focus non-focused-country';
           }
-        } else if (d3.select("#checkb_2").property("checked")) {
-          // focus non-eu members on the map
-            if (nonEuCountries) {
-              return 'country-stroke non-eu-country-focus';
-            }
-        } else if (d3.select("#checkb_3").property("checked")) {
-          // focus all countries on the map
-            if (nonEuCountries) {
-              return 'country-stroke non-eu-country-focus';
-            }
-            if (euCountries) {
-              return 'country-stroke country-focus';
-            }
         }
-        return 'country-stroke';
+        else if (d3.select("#checkb_2").property("checked")) {
+          // focus non-eu members on the map
+          if (nonEuCountries) {
+            if (isMapletCountry) return 'country-stroke non-eu-country-focus';
+            return 'country-stroke non-eu-country-focus non-focused-country';
+          }
+        }
+        else if (d3.select("#checkb_3").property("checked")) {
+          // focus all countries on the map
+          if (nonEuCountries) {
+            if (isMapletCountry) return 'country-stroke non-eu-country-focus';
+            return 'country-stroke non-eu-country-focus non-focused-country';
+          }
+          if (euCountries) {
+            if (isMapletCountry) return 'country-stroke country-focus';
+            return 'country-stroke country-focus non-focused-country';
+          }
+        }
+        return 'country-stroke non-focused-country';
       })
     }
   }
@@ -344,7 +354,11 @@ function drawCountries(
         $('.country-flag').css('cursor', 'unset');
         return;
       }
-      d3.select(this).attr('opacity', 1);
+      if (window.available_map_countries.indexOf(d.name) == -1) {
+        d3.select(this).attr('opacity', 0).style('cursor', 'default');
+      } else {
+        d3.select(this).attr('opacity', 1);
+      }
       if (window.isGlobalMap) {
         return tooltip
         .style("visibility", "visible")
@@ -370,11 +384,25 @@ function drawCountries(
     })
     .on('click', function(d) {
       if (window.isHeaderMap) return;
-
-      // handleClick(d);
       if (window.available_map_countries.indexOf(d.name) > -1) {
         var link = d.name.toLowerCase();
-        location.href = link;
+        var tabsLoc = {
+          '##countries': 't-0',
+          '##factsheets': 't-1',
+          '##contributions': 't-2',
+          '##maes': 't-3',
+          '##green-infrastructure': 't-4'
+        }
+        for (var key in tabsLoc) {
+          if (tabsLoc.hasOwnProperty(key)) {
+            var wLoc = window.location.href
+            if (wLoc.indexOf(key) > -1) {
+              location.href = link + '##' + tabsLoc[key];
+            } else {
+              location.href = link;
+            }
+          }
+        }
         return true;
       }
     })
@@ -442,7 +470,7 @@ function drawCountriesForMinimap(
     .attr("d", path)
   ;
 
-  // draw all countries
+  // draw all countries for EU minimap
   var rect = g
     .append('g')
     .selectAll('path')
@@ -454,9 +482,9 @@ function drawCountriesForMinimap(
     })
     .attr('class', function(d) {
       if (focusIds.indexOf(d.name) > -1) {
-        return 'country-stroke minimap-country-focus';
+        return 'minimap-country-stroke minimap-country-focus';
       }
-      return 'country-stroke';
+      return 'minimap-country-stroke';
     })
     .on('mouseover', function(d) {
       $('path.minimap-country-focus').attr('class', 'country-stroke minimap-country')
@@ -571,20 +599,10 @@ function addInsetCountryToMap(
 
   label
     .attr('x', msp.x + boxw/2)
-    .attr('y', msp.y + boxh - textboxh / 2)   //  - textboxh / 3
+    .attr('y', msp.y + boxh - textboxh/2 + 5)   //  - textboxh / 3
   ;
 
-  // svg
-  //   .append('rect')
-  //   .attr('class', 'country-focus-text-bg')
-  //   .attr('x', msp.x)
-  //   .attr('y', msp.y - textboxh)
-  //   .attr('width', boxw)
-  //   .attr('height', textboxh)
-  // ;
-
   label.raise();
-
 }
 
 function renderEUMinimap(
@@ -600,8 +618,6 @@ function renderEUMinimap(
   boxh
 ) {
 
-  // var boxw = 60;
-  // var boxh = 60;
   var spacer = 0;
   var boxtitle = 10;
 
@@ -663,13 +679,11 @@ function renderEUMinimap(
   ;
 
   label.raise();
-
 }
 
 function fLoc(fname) {
   return window.location.origin + "/++resource++bise.country/js/countries/" + fname;
 }
-
 
 function setCountryNames(countries) {
   countries.forEach(function(d) {
@@ -688,9 +702,7 @@ function setCountryFlags(countries, flags) {
   });
 }
 
-
 function init(settings) {
-  // console.log("initializing using settings: ", settings);
   countryGroups = settings['filteredCountries'];
   nonEuMembers = settings.nonEuMembers;
   var getCountries = [];
@@ -705,7 +717,6 @@ function init(settings) {
   $("#countries-filter").detach();
 
   var $sw = $('#countryfactsheets-map');
-  // countries filter legend for MAES map
   var $dw = $('<div id="countries-filter">' +
     '<span>Report on MAES-related <span class="break-p">developments</span></span>' +
     '<ul class="filter-listing"></ul></div>');
@@ -721,9 +732,9 @@ function init(settings) {
     getCountries.push(countryGroups[i]['countries']);
   }
 
-  var showLegend = $(".svg-map-container").data('show-legend');
-
-  if (showLegend === false) {
+  if ($('.maes-map').length > 0) {
+    $('#countries-filter').show();
+  } else {
     $('#countries-filter').hide();
   }
 
@@ -743,7 +754,7 @@ function init(settings) {
   var allCountries = [].concat.apply([],getCountries);
 
   var filteredCountries = allCountries;
-  var mapletsCountries = settings['maplets'];
+  mapletsCountries = settings['maplets'];
   nonEuMembers = settings['nonEuMembers'];
 
   $('body').addClass('factsheets');
@@ -767,15 +778,6 @@ function init(settings) {
   }
 
   var height = $('.svg-map-container svg').height();
-
-  // if ($('.svg-header-wrapper').length > 0) {
-  //   var $svgh = $('<div class="header-bg"/>');
-  //   var $svg = $('.svg-header-wrapper');
-  //   $svgh.append($svg);
-  //   var $svgw = $svgh.detach();
-  //   var $body = $('#site-body');
-  //   $body.prepend($svgw);
-  // }
 
   if ($('.header-bg').length > 0) {
     var $svgh = $('.header-bg');
@@ -903,7 +905,6 @@ function init(settings) {
   }
 }
 
-
 $(document).ready(function() {
   var settingsURL = $(".svg-map-container").data('settings');
   if (settingsURL) d3.json(settingsURL, init);
@@ -930,7 +931,6 @@ $(document).ready(function() {
     $(".map-helper").hide();
     return false;
   });
-
 });
 
 function getPageContentRight() {
@@ -969,7 +969,6 @@ function customizeMap(
 
     var mside = 'left';
     var mstart = [10, 10];
-
     var mw = 120;  // maplet width and height
     var mh = 120;
 
@@ -988,8 +987,13 @@ function customizeMap(
     }
 
     if ($('.maes-map').length > 0) {
+      var mc = svg
+       .append('g')
+       .attr('class', 'minimap-container')
+       ;
+
       renderEUMinimap(
-        svg,
+        mc,
         [width, height],
         countries,
         countries_Id,
@@ -1036,9 +1040,13 @@ function customizeMap(
         .scale(1)
         .translate([0, 0]);
 
-      if (available_map_country_ids.indexOf(id) > -1) {
+      var gm = svg
+       .append('g')
+       .attr('class', 'maplet-container')
+       ;
+
         addInsetCountryToMap(
-          svg,
+          gm,
           [width, height],
           countries,
           id,
@@ -1049,7 +1057,6 @@ function customizeMap(
 
           0.6
         );
-      }
     });
   }
 }

@@ -247,10 +247,9 @@
           <svg-container
             class="svg-global-wrapper svg-map-container general-map"
             data-globalmap="global"
-            data-ratio="0.9"
+            data-ratio="0.8"
             tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
-            id="countryfactsheets-map"
-            data-show-legend="false">
+            id="countryfactsheets-map">
             <svg height="500"></svg>
 
             <div class="eu-map-filter">
@@ -305,8 +304,6 @@
 
           svg.removeClass('general-map');
           svg.addClass('maes-map');
-          svg.attr('data-ratio', '0.9');
-          svg.data('show-legend', true);
           svg.data('show-map-filter', false);
 
           var settingsURL = "/++resource++bise.country/js/countries/maes-countries.json";
@@ -358,8 +355,6 @@
 
         svg.addClass('general-map');
         svg.removeClass('maes-map');
-        svg.attr('data-ratio', '0.75');
-        svg.data('show-legend', false);
         svg.data('show-map-filter', true);
 
         var settingsURL = $(".general-map").data('settings');
@@ -371,8 +366,6 @@
 
         svg.removeClass('general-map');
         svg.addClass('maes-map');
-        svg.attr('data-ratio', '0.9');
-        svg.data('show-legend', true);
         svg.data('show-map-filter', false);
 
         var settingsURL = "/++resource++bise.country/js/countries/maes-countries.json";
