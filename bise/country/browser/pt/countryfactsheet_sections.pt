@@ -23,7 +23,6 @@
         </li>
     </ul>
 
-
   <tal:section repeat="section view/facts">
 
     <tal:fact define="section_obj section/object;

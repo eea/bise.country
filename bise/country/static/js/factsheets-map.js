@@ -703,14 +703,15 @@ function setCountryFlags(countries, flags) {
 }
 
 function init(settings) {
+  $('body').addClass('factsheets');
+
   countryGroups = settings['filteredCountries'];
-  nonEuMembers = settings.nonEuMembers;
-  var getCountries = [];
+  mapletsCountries = settings['maplets'];
+  nonEuMembers = settings['nonEuMembers'];
 
-  var $load = $('<div class="map-loader"><div class="loading-spinner"/></div>');
-
-  var $sw = $('#countryfactsheets-map');
-  $sw.append($load);
+  window.isHeaderMap = $(".country-header").hasClass('country-header');
+  window.isHeaderGlobalMap = $("#countryfactsheets-map").hasClass('svg-header-wrapper');
+  window.isGlobalMap = $(".svg-map-container").data('globalmap') === 'global';
 
   // temp disabled
   // d3.select("body").select("#countryfactsheets-map svg").selectAll("*").remove();
@@ -718,10 +719,14 @@ function init(settings) {
 
   var $sw = $('#countryfactsheets-map');
   var $dw = $('<div id="countries-filter">' +
-    '<span>Report on MAES-related <span class="break-p">developments</span></span>' +
-    '<ul class="filter-listing"></ul></div>');
+  '<span>Report on MAES-related <span class="break-p">developments</span></span>' +
+  '<ul class="filter-listing"></ul></div>');
   $sw.append($dw);
 
+  var $load = $('<div class="map-loader"><div class="loading-spinner"/></div>');
+  $sw.append($load);
+
+  var getCountries = [];
   for (var i = 0; i < countryGroups.length; i++) {
     var $dbox = $('<li><div class="color-box"/><span class="type-title"/></li>');
     $('.filter-listing').append($dbox);
@@ -732,12 +737,17 @@ function init(settings) {
     getCountries.push(countryGroups[i]['countries']);
   }
 
+  var allCountries = [].concat.apply([],getCountries);
+  var filteredCountries = allCountries;
+
   if ($('.maes-map').length > 0) {
     $('#countries-filter').show();
   } else {
     $('#countries-filter').hide();
   }
 
+  // get ratio from data attribute
+  var zoomLevel = parseFloat($(".svg-map-container").data('ratio'));
   var showMapFilter = $("#countryfactsheets-map").data('show-map-filter');
 
   if (showMapFilter === false) {
@@ -746,27 +756,8 @@ function init(settings) {
     $('.eu-map-filter').show();
   }
 
-  // select only one checkbox at a time
-  $(".countries-checkbox").change(function() {
-    $('.countries-checkbox').not(this).prop('checked', false);
-  });
-
-  var allCountries = [].concat.apply([],getCountries);
-
-  var filteredCountries = allCountries;
-  mapletsCountries = settings['maplets'];
-  nonEuMembers = settings['nonEuMembers'];
-
-  $('body').addClass('factsheets');
-
-  window.isHeaderMap = $(".country-header").hasClass('country-header');
-  window.isHeaderGlobalMap = $("#countryfactsheets-map").hasClass('svg-header-wrapper');
-  window.isGlobalMap = $(".svg-map-container").data('globalmap') === 'global';
-
-  // get ratio from data attribute
-  var zoomLevel = parseFloat($(".svg-map-container").data('ratio'));
-
   var width = window.isGlobalMap ? $('.svg-map-container svg').width() : $(window).width();
+  var height = $('.svg-map-container svg').height();
 
   if (window.isHeaderGlobalMap) {
     var width = $(window).width();
@@ -777,7 +768,10 @@ function init(settings) {
     $('.intro-wrapper').css('left', function () { return getPageContentRight() +  'px' });
   }
 
-  var height = $('.svg-map-container svg').height();
+  // select only one checkbox at a time
+  $(".countries-checkbox").change(function() {
+    $('.countries-checkbox').not(this).prop('checked', false);
+  });
 
   if ($('.header-bg').length > 0) {
     var $svgh = $('.header-bg');
@@ -904,34 +898,6 @@ function init(settings) {
     })
   }
 }
-
-$(document).ready(function() {
-  var settingsURL = $(".svg-map-container").data('settings');
-  if (settingsURL) d3.json(settingsURL, init);
-
-  // set cookie for map helper
-  function mapHelper() {
-    days = 30;
-    myDate = new Date();
-    myDate.setTime(myDate.getTime()+(days*24*60*60*1000));
-    document.cookie = 'MapHelper=Accepted; expires=' + myDate.toGMTString();
-  }
-
-  var cookie = document.cookie.split(';')
-  .map(function(x) { return x.trim().split('='); })
-  .filter(function(x) { return x[0]==='MapHelper'; })
-  .pop();
-
-  if (cookie && cookie[1] === 'Accepted') {
-    $(".map-helper").hide();
-  }
-
-  $('.map-helper a').click(function() {
-    mapHelper();
-    $(".map-helper").hide();
-    return false;
-  });
-});
 
 function getPageContentRight() {
   var pc = $(".page-content").width();
@@ -1060,3 +1026,31 @@ function customizeMap(
     });
   }
 }
+
+$(document).ready(function() {
+  var settingsURL = $(".svg-map-container").data('settings');
+  if (settingsURL) d3.json(settingsURL, init);
+
+  // set cookie for map helper
+  function mapHelper() {
+    days = 30;
+    myDate = new Date();
+    myDate.setTime(myDate.getTime()+(days*24*60*60*1000));
+    document.cookie = 'MapHelper=Accepted; expires=' + myDate.toGMTString();
+  }
+
+  var cookie = document.cookie.split(';')
+  .map(function(x) { return x.trim().split('='); })
+  .filter(function(x) { return x[0]==='MapHelper'; })
+  .pop();
+
+  if (cookie && cookie[1] === 'Accepted') {
+    $(".map-helper").hide();
+  }
+
+  $('.map-helper a').click(function() {
+    mapHelper();
+    $(".map-helper").hide();
+    return false;
+  });
+});

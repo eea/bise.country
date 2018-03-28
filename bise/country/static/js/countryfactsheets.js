@@ -70,30 +70,6 @@ $(document).ready(function() {
 
   $('.quick-links-list li').first().remove();
 
-  // tabs functionality
-  // $('#country-tabs').each(function () {
-  //   var $activeTab, $tabContent, $links = $(this).find('a');
-  //   $activeTab = $($links.filter(
-  //     '[href="' + location.hash + '"]')[0] || $links[0]
-  //   );
-  //
-  //   $activeTab.parent().addClass('active');
-  //   $tabContent = $($activeTab[0].hash);
-  //   $links.not($activeTab).each(function () {
-  //     $(this.hash).hide();
-  //   });
-  //
-  //   $(this).on('click', 'a', function() {
-  //     window.location.hash = this.hash;
-  //     $activeTab.removeClass('active');
-  //     $tabContent.hide();
-  //     $activeTab = $(this);
-  //     $tabContent = $(this.hash);
-  //     $activeTab.addClass('active');
-  //     $tabContent.show();
-  //   });
-  // });
-
   $(function() {
     if (window.location.href.indexOf("##") == -1) {
       $('.tab-content #t-0, .nav-tabs li:first-child').addClass('active');
@@ -239,9 +215,6 @@ $(document).ready(function() {
       var loc = 'eu-target-' + targetID;
       var $sa = $('<p/>');
       $sa.data('wloc', loc)
-      // $sa.on('click', function() {
-      //   document.location.hash = $(this).data('wloc');
-      // });
 
       $sa.text(sectionTitle);
       var $sp = $('<p/>');

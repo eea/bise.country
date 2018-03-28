@@ -47,19 +47,24 @@ svg-container {
 }
 
 .minimap-country-stroke {
-  fill: lightgray;
-  stroke: black;
-  stroke-width: 0.7;
+  fill: #b3b3b3;
+  stroke: gray;
+  stroke-width: 0.5;
 }
 
 .minimap-country-focus {
   cursor: pointer;
-  fill: #003399;
+  fill: #41b664;
+  stroke-width: 0.7;
+  stroke: #13361e;
 }
 
 .minimap-country {
   cursor: pointer;
-  fill: #FFCC00;
+  /* fill: #003399; */
+  fill: #003cb3;
+  stroke-width: 0.7;
+  stroke: #00143d;
 }
 
 .country-focus-text-bg {

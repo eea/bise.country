@@ -615,8 +615,6 @@ body {
   font-size: 18px;
   font-weight: bold;
   text-align: left;
-  padding-top: 20px;
-  padding-bottom: 20px;
 }
 
 @media(min-width: 800px) {
