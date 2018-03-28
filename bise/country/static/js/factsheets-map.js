@@ -205,7 +205,7 @@ function drawCountries(
       return 'c-' + cprectid + '-' + d.properties.id;
     })
     .style("fill", function(d) {
-      if ($('.maes-map').length > 0) {
+      if (window.isMaesMap) {
         var isMapletCountry = mapletsCountries.indexOf(d.name) > -1;
         for (var i = 0; i < countryGroups.length; i++) {
           var c = countryGroups[i]['countries'];
@@ -272,28 +272,28 @@ function drawCountries(
           // focus eu members on the map
           if (euCountries) {
             if (isMapletCountry) return 'country-stroke country-focus';
-            return 'country-stroke country-focus non-focused-country';
+            return 'country-stroke country-focus country-outline';
           }
         }
         else if (d3.select("#checkb_2").property("checked")) {
           // focus non-eu members on the map
           if (nonEuCountries) {
             if (isMapletCountry) return 'country-stroke non-eu-country-focus';
-            return 'country-stroke non-eu-country-focus non-focused-country';
+            return 'country-stroke non-eu-country-focus country-outline';
           }
         }
         else if (d3.select("#checkb_3").property("checked")) {
           // focus all countries on the map
           if (nonEuCountries) {
             if (isMapletCountry) return 'country-stroke non-eu-country-focus';
-            return 'country-stroke non-eu-country-focus non-focused-country';
+            return 'country-stroke non-eu-country-focus country-outline';
           }
           if (euCountries) {
             if (isMapletCountry) return 'country-stroke country-focus';
-            return 'country-stroke country-focus non-focused-country';
+            return 'country-stroke country-focus country-outline';
           }
         }
-        return 'country-stroke non-focused-country';
+        return 'country-stroke country-outline';
       })
     }
   }
@@ -712,6 +712,7 @@ function init(settings) {
   window.isHeaderMap = $(".country-header").hasClass('country-header');
   window.isHeaderGlobalMap = $("#countryfactsheets-map").hasClass('svg-header-wrapper');
   window.isGlobalMap = $(".svg-map-container").data('globalmap') === 'global';
+  window.isMaesMap = $('.maes-map').length > 0;
 
   // temp disabled
   // d3.select("body").select("#countryfactsheets-map svg").selectAll("*").remove();
@@ -740,7 +741,7 @@ function init(settings) {
   var allCountries = [].concat.apply([],getCountries);
   var filteredCountries = allCountries;
 
-  if ($('.maes-map').length > 0) {
+  if (window.isMaesMap) {
     $('#countries-filter').show();
   } else {
     $('#countries-filter').hide();
@@ -762,10 +763,15 @@ function init(settings) {
   if (window.isHeaderGlobalMap) {
     var width = $(window).width();
 
-    $('.eu-map-filter, #countries-filter').css({
-      'top': '100px',
-    }).css('right', function () { return getPageContentRight() +  'px' });
-    $('.intro-wrapper').css('left', function () { return getPageContentRight() +  'px' });
+    $('.eu-map-filter, #countries-filter')
+      .css({'top': '100px'})
+      .css('right', function() {
+        return getPageContentRight() +  'px'
+      });
+    $('.intro-wrapper').css('left', function() {
+      return getPageContentRight() +  'px'
+    });
+
   }
 
   // select only one checkbox at a time
@@ -923,8 +929,6 @@ function customizeMap(
   countries_Id
 ) {
 
-  var mapletsCountries = settings['maplets'];
-
   if (window.isGlobalMap) {
     var focusCountries = mapletsCountries.split(',');
 
@@ -952,7 +956,7 @@ function customizeMap(
       }
     }
 
-    if ($('.maes-map').length > 0) {
+    if (window.isMaesMap) {
       var mc = svg
        .append('g')
        .attr('class', 'minimap-container')
@@ -975,9 +979,8 @@ function customizeMap(
     // add the zoomed countries (cyprus, malta, etc) as maplets
     focusCountries.forEach(function(id, index) {
       var start;
-      var isMaesMap = $('.maes-map').length > 0;
 
-      if (isMaesMap) {
+      if (window.isMaesMap) {
         orientation = 'bottom';
         start = [10, height];
       }

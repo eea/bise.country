@@ -27,8 +27,7 @@ svg-container {
    fill: #b0b0b0;
 }
 
-.maplet-container .non-focused-country {
-  /* fill: #5c5c5c; */
+.maplet-container .country-outline {
   fill: #b0b0b0;
 }
 
@@ -61,14 +60,12 @@ svg-container {
 
 .minimap-country {
   cursor: pointer;
-  /* fill: #003399; */
   fill: #003cb3;
   stroke-width: 0.7;
   stroke: #00143d;
 }
 
 .country-focus-text-bg {
-  /* fill: #393939; */
   fill: transparent;
   stroke: #393939;
   stroke-width: 0.2;

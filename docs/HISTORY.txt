@@ -3,6 +3,8 @@ Changelog
 
 5.3.dev0 - (unreleased)
 -----------------------
+- Code cleanup
+  [krisztina, #90236]
 - Fix quick links, improve EU minimap, code cleanup
   [krisztina, #90236]
 - Fixes on countries map
