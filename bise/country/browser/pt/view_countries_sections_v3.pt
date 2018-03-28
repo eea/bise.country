@@ -104,7 +104,6 @@
                     tal:attributes="id python:tab['label'].lower().replace(' ', '-');
                                             class python: 'tabs-content ' + (repeat['tab'].index == 0 and 'active' or '')">
 
-               <h1 class="section-title" tal:content="obj/Title">Section title</h1>
 
                <span class="country-dropdown">
                  <select>
@@ -117,6 +116,8 @@
                    </option>
                  </select>
                </span>
+
+               <h1 class="section-title" tal:content="obj/Title">Section title</h1>
 
                <div class="content-wrapper"
                       tal:content="structure python:obj.text.output">

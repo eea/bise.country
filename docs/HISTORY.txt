@@ -3,6 +3,8 @@ Changelog
 
 5.3.dev0 - (unreleased)
 -----------------------
+- Styling dropdown for countries selection
+  [krisztina, #90236]
 - Code cleanup
   [krisztina, #90236]
 - Fix quick links, improve EU minimap, code cleanup
