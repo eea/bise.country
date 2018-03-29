@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.3.dev0 - (unreleased)
------------------------
+5.3 - (2018-03-29)
+------------------
 - Move the map under the main BISE menu
   [krisztina, #90236]
 - Fixes on countries sections
@@ -318,3 +318,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
