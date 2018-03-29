@@ -6,6 +6,31 @@ $(document).ready(function() {
   // Add claro class for css; used by dojo
   $("body").addClass("claro");
 
+  var isCountriesPage = $('#country-tabs li a').attr('href') === '##countries';
+  if (isCountriesPage) window.location.href += '##countries';
+
+  // select country dropdown functionality on countries section page
+  $('.country-dropdown select').change(function() {
+    var url = $(this).val();
+    var link = url.substring(url.lastIndexOf("/") + 1);
+    var tabsLoc = {
+      '##countries': 't-0',
+      '##factsheets': 't-1',
+      '##contributions': 't-2',
+      '##maes': 't-3',
+      '##green-infrastructure': 't-4'
+    }
+    for (var key in tabsLoc) {
+      if (tabsLoc.hasOwnProperty(key)) {
+        var wLoc = window.location.href
+        if (wLoc.indexOf(key) > -1) {
+          url = link + '##' + tabsLoc[key];
+          document.location = url;
+        }
+      }
+    }
+  });
+
   // Dropdown + tab changing functionality
   // This is the country selector in a country page view
 

@@ -802,34 +802,34 @@ body {
 
 /***** countries sections custom dropdown for countries *****/
 .country-dropdown {
-    background-color: #FFF;
-    display: inline-block;
-    position: relative;
+  background-color: #FFF;
+  display: inline-block;
+  position: relative;
 }
 .country-dropdown:after {
-    content: "\f078";
-    font-family: 'FontAwesome';
-    position: absolute;
-    top: 18px;
-    right: 10px;
-    z-index: 5;
+  content: "\f078";
+  font-family: 'FontAwesome';
+  position: absolute;
+  top: 18px;
+  right: 10px;
+  z-index: 5;
 }
 .country-dropdown select {
-    padding: 7px 20px 7px 7px;
-    -webkit-appearance: none;
-    -ms-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border: 1px solid #bbb;
-    background-color: transparent;
-    border-radius: 3;
-    position: relative;
-    cursor: pointer;
+  padding: 7px 20px 7px 7px;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #bbb;
+  background-color: transparent;
+  border-radius: 4;
+  position: relative;
+  cursor: pointer;
 }
 
 .country-dropdown select:-moz-focusring {
-    color: transparent;
-    text-shadow: 0 0 0 #000;
+  color: transparent;
+  text-shadow: 0 0 0 #000;
 }
 
 
@@ -952,7 +952,6 @@ body {
   padding-left: 10px;
 }
 
-
 .mtr-container .nav-header:hover,
 .mtr-container .nav-list li a:hover {
   background-color: #f7f4ed;
@@ -1038,8 +1037,6 @@ body {
 
 .edit-button {
   text-align: right;
-  /* position: absolute; */
-  /* top: 22px; */
 }
 
 .content-wrapper {
@@ -1059,8 +1056,8 @@ body {
     width: 100% !important;
   }
   .mtr-container .country-table > tbody > tr >td:first-child + td {
-      padding: 0 10px !important;
-      display: inline-block;
+    padding: 0 10px !important;
+    display: inline-block;
   }
 }
 

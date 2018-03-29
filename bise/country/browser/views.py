@@ -12,6 +12,7 @@ from plone.app.contentlisting.interfaces import (IContentListing,
 from plone.memoize import view
 from plone.subrequest import subrequest
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from bise.country.interfaces import ICountryPage
 
 logger = logging.getLogger('bise.country.views')
 
@@ -90,7 +91,7 @@ class CountriesSection(object):
 
     _tabs = (
         ('Countries',
-         'countries',
+         None,
          'all-countries general-eu-map',
          'Action Plan Report'
          ),
@@ -119,7 +120,10 @@ class CountriesSection(object):
         res = []
 
         for label, path, klass, desc in self._tabs:
-            obj = portal.restrictedTraverse(path)
+            if path is None:
+                obj = self.context
+            else:
+                obj = portal.restrictedTraverse(path)
             res.append({
                 'label': label,
                 'obj': obj,
@@ -129,6 +133,13 @@ class CountriesSection(object):
 
         return res
 
+    def get_country_pages(self, obj):
+        # 'review_state': 'published'
+        brains = obj.getFolderContents(contentFilter={'sort_on': 'getId', })
+        objs = [b.getObject() for b in brains]
+        objs = [o for o in objs if ICountryPage.providedBy(o)]
+
+        return objs
 
 class CountryFactsheetView(object):
     """ Main index page for a countryfactsheet content type

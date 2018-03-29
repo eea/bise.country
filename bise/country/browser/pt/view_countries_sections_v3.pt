@@ -76,8 +76,6 @@
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-page.css"/>
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css"/>
 
-
-
       <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">
 
@@ -95,32 +93,28 @@
         </div>
 
         <div class="panel-body">
-
           <tal:tab tal:repeat="tab view/tabs">
             <div id="maes"
                     class="tab-pane tab-content"
-                    tal:define="obj nocall:tab/obj; portal_types python: ['FolderishPage', 'BiodiversityFactsheet'];
-                                      portal_types python: 'green infrastructure' in tab['label'].lower() and ['Document'] or portal_types"
+                    tal:define="obj nocall:tab/obj"
                     tal:attributes="id python:tab['label'].lower().replace(' ', '-');
                                             class python: 'tabs-content ' + (repeat['tab'].index == 0 and 'active' or '')">
-
 
                <span class="country-dropdown">
                  <select>
                    <option selected="selected">Select country</option>
                    <option
-                     tal:repeat="country python:
-                     obj.getFolderContents(contentFilter={'portal_type': portal_types, 'sort_on': 'getId', 'review_state': 'published'})"
-                     tal:content="python: country.getId.title()">
+                     tal:repeat="country python: view.get_country_pages(obj)"
+                     tal:attributes="value country/absolute_url"
+                     tal:content="python: country.getId().title()">
                      Country name
                    </option>
                  </select>
                </span>
 
                <h1 class="section-title" tal:content="obj/Title">Section title</h1>
-
                <div class="content-wrapper"
-                      tal:content="structure python:obj.text.output">
+                      tal:content="structure python:obj.text and obj.text.output or '.'">
                  Text with details
                </div>
              </div>

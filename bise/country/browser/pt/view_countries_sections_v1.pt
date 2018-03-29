@@ -316,6 +316,7 @@
         $(function() {
           if (window.location.href.indexOf("##") == -1) {
             $('.tab-content #countries').addClass('active');
+            window.location.href += '##countries';
           }
           var hash = window.location.hash;
           hash && $('.nav-tabs a[href="' + hash + '"]').tab('show');
