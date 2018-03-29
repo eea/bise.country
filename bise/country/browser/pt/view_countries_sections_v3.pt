@@ -12,11 +12,11 @@
       <div class="header-bg">
         <svg-container
             class="svg-header-wrapper svg-map-container general-map"
-            data-ratio="0.65"
+            data-ratio="0.79"
             data-globalmap="global"
             tal:attributes="data-settings string:${context/absolute_url}/@@mapFolderListingSettings"
             id="countryfactsheets-map">
-          <svg height="600"></svg>
+          <svg height="422"></svg>
 
           <div class="eu-map-filter">
             <div class="checkb-wrapper">
@@ -34,7 +34,7 @@
           </div>
           <div class="intro-wrapper">
             <h1> Interactive <br> countries map</h1>
-            <p> Welcome to the Countries section. <br> Here you can find EU Member State national reports related to biodiversity and information related to indicators organised by country.</p>
+            <p> Here you can find EU Member State national reports related to biodiversity and information related to indicators organised by country.</p>
           </div>
 
           <div class="map-helper">

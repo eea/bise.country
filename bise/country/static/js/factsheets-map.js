@@ -741,6 +741,7 @@ function init(settings) {
 
   if (window.isMaesMap) {
     $('#countries-filter').show();
+    $('.eu-map-filter').hide();
   } else {
     $('#countries-filter').hide();
   }
@@ -762,9 +763,9 @@ function init(settings) {
     var width = $(window).width();
 
     $('.eu-map-filter, #countries-filter')
-      .css({'top': '100px'})
+      .css({'top': '20px'})
       .css('right', function() {
-        return getPageContentRight() +  'px'
+        return getPageContentRight() - 4 + 'px'
       });
     $('.intro-wrapper').css('left', function() {
       return getPageContentRight() +  'px'
@@ -947,7 +948,7 @@ function customizeMap(
       var mside = 'top';
       mw = 124;
       mh = 124;
-      var mstart = [$(window).width() - getPageContentRight() - mw, 320];
+      var mstart = [$(window).width() - getPageContentRight() - mw, 240];
 
       if (detectMobile || ($(window).width() < 800) ) {
         var mstart = [$(window).width() - getPageContentRight() - mw - 20, 180];
@@ -994,7 +995,7 @@ function customizeMap(
 
       if (window.isHeaderGlobalMap) {
         orientation =  'bottom';
-        start = [$(window).width() - getPageContentLeft(), 470];
+        start = [$(window).width() - getPageContentLeft(), 350];
 
         if (detectMobile || ($(window).width() < 800)) {
          orientation =  'left';

@@ -3,6 +3,8 @@ Changelog
 
 5.3.dev0 - (unreleased)
 -----------------------
+- Move the map under the main BISE menu
+  [krisztina, #90236]
 - Fixes on countries sections
   [krisztina, #90236]
 - Styling dropdown for countries selection

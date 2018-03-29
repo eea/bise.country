@@ -535,7 +535,7 @@ body {
   top: -4px;
   border-radius: 5px 5px 0 0;
   width: 100%;
-  border-top: 8px solid #e99279;
+  border-top: 8px solid #ef8152;
 }
 
 .factsheets .nav-tabs a {
@@ -1135,19 +1135,23 @@ body {
   display: inline-block;
 }
 
-.template-countries-sections-v3 #site-body,
-.template-countries-sections-v3 #site-body  {
+.template-countries-sections-v3 #site-body {
   padding-top: 475px;
 }
 
-.template-countries-sections-v3 #portal-breadcrumbs,
 .template-countries-sections-v3 #portal-breadcrumbs {
     top: -458px;
+    text-shadow: none;
+    font-weight: normal;
+    color: #748284;
+  }
+
+.template-countries-sections-v3 #portal-breadcrumbs a {
+    color: #1f8cc9;
   }
 
 .template-countries-sections-v3 #countryfactsheets-map {
-  border: none;
-  top: 30px;
+  top: 155px;
 }
 
 .template-countries-sections-v3 .countries-list-wrapper {
@@ -1176,6 +1180,16 @@ body {
   margin-top: 10px;
 }
 
+.template-countries-sections-v3 svg-container {
+  border-top: 3px solid #ef8152 !important;
+  border-bottom: 3px solid #ef8152 !important;
+}
+
+.template-countries-sections-v3 #site-header,
+.template-countries-sections-v3 #site-body {
+  background-color: #F7F4ED;
+}
+
 .tabs-content {
   display: none;
   padding: 0 17px;
@@ -1188,7 +1202,7 @@ body {
 
 .intro-wrapper {
   position: absolute;
-  top: 210px;
+  top: 115px;
   color: white;
   width: 290px;
   text-shadow: 0px 0px 3px #000;

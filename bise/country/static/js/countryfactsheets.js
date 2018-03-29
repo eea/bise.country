@@ -7,7 +7,8 @@ $(document).ready(function() {
   $("body").addClass("claro");
 
   var isCountriesPage = $('#country-tabs li a').attr('href') === '##countries';
-  if (isCountriesPage) window.location.href += '##countries';
+  var noHash = window.location.href.indexOf("##") == -1;
+  if (isCountriesPage && noHash) window.location.href += '##countries';
 
   // select country dropdown functionality on countries section page
   $('.country-dropdown select').change(function() {
