@@ -29,27 +29,6 @@
   <element value="plone.app.relationfield.behavior.IRelatedItems"/>
  </property>
  <property name="schema">bise.country.factsheet.ICountryFactsheet</property>
- <property
-    name="model_source">&lt;model xmlns:i18n="http://xml.zope.org/namespaces/i18n" xmlns:security="http://namespaces.plone.org/supermodel/security" xmlns:marshal="http://namespaces.plone.org/supermodel/marshal" xmlns:form="http://namespaces.plone.org/supermodel/form" xmlns="http://namespaces.plone.org/supermodel/schema"&gt;
-    &lt;schema&gt;
-      &lt;field name="tab_titles" type="zope.schema.List"&gt;
-        &lt;default&gt;
-          &lt;element&gt;Factsheet&lt;/element&gt;
-          &lt;element&gt;Contributions&lt;/element&gt;
-          &lt;element&gt;MAES&lt;/element&gt;
-        &lt;/default&gt;
-        &lt;title&gt;Tab titles&lt;/title&gt;
-        &lt;value_type type="zope.schema.TextLine"&gt;
-          &lt;title&gt;Tab&lt;/title&gt;
-        &lt;/value_type&gt;
-      &lt;/field&gt;
-      &lt;field name="text" type="plone.app.textfield.RichText"&gt;
-        &lt;description/&gt;
-        &lt;required&gt;False&lt;/required&gt;
-        &lt;title&gt;Text&lt;/title&gt;
-      &lt;/field&gt;
-    &lt;/schema&gt;
-  &lt;/model&gt;</property>
  <property name="model_file"></property>
  <property name="schema_policy">dexterity</property>
  <alias from="(Default)" to="(dynamic view)"/>
