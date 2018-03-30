@@ -3,7 +3,6 @@ body {
 }
 
 .header-bg {
-  /*z-index: 1;*/
   height: 384px;
   width: 100%;
   position: absolute;
@@ -31,15 +30,14 @@ body {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  /* background-color: #eeeeee; */
   color: #e99279;
 }
 .nav > li.disabled > a {
-  color: #777777;
+  color: #777;
 }
 .nav > li.disabled > a:hover,
 .nav > li.disabled > a:focus {
-  color: #777777;
+  color: #777;
   text-decoration: none;
   background-color: transparent;
   cursor: not-allowed;
@@ -47,7 +45,7 @@ body {
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
-  background-color: #eeeeee;
+  background-color: #eee;
   border-color: #337ab7;
 }
 .nav .nav-divider {
@@ -60,7 +58,7 @@ body {
   max-width: none;
 }
 .nav-tabs {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
 }
 .nav-tabs > li {
   /* float: left; */
@@ -74,14 +72,14 @@ body {
   border-radius: 4px 4px 0 0;
 }
 .nav-tabs > li > a:hover {
-  border-color: #eeeeee #eeeeee #dddddd;
+  border-color: #eee #eee #ddd;
 }
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-  color: #555555;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
+  color: #555;
+  background-color: #fff;
+  border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -100,15 +98,6 @@ body {
   top: auto;
   left: auto;
 }
-@media (min-width: 768px) {
-  .nav-tabs.nav-justified > li {
-    display: table-cell;
-    width: 1%;
-  }
-  .nav-tabs.nav-justified > li > a {
-    margin-bottom: 0;
-  }
-}
 .nav-tabs.nav-justified > li > a {
   margin-right: 0;
   border-radius: 4px;
@@ -116,18 +105,7 @@ body {
 .nav-tabs.nav-justified > .active > a,
 .nav-tabs.nav-justified > .active > a:hover,
 .nav-tabs.nav-justified > .active > a:focus {
-  border: 1px solid #dddddd;
-}
-@media (min-width: 768px) {
-  .nav-tabs.nav-justified > li > a {
-    border-bottom: 1px solid #dddddd;
-    border-radius: 4px 4px 0 0;
-  }
-  .nav-tabs.nav-justified > .active > a,
-  .nav-tabs.nav-justified > .active > a:hover,
-  .nav-tabs.nav-justified > .active > a:focus {
-    border-bottom-color: #ffffff;
-  }
+  border: 1px solid #ddd;
 }
 .nav-pills > li {
   float: left;
@@ -141,7 +119,7 @@ body {
 .nav-pills > li.active > a,
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
-  color: #ffffff;
+  color: #fff;
   background-color: #337ab7;
 }
 .nav-stacked > li {
@@ -165,15 +143,6 @@ body {
   top: auto;
   left: auto;
 }
-@media (min-width: 768px) {
-  .nav-justified > li {
-    display: table-cell;
-    width: 1%;
-  }
-  .nav-justified > li > a {
-    margin-bottom: 0;
-  }
-}
 .nav-tabs-justified {
   border-bottom: 0;
 }
@@ -184,18 +153,7 @@ body {
 .nav-tabs-justified > .active > a,
 .nav-tabs-justified > .active > a:hover,
 .nav-tabs-justified > .active > a:focus {
-  border: 1px solid #dddddd;
-}
-@media (min-width: 768px) {
-  .nav-tabs-justified > li > a {
-    border-bottom: 1px solid #dddddd;
-    border-radius: 4px 4px 0 0;
-  }
-  .nav-tabs-justified > .active > a,
-  .nav-tabs-justified > .active > a:hover,
-  .nav-tabs-justified > .active > a:focus {
-    border-bottom-color: #ffffff;
-  }
+  border: 1px solid #ddd;
 }
 .tab-content > .tab-pane {
   display: none;
@@ -275,12 +233,12 @@ body {
   background-color: #2e6da4;
 }
 .navbar-default {
-  background-image: -webkit-linear-gradient(top, #ffffff 0%, #f8f8f8 100%);
-  background-image: -o-linear-gradient(top, #ffffff 0%, #f8f8f8 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f8f8f8));
-  background-image: linear-gradient(to bottom, #ffffff 0%, #f8f8f8 100%);
+  background-image: -webkit-linear-gradient(top, #fff 0%, #f8f8f8 100%);
+  background-image: -o-linear-gradient(top, #fff 0%, #f8f8f8 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f8f8f8));
+  background-image: linear-gradient(to bottom, #fff 0%, #f8f8f8 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff8f8f8', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffff', endColorstr='#fff8f8f8', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 5px rgba(0, 0, 0, 0.075);
@@ -331,22 +289,6 @@ body {
 .navbar-fixed-bottom {
   border-radius: 0;
 }
-@media (max-width: 767px) {
-  .navbar .navbar-nav .open .dropdown-menu > .active > a,
-  .navbar .navbar-nav .open .dropdown-menu > .active > a:hover,
-  .navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
-    color: #fff;
-    background-image: -webkit-linear-gradient(top, #337ab7 0%, #2e6da4 100%);
-    background-image: -o-linear-gradient(top, #337ab7 0%, #2e6da4 100%);
-    background-image: -webkit-gradient(linear, left top, left bottom, from(#337ab7), to(#2e6da4));
-    background-image: linear-gradient(to bottom, #337ab7 0%, #2e6da4 100%);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff2e6da4', GradientType=0);
-  }
-}
-
-
-
 
 .caret {
   display: inline-block;
@@ -379,8 +321,8 @@ body {
   list-style: none;
   font-size: 14px;
   text-align: left;
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
+  background-color: #fff;
+  border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 4px;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
@@ -404,7 +346,7 @@ body {
   clear: both;
   font-weight: normal;
   line-height: 1.42857143;
-  color: #333333;
+  color: #333;
   white-space: nowrap;
 }
 .dropdown-menu > li > a:hover,
@@ -416,7 +358,7 @@ body {
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
   outline: 0;
   background-color: #337ab7;
@@ -424,7 +366,7 @@ body {
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
 .dropdown-menu > .disabled > a:focus {
-  color: #777777;
+  color: #777;
 }
 .dropdown-menu > .disabled > a:hover,
 .dropdown-menu > .disabled > a:focus {
@@ -453,7 +395,7 @@ body {
   padding: 3px 20px;
   font-size: 12px;
   line-height: 1.42857143;
-  color: #777777;
+  color: #777;
   white-space: nowrap;
 }
 .dropdown-backdrop {
@@ -481,16 +423,6 @@ body {
   bottom: 100%;
   margin-bottom: 2px;
 }
-@media (min-width: 768px) {
-  .navbar-right .dropdown-menu {
-    left: auto;
-    right: 0;
-  }
-  .navbar-right .dropdown-menu-left {
-    left: 0;
-    right: auto;
-  }
-}
 
 /*here starts the custom css*/
 .factsheets .login-wrapper {
@@ -501,7 +433,6 @@ body {
   position: relative;
   z-index: 9;
 }
-
 
 .factsheets .page-body {
   padding-top: 0;
@@ -569,21 +500,19 @@ body {
   border-top: none;
 }
 
-
 .factsheets #portal-breadcrumbs {
   position: absolute;
   top: -333px;
-  color: white;
+  /* color: white; */
   z-index: 2;
-  text-shadow: 0px 0px 4px #000;
-  font-weight: bold;
+  /* text-shadow: 0px 0px 4px #000; */
+  /* font-weight: bold; */
 
 }
 
-.factsheets #portal-breadcrumbs a {
+/* .factsheets #portal-breadcrumbs a {
   color: #ffc612;
-}
-
+} */
 
 .factsheets .tab-content h4,
 .factsheets .tab-content h5{
@@ -593,17 +522,19 @@ body {
 .map-title {
   position: absolute;
   left: 0;
-  top: -290px;
+  color: white !important;
+  text-shadow: 0px 0px 4px #000;
+  /* top: -290px; */
+  top: -402px;
   z-index: 1;
-  /* color: #444 !important; */
-  /* color: #ef8152 !important; */
+}
+
+.map-title h1 {
   color: white !important;
   font-weight: bold !important;
-  text-shadow: 0px 0px 4px #000;
 }
 
 .factsheets h1 {
-  /* color: white!important; */
   color: inherit;
   font-weight: inherit;
   display: inline-block;
@@ -615,12 +546,6 @@ body {
   font-size: 18px;
   font-weight: bold;
   text-align: left;
-}
-
-@media(min-width: 800px) {
-  .factsheets .navbar-descriptor {
-    min-height: 92px
-  }
 }
 
 .custom-dropdown {
@@ -676,8 +601,6 @@ body {
 /* } */
 /*  */
 
-
-
 .custom-dropdown {
   display: inline-block;
   position: relative;
@@ -687,6 +610,7 @@ body {
   border-radius: 5px;
   text-align: center;
 }
+
 .custom-dropdown select {
   position: absolute;
   top: 0;
@@ -710,102 +634,18 @@ body {
   display: none;
 }
 
-@media (min-width: 800px) {
-  .asidetrue {
-    width: 100%;
-    left: 0%;
-  }
-}
-
-@media (max-width: 800px) {
-
-  .template-countries-sections-v3 #site-body {
-    padding-top: 440px !important;
-  }
-
-  .template-countries-sections-v3 #portal-breadcrumbs {
-    display: none;
-  }
-
-  .factsheets .panel-heading {
-    width: 100%;
-  }
-
-  .template-countries-sections-v3 #countryfactsheets-map {
-    top: 90px !important;
-  }
-
-    .template-countries-sections-v3 .header-bg {
-    top: -72px;
-  }
-
-  .page-container {
-    width: 100%;
-  }
-
-  .factsheets .panel-heading {
-    /* left: -8px !important; */
-  }
-
-  .arrow {
-    display: block;
-  }
-
-  .page-content {
-    padding: 0;
-  }
-
-  .factsheets .nav-tabs {
-    overflow-y: hidden;
-    overflow-x: auto;
-    white-space: nowrap;
-  }
-
-  .nav-tabs  li  a {
-    padding: 15px;
-  }
-
-  .factsheets .nav-tabs li.active:before {
-    top: 0px;
-    border-radius: 0;
-    border-top: 5px solid #e99279;
-    z-index: 9;
-}
-
-  .custom-dropdown {
-    right: 10px;
-  }
-
-  .factsheets .panel-body {
-    padding-top: 32px;
-  }
-
-  .header-bg {
-    top: 8px;
-  }
-
-  .asidetrigger {
-    display: none;
-  }
-  .intro-wrapper {
-    display: none;
-  }
-  .map-helper {
-    right: 0 !important;
-  }
-}
-
 .legendContainer {
   left: 770px !important;
 }
 
 
-/***** countries sections custom dropdown for countries *****/
+/***** countries sections custom dropdown *****/
 .country-dropdown {
   background-color: #FFF;
   display: inline-block;
   position: relative;
 }
+
 .country-dropdown:after {
   content: "\f078";
   font-family: 'FontAwesome';
@@ -814,6 +654,7 @@ body {
   right: 10px;
   z-index: 5;
 }
+
 .country-dropdown select {
   padding: 7px 20px 7px 7px;
   -webkit-appearance: none;
@@ -834,7 +675,6 @@ body {
 
 
 /***** contributions sidebar *****/
-
 .mtr-container .target1Bg,
 .mtr-container .target2Bg,
 .mtr-container .target3Bg,
@@ -1048,54 +888,7 @@ body {
   padding: 10px 0;
 }
 
-@media (min-width: 992px) {
-  #mtr-main-wrapper {
-    float:right;
-  }
-  .mtr-container .country-table > tbody > tr > td {
-    width: 100% !important;
-  }
-  .mtr-container .country-table > tbody > tr >td:first-child + td {
-    padding: 0 10px !important;
-    display: inline-block;
-  }
-}
-
-@media (max-width: 992px) {
-  #mtr-main-wrapper {
-    padding:  30px 10px ;
-    overflow-y: initial;
-    word-break: break-word;
-  }
-
-  #sidebar-wrapper {
-    position: fixed;
-    height: 100%;
-    background-color: white;
-    z-index: 9999;
-    width: 50%;
-    border-right:0;
-    box-shadow: 5px 0 5px -2px rgba(0, 0, 0, 0.40);
-    left: -50%;
-    transition: .2s;
-  }
-
-  .toggle-sidebar{
-    left: 0 !important;
-  }
-
-  .mobile-sidebar,
-  .mobile-only {
-    display: block;
-  }
-
-  dl.portalMessage {
-    margin-top: 4em;
-  }
-}
-
 /* countries sections mockup css */
-
 .template-countries-sections-v2 {
   background-color: #F7F4ED;
 }
@@ -1112,6 +905,10 @@ body {
   padding-top: 4px;
 }
 
+.template-countries-sections-v2 #site-body {
+  padding-top: 125px;
+}
+
 .template-countries-sections-v2 .countries-list li:hover,
 .template-countries-sections-v3 .countries-list li:hover  {
   color: #41b664
@@ -1124,10 +921,6 @@ body {
   margin-top: 10px;
 }
 
-.template-countries-sections-v2 #site-body {
-  padding-top: 125px;
-}
-
 .template-countries-sections-v2 .section-description,
 .template-countries-sections-v3 .section-description {
   clear: both;
@@ -1135,22 +928,18 @@ body {
   display: inline-block;
 }
 
-.template-countries-sections-v3 #site-body {
+.template-countries-sections-v3 #site-body,
+.subsection-country-factsheets #site-body {
   padding-top: 475px;
 }
 
-.template-countries-sections-v3 #portal-breadcrumbs {
-    top: -458px;
-    text-shadow: none;
-    font-weight: normal;
-    color: #748284;
-  }
+.template-countries-sections-v3 #portal-breadcrumbs,
+.subsection-country-factsheets #portal-breadcrumbs {
+  top: -458px;
+}
 
-.template-countries-sections-v3 #portal-breadcrumbs a {
-    color: #1f8cc9;
-  }
-
-.template-countries-sections-v3 #countryfactsheets-map {
+.template-countries-sections-v3 #countryfactsheets-map,
+.subsection-country-factsheets .svg-header-wrapper {
   top: 155px;
 }
 
@@ -1180,13 +969,16 @@ body {
   margin-top: 10px;
 }
 
-.template-countries-sections-v3 svg-container {
+.template-countries-sections-v3 svg-container,
+.subsection-country-factsheets svg-container {
   border-top: 3px solid #ef8152 !important;
   border-bottom: 3px solid #ef8152 !important;
 }
 
 .template-countries-sections-v3 #site-header,
-.template-countries-sections-v3 #site-body {
+.template-countries-sections-v3 #site-body,
+.subsection-country-factsheets #site-header,
+.subsection-country-factsheets #site-body {
   background-color: #F7F4ED;
 }
 
@@ -1219,7 +1011,6 @@ body {
 }
 
 /* collapsible content for green infrastracture on country pages */
-
 .content-green-infrastructure #parent-fieldname-text h2,
 .content-green-infrastructure #parent-fieldname-text h3 {
   display: inline-block;
@@ -1229,7 +1020,6 @@ body {
 .content-green-infrastructure .gi-title-wrapper,
 .content-green-infrastructure .gi-sub-title-wrapper {
   cursor: pointer;
-  /* border-bottom: 1px solid #ddd; */
   padding: 6px;
 }
 
@@ -1270,6 +1060,200 @@ body {
   margin-top: 1rem;
 }
 
+@media (min-width: 992px) {
+  #mtr-main-wrapper {
+    float:right;
+  }
+  .mtr-container .country-table > tbody > tr > td {
+    width: 100% !important;
+  }
+  .mtr-container .country-table > tbody > tr >td:first-child + td {
+    padding: 0 10px !important;
+    display: inline-block;
+  }
+}
+
+@media (max-width: 992px) {
+  #mtr-main-wrapper {
+    float:right;
+    padding:  30px 10px ;
+    overflow-y: initial;
+    word-break: break-word;
+  }
+
+  #sidebar-wrapper {
+    position: fixed;
+    height: 100%;
+    background-color: white;
+    z-index: 9999;
+    width: 50%;
+    border-right:0;
+    box-shadow: 5px 0 5px -2px rgba(0, 0, 0, 0.40);
+    left: -50%;
+    transition: .2s;
+  }
+
+  .toggle-sidebar{
+    left: 0 !important;
+  }
+
+  .mobile-sidebar,
+  .mobile-only {
+    display: block;
+  }
+
+  dl.portalMessage {
+    margin-top: 4em;
+  }
+}
+
+@media(min-width: 800px) {
+  .factsheets .navbar-descriptor {
+    min-height: 92px
+  }
+  .asidetrue {
+    width: 100%;
+    left: 0%;
+  }
+}
+
+@media (max-width: 800px) {
+  .template-countries-sections-v3 #site-body {
+    padding-top: 440px !important;
+  }
+
+  .template-countries-sections-v3 #portal-breadcrumbs {
+    display: none;
+  }
+
+  .factsheets .panel-heading {
+    width: 100%;
+  }
+
+  .template-countries-sections-v3 #countryfactsheets-map {
+    top: 90px !important;
+  }
+
+  .template-countries-sections-v3 .header-bg {
+    top: -72px;
+  }
+
+  .page-container {
+    width: 100%;
+  }
+
+  .arrow {
+    display: block;
+  }
+
+  .page-content {
+    padding: 0;
+  }
+
+  .factsheets .nav-tabs {
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .nav-tabs  li  a {
+    padding: 15px;
+  }
+
+  .factsheets .nav-tabs li.active:before {
+    top: 0px;
+    border-radius: 0;
+    border-top: 5px solid #e99279;
+    z-index: 9;
+  }
+
+  .custom-dropdown {
+    right: 10px;
+  }
+
+  .factsheets .panel-body {
+    padding-top: 32px;
+  }
+
+  .header-bg {
+    top: 8px;
+  }
+
+  .asidetrigger {
+    display: none;
+  }
+  .intro-wrapper {
+    display: none;
+  }
+  .map-helper {
+    right: 0 !important;
+  }
+  .map-title {
+    left: 20px;
+  }
+  .custom-dropdown {
+    right: 0;
+  }
+  .intro-wrapper {
+    display: none !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .nav-tabs.nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+  .nav-tabs.nav-justified > li > a {
+    margin-bottom: 0;
+    border-bottom: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+  }
+  .nav-tabs.nav-justified > .active > a,
+  .nav-tabs.nav-justified > .active > a:hover,
+  .nav-tabs.nav-justified > .active > a:focus {
+    border-bottom-color: #fff;
+  }
+  .nav-justified > li {
+    display: table-cell;
+    width: 1%;
+  }
+  .nav-justified > li > a {
+    margin-bottom: 0;
+  }
+  .nav-tabs-justified > .active > a,
+  .nav-tabs-justified > .active > a:hover,
+  .nav-tabs-justified > .active > a:focus {
+    border-bottom-color: #fff;
+  }
+  .nav-tabs-justified > li > a {
+    border-bottom: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+  }
+  .navbar-right .dropdown-menu {
+    left: auto;
+    right: 0;
+  }
+  .navbar-right .dropdown-menu-left {
+    left: 0;
+    right: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .navbar .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #fff;
+    background-image: -webkit-linear-gradient(top, #337ab7 0%, #2e6da4 100%);
+    background-image: -o-linear-gradient(top, #337ab7 0%, #2e6da4 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#337ab7), to(#2e6da4));
+    background-image: linear-gradient(to bottom, #337ab7 0%, #2e6da4 100%);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff2e6da4', GradientType=0);
+  }
+}
+
 @media (max-width: 480px) {
   .template-countries-sections-v3 #countryfactsheets-map {
     border: none;
@@ -1280,17 +1264,5 @@ body {
   .portaltype-biodiversityfactsheet h3.collapsible,
   .fact h3 {
     font-size: 1.3rem !important;
-  }
-}
-
-@media (max-width: 800px) {
-  .map-title {
-    left: 20px;
-  }
-  .custom-dropdown {
-    right: 0;
-  }
-  .intro-wrapper {
-    display: none !important;
   }
 }
