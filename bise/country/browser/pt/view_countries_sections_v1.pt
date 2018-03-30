@@ -149,8 +149,8 @@
         background: rgba(0, 0, 0, 0.7);
         color: white;
         position: absolute;
-        top: 205px;
-        right: 180px;
+        top: 190px !important;
+        right: 20% !important;
         z-index: 9;
       }
 

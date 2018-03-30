@@ -722,7 +722,9 @@ function init(settings) {
   '<ul class="filter-listing"></ul></div>');
   $sw.append($dw);
 
-  var $load = $('<div class="map-loader"><div class="loading-spinner"/></div>');
+  var $load = $('<div class="map-loader">' +
+  '<div class="loading-spinner"></div>' +
+  '<span class="loading-text">Loading map ...</span></div>');
   $sw.append($load);
 
   var getCountries = [];
@@ -800,7 +802,7 @@ function init(settings) {
       return;
     }
 
-    $('.map-loader').hide();
+    $('.map-loader').fadeOut(800);
     $('.intro-wrapper').css('display', 'block');
 
     if ($('.general-map').length > 0) {
