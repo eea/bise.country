@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.4.dev0 - (unreleased)
------------------------
+5.4 - (2018-04-04)
+------------------
 - Improvements on countries sections
   [krisztina, #90236]
 - Fix map helper position on the map
@@ -328,3 +328,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
