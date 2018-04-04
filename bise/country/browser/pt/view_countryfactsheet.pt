@@ -15,8 +15,7 @@
                              'sort_order': 'ascending'}
               )">
 
-      <div
-          class="country-header header-bg" >
+      <div class="country-header header-bg">
         <svg-container
             class="svg-header-wrapper svg-map-container"
             data-ratio="0.4"

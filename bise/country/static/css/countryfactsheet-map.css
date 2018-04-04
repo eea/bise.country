@@ -164,7 +164,6 @@ svg-container {
 }
 
 /***** MAES map related *****/
-
 #countries-filter {
   background-color: white;
   border: 2px solid #b0b0b0;
@@ -203,10 +202,8 @@ svg-container {
 .desktop-only {
   display: inline-block;
 }
-.break-p {
-  display: block;
-}
 
+/***** map loading spinner *****/
 .map-loader {
   position: absolute;
   top: 0;
@@ -249,7 +246,6 @@ svg-container {
 }
 
 /* map helper */
-
 .map-helper {
   height: 160px;
   width: 220px;
@@ -299,7 +295,16 @@ svg-container {
     top: 132px !important;
   }
   #countries-filter {
-    top: 97px !important;
+    top: -6px !important;
+    font-size: 11px;
+    padding: 7px;
+    width: 100%;
+    right: 0;
+    left: 0;
+    border: none;
+  }
+  #countries-filter br {
+    display: none;
   }
   .eu-map-filter {
     text-align: center;
@@ -309,8 +314,21 @@ svg-container {
     left: 0;
     border: none;
   }
+  #countries-filter ul {
+    margin-top: 0;
+  }
+  #countries-filter ul li {
+    padding: 3px 5px 3px 0;
+    display: inline;
+  }
+  #countries-filter .color-box {
+    position: relative;
+    top: 2px;
+    margin-right: 5px;
+  }
   .template-countries-sections-v3 .eu-map-filter {
-    top: 96px !important;
+    top: 0 !important;
+    background-color: #fff;
   }
   .checkb-wrapper {
     display: inline;
@@ -318,31 +336,6 @@ svg-container {
    }
   .desktop-only {
     display: none;
-  }
-}
-
-@media (max-width: 767px) {
-  #countries-filter {
-    font-size: 12px;
-    padding: 7px;
-    width: 100%;
-    right: 0;
-    left: 0;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.95);
-    /* width: 154px; */
-    /* right: auto;
-      left: 10px; */
-  }
-  #countries-filter ul li {
-    padding: 3px 5px;
-    display: inline;
-  }
-  #countries-filter ul {
-    margin-top: 0;
-  }
-  .break-p {
-    display: inline;
   }
   .filter-listing {
     padding-top: 5px;

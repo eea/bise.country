@@ -597,7 +597,7 @@ function addInsetCountryToMap(
 
   label
     .attr('x', msp.x + boxw/2)
-    .attr('y', msp.y + boxh - textboxh/2 + 5)   //  - textboxh / 3
+    .attr('y', msp.y + boxh - textboxh/2 + 2)   //  - textboxh / 3
   ;
 
   label.raise();
@@ -718,7 +718,7 @@ function init(settings) {
 
   var $sw = $('#countryfactsheets-map');
   var $dw = $('<div id="countries-filter">' +
-  '<span>Report on MAES-related <span class="break-p">developments</span></span>' +
+  '<span>Report on MAES-related </br> developments</span>' +
   '<ul class="filter-listing"></ul></div>');
   $sw.append($dw);
 
@@ -729,7 +729,8 @@ function init(settings) {
 
   var getCountries = [];
   for (var i = 0; i < countryGroups.length; i++) {
-    var $dbox = $('<li><div class="color-box"/><span class="type-title"/></li>');
+    var $dbox = $('<li><div class="color-box"/>' +
+    '<span class="type-title"/></li>');
     $('.filter-listing').append($dbox);
     var eqColor = $('#countries-filter ul li div').eq(i);
     var eqTitle = $('.type-title').eq(i);
@@ -943,7 +944,7 @@ function customizeMap(
     var mw = 120;  // maplet width and height
     var mh = 120;
 
-    var detectMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    var isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
     // eu minimap position in header map
     if (window.isHeaderGlobalMap) {
@@ -952,8 +953,8 @@ function customizeMap(
       mh = 124;
       var mstart = [$(window).width() - getPageContentRight() - mw, 240];
 
-      if (detectMobile || ($(window).width() < 800) ) {
-        var mstart = [$(window).width() - getPageContentRight() - mw - 20, 180];
+      if (isMobileDevice || ($(window).width() < 800) ) {
+        var mstart = [$(window).width() - getPageContentRight() - mw - 20, 80];
       }
     }
 
@@ -990,7 +991,7 @@ function customizeMap(
         start = [10, 10];
       }
 
-      if (detectMobile || ($(window).width() < 800)) {
+      if (isMobileDevice || ($(window).width() < 800)) {
         orientation =  'bottom';
         start = [10, height];
       }
@@ -999,9 +1000,9 @@ function customizeMap(
         orientation =  'bottom';
         start = [$(window).width() - getPageContentLeft(), 350];
 
-        if (detectMobile || ($(window).width() < 800)) {
+        if (isMobileDevice || ($(window).width() < 800)) {
          orientation =  'left';
-         start = [$(window).width() - getPageContentLeft() + 20, 170];
+         start = [$(window).width() - getPageContentLeft() + 20, 110];
         }
       }
 

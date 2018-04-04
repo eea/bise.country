@@ -3,6 +3,8 @@ Changelog
 
 5.4.dev0 - (unreleased)
 -----------------------
+- Improvements on countries sections
+  [krisztina, #90236]
 - Fix map helper position on the map
   [krisztina, #90236]
 - Move the map under the main BISE menu on the country page,
