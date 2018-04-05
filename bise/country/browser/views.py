@@ -5,6 +5,7 @@ from lxml.builder import E
 from lxml.html import fromstring, tostring
 
 from Acquisition import aq_inner
+from bise.country.interfaces import ICountryPage
 from plone import api
 from plone.api.user import has_permission
 from plone.app.contentlisting.interfaces import (IContentListing,
@@ -12,7 +13,6 @@ from plone.app.contentlisting.interfaces import (IContentListing,
 from plone.memoize import view
 from plone.subrequest import subrequest
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from bise.country.interfaces import ICountryPage
 
 logger = logging.getLogger('bise.country.views')
 
@@ -140,6 +140,7 @@ class CountriesSection(object):
         objs = [o for o in objs if ICountryPage.providedBy(o)]
 
         return objs
+
 
 class CountryFactsheetView(object):
     """ Main index page for a countryfactsheet content type
@@ -288,6 +289,10 @@ class CountryFactsheetView(object):
 
         for brain in children:
             if brain.id != ignore:
+                obj = brain.getObject()
+
+                if not ICountryPage.providedBy(obj):
+                    continue
                 results.append({'name': brain.Title,
                                 'href': brain.getURL()})
 
