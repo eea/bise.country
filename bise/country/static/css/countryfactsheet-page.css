@@ -528,6 +528,7 @@
 .map-title h1 {
   color: white !important;
   font-weight: bold !important;
+  font-size: 3em !important;
 }
 
 .factsheets h1 {
@@ -652,7 +653,7 @@
 }
 
 .country-dropdown select {
-  padding: 7px 40px 7px 7px;
+  padding: 7px 30px 7px 7px;
   -webkit-appearance: none;
   -ms-appearance: none;
   -moz-appearance: none;
@@ -871,10 +872,6 @@
   padding-left: 10px;
 }
 
-.edit-button {
-  text-align: right;
-}
-
 .content-wrapper {
   margin-top: 35px;
 }
@@ -885,6 +882,57 @@
 }
 
 /* countries sections mockup css */
+.edit-button {
+  float: right;
+}
+.btn-edit {
+  background: #44434c;
+  color: #fff;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
+.btn-edit:hover {
+  background: #2b2b2b;
+}
+
+.content-eu-biodiversity-strategy,
+.content-country-overview,
+.content-maes,
+.content-green-infrastructure {
+  clear: both;
+}
+
+.country-overview {
+  border-bottom: 1px solid #efe9db;
+  padding-bottom: 5px;
+}
+
+.quick-links-title {
+  margin-top: 15px;
+}
+
+#nature-directives .description {
+  border-bottom: 1px solid #efe9db;
+  padding-bottom: 20px;
+}
+
+.fact {
+  padding-top: 5px;
+}
+
+.content-maes h2 {
+  display: none;
+}
+
+.content-green-infrastructure #parent-fieldname-text p:first-child {
+  border-bottom: 1px solid #efe9db;
+  padding-bottom: 20px;
+}
+
+.quick-links-list {
+  margin-bottom: 30px !important;
+}
+
 .template-countries-sections-v2 {
   background-color: #F7F4ED;
 }
@@ -1024,10 +1072,6 @@
 
 .content-green-infrastructure .gi-content-wrapper p {
   padding-left: 2rem;
-}
-
-#nature-directives {
-  margin: 1em 0;
 }
 
 .fact h3 {

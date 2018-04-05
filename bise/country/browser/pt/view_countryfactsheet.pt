@@ -103,7 +103,7 @@
                  >
                  <a href=""
                       target="_blank"
-                      class="btn btn-secondary"
+                      class="btn btn-edit"
                       tal:attributes="href string:${obj/absolute_url}/edit"
                    >
                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

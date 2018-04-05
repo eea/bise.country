@@ -6,16 +6,16 @@ $(document).ready(function() {
   // Add claro class for css; used by dojo
   $("body").addClass("claro");
 
-  var isCountriesPage = $('#country-tabs li a').attr('href') === '##countries';
+  var isCountriesPage = $('#country-tabs li a').attr('href') === '##profiles';
   var noHash = window.location.href.indexOf("##") == -1;
-  if (isCountriesPage && noHash) window.location.href += '##countries';
+  if (isCountriesPage && noHash) window.location.href += '##profiles';
 
   // select country dropdown functionality on countries section page
   $('.country-dropdown select').change(function() {
     var url = $(this).val();
     var link = url.substring(url.lastIndexOf("/") + 1);
     var tabsLoc = {
-      '##countries': 't-0',
+      '##profiles': 't-0',
       '##factsheets': 't-1',
       '##contributions': 't-2',
       '##maes': 't-3',

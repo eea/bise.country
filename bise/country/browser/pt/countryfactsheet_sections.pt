@@ -6,7 +6,7 @@
       Main text here
   </div>
 
-  <h2>Quick links</h2>
+  <h3 class="quick-links-title">Quick links:</h3>
 
    <ul class="quick-links-list">
         <li role="presentation" tal:repeat="lc view/tabs">

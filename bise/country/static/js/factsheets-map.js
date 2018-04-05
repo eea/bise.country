@@ -387,7 +387,7 @@ function drawCountries(
       if (window.available_map_countries.indexOf(d.name) > -1) {
         var link = d.name.toLowerCase();
         var tabsLoc = {
-          '##countries': 't-0',
+          '##profiles': 't-0',
           '##factsheets': 't-1',
           '##contributions': 't-2',
           '##maes': 't-3',

@@ -90,7 +90,7 @@ class CountriesSection(object):
     """
 
     _tabs = (
-        ('Countries',
+        ('Profiles',
          None,
          'all-countries general-eu-map',
          'Action Plan Report'

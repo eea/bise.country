@@ -102,7 +102,7 @@
 
                <span class="country-dropdown">
                  <select>
-                   <option selected="selected">Select country</option>
+                   <option selected="selected">Go to country...</option>
                    <option
                      tal:repeat="country python: view.get_country_pages(obj)"
                      tal:attributes="value country/absolute_url"
