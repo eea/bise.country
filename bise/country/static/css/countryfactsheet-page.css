@@ -908,7 +908,7 @@
 }
 
 .quick-links-title {
-  margin-top: 15px;
+  margin: 20px 0 !important;
 }
 
 #nature-directives .description {
@@ -930,7 +930,9 @@
 }
 
 .quick-links-list {
-  margin-bottom: 30px !important;
+  border-bottom: 1px solid #efe9db;
+  padding-bottom: 20px;
+  margin: 20px 0 !important;
 }
 
 .template-countries-sections-v2 {
@@ -967,6 +969,8 @@
   color: #ef8152 !important;
   display: inline-block;
   margin-top: 10px;
+  width: 80%;
+  float: left;
 }
 
 .template-countries-sections-v2 .section-description,
@@ -992,7 +996,8 @@
 }
 
 .template-countries-sections-v3 .content-wrapper {
-  margin-top: 10px;
+  padding-top: 10px;
+  clear: both;
 }
 
 .template-countries-sections-v3 svg-container,

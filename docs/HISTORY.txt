@@ -3,6 +3,8 @@ Changelog
 
 5.6.dev0 - (unreleased)
 -----------------------
+- Small adjusments in country pages content
+  [krisztina, #90242]
 - Fix country profile header map
   [krisztina, #90242]
 
