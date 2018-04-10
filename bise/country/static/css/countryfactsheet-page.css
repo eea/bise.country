@@ -556,7 +556,8 @@
 }
 
 .custom-dropdown label::after {
-  content: '▼';
+  content: "\f078";
+  font-size: 1.3em;
 }
 
 /* .custom-dropdown select { */
@@ -603,7 +604,7 @@
   position: relative;
   vertical-align: middle;
   padding: .5rem;
-  border: 1px solid rgba(0,0,0,.2);
+  border: 3px solid rgba(0,0,0,.2);
   border-radius: 5px;
   text-align: center;
 }
