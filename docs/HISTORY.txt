@@ -3,6 +3,8 @@ Changelog
 
 5.7.dev0 - (unreleased)
 -----------------------
+- Small adjusments in country pages content
+  [krisztina, #90242]
 
 5.6 - (2018-04-06)
 ------------------
@@ -343,4 +345,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

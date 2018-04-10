@@ -211,6 +211,19 @@ $(document).ready(function() {
         var text = $td.text().trim();
 
         if (text.indexOf('Action') === 0) {
+          var $tdp = $(this).children('p');
+          $tdp.replaceWith(function () {
+              return $('<span/>', {
+                  class: 'cc-action-title',
+                  html: this.innerHTML
+              });
+          });
+          $(this).children('.cc-action-title').css({
+            'color': '#748284',
+            'margin': '35px 0 10px 0',
+            'display': 'inline-block',
+            'font-size': '1.3em'
+          });
           var getChar = text.charAt(7);
           var conChar = parseInt(getChar);
           if (!isNaN(conChar)) {
@@ -218,6 +231,21 @@ $(document).ready(function() {
             $td.attr('id', 'gtarc-' + _gtarc);
             sections[sections.length - 1][2].push([text, [_gtarc]]);
           }
+        }
+        if (text.indexOf('Target') === 0) {
+          var $tdp = $(this).children('p');
+          $tdp.replaceWith(function () {
+              return $('<span/>', {
+                  class: 'cc-target-title',
+                  html: this.innerHTML
+              });
+          });
+          $(this).children('.cc-target-title').css({
+            'color': '#748284',
+            'margin': '35px 0 10px 0',
+            'display': 'inline-block',
+            'font-size': '1.3em'
+          });
         }
       })
 
@@ -275,13 +303,15 @@ $(document).ready(function() {
       $tdp.css('display', 'none');
     }
 
-    $('.mtr-container b').filter(function() {
-      return $.trim($(this).text()) === '' && $(this).children().length == 0
-    }).remove();
+    $('.mtr-container b').each(function() {
+    if( $(this).text().trim() === '' )
+        $(this).remove();
+    });
 
-    $('p').filter(function() {
-      return $.trim($(this).text()) === '' && $(this).children().length == 0
-    }).remove();
+    $('.mtr-container p').each(function() {
+    if( $(this).text().trim() === '' )
+        $(this).remove();
+    });
 
     var aLink = $('.mtr-container .anchor-link');
 
