@@ -988,15 +988,26 @@
   display: inline-block;
 }
 
-.template-countries-sections-v3 #site-body,
-.portaltype-countryfactsheet #site-body {
+.template-countries-sections-v3 #site-body {
   padding-top: 475px;
 }
 
-.template-countries-sections-v3 #portal-breadcrumbs,
-.portaltype-countryfactsheet #portal-breadcrumbs {
+.portaltype-countryfactsheet #site-body {
+  padding-top: 353px;
+}
+
+.template-countries-sections-v3 #portal-breadcrumbs {
   top: -458px;
 }
+
+.portaltype-countryfactsheet #portal-breadcrumbs {
+  top: -338px;
+}
+
+.portaltype-countryfactsheet .map-title {
+  top: -290px;
+}
+
 
 .template-countries-sections-v3 #countryfactsheets-map,
 .portaltype-countryfactsheet .svg-header-wrapper {

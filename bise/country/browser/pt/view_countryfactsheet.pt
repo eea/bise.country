@@ -20,7 +20,7 @@
             class="svg-header-wrapper svg-map-container"
             data-ratio="0.4"
             tal:attributes="data-settings string:${context/absolute_url}/@@mapSingleCountrySettings">
-          <svg height="422"></svg>
+          <svg height="300"></svg>
         </svg-container>
       </div>
 
