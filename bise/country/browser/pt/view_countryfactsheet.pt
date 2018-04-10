@@ -62,10 +62,10 @@
             <span class="sr-only">Country</span>
           </label>
           <select name="country-dropdown-select">
-            <option selected="selected"
+            <!-- <option selected="selected"
                          tal:attributes="value context/aq_parent/absolute_url">
               ---
-            </option>
+            </option> -->
             <option tal:repeat="country countries"
                     tal:content="country/Title"
                     tal:attributes="value country/getURL; selected python: country.id == context.id">
