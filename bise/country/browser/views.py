@@ -141,6 +141,9 @@ class CountriesSection(object):
 
         return objs
 
+    def can_edit(self, obj):
+        return has_permission('Modify portal content', obj=obj)
+
 
 class CountryFactsheetView(object):
     """ Main index page for a countryfactsheet content type

@@ -113,10 +113,26 @@
                </span>
 
                <h1 class="section-title" tal:content="obj/Title">Section title</h1>
+
+
                <div class="content-wrapper"
                       tal:content="structure python:obj.text and obj.text.output or '.'">
                  Text with details
                </div>
+
+               <div class="edit-button"
+                       tal:condition="python: view.can_edit(obj)"
+                 >
+                 <a href=""
+                      target="_blank"
+                      class="btn btn-edit"
+                      tal:attributes="href string:${obj/absolute_url}/edit"
+                   >
+                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                   Edit this page
+                 </a>
+               </div>
+
              </div>
           </tal:tab>
 
