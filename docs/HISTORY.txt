@@ -3,6 +3,8 @@ Changelog
 
 5.8.dev0 - (unreleased)
 -----------------------
+- Fix selector in css
+  [krisztina, #90242]
 - Decrease map height in country page
   [krisztina, #90242]
 
