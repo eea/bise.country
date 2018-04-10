@@ -995,6 +995,11 @@
   top: 155px;
 }
 
+.userrole-anonymous .template-countries-sections-v3 #countryfactsheets-map,
+.userrole-anonymous .portaltype-countryfactsheet .svg-header-wrapper {
+  top: 124px;
+}
+
 .template-countries-sections-v3 .content-wrapper {
   padding-top: 10px;
   clear: both;
