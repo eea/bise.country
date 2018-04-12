@@ -549,9 +549,9 @@
 }
 
 .dd-title-wrapper .select-text {
-  text-shadow: 0px 0px 3px #000;
+  text-shadow: 0px 0px 4px #000;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .dd-country-title .selected,
@@ -569,9 +569,12 @@
 
 .dd-country-title i {
   position: relative;
-  top: 2px;
-  left: 7px;
-  font-size: 2.5em;
+  top: -5px;
+  left: 1px;
+  font-size: 1.5em;
+  padding: 2px 4px;
+  border-radius: 5px;
+  background-color: #000;
 }
 
 .dd-country-title .options {
