@@ -54,24 +54,24 @@
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
 
       <div class="map-title">
-        <h1 tal:content="context/Title"></h1>
-
-        <span class="custom-dropdown" tal:condition="python: len(countries) > 1">
-
-          <label for="country-dropdown-select">
-            <span class="sr-only">Country</span>
-          </label>
-          <select name="country-dropdown-select">
-            <!-- <option selected="selected"
-                         tal:attributes="value context/aq_parent/absolute_url">
-              ---
-            </option> -->
-            <option tal:repeat="country countries"
-                    tal:content="country/Title"
-                    tal:attributes="value country/getURL; selected python: country.id == context.id">
-            12345678910112
-            </option>
-          </select>
+        <!-- <h1 tal:content="context/Title"></h1> -->
+        <span tal:condition="python: len(countries) > 1">
+          <div class="dd-country-title">
+            <div class="dd-title-wrapper">
+              <div class="select-text">Select country:</div>
+              <div class="selected resizeselect" tal:content="context/Title"></div>
+              <i class="fa fa-angle-down"></i>
+            </div>
+            <input class="selected-inp" type="hidden">
+            <ul class="options resizeselect-list">
+              <span class="test"></span>
+              <li tal:repeat="country countries"
+                  tal:content="country/Title"
+                  tal:attributes="data-value country/getURL;
+                                  class python: country.id == context.id and 'selected-cc' or None";>
+              </li>
+            </ul>
+          </div>
         </span>
       </div>
 

@@ -35,6 +35,71 @@ $(document).ready(function() {
   // Dropdown + tab changing functionality
   // This is the country selector in a country page view
 
+  $.fn.resizeselect = function(settings) {
+    return this.each(function() {
+      $(this).change(function() {
+        var $this = $(this);
+
+        var text = $this.parents().find('.dd-country-title .selected').text();
+        var $test = $("<span>").html(text).css({
+          "font-size": $this.css("font-size"),
+          "visibility": "hidden"
+        });
+
+        $test.appendTo($this.parent());
+        var width = $test.width();
+        $test.remove();
+
+        $this.width(width);
+      }).change();
+    });
+  };
+  $(".resizeselect").resizeselect();
+
+  $.fn.resizeselectList = function(settings) {
+    return this.each(function() {
+      $(this).change(function() {
+        var $this = $(this);
+        var $selected = $this.parents().find('.dd-country-title .selected');
+        var text = $selected.text();
+
+        var $test = $("<span/>").html(text).css({
+          "font-size": $selected.css("font-size"),
+          "font-weight": $selected.css("font-weight"),
+          "visibility": "hidden"
+        });
+
+        $test.appendTo($this.parent());
+        var width = $test.width();
+        $test.remove();
+
+        $this.width(width + 20);
+      }).change();
+    });
+  };
+  $(".resizeselect-list").resizeselectList();
+
+
+  $('.dd-country-title .options li').on('click', function() {
+    // $('.dd-country-title .selected').html($(this).text());
+    $('.dd-country-title .selected-inp').val($(this).data('value')).trigger('change');
+    $('.dd-country-title .options').removeClass('show');
+  });
+
+  $('.dd-title-wrapper').on('click', function(e) {
+    $('.dd-country-title .options').fadeToggle().toggleClass('show');
+    $('.dd-country-title i').toggleClass('fa fa-angle-up fa fa-angle-down');
+    e.stopPropagation()
+  });
+
+  $('.dd-country-title .selected-inp').on('change', function(ev) {
+    var url = ev.target.value;
+    if (currentTab > -1) {
+      url += "##t-" + currentTab;
+    }
+    document.location = url;
+  });
+
   var getTabFromHash = function(hash) {
     hash = hash.replace('##', '');
     if (hash !== '') {
@@ -393,7 +458,10 @@ $(document).ready(function() {
         }
       })
     })
-
   })
 
+});
+
+$(document).click(function(){
+  $('.dd-country-title .options').hide().removeClass('show');
 });
