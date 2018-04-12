@@ -605,29 +605,6 @@
   background: #fbfbfb;
 }
 
-/* .dd-country-title .options:after {
-  content: "";
-  width: 0;
-  height: 0;
-  position: absolute;
-  top: 54px;
-  right: 50%;
-  border-width: 0 10px 10px 10px;
-  border-style: solid;
-  border-color: #eee transparent;
-} */
-
-/* content: "";
-width: 0;
-height: 0;
-position: absolute;
-right: 16px;
-top: 50%;
-margin-top: -6px;
-border-width: 6px 0 6px 6px;
-border-style: solid;
-border-color: transparent #fff;   */
-
 #targetFilter {
   display: none;
 }
