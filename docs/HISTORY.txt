@@ -3,6 +3,8 @@ Changelog
 
 5.9.dev0 - (unreleased)
 -----------------------
+- Fix dropdown arrow toggle on outside click
+  [krisztina, #90242]
 - Improve country page dropdown
   [krisztina, #90242]
 
