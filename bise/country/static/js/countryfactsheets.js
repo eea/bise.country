@@ -464,5 +464,5 @@ $(document).ready(function() {
 
 $(document).click(function(){
   $('.dd-country-title .options').hide().removeClass('show');
-  $('.dd-country-title i').toggleClass('fa fa-angle-up fa fa-angle-down');
+  $('.dd-country-title i').removeClass('fa fa-angle-up').addClass('fa fa-angle-down');
 });
