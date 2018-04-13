@@ -64,7 +64,6 @@
             </div>
             <input class="selected-inp" type="hidden">
             <ul class="options resizeselect-list">
-              <span class="test"></span>
               <li tal:repeat="country countries"
                   tal:content="country/Title"
                   tal:attributes="data-value country/getURL;
