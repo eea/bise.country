@@ -320,13 +320,7 @@ $(document).ready(function() {
       var text = $td.text().trim();
 
       if (text.indexOf('Action') === 0) {
-        var $tdp = $(this).children('p');
-        $tdp.replaceWith(function () {
-            return $('<span/>', {
-                class: 'cc-action-title',
-                html: this.innerHTML
-            });
-        });
+        var $tdp = $(this).children('p').addClass('cc-action-title');
         $(this).children('.cc-action-title').css({
           'color': '#748284',
           'margin': '35px 0 10px 0',
@@ -342,13 +336,7 @@ $(document).ready(function() {
         }
       }
       if (text.indexOf('Target') === 0) {
-        var $tdp = $(this).children('p');
-        $tdp.replaceWith(function () {
-            return $('<span/>', {
-                class: 'cc-target-title',
-                html: this.innerHTML
-            });
-        });
+        var $tdp = $(this).children('p').addClass('cc-target-title');
         $(this).children('.cc-target-title').css({
           'color': '#748284',
           'margin': '35px 0 10px 0',

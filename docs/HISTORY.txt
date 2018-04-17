@@ -3,6 +3,8 @@ Changelog
 
 5.9.dev0 - (unreleased)
 -----------------------
+- Fix actions tooltip on contributions page
+  [krisztina, #90242]
 - Sidebar menu for GI tab content
   [krisztina, #90242]
 - Fix dropdown arrow toggle on outside click
