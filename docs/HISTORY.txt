@@ -3,6 +3,7 @@ Changelog
 
 5.9.dev0 - (unreleased)
 -----------------------
+- Sidebar menu for GI tab content
 - Fix dropdown arrow toggle on outside click
   [krisztina, #90242]
 - Improve country page dropdown
