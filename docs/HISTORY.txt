@@ -3,6 +3,8 @@ Changelog
 
 6.0.dev0 - (unreleased)
 -----------------------
+- Bug fix: Fix daviz visualisations
+  [krisztina, #90242]
 
 5.9 - (2018-04-18)
 ------------------
@@ -366,4 +368,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
