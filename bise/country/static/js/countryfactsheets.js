@@ -2,6 +2,11 @@
 // This is also loaded in a country page
 $(document).ready(function() {
 
+  // var $fc = $('<div class="facts-container"/>');
+  // var overviewTab = $('.country-overview-section');
+  //
+  // overviewTab.append($fc);
+
   // Add claro class for css; used by dojo
   $("body").addClass("claro");
 
@@ -204,28 +209,29 @@ $(document).ready(function() {
   // Restructured tabs content with sidebar
   // Green Infrastracture tab
 
-  var htitle = $('.content-green-infrastructure #parent-fieldname-text h2');
+  var $cc = $(
+  '<div class="content-container">' +
+    '<div class="row">' +
+      '<div class="i-sticky sidebar-wrapper col-md-3 sidebar"/>' +
+      '<div class="tab-content-wrapper col-md-9 "/>' +
+    '</div>' +
+  '</div>'
+  );
 
-  htitle.each(function() {
-    $(this).nextUntil(htitle).andSelf().wrapAll("<div class='gi-content-box'/>");
+  var giContent = $('.content-green-infrastructure #parent-fieldname-text');
+  var giTitle = giContent.children('h2');
+
+  giTitle.each(function() {
+    $(this).nextUntil(giTitle).andSelf().wrapAll("<div class='gi-content-box'/>");
   });
 
-  var $cc = $('<div class="content-container"/>');
-  var $row = $('<div id="g-row" class="row"/>');
-  var $cw = $('<div class="tab-content-wrapper col-md-9 "/>');
-  var $sb = $('<div class="i-sticky sidebar-wrapper col-md-3 sidebar"/>');
+  var giContentSelector = giContent.children('p:first-child').nextAll();
 
-  var contentSelector = $('.content-green-infrastructure #parent-fieldname-text').children('p:first-child').nextAll();
-
-  contentSelector.wrapAll($cc);
-  contentSelector.wrapAll($row);
-
-  $('#g-row').prepend($sb);
-  contentSelector.wrapAll($cw);
+  giContent.append($cc);
+  $('.tab-content-wrapper').append(giContentSelector);
 
   var $gmenu = $('<ul class="nav-list nav-menu-list-style"/>');
-
-  $sb.append($gmenu);
+  $('.sidebar-wrapper').append($gmenu);
 
   var _htc = 0;
   var _hsc = 0;
