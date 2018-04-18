@@ -64,10 +64,10 @@
             </div>
             <input class="selected-inp" type="hidden">
             <ul class="options resizeselect-list">
-              <li tal:repeat="country countries"
-                  tal:content="country/Title"
-                  tal:attributes="data-value country/getURL;
-                                  class python: country.id == context.id and 'selected-cc' or None";>
+              <li tal:repeat="country view/get_countries"
+                  tal:content="country/name"
+                  tal:attributes="data-value country/href";>
+                                  <!-- class python: country.id == context.id and 'selected-cc' or None -->
               </li>
             </ul>
           </div>

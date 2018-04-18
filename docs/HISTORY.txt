@@ -3,6 +3,8 @@ Changelog
 
 6.0.dev0 - (unreleased)
 -----------------------
+- Only show prepared countries in country profile dropdown
+  [krisztina, #90242]
 - Bug fix: Fix daviz visualisations
   [krisztina, #90242]
 

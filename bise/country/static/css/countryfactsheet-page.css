@@ -580,7 +580,8 @@
 .dd-country-title .options {
   /* position: absolute; */
   left: 0;
-  height: 300px;
+  height: auto;
+  max-height: 300px;
   width: 200px;
   display: none;
   border: 1px solid #eee;

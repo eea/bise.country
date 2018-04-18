@@ -292,11 +292,26 @@ class CountryFactsheetView(object):
 
         for brain in children:
             if brain.id != ignore:
-                obj = brain.getObject()
 
-                if not ICountryPage.providedBy(obj):
-                    continue
                 results.append({'name': brain.Title,
                                 'href': brain.getURL()})
+
+        return results
+
+    def get_countries(self):
+        countries = self.context.aq_parent.getFolderContents(
+            contentFilter={'portal_type': 'countryfactsheet',
+             'sort_on': 'sortable_title',
+             'sort_order': 'ascending'}
+        )
+        results = []
+
+        for brain in countries:
+            obj = brain.getObject()
+
+            if not ICountryPage.providedBy(obj):
+                continue
+            results.append({'name': brain.Title,
+                            'href': brain.getURL()})
 
         return results
