@@ -1,7 +1,7 @@
 from plone.app.textfield import RichText
 from plone.dexterity.content import Container
 from zope.interface import Interface, implements
-from zope.schema import List, TextLine
+from zope.schema import List, Text, TextLine
 
 
 class ICountryFactsheet(Interface):
@@ -18,6 +18,22 @@ class ICountryFactsheet(Interface):
     text = RichText(title=(u"Description"),
                     description=u"Provide a description of the country.",
                     required=True)
+
+    fact_countryName = TextLine(
+        title=(u'Country name'),
+        description=(u'Name of the country to use in the maps '),
+        required=True,
+        )
+    fact_countryCode = TextLine(
+        title=(u'Country code'),
+        description=(u'Two letter country code to use in the maps '),
+        required=True,
+        )
+    fact_countryISOCode = TextLine(
+        title=(u'Country ISO code'),
+        description=(u'Three letter country ISO code to use in the maps'),
+        required=True,
+        )
 
 
 class CountryFactsheet(Container):

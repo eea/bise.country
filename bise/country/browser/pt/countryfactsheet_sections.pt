@@ -23,6 +23,11 @@
         </li>
     </ul>
 
+    <span tal:replace="view/facts"></span>
+
+
+
+
   <tal:section repeat="section view/facts">
 
     <tal:fact define="section_obj section/object;

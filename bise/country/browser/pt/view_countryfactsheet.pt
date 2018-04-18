@@ -49,6 +49,7 @@
       <script type="text/javascript" src="++resource++bise.country/js/i-sticky.js" ></script>
 
       <!-- This is for the top navigation tabs in a country factsheet page -->
+      <script src="++resource++bise.country/js/section-navigation-tabs.js" ></script>
       <script src="++resource++bise.country/js/countryfactsheets.js" ></script>
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-page.css" />
       <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css" />
@@ -121,6 +122,18 @@
 
       </div>
     </div>
+
+    <tal:js tal:define="countryName context/fact_countryName| string:;
+                        countryCode context/fact_countryCode| string:;
+                        countryISOCode context/fact_countryISOCode| string:;
+                        js python: '<script type=\'text/javascript\'>var countryName = \'' + countryName + '\' ;;var countryCode = \'' + countryCode + '\' ;;var countryISOCode = \'' + countryISOCode + '\';;</script>'"
+           tal:content="structure js">
+
+        var countryName = "Austria";
+        var countryCode = "AT";
+        var countryISOCode = "AUT";
+
+    </tal:js>
 
     <script type="text/javascript">
         $(document).ready(function() {

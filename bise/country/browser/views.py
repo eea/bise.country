@@ -209,6 +209,7 @@ class CountryFactsheetView(object):
 
     def facts(self):
         # TODO: should make this a function in bise.biodiversityfactsheet
+
         context = aq_inner(self.context)
         sections = context.getFolderContents({'portal_type': 'Section'})
         fact_data = []
