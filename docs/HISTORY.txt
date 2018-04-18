@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.9.dev0 - (unreleased)
------------------------
+5.9 - (2018-04-18)
+------------------
 - Fix actions tooltip on contributions page
   [krisztina, #90242]
 - Sidebar menu for GI tab content
@@ -363,3 +363,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
