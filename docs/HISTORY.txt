@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.0.dev0 - (unreleased)
+-----------------------
+
 5.9 - (2018-04-18)
 ------------------
 - Fix actions tooltip on contributions page
