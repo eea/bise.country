@@ -206,8 +206,10 @@ $(document).ready(function() {
      }
   );
 
+  setCountryOverviewSection();
   setGISection();
   setBiodivStrategySection();
+
   setNavigationSections();
 
 });

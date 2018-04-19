@@ -756,7 +756,9 @@
 }
 
 #mtr-wrapper .col-md-3,
-.content-green-infrastructure .col-md-3  {
+.content-green-infrastructure .col-md-3
+.content-country-overview .col-md-3
+{
   height: 100vh;
   overflow-y: auto;
   border-right: 1px solid #efe9db;
@@ -764,20 +766,24 @@
   padding-left: 0;
 }
 
-.content-green-infrastructure .nav-list li a {
+.content-green-infrastructure .nav-list li a,
+.content-country-overview .nav-list li a {
   font-weight: bold;
 }
 
-.content-green-infrastructure .nav-list li ul li a {
+.content-green-infrastructure .nav-list li ul li a,
+.content-country-overview .nav-list li ul li a {
   padding-left: 10px;
 }
 
-.content-green-infrastructure .nav-list span {
+.content-green-infrastructure .nav-list span,
+.content-country-overview .nav-list span {
   margin-left: 7px;
   color: #748284;
 }
 
-.content-green-infrastructure .nav-list p {
+.content-green-infrastructure .nav-list p,
+.content-country-overview .nav-list p {
   display: inline-block;
   position: relative;
   width: 79%;
@@ -785,41 +791,46 @@
   margin: 0;
 }
 
-.content-green-infrastructure h2 {
+.content-green-infrastructure h2,
+.content-country-overview h2 {
   color: #748284 !important;
 }
 
-.content-green-infrastructure .i-sticky,
-.mtr-container .i-sticky {
+.i-sticky {
   position: sticky;
   position: -webkit-sticky;
   top: -1px;
 }
 
 .content-green-infrastructure .sidebar-wrapper ul,
+.content-country-overview .sidebar-wrapper ul,
 .mtr-container .sidebar ul {
   margin: 0;
   padding-left: 0;
 }
 
-.content-green-infrastructure .sidebar-wrapper li a p:first-child {
+.content-green-infrastructure .sidebar-wrapper li a p:first-child,
+.content-country-overview .sidebar-wrapper li a p:first-child {
   margin: 5px;
 }
 
 .content-green-infrastructure .sidebar-wrapper li a p:first-child,
+.content-country-overview .sidebar-wrapper li a p:first-child,
 .mtr-container .sidebar li a p:first-child {
   color: #1f8cc9;
   cursor: pointer;
 }
 
 .content-green-infrastructure .sidebar-wrapper li ul li a p:first-child,
+.content-country-overview .sidebar-wrapper li ul li a p:first-child,
 .mtr-container .sidebar li ul li a p:first-child {
   padding-left: 25px;
   color: #1f8cc9;
   font-weight: bold;
 }
 
-.content-green-infrastructure .sidebar-wrapper ul li a {
+.content-green-infrastructure .sidebar-wrapper ul li a,
+.content-country-overview .sidebar-wrapper ul li a {
   display: block;
   padding: 13px 0;
 }
@@ -831,6 +842,7 @@
 .mtr-container .sidebar ul li a:focus {outline:0;}
 
 .content-green-infrastructure .sidebar-wrapper p:first-child,
+.content-country-overview .sidebar-wrapper p:first-child,
 .mtr-container .nav-header p:first-child {
   font-weight: bold;
 }
@@ -841,6 +853,7 @@
 }
 
 .content-green-infrastructure .sidebar-wrapper .nav-list li a:hover,
+.content-country-overview .sidebar-wrapper .nav-list li a:hover,
 .mtr-container .nav-header:hover,
 .mtr-container .nav-list li a:hover {
   background-color: #f7f4ed;
@@ -854,13 +867,15 @@
 } */
 
 .content-green-infrastructure .selected,
-.mtr-container .selected {
+.mtr-container .selected,
+.content-country-overview .selected {
   background-color: #f7f4ed;
   border-left: 3px solid #36b76d !important;
 }
 
 .content-green-infrastructure .sidebar-wrapper li a,
-.mtr-container .sidebar li a {
+.mtr-container .sidebar li a,
+.content-country-overview .sidebar li a {
   border-left: 3px solid transparent;
 }
 

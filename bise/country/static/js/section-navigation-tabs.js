@@ -1,3 +1,6 @@
+function setCountryOverviewSection() {
+}
+
 function setGISection() {
   // Restructured tabs content with sidebar
   // Green Infrastracture tab
@@ -251,9 +254,12 @@ function setNavigationSections() {
 
   // highlight current sidebar item on scroll
   $(window).scroll(function() {
-    position = $(this).scrollTop(); // get the current vertical position of the scroll bar
 
+    var position = $(this).scrollTop(); // get the current vertical position of the scroll bar
+
+    // sidebar implementation for the EU Biodiversity Strategy tab
     $('.mtr-container .sidebar a').each(function() {
+      // when scrolled into view, set the nav link as selected
       var anchID = $(this).attr('href').split('#')[1];
       var anchID = '#' + anchID;
       var target = $(anchID).offset().top + (-35);
@@ -263,9 +269,8 @@ function setNavigationSections() {
         $(this).addClass('selected');
       }
     })
-
-    // toggle  current sidebar item on scroll
     $('.mtr-container .nav-header').each(function() {
+      // toggle current sidebar item on scroll
       var anchID = $(this).attr('href').split('#')[1];
       var anchID = '#' + anchID;
       var target = $(anchID).offset().top + (-35);
@@ -276,9 +281,12 @@ function setNavigationSections() {
       }
     })
 
+    // sidebar implementation for the GreenInsfrastructure tab
     $('.sidebar-wrapper a').each(function() {
-      var anchID = $(this).attr('href').split('#')[1];
-      var anchID = '#' + anchID;
+      // when scrolled into view, set the nav link as selected
+      var anchID = '#' + $(this).attr('href').split('#')[1];
+      console.log("anchid", anchID);
+      console.log("anchid el", $(anchID));
       var target = $(anchID).offset().top + (-5);
 
       if (position >= target) {
@@ -286,9 +294,8 @@ function setNavigationSections() {
         $(this).addClass('selected');
       }
     })
-
-    // toggle current sidebar item on scroll
     $('.sidebar-wrapper .nav-header').each(function() {
+      // toggle current sidebar item on scroll
       var anchID = $(this).attr('href').split('#')[1];
       var anchID = '#' + anchID;
       var target = $(anchID).offset().top + (-35);

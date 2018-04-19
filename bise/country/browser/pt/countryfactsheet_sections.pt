@@ -26,6 +26,59 @@
     <span tal:replace="view/facts"></span>
 
 
+<div class="content-container">
+  <div class="row">
+    <div class="i-sticky sidebar-wrapper col-md-3 sidebar">
+      <ul class="nav-list nav-menu-list-style">
+        <li>
+          <a class="tree-toggle nav-header" href="/Plone/sandbox/country-factsheets/austria#httc-3">
+
+            <span>3. </span>
+            <p>MAINSTREAMING GREEN INFRASTRUCTURE</p>
+
+          </a>
+          <ul class="nav-list trees bullets" style="display: none;">
+            <li>
+              <a href="/Plone/sandbox/country-factsheets/austria#hssc-1" class="">
+                <p>3.1&nbsp;&nbsp;Nature</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="tab-content-wrapper col-md-9 ">
+      <div class="country-overview-content-box" id="httc-3">
+
+        <h2>3.&nbsp; MAINSTREAMING GREEN INFRASTRUCTURE</h2>
+
+        <h3 id="hssc-1">
+          <b>3.1&nbsp;&nbsp;</b><b>Nature</b>
+        </h3>
+
+        <p>The EU Natura 2000 network is at the core of the EU's Green
+        Infrastructure. Austria has an exceptionally diversified landscape,
+        climate and hence biodiversity. In Austria, the Alpine, the Continental
+        federal province level (European Commission, 2017).</p>
+        <p>&nbsp;</p>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   <tal:section repeat="section view/facts">
