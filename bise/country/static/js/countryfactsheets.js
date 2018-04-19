@@ -173,8 +173,16 @@ $(document).ready(function() {
     $('.nav-tabs a').click(function(e) {
        $(this).tab('show');
        window.location.hash = this.hash;
+
+      // highlight current sidebar item on scroll
+      $(window).off('scroll');
+      $(window).scroll(setupScrollHandler)
+
        e.preventDefault();
     });
+
+    $(window).scroll(setupScrollHandler)
+
   });
 
   $('.tabs-listing').click(function(e) {

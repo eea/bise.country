@@ -617,9 +617,9 @@
   display: none;
 }
 
-.legendContainer {
-  left: 770px !important;
-}
+/* .legendContainer { */
+/*   left: 770px !important; */
+/* } */
 
 /***** countries sections custom dropdown *****/
 .country-dropdown {

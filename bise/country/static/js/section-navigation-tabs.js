@@ -1,3 +1,34 @@
+function setupScrollHandler() {
+  // setup sidebar scroll implementation
+
+  var parent = $(".tab-pane.active");
+  var position = $(this).scrollTop(); // get the current vertical position of the scroll bar
+
+  $('.sidebar-wrapper a', parent).each(function() {
+    // when scrolled into view, set the nav link as selected
+    var anchID = '#' + $(this).attr('href').split('#')[1];
+    var target = $(anchID).offset().top + (-5);
+
+    if (position >= target) {
+      $('.sidebar-wrapper a', parent).removeClass('selected');
+      $(this).addClass('selected');
+    }
+  });
+
+  $('.sidebar-wrapper .nav-header', parent).each(function() {
+    // toggle current sidebar item on scroll
+    var anchID = $(this).attr('href').split('#')[1];
+    var anchID = '#' + anchID;
+    var target = $(anchID).offset().top + (-35);
+
+    if (position >= target) {
+      $('.sidebar-wrapper .tree-toggle', parent).parent().children('ul.trees').hide();
+      $(this).parent().children('ul.trees').show();
+    }
+  });
+
+}
+
 function setCountryOverviewSection() {
   $('.country-overview-content-box h3').removeClass('collapsible');
 }
@@ -15,7 +46,9 @@ function setGISection() {
   '</div>'
   );
 
-  var giContent = $('.content-green-infrastructure #parent-fieldname-text');
+  var parent = $('.content-green-infrastructure');
+
+  var giContent = $('#parent-fieldname-text', parent);
   var giTitle = giContent.children('h2');
 
   giTitle.each(function() {
@@ -25,10 +58,10 @@ function setGISection() {
   var giContentSelector = giContent.children('p:first-child').nextAll();
 
   giContent.append($cc);
-  $('.tab-content-wrapper').append(giContentSelector);
+  $('.tab-content-wrapper', parent).append(giContentSelector);
 
   var $gmenu = $('<ul class="nav-list nav-menu-list-style"/>');
-  $('.sidebar-wrapper').append($gmenu);
+  $('.sidebar-wrapper', parent).append($gmenu);
 
   var _htc = 0;
   var _hsc = 0;
@@ -142,7 +175,7 @@ function setBiodivStrategySection() {
 
   });
 
-  var $ssidebar = $('<div id="sidebar-wrapper" class="i-sticky col-md-3 sidebar"/>');
+  var $ssidebar = $('<div id="sidebar-wrapper" class="sidebar-wrapper i-sticky col-md-3 sidebar"/>');
   var $menu = $('<ul class="nav-list nav-menu-list-style"/>');
   var $mclose = $('<div class="mobile-only close-sidebar"><i class="fa fa-times" aria-hidden="true"></i></div>');
 
@@ -252,61 +285,6 @@ function setNavigationSections() {
 
     return false;
   });
-
-  // highlight current sidebar item on scroll
-  $(window).scroll(function() {
-
-    var position = $(this).scrollTop(); // get the current vertical position of the scroll bar
-
-    // sidebar implementation for the EU Biodiversity Strategy tab
-    $('.mtr-container .sidebar a').each(function() {
-      // when scrolled into view, set the nav link as selected
-      var anchID = $(this).attr('href').split('#')[1];
-      var anchID = '#' + anchID;
-      var target = $(anchID).offset().top + (-35);
-
-      if (position >= target) {
-        $('.sidebar a').removeClass('selected');
-        $(this).addClass('selected');
-      }
-    })
-    $('.mtr-container .nav-header').each(function() {
-      // toggle current sidebar item on scroll
-      var anchID = $(this).attr('href').split('#')[1];
-      var anchID = '#' + anchID;
-      var target = $(anchID).offset().top + (-35);
-
-      if (position >= target) {
-        $('.mtr-container .tree-toggle').parent().children('ul.trees').hide();
-        $(this).parent().children('ul.trees').show();
-      }
-    })
-
-    // sidebar implementation for the GreenInsfrastructure tab
-    $('.sidebar-wrapper a').each(function() {
-      // when scrolled into view, set the nav link as selected
-      var anchID = '#' + $(this).attr('href').split('#')[1];
-      // console.log("anchid", anchID);
-      // console.log("anchid el", $(anchID));
-      var target = $(anchID).offset().top + (-5);
-
-      if (position >= target) {
-        $('.sidebar-wrapper a').removeClass('selected');
-        $(this).addClass('selected');
-      }
-    })
-    $('.sidebar-wrapper .nav-header').each(function() {
-      // toggle current sidebar item on scroll
-      var anchID = $(this).attr('href').split('#')[1];
-      var anchID = '#' + anchID;
-      var target = $(anchID).offset().top + (-35);
-
-      if (position >= target) {
-        $('.sidebar-wrapper .tree-toggle').parent().children('ul.trees').hide();
-        $(this).parent().children('ul.trees').show();
-      }
-    })
-  })
 
   $('.i-sticky').iSticky(); // activate sticky plugin/polyfill for sidebar
 }

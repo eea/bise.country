@@ -44,7 +44,7 @@
 
         <div class="content-container">
           <div class="row">
-            <div class="i-sticky sidebar-wrapper-1 col-md-3 sidebar">
+            <div class="i-sticky sidebar-wrapper col-md-3 sidebar">
               <ul class="nav-list nav-menu-list-style">
 
                 <li tal:repeat="fact python:view.facts()[0]['facts']">
@@ -59,12 +59,12 @@
               </ul>
             </div>
 
-            <div class="tab-content-wrapper-1 col-md-9 ">
+            <div class="tab-content-wrapper col-md-9 ">
               <tal:rep tal:repeat="fact python:view.facts()[0]['facts']">
                 <div
                   class="country-overview-content-box"
                   id="httc-3"
-                  tal:attributes="id string:#cw-${repeat/fact/index}"
+                  tal:attributes="id string:cw-${repeat/fact/index}"
                   >
 
                   <!-- <h2 tal:content="fact/Title">3.&#38;nbsp; MAINSTREAMING GREEN INFRASTRUCTURE</h2> -->

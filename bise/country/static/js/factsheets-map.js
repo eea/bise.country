@@ -700,7 +700,7 @@ function setCountryFlags(countries, flags) {
   });
 }
 
-function init(settings) {
+function mapInit(settings) {
   $('body').addClass('factsheets');
 
   countryGroups = settings['filteredCountries'];
@@ -1034,7 +1034,7 @@ function customizeMap(
 
 $(document).ready(function() {
   var settingsURL = $(".svg-map-container").data('settings');
-  if (settingsURL) d3.json(settingsURL, init);
+  if (settingsURL) d3.json(settingsURL, mapInit);
 
   // set cookie for map helper
   function mapHelper() {

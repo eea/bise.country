@@ -37,9 +37,14 @@
       <script src="https://d3js.org/d3-queue.v3.min.js"></script>
 
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+      <script src="++resource++bise.biodiversityfactsheet/jquery.collapsible.min.js" ></script>
+
       <script src="/++resource++bise.biodiversityfactsheet/mapsConfig.js" ></script>
       <script src="https://serverapi.arcgisonline.com/jsapi/arcgis/3.5" ></script>
+
       <script src="/++resource++bise.biodiversityfactsheet/layout.js" ></script>
+
       <script src="/++resource++bise.biodiversityfactsheet/maps.js" ></script>
 
       <!-- This is used by the svg header map -->
