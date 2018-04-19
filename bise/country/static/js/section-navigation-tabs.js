@@ -1,4 +1,5 @@
 function setCountryOverviewSection() {
+  $('.country-overview-content-box h3').removeClass('collapsible');
 }
 
 function setGISection() {
@@ -285,8 +286,8 @@ function setNavigationSections() {
     $('.sidebar-wrapper a').each(function() {
       // when scrolled into view, set the nav link as selected
       var anchID = '#' + $(this).attr('href').split('#')[1];
-      console.log("anchid", anchID);
-      console.log("anchid el", $(anchID));
+      // console.log("anchid", anchID);
+      // console.log("anchid el", $(anchID));
       var target = $(anchID).offset().top + (-5);
 
       if (position >= target) {

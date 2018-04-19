@@ -8,57 +8,81 @@
 
   <h3 class="quick-links-title">Quick links:</h3>
 
-   <ul class="quick-links-list">
-        <li role="presentation" tal:repeat="lc view/tabs">
-          <span tal:condition="python: repeat['lc'].index != 0">
-            <a href=""
-               class="tabs-listing"
-               data-toggle="tab"
-               tal:attributes="href string:##t-${repeat/lc/index}"
-               tal:content="python: lc[0]">
-              Title
-            </a>
-            <span tal:content="python: lc[2]"></span>
+  <ul class="quick-links-list">
+    <li role="presentation" tal:repeat="lc view/tabs">
+
+      <span tal:condition="python: repeat['lc'].index != 0">
+        <a href=""
+           class="tabs-listing"
+           data-toggle="tab"
+           tal:attributes="href string:##t-${repeat/lc/index}"
+           tal:content="python: lc[0]">
+          Tab title
+        </a>
+        <span
+          tal:content="python: lc[2]">
+            Tab small description
         </span>
-        </li>
-    </ul>
+      </span>
 
-<div class="content-container1">
-  <div class="row">
-    <div class="i-sticky sidebar-wrapper-1 col-md-3 sidebar">
-      <ul class="nav-list nav-menu-list-style">
+    </li>
+  </ul>
 
-        <li tal:repeat="fact python:view.facts()[0]['facts']">
-          <a class="tree-toggle nav-header"
-             tal:attributes='href string:${fact/getURL}/#cw-${repeat/fact/index}'
-             href="/Plone/sandbox/country-factsheets/austria#httc-3"
-             >
-            <p tal:content="fact/Title">MAINSTREAMING GREEN INFRASTRUCTURE</p>
-          </a>
-        </li>
+  <tal:section repeat="section view/facts">
 
-      </ul>
-    </div>
+    <tal:fact define="section_obj section/object;
+      facts section/facts;">
 
-    <div class="tab-content-wrapper-1 col-md-9 ">
-      <tal:rep tal:repeat="fact python:view.facts()[0]['facts']">
-      <div
-         class="country-overview-content-box"
-         id="httc-3"
-         tal:attributes="id string:#cw-${repeat/fact/index}"
-        >
+      <h2>
+        <span tal:replace="section_obj/Title">
+          Section title
+        </span>
+      </h2>
 
-        <!-- <h2 tal:content="fact/Title">3.&#38;nbsp; MAINSTREAMING GREEN INFRASTRUCTURE</h2> -->
+      <div class="section-content"
+        tal:attributes="id section_obj/getId;">
 
-        <div tal:define="item fact/getObject"
-         tal:replace="structure item/@@factrenderview">
-          Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi    metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate
+        <div class="content-container">
+          <div class="row">
+            <div class="i-sticky sidebar-wrapper-1 col-md-3 sidebar">
+              <ul class="nav-list nav-menu-list-style">
+
+                <li tal:repeat="fact python:view.facts()[0]['facts']">
+                  <a class="tree-toggle nav-header"
+                    tal:attributes='href string:${fact/getURL}/#cw-${repeat/fact/index}'
+                    href="/Plone/sandbox/country-factsheets/austria#httc-3"
+                    >
+                    <p tal:content="fact/Title">MAINSTREAMING GREEN INFRASTRUCTURE</p>
+                  </a>
+                </li>
+
+              </ul>
+            </div>
+
+            <div class="tab-content-wrapper-1 col-md-9 ">
+              <tal:rep tal:repeat="fact python:view.facts()[0]['facts']">
+                <div
+                  class="country-overview-content-box"
+                  id="httc-3"
+                  tal:attributes="id string:#cw-${repeat/fact/index}"
+                  >
+
+                  <!-- <h2 tal:content="fact/Title">3.&#38;nbsp; MAINSTREAMING GREEN INFRASTRUCTURE</h2> -->
+
+                  <div tal:define="item fact/getObject"
+                    tal:replace="structure item/@@factrenderview">
+                    Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi    metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate
+                  </div>
+                </div>
+              </tal:rep>
+            </div>
+
+          </div>
         </div>
 
       </div>
-      </tal:rep>
-    </div>
-  </div>
-</div>
+
+    </tal:fact>
+  </tal:section>
 
 </div>

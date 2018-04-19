@@ -756,9 +756,8 @@
 }
 
 #mtr-wrapper .col-md-3,
-.content-green-infrastructure .col-md-3
-.content-country-overview .col-md-3
-{
+.content-green-infrastructure .col-md-3,
+.content-country-overview .col-md-3 {
   height: 100vh;
   overflow-y: auto;
   border-right: 1px solid #efe9db;
@@ -802,35 +801,43 @@
   top: -1px;
 }
 
+.content-country-overview .content-container {
+  margin-top: 20px;
+}
+
 .content-green-infrastructure .sidebar-wrapper ul,
-.content-country-overview .sidebar-wrapper ul,
+.content-country-overview .sidebar ul,
 .mtr-container .sidebar ul {
   margin: 0;
   padding-left: 0;
 }
 
 .content-green-infrastructure .sidebar-wrapper li a p:first-child,
-.content-country-overview .sidebar-wrapper li a p:first-child {
+.content-country-overview .sidebar li a p:first-child {
   margin: 5px;
 }
 
 .content-green-infrastructure .sidebar-wrapper li a p:first-child,
-.content-country-overview .sidebar-wrapper li a p:first-child,
+.content-country-overview .sidebar li a p:first-child,
 .mtr-container .sidebar li a p:first-child {
   color: #1f8cc9;
   cursor: pointer;
 }
 
 .content-green-infrastructure .sidebar-wrapper li ul li a p:first-child,
-.content-country-overview .sidebar-wrapper li ul li a p:first-child,
+.content-country-overview .sidebar li ul li a p:first-child,
 .mtr-container .sidebar li ul li a p:first-child {
   padding-left: 25px;
   color: #1f8cc9;
   font-weight: bold;
 }
 
+.content-country-overview .sidebar ul li {
+  list-style-type: none;
+}
+
 .content-green-infrastructure .sidebar-wrapper ul li a,
-.content-country-overview .sidebar-wrapper ul li a {
+.content-country-overview .sidebar ul li a {
   display: block;
   padding: 13px 0;
 }
@@ -842,7 +849,7 @@
 .mtr-container .sidebar ul li a:focus {outline:0;}
 
 .content-green-infrastructure .sidebar-wrapper p:first-child,
-.content-country-overview .sidebar-wrapper p:first-child,
+.content-country-overview .sidebar p:first-child,
 .mtr-container .nav-header p:first-child {
   font-weight: bold;
 }
@@ -853,7 +860,7 @@
 }
 
 .content-green-infrastructure .sidebar-wrapper .nav-list li a:hover,
-.content-country-overview .sidebar-wrapper .nav-list li a:hover,
+.content-country-overview .sidebar .nav-list li a:hover,
 .mtr-container .nav-header:hover,
 .mtr-container .nav-list li a:hover {
   background-color: #f7f4ed;
