@@ -78,7 +78,7 @@
       <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">
           <ul class="nav nav-tabs" role="tablist" id="country-tabs" tal:condition="tabs">
-            <li role="presentation" tal:repeat="lc python:tabs[0:1]">
+            <li role="presentation" tal:repeat="lc python:tabs">
               <a href=""
                  data-toggle="tab"
                  tal:attributes="href string:##t-${repeat/lc/index}"
@@ -94,7 +94,7 @@
 
             <div
               class="tab-pane"
-              tal:repeat="lc python:tabs[0:1]"
+              tal:repeat="lc python:tabs"
                tal:attributes="id string:t-${repeat/lc/index}"
                >
                <div class="edit-button"

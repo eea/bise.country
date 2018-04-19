@@ -23,97 +23,42 @@
         </li>
     </ul>
 
-    <span tal:replace="view/facts"></span>
-
-
-<div class="content-container">
+<div class="content-container1">
   <div class="row">
-    <div class="i-sticky sidebar-wrapper col-md-3 sidebar">
+    <div class="i-sticky sidebar-wrapper-1 col-md-3 sidebar">
       <ul class="nav-list nav-menu-list-style">
-        <li>
-          <a class="tree-toggle nav-header" href="/Plone/sandbox/country-factsheets/austria#httc-3">
 
-            <span>3. </span>
-            <p>MAINSTREAMING GREEN INFRASTRUCTURE</p>
-
+        <li tal:repeat="fact python:view.facts()[0]['facts']">
+          <a class="tree-toggle nav-header"
+             tal:attributes='href string:${fact/getURL}/#cw-${repeat/fact/index}'
+             href="/Plone/sandbox/country-factsheets/austria#httc-3"
+             >
+            <p tal:content="fact/Title">MAINSTREAMING GREEN INFRASTRUCTURE</p>
           </a>
-          <ul class="nav-list trees bullets" style="display: none;">
-            <li>
-              <a href="/Plone/sandbox/country-factsheets/austria#hssc-1" class="">
-                <p>3.1&nbsp;&nbsp;Nature</p>
-              </a>
-            </li>
-          </ul>
         </li>
+
       </ul>
     </div>
 
-    <div class="tab-content-wrapper col-md-9 ">
-      <div class="country-overview-content-box" id="httc-3">
+    <div class="tab-content-wrapper-1 col-md-9 ">
+      <tal:rep tal:repeat="fact python:view.facts()[0]['facts']">
+      <div
+         class="country-overview-content-box"
+         id="httc-3"
+         tal:attributes="id string:#cw-${repeat/fact/index}"
+        >
 
-        <h2>3.&nbsp; MAINSTREAMING GREEN INFRASTRUCTURE</h2>
+        <!-- <h2 tal:content="fact/Title">3.&#38;nbsp; MAINSTREAMING GREEN INFRASTRUCTURE</h2> -->
 
-        <h3 id="hssc-1">
-          <b>3.1&nbsp;&nbsp;</b><b>Nature</b>
-        </h3>
-
-        <p>The EU Natura 2000 network is at the core of the EU's Green
-        Infrastructure. Austria has an exceptionally diversified landscape,
-        climate and hence biodiversity. In Austria, the Alpine, the Continental
-        federal province level (European Commission, 2017).</p>
-        <p>&nbsp;</p>
+        <div tal:define="item fact/getObject"
+         tal:replace="structure item/@@factrenderview">
+          Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi    metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate
+        </div>
 
       </div>
+      </tal:rep>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <tal:section repeat="section view/facts">
-
-    <tal:fact define="section_obj section/object;
-      facts section/facts;
-      icon section_obj/getObject/fact_icon|string:">
-
-      <h2 class="collapsible"
-        tal:attributes="class string:collapsible ${icon}">
-        <span tal:replace="section_obj/Title">
-          Information
-        </span>
-        <span class="collapse-icon"></span>
-      </h2>
-
-      <div class="section-content"
-        tal:attributes="id section_obj/getId;">
-
-        <div class="description"
-          tal:content="section_obj/Description"
-          tal:condition="section_obj/Description">
-          Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate
-        </div>
-
-        <div class="fact"
-          tal:repeat="fact facts">
-          <div tal:define="item fact/getObject"
-            tal:replace="structure item/@@factrenderview">
-            Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi    metus, molestie vel, gravida in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros. Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum a velit eu ante scelerisque vulputate
-          </div>
-        </div>
-      </div>
-
-    </tal:fact>
-  </tal:section>
 
 </div>
