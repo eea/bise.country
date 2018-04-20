@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.0.dev0 - (unreleased)
------------------------
+6.0 - (2018-04-20)
+------------------
 - Improve country tabs
   [krisztina, #90242]
 - Only show prepared countries in country profile dropdown
@@ -372,3 +372,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
