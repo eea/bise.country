@@ -757,12 +757,18 @@
 
 #mtr-wrapper .col-md-3,
 .content-green-infrastructure .col-md-3,
-.content-country-overview .col-md-3 {
+.content-country-overview .col-md-3,
+.content-eu-nature-directives .col-md-3 {
   height: 100vh;
   overflow-y: auto;
   border-right: 1px solid #efe9db;
   padding-right: 0;
   padding-left: 0;
+}
+
+.content-eu-nature-directives .content-container {
+  border-top: none;
+  margin-top: 0;
 }
 
 .content-green-infrastructure .nav-list li a,
@@ -790,8 +796,20 @@
   margin: 0;
 }
 
-.content-green-infrastructure h2,
-.content-country-overview h2 {
+.fact-title {
+  color: #748284 !important;
+  font-size: 1.8rem !important;
+}
+
+.country-overview-content-box:not(:first-child) h3{
+  margin-top: 45px;
+}
+
+.fact-section-title {
+  color: #44434c !important;
+}
+
+.content-green-infrastructure h2 {
   color: #748284 !important;
 }
 
@@ -807,18 +825,21 @@
 
 .content-green-infrastructure .sidebar-wrapper ul,
 .content-country-overview .sidebar ul,
+.content-eu-nature-directives .sidebar ul,
 .mtr-container .sidebar ul {
   margin: 0;
   padding-left: 0;
 }
 
 .content-green-infrastructure .sidebar-wrapper li a p:first-child,
-.content-country-overview .sidebar li a p:first-child {
+.content-country-overview .sidebar li a p:first-child,
+.content-eu-nature-directives .sidebar li a p:first-child {
   margin: 5px;
 }
 
 .content-green-infrastructure .sidebar-wrapper li a p:first-child,
 .content-country-overview .sidebar li a p:first-child,
+.content-eu-nature-directives .sidebar li a p:first-child,
 .mtr-container .sidebar li a p:first-child {
   color: #1f8cc9;
   cursor: pointer;
@@ -826,18 +847,21 @@
 
 .content-green-infrastructure .sidebar-wrapper li ul li a p:first-child,
 .content-country-overview .sidebar li ul li a p:first-child,
+.content-eu-nature-directives .idebar li ul li a p:first-child,
 .mtr-container .sidebar li ul li a p:first-child {
   padding-left: 25px;
   color: #1f8cc9;
   font-weight: bold;
 }
 
-.content-country-overview .sidebar ul li {
+.content-country-overview .sidebar ul li,
+.content-eu-nature-directives .sidebar ul li {
   list-style-type: none;
 }
 
 .content-green-infrastructure .sidebar-wrapper ul li a,
-.content-country-overview .sidebar ul li a {
+.content-country-overview .sidebar ul li a,
+.content-eu-nature-directives .sidebar ul li a {
   display: block;
   padding: 13px 0;
 }
@@ -850,6 +874,7 @@
 
 .content-green-infrastructure .sidebar-wrapper p:first-child,
 .content-country-overview .sidebar p:first-child,
+.content-eu-nature-directives .sidebar p:first-child,
 .mtr-container .nav-header p:first-child {
   font-weight: bold;
 }
@@ -861,6 +886,7 @@
 
 .content-green-infrastructure .sidebar-wrapper .nav-list li a:hover,
 .content-country-overview .sidebar .nav-list li a:hover,
+.content-eu-nature-directives .sidebar .nav-list li a:hover,
 .mtr-container .nav-header:hover,
 .mtr-container .nav-list li a:hover {
   background-color: #f7f4ed;
@@ -875,14 +901,16 @@
 
 .content-green-infrastructure .selected,
 .mtr-container .selected,
-.content-country-overview .selected {
+.content-country-overview .selected,
+.content-eu-nature-directives .selected {
   background-color: #f7f4ed;
   border-left: 3px solid #36b76d !important;
 }
 
 .content-green-infrastructure .sidebar-wrapper li a,
 .mtr-container .sidebar li a,
-.content-country-overview .sidebar li a {
+.content-country-overview .sidebar li a,
+.content-eu-nature-directives .sidebar li a {
   border-left: 3px solid transparent;
 }
 

@@ -127,6 +127,13 @@ $(document).ready(function() {
   $("#country-tabs li").click(function() {
     var element_id = $(this).children('a')[0].hash;
     currentTab = getTabFromHash(element_id)
+    var parent = $(".tab-pane.active");
+
+    $.each($("iframe", parent), function() {
+      $(this).attr({
+          src: $(this).attr("src")
+      });
+    });
   });
 
 
@@ -214,7 +221,23 @@ $(document).ready(function() {
      }
   );
 
-  setCountryOverviewSection();
+  $('.tab-content iframe').width('100%');
+
+  // comment iframes for lazyload
+  // function comment(element) {
+  //   element.wrap(function() {
+  //     return '<!--' + this.outerHTML + '"-->';
+  //   });
+  // }
+  // comment($('.tab-content .fact-contents iframe'));
+  //
+  // $('.fact-contents').addClass('lazyload');
+
+  $('#nature-directives .fact h3, .country-overview-content-box h3').removeClass('collapsible').addClass('fact-title');
+
+  // activate lazyload for iframes
+  // $('.lazyload').lazyload();
+
   setGISection();
   setBiodivStrategySection();
 

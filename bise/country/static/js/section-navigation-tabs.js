@@ -29,10 +29,6 @@ function setupScrollHandler() {
 
 }
 
-function setCountryOverviewSection() {
-  $('.country-overview-content-box h3').removeClass('collapsible');
-}
-
 function setGISection() {
   // Restructured tabs content with sidebar
   // Green Infrastracture tab

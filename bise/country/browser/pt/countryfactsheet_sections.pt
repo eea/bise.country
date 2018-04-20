@@ -33,7 +33,7 @@
     <tal:fact define="section_obj section/object;
       facts section/facts;">
 
-      <h2>
+      <h2 class="fact-section-title">
         <span tal:replace="section_obj/Title">
           Section title
         </span>

@@ -50,6 +50,9 @@
       <!-- This is used by the svg header map -->
       <script src="/++resource++bise.country/js/factsheets-map.js"></script>
 
+      <!-- jquery viewport -->
+      <!-- <script type="text/javascript" src="++resource++bise.country/js/lazyload.js" ></script> -->
+
       <!-- this is IE Compatibility for the Contributions tab, left side nav menu -->
       <script type="text/javascript" src="++resource++bise.country/js/i-sticky.js" ></script>
 
@@ -145,17 +148,6 @@
 
           $('h3.collapsible').collapsiblePanel({
             // defaultOpen: 'content-header'
-          });
-
-          $('h3.collapsible').click(function() {
-            if ($('h3').hasClass('collapse-open')) {
-              $.each($("iframe"), function() {
-                  $(this).attr({
-                      src: $(this).attr("src")
-                  });
-              });
-              return false;
-            }
           });
 
           $("body").addClass("claro");
