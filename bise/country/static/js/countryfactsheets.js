@@ -10,18 +10,18 @@ $(document).ready(function() {
   // Add claro class for css; used by dojo
   $("body").addClass("claro");
 
-  var isCountriesPage = $('#country-tabs li a').attr('href') === '##profiles';
+  var isCountriesPage = $('#country-tabs li a').attr('href') === '##overview';
   var noHash = window.location.href.indexOf("##") == -1;
-  if (isCountriesPage && noHash) window.location.href += '##profiles';
+  if (isCountriesPage && noHash) window.location.href += '##overview';
 
   // select country dropdown functionality on countries section page
   $('.country-dropdown select').change(function() {
     var url = $(this).val();
     var link = url.substring(url.lastIndexOf("/") + 1);
     var tabsLoc = {
-      '##profiles': 't-0',
-      '##factsheets': 't-1',
-      '##contributions': 't-2',
+      '##overview': 't-0',
+      '##eu-nature-directives': 't-1',
+      '##eu-biodiversity-strategy': 't-2',
       '##maes': 't-3',
       '##green-infrastructure': 't-4'
     }

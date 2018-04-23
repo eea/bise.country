@@ -90,17 +90,17 @@ class CountriesSection(object):
     """
 
     _tabs = (
-        ('Profiles',
+        ('Overview',
          None,
          'all-countries general-eu-map',
          'Action Plan Report'
          ),
-        ('Factsheets',
+        ('EU Nature Directives',
          'countries/eu_country_profiles',
          'eu-countries general-eu-map',
          'Biodiversity factsheets for EU Members',
          ),
-        ('Contributions',
+        ('EU Biodiversity strategy',
          'mtr/countries',
          'eu-countries general-eu-map',
          'EU Member States contribution to the mid-term review.'),

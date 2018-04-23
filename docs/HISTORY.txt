@@ -3,6 +3,8 @@ Changelog
 
 6.1.dev0 - (unreleased)
 -----------------------
+- Rename entry page tabs
+  [krisztina, #90242]
 - Style adjustments on country pages
   [krisztina, #90242]
 
