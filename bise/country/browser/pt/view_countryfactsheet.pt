@@ -50,8 +50,8 @@
       <!-- This is used by the svg header map -->
       <script src="/++resource++bise.country/js/factsheets-map.js"></script>
 
-      <!-- jquery viewport -->
-      <!-- <script type="text/javascript" src="++resource++bise.country/js/lazyload.js" ></script> -->
+      <!-- jquery lazyload -->
+      <script type="text/javascript" src="++resource++bise.country/js/lazysides.min.js" ></script>
 
       <!-- this is IE Compatibility for the Contributions tab, left side nav menu -->
       <script type="text/javascript" src="++resource++bise.country/js/i-sticky.js" ></script>

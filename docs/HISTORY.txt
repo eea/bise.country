@@ -3,6 +3,8 @@ Changelog
 
 6.1.dev0 - (unreleased)
 -----------------------
+- Add lazyload for iframes
+  [krisztina, #90242]
 - Rename entry page tabs
   [krisztina, #90242]
 - Style adjustments on country pages

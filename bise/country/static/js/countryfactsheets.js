@@ -129,11 +129,11 @@ $(document).ready(function() {
     currentTab = getTabFromHash(element_id)
     var parent = $(".tab-pane.active");
 
-    $.each($("iframe", parent), function() {
-      $(this).attr({
-          src: $(this).attr("src")
-      });
-    });
+    // $.each($("iframe", parent), function() {
+    //   $(this).attr({
+    //       src: $(this).attr("src")
+    //   });
+    // });
   });
 
 
@@ -143,6 +143,14 @@ $(document).ready(function() {
       return $(this).data("src");
     });
   });
+
+  $('.fact-contents iframe').each(function() {
+    var frame_src = $(this).attr('src');
+    $(this).attr('data-src', frame_src);
+    $(this).removeAttr('src');
+  });
+
+  $('.fact-contents iframe').addClass('lazyload');
 
   // center tabs menu items on click on small screen sizes
   $("#country-tabs li a").click(function() {
