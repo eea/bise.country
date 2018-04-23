@@ -225,7 +225,7 @@ function drawCountries(
         if (!window.isHeaderMap) {
           if (nonEuMembers.indexOf(d.name) > -1) {
             return tooltip
-            .style("visibility", "visible")
+            .style("display", "block")
             .html(d.name);
           }
         }
@@ -234,7 +234,7 @@ function drawCountries(
       if (!window.isHeaderMap) {
         if (nonEuMembers.indexOf(d.name) > -1) {
           return tooltip
-          .style("visibility", "visible")
+          .style("display", "block")
           .style("top", (d3.event.pageY) + "px")
           .style("left", (d3.event.pageX + 10) + "px")
           .html(d.name);
@@ -245,7 +245,7 @@ function drawCountries(
       if (!window.isHeaderMap) {
         if (nonEuMembers.indexOf(d.name) > -1) {
           return tooltip
-          .style("visibility", "hidden");
+          .style("display", "none")
         }
       }
     })
@@ -361,14 +361,14 @@ function drawCountries(
       }
       if (window.isGlobalMap) {
         return tooltip
-        .style("visibility", "visible")
+        .style("display", "block")
         .html(d.name);
       }
     })
     .on('mousemove', function(d) {
       if (window.isGlobalMap) {
         return tooltip
-        .style("visibility", "visible")
+        .style("display", "block")
         .style("top", (d3.event.pageY) + "px")
         .style("left", (d3.event.pageX + 10) + "px")
         .html(d.name);
@@ -379,7 +379,7 @@ function drawCountries(
       d3.select(this).attr('opacity', 0);
       if (window.isGlobalMap) {
         return tooltip
-        .style("visibility", "hidden");
+        .style("display", "none")
       }
     })
     .on('click', function(d) {

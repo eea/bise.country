@@ -130,7 +130,7 @@ svg-container {
   background-color: #2a2a2a;
   padding: 3px;
   border-radius: 3px;
-  visibility: hidden;
+  display: none;
 }
 
 .eu-map-filter {
