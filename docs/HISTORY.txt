@@ -3,6 +3,8 @@ Changelog
 
 6.1.dev0 - (unreleased)
 -----------------------
+- Remove unused scripts from entry page
+  [krisztina, #90242]
 - Add lazyload for iframes
   [krisztina, #90242]
 - Rename entry page tabs
