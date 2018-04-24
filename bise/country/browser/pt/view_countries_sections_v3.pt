@@ -156,7 +156,7 @@
           svg.attr('data-show-map-filter', false);
 
           var settingsURL = "/++resource++bise.country/js/countries/maes-countries.json";
-          d3.json(settingsURL, init);
+          d3.json(settingsURL, mapInit);
           $('#countryfactsheets-map').css('visibility', 'visible');
         }
       }
