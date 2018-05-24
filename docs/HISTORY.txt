@@ -3,6 +3,9 @@ Changelog
 
 6.1.dev0 - (unreleased)
 -----------------------
+- Enable check-out/in for the new factsheets, added upgrade step in order to
+  enable versioning for factsheets and folders
+  [iulianpetchesi #95356]
 - Remove unused scripts from entry page
   [krisztina, #90242]
 - Add lazyload for iframes

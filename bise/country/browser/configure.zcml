@@ -15,6 +15,15 @@
     template="pt/checkout_viewlet.pt"
     />
 
+  <browser:viewlet
+    class=".viewlets.CountryCheckoutViewlet"
+    for="bise.country.interfaces.ICountryPage"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContent"
+    name="country_profile_checkout_actions_page"
+    permission="zope2.View"
+    template="pt/checkout_viewlet.pt"
+    />
+
   <adapter for="bise.country.interfaces.ICountryFolder *"
     name="plone.contentmenu.actions"
     factory=".overrides.ActionsSubMenuItem"

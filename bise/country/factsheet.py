@@ -2,6 +2,9 @@ from plone.app.textfield import RichText
 from plone.dexterity.content import Container
 from zope.interface import Interface, implements
 from zope.schema import List, Text, TextLine
+from zope.component import adapts
+from plone.locking.interfaces import ITTWLockable
+from .interfaces import ICountryPage
 
 
 class ICountryFactsheet(Interface):
@@ -41,3 +44,4 @@ class CountryFactsheet(Container):
     """
 
     implements(ICountryFactsheet)
+    adapts(ITTWLockable)

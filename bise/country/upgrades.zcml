@@ -20,4 +20,12 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeStep
+    source="1001"
+    destination="1002"
+    profile="bise.country:default"
+    title="Enable versioning for factsheets and folders, re-import workflows"
+    handler=".upgrades.upgrade_to_1002"
+    />
+
 </configure>
