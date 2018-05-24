@@ -1,3 +1,6 @@
+from plone.app.iterate.dexterity.utils import get_baseline
+from plone.app.iterate.event import WorkingCopyDeletedEvent
+from zope.event import notify
 import logging
 
 
@@ -36,3 +39,17 @@ def handle_checkout_event(event):
     # pm.add('Contributor')
     # pm.add('Owner')
     # modifyRolesForPermission(wc, perm, tuple(pm))
+
+
+def handle_iterate_wc_deletion(object, event):
+    """ When a WorkingCopy is deleted, the problem was that the locking was not
+    removed. We're manually triggering the IWorkingCopyDeletedEvent because
+    the plone.app.iterate handler is registered for IWorkingCopyRelation, a
+    derivate of Archetype's relations, which is not used in the dexterity
+    implementation.
+    """
+    try:
+        baseline = get_baseline(object)
+    except:
+        return
+    notify(WorkingCopyDeletedEvent(object, baseline, relation=None))
