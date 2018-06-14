@@ -325,6 +325,11 @@ function drawCountries(
     .attr('href', function(d) {
       return d.url;
     })
+    .attr('xlink:href', function(d) {
+       // 90214 older versions of IOS Safari know about image href only if used
+       // through xlink:href
+       return d.url;
+    })
     .attr('class', 'country-flag')
     .attr('clip-path', function(d) {
       return 'url(#cp-' + cprectid + '-' + d.properties.id + ')';
