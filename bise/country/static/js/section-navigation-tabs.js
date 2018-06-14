@@ -86,7 +86,7 @@ function setGISection() {
     var $sul = $('<ul class="nav-list trees bullets"/>');
     var $li = $('<li/>');
     var $lia = $('<a class="tree-toggle nav-header"/>').attr('href', document.location.pathname + '#htc-' + titleID);
-    var title = giSections[i][0][0].split('.').map(item => item.trim());
+    var title = giSections[i][0][0].split('.').map(function(item) { return item.trim()});
     var preNR = title[0];
     var title = title[1];
     var $sp = $('<span/>').text(preNR + '. ');
@@ -106,7 +106,7 @@ function setGISection() {
       var $sublia = $('<a/>').attr('href', document.location.pathname + '#hsc-' + subTitleID);
       var $subli = $('<li/>');
 
-      $sublia.append(subSectionTitle)
+      $sublia.append(subSectionTitle);
       $subli.append($sublia);
       $sul.append($subli);
     }
@@ -257,7 +257,7 @@ function setNavigationSections() {
     if ($('#sidebar-wrapper').hasClass('toggle-sidebar')) {
       $("#sidebar-wrapper").toggleClass('toggle-sidebar')
     }
-  })
+  });
 
   $('.sidebar li ul li a').click(function() {
     if (isMobileDevice) {
