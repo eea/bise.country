@@ -28,4 +28,12 @@
     handler=".upgrades.upgrade_to_1002"
     />
 
+  <genericsetup:upgradeStep
+    source="1002"
+    destination="1003"
+    profile="bise.country:default"
+    title="Reimport workflows"
+    handler=".upgrades.upgrade_to_1003"
+    />
+
 </configure>

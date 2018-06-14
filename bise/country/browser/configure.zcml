@@ -17,9 +17,18 @@
 
   <browser:viewlet
     class=".viewlets.CountryCheckoutViewlet"
-    for="bise.country.interfaces.ICountryPage"
+    for="bise.country.factsheet.ICountryFactsheet"
     manager="plone.app.layout.viewlets.interfaces.IAboveContent"
     name="country_profile_checkout_actions_page"
+    permission="zope2.View"
+    template="pt/checkout_viewlet.pt"
+    />
+
+  <browser:viewlet
+    class=".viewlets.CountryCheckoutViewlet"
+    for="cs.folderishpage.folderishpage.IFolderishPage"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContent"
+    name="country_profile_checkout_actions_folderishpage"
     permission="zope2.View"
     template="pt/checkout_viewlet.pt"
     />

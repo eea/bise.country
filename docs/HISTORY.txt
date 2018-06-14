@@ -3,6 +3,12 @@ Changelog
 
 6.1.dev0 - (unreleased)
 -----------------------
+- Modified workflow policies
+  [iulianpetchesi #95356]
+- Added parent folder locator override
+  [iulianpetchesi #95356]
+- Added upgrade step to reimport workflows
+  [iulianpetchesi #95356]
 - Add ForceUnlock browserview and WC deletion event
   [iulianpetchesi #95356]
 - Enable check-out/in for the new factsheets, added upgrade step in order to

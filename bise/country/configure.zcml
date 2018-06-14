@@ -66,4 +66,26 @@
 
   <adapter factory=".iterate.CheckoutFolderLocator" />
 
+  <adapter
+    name="plone.app.iterate.parent"
+    for="bise.country.factsheet.ICountryFactsheet"
+    provides="plone.app.iterate.interfaces.IWCContainerLocator"
+    factory=".iterate.FactsheetParentFolderLocator"
+    />
+
+  <adapter
+    name="plone.app.iterate.parent"
+    for="cs.folderishpage.folderishpage.IFolderishPage"
+    provides="plone.app.iterate.interfaces.IWCContainerLocator"
+    factory=".iterate.FactsheetParentFolderLocator"
+    />
+
+  <class class="bise.country.factsheet.CountryFactsheet">
+    <implements interface="plone.locking.interfaces.ITTWLockable" />
+  </class>
+
+  <class class="cs.folderishpage.folderishpage.FolderishPage">
+    <implements interface="plone.locking.interfaces.ITTWLockable" />
+  </class>
+
 </configure>

@@ -12,13 +12,18 @@
  <permission>iterate : Check out content</permission>
  <state state_id="country_draft" title="Under review by Country Representatives">
   <exit-transition transition_id="fwd_to_etc_review"/>
-  <exit-transition transition_id="immediately_publish"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
+  <permission-map name="CMFEditions: Save new version" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Add portal content" acquired="False">
@@ -56,6 +61,8 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="CMFEditions: Save new version" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
@@ -66,13 +73,13 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="iterate : Check out content" acquired="False">
+   <permission-role>Contributor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
  <state state_id="draft" title="First draft">
   <exit-transition transition_id="fwd_to_country_draft"/>
-  <exit-transition transition_id="immediately_publish"/>
   <permission-map name="Access contents information" acquired="False">
    <permission-role>Authenticated</permission-role>
    <permission-role>Contributor</permission-role>
@@ -85,6 +92,7 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Add portal content" acquired="False">
+   <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
@@ -95,12 +103,14 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Review portal content" acquired="False">
+   <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
@@ -128,11 +138,12 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="iterate : Check out content" acquired="False">
+   <permission-role>Contributor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
- <state state_id="etc_review" title="Under review by ETC">
+ <state state_id="etc_review" title="Under review by ETC/EEA">
   <exit-transition transition_id="bwd_to_country_draft"/>
   <exit-transition transition_id="immediately_publish"/>
   <exit-transition transition_id="publish"/>
@@ -167,6 +178,12 @@
    <permission-role>Reviewer</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
+  <permission-map name="CMFEditions: Save new version" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
   <permission-map name="Sharing page: Delegate roles" acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
@@ -189,13 +206,14 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="iterate : Check out content" acquired="False">
+   <permission-role>Contributor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
  <state state_id="published" title="Published">
   <description>Visible to everyone, editable by the owner.</description>
-  <exit-transition transition_id="bwd_to_ec_review"/>
+  <exit-transition transition_id="bwd_to_etc_review"/>
   <permission-map name="Access contents information" acquired="True">
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
@@ -203,6 +221,7 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Add portal content" acquired="False">
+   <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
@@ -215,6 +234,7 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Modify portal content" acquired="False">
+   <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
@@ -256,12 +276,6 @@
    <guard-permission>Review portal content</guard-permission>
   </guard>
  </transition>
- <transition transition_id="bwd_to_ec_review" title="" new_state="ec_eea_review" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/@@set_workflow_message?form.widgets.workflow_action=bwd_to_ec_review" category="workflow" icon="">Send back to EEA representatives</action>
-  <guard>
-   <guard-permission>Review portal content</guard-permission>
-  </guard>
- </transition>
  <transition transition_id="bwd_to_etc_review" title="Send back to ETC representatives" new_state="etc_review" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/@@set_workflow_message?form.widgets.workflow_action=bwd_to_etc_review" category="workflow" icon="">Send back to ETC representatives</action>
   <guard>
@@ -270,12 +284,6 @@
  </transition>
  <transition transition_id="fwd_to_country_draft" title="Send to country representatives" new_state="country_draft" trigger="USER" before_script="" after_script="">
   <action url="%(content_url)s/content_status_modify?workflow_action=fwd_to_country_draft" category="workflow" icon="">Send to country representatives</action>
-  <guard>
-   <guard-permission>Review portal content</guard-permission>
-  </guard>
- </transition>
- <transition transition_id="fwd_to_ec_eea_review" title="Send to EC/EEA representatives" new_state="ec_eea_review" trigger="USER" before_script="" after_script="">
-  <action url="%(content_url)s/content_status_modify?workflow_action=fwd_to_ec_eea_review" category="workflow" icon="">Send to EC/EEA representatives</action>
   <guard>
    <guard-permission>Review portal content</guard-permission>
   </guard>

@@ -4,7 +4,6 @@ from zope.interface import Interface, implements
 from zope.schema import List, Text, TextLine
 from zope.component import adapts
 from plone.locking.interfaces import ITTWLockable
-from .interfaces import ICountryPage
 
 
 class ICountryFactsheet(Interface):

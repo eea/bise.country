@@ -4,6 +4,7 @@ from Products.CMFCore.interfaces import IDynamicType
 from Products.CMFCore.permissions import AddPortalContent
 from plone.app.iterate import PloneMessageFactory as _
 from plone.app.iterate.browser.control import Control
+from plone.app.iterate.containers import ParentFolderLocator
 from plone.app.iterate.interfaces import ICheckinCheckoutPolicy
 from plone.app.iterate.interfaces import IIterateAware
 from plone.app.iterate.interfaces import IObjectArchiver
@@ -156,3 +157,20 @@ class CheckoutFolderLocator(object):
         if not self.available:
             return None
         return aq_inner(self.checkout_location())
+
+
+class FactsheetParentFolderLocator(ParentFolderLocator):
+    """ Override for factsheets
+    """
+
+    def __init__(self, context):
+        self.context = context
+
+    title = _(u'')
+
+    @property
+    def available(self):
+        return False
+
+    def __call__(self):
+        return None

@@ -24,6 +24,8 @@ class CountryCheckoutViewlet(ViewletBase):
         return 'Contributor' in local_roles
 
     def can_cancel(self):
+        # contributor must have ModifyPortalContent permission
+
         sm = getSecurityManager()
         return self.has_checkout() and \
             sm.checkPermission(ModifyPortalContent, self.context)
