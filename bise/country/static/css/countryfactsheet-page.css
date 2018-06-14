@@ -815,6 +815,11 @@
 .fact-section-title {
   color: #44434c !important;
 }
+/* reduce size of Information not yet available headings  */
+.fact-contents  h2 {
+  font-size: 125% !important;
+  text-align: left !important;
+}
 
 .content-green-infrastructure h2 {
   color: #748284 !important;

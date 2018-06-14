@@ -1,6 +1,6 @@
 // Code for the countries section
 // This is also loaded in a country page
-$(document).ready(function() {
+jQuery(document).ready(function($) {
 
   // var $fc = $('<div class="facts-container"/>');
   // var overviewTab = $('.country-overview-section');
@@ -9,10 +9,12 @@ $(document).ready(function() {
 
   // Add claro class for css; used by dojo
   $("body").addClass("claro");
-
-  var isCountriesPage = $('#country-tabs li a').attr('href') === '##overview';
+  var hash = window.location.hash;
+  var country_tabs = $("#country-tabs");
+  var country_tabs_links = country_tabs.find('li a');
+  var isCountriesPage = country_tabs_links.attr('href') === '##overview';
   var noHash = window.location.href.indexOf("##") == -1;
-  if (isCountriesPage && noHash) window.location.href += '##overview';
+  if (isCountriesPage && noHash) {window.location.href += '##overview';}
 
   // select country dropdown functionality on countries section page
   $('.country-dropdown select').change(function() {
@@ -27,7 +29,7 @@ $(document).ready(function() {
     }
     for (var key in tabsLoc) {
       if (tabsLoc.hasOwnProperty(key)) {
-        var wLoc = window.location.href
+        var wLoc = window.location.href;
         if (wLoc.indexOf(key) > -1) {
           url = link + '##' + tabsLoc[key];
           document.location = url;
@@ -114,19 +116,19 @@ $(document).ready(function() {
     return -1;
   };
 
-  var currentTab = getTabFromHash(window.location.hash.substr(2));
+  var currentTab = getTabFromHash(hash.substr(2));
 
   $('.custom-dropdown select').change(function() {
-    var url = $(this).val()
+    var url = $(this).val();
     if (currentTab > -1) {
       url += "##t-" + currentTab;
     }
     document.location = url;
   });
 
-  $("#country-tabs li").click(function() {
+  country_tabs.find("li").click(function() {
     var element_id = $(this).children('a')[0].hash;
-    currentTab = getTabFromHash(element_id)
+    currentTab = getTabFromHash(element_id);
     var parent = $(".tab-pane.active");
 
     // $.each($("iframe", parent), function() {
@@ -153,9 +155,9 @@ $(document).ready(function() {
   $('.fact-contents iframe').addClass('lazyload');
 
   // center tabs menu items on click on small screen sizes
-  $("#country-tabs li a").click(function() {
+  country_tabs_links.click(function() {
     var $parent = $(this).parent();
-    centerTabItem($parent, 'ul#country-tabs');
+    centerTabItem($parent, country_tabs);
   });
 
   function centerTabItem(target, outer) {
@@ -182,7 +184,6 @@ $(document).ready(function() {
     if (window.location.href.indexOf("##") == -1) {
       $('.tab-content #t-0, .nav-tabs li:first-child').addClass('active');
     }
-    var hash = window.location.hash;
     hash && $('.nav-tabs a[href="' + hash + '"]').tab('show');
 
     $('.nav-tabs a').click(function(e) {
@@ -191,7 +192,7 @@ $(document).ready(function() {
 
       // highlight current sidebar item on scroll
       $(window).off('scroll');
-      $(window).scroll(setupScrollHandler)
+      $(window).scroll(setupScrollHandler);
 
        e.preventDefault();
     });
@@ -201,7 +202,6 @@ $(document).ready(function() {
   });
 
   $('.tabs-listing').click(function(e) {
-    var hash = window.location.hash;
     $('a[href="' + $(this).attr('href') + '"]').tab('show');
     window.location.hash = this.hash;
     e.preventDefault();
@@ -225,7 +225,7 @@ $(document).ready(function() {
       filter: common_content_filter,
       formselector: 'form.kssattr-formname-simple-edit',
       closeselector: 'input#form-buttons-cancel[name="form.buttons.cancel"]',
-      noform: 'reload',
+      noform: 'reload'
      }
   );
 
@@ -251,9 +251,24 @@ $(document).ready(function() {
 
   setNavigationSections();
 
+  // click on country tab when hash is changed such as using the forward backward
+  // browser buttons
+  var links = country_tabs.find('a');
+  function locationHashChanged() {
+    var hash = window.location.hash;
+    var link;
+    if (country_tabs.length) {
+      link = links.filter(function(idx, el){
+        return el.href.indexOf(hash) !== -1;
+      });
+      link.click();
+    }
+  }
+  window.onhashchange = locationHashChanged;
+
 });
 
-$(document).click(function(){
+jQuery(document).click(function($){
   // fix the country profile dropdown: when anything is clicked, hide dropdown
   $('.dd-country-title .options').hide().removeClass('show');
   $('.dd-country-title i').removeClass('fa fa-angle-up').addClass('fa fa-angle-down');
