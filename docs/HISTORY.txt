@@ -3,6 +3,8 @@ Changelog
 
 6.2.dev0 - (unreleased)
 -----------------------
+- Remove layer and change iterate_control view registration
+  [iulianpetchesi #95356]
 
 6.1 - (2018-06-14)
 ------------------
@@ -399,4 +401,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

@@ -43,13 +43,20 @@
   <adapter factory=".constrain.CountryFolderAddableTypes" />
 
   <browser:page
-    for="*"
+    for="bise.country.factsheet.ICountryFactsheet"
     name="iterate_control"
     class=".iterate.IterateControl"
     permission="zope2.View"
-    layer="bise.theme.interfaces.IBiseThemeLayer"
     allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout"
     />
+
+  <browser:page
+    for="cs.folderishpage.folderishpage.IFolderishPage"
+    name="iterate_control"
+    class=".iterate.IterateControl"
+    permission="zope2.View"
+    allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout"
+  />
 
   <browser:page
     for="*"
