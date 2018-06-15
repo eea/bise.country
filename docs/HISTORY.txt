@@ -3,6 +3,9 @@ Changelog
 
 6.3.dev0 - (unreleased)
 -----------------------
+- Changed permissions for countries workflow and added upgrade step to
+  reimport workflows
+  [iulianpetchesi #95356]
 
 6.2 - (2018-06-14)
 ------------------
@@ -404,4 +407,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

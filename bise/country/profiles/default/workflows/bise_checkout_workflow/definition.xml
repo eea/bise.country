@@ -21,6 +21,7 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="CMFEditions: Save new version" acquired="False">
+   <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Reviewer</permission-role>
    <permission-role>Manager</permission-role>
@@ -58,12 +59,6 @@
    <permission-role>Owner</permission-role>
    <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
-  <permission-map name="CMFEditions: Save new version" acquired="False">
-   <permission-role>Editor</permission-role>
-   <permission-role>Reviewer</permission-role>
-   <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="iterate : Check in content" acquired="False">
@@ -179,6 +174,7 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="CMFEditions: Save new version" acquired="False">
+   <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Reviewer</permission-role>
    <permission-role>Manager</permission-role>

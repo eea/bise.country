@@ -57,10 +57,12 @@ class CountryCheckoutViewlet(ViewletBase):
 
         is_baseline = not control.is_checkout()
         is_published = get_state(self.context) == 'published'
+        is_country_draft = get_state(self.context) == 'country_draft'
         is_contributor = 'Contributor' in local_roles
         has_wc = wc is not None
 
-        return is_baseline and is_published and is_contributor and (not has_wc)
+        correct_state = is_published or is_country_draft
+        return is_baseline and correct_state and is_contributor and (not has_wc)
 
     def can_checkin(self):
         # user is Reviewer/Editor, state is submitted, context is wc
