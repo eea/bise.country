@@ -89,10 +89,12 @@
 
   <class class="bise.country.factsheet.CountryFactsheet">
     <implements interface="plone.locking.interfaces.ITTWLockable" />
+    <implements interface="bise.country.interfaces.ICountryPage" />
   </class>
 
   <class class="cs.folderishpage.folderishpage.FolderishPage">
     <implements interface="plone.locking.interfaces.ITTWLockable" />
+    <implements interface="bise.country.interfaces.ICountryPage" />
   </class>
 
 </configure>
