@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.8.dev0 - (unreleased)
+-----------------------
+
 6.7 - (2018-06-19)
 ------------------
 - Tweak workflows for checkout workflow
