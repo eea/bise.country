@@ -5,6 +5,7 @@ class ICountryFolder(Interface):
     """ Marker interface for a country folder
     """
 
+
 class ICountryPage(Interface):
     """ Marker interface for a country page.
 

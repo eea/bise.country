@@ -107,6 +107,14 @@
               tal:repeat="lc python:tabs"
                tal:attributes="id string:t-${repeat/lc/index}"
                >
+
+               <div
+              tal:define="obj python: lc[1]"
+              tal:replace="structure obj/@@countryrep_checkout_actions | nothing"
+              >
+              Checkout Actions Menu
+               </div>
+
                <div class="edit-button"
                        tal:condition="python: (lc[1] is not None) and view.can_edit(lc[1])"
                        tal:define="obj python: lc[1]"

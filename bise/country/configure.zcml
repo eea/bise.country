@@ -58,13 +58,14 @@
     allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout"
   />
 
-  <browser:page
-    for="plone.app.contenttypes.interfaces.IFolder"
-    name="iterate_control"
-    class=".iterate.IterateControl"
-    permission="zope2.View"
-    allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout"
-  />
+# TODO: replace this with registration for Document
+  <!-- <browser:page -->
+  <!--   for="plone.app.contenttypes.interfaces.IFolder" -->
+  <!--   name="iterate_control" -->
+  <!--   class=".iterate.IterateControl" -->
+  <!--   permission="zope2.View" -->
+  <!--   allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout" -->
+  <!-- /> -->
 
   <browser:page
     for="*"
@@ -97,12 +98,12 @@
 
   <class class="bise.country.factsheet.CountryFactsheet">
     <implements interface="plone.locking.interfaces.ITTWLockable" />
-    <implements interface="bise.country.interfaces.ICountryPage" />
+    <!-- <implements interface="bise.country.interfaces.ICountryPage" /> -->
   </class>
 
   <class class="cs.folderishpage.folderishpage.FolderishPage">
     <implements interface="plone.locking.interfaces.ITTWLockable" />
-    <implements interface="bise.country.interfaces.ICountryPage" />
+    <!-- <implements interface="bise.country.interfaces.ICountryPage" /> -->
   </class>
 
 </configure>

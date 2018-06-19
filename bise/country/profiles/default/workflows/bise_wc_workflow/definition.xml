@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <dc-workflow workflow_id="bise_wc_workflow" title="Bise Working Copy Workflow" description="Workflow for working copies" state_variable="review_state" initial_state="draft" manager_bypass="False">
  <permission>Access contents information</permission>
- <permission>CMFEditions: Save new version</permission>
  <permission>Add portal content</permission>
+ <permission>CMFEditions: Save new version</permission>
  <permission>Delete objects</permission>
  <permission>Modify portal content</permission>
  <permission>Request review</permission>
@@ -31,6 +31,13 @@
    <permission-role>Reviewer</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
+  <permission-map name="CMFEditions: Save new version" acquired="False">
+   <permission-role>Contributor</permission-role>
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
+  </permission-map>
   <permission-map name="Delete objects" acquired="False">
    <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
@@ -70,22 +77,13 @@
    <permission-role>Reviewer</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
-  <permission-map name="CMFEditions: Save new version" acquired="False">
-   <permission-role>Contributor</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reviewer</permission-role>
-   <permission-role>Manager</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
   <permission-map name="iterate : Check in content" acquired="False">
-   <permission-role>Reviewer</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
+   <permission-role>Reviewer</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="iterate : Check out content" acquired="False">
-   <permission-role>Contributor</permission-role>
-   <permission-role>Manager</permission-role>
    <permission-role>Site Administrator</permission-role>
   </permission-map>
  </state>
@@ -100,14 +98,13 @@
    <permission-role>Reader</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
-  <permission-map name="CMFEditions: Save new version" acquired="False">
-   <permission-role>Contributor</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Reviewer</permission-role>
-   <permission-role>Manager</permission-role>
-   <permission-role>Site Administrator</permission-role>
-  </permission-map>
   <permission-map name="Add portal content" acquired="False">
+  </permission-map>
+  <permission-map name="CMFEditions: Save new version" acquired="False">
+   <permission-role>Editor</permission-role>
+   <permission-role>Manager</permission-role>
+   <permission-role>Reviewer</permission-role>
+   <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Delete objects" acquired="False">
    <permission-role>Editor</permission-role>
@@ -141,16 +138,11 @@
    <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="iterate : Check in content" acquired="False">
-   <permission-role>Reviewer</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="iterate : Check out content" acquired="False">
-   <permission-role>Contributor</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Manager</permission-role>
-   <permission-role>Reviewer</permission-role>
   </permission-map>
  </state>
  <transition transition_id="send_back" title="Send back to country representatives" new_state="draft" trigger="USER" before_script="" after_script="">
@@ -222,3 +214,4 @@
   </guard>
  </variable>
 </dc-workflow>
+

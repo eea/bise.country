@@ -1,10 +1,12 @@
 <?xml version="1.0"?>
 <object name="checkout_workflow_policy" meta_type="WorkflowPolicy">
- <property name="title">Checkout workflow policy</property>
+ <property name="title">Special Checkout Folder workflow policy</property>
  <bindings>
   <default>
    <bound-workflow workflow_id="bise_wc_workflow"/>
   </default>
   <type default_chain="true" type_id="FolderishPage"/>
+  <type default_chain="true" type_id="Document"/>
+  <type default_chain="true" type_id="countryfactsheet"/>
  </bindings>
 </object>

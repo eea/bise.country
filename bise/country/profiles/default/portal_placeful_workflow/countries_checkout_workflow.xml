@@ -3,9 +3,15 @@
  <property name="title">CountryReps checkout workflow policy</property>
  <bindings>
   <default>
-   <bound-workflow workflow_id="bise_checkout_workflow"/>
+   <bound-workflow workflow_id="simple_publication_workflow"/>
   </default>
   <type type_id="FolderishPage">
+   <bound-workflow workflow_id="bise_checkout_workflow"/>
+  </type>
+  <type type_id="Document">
+   <bound-workflow workflow_id="bise_checkout_workflow"/>
+  </type>
+  <type type_id="countryfactsheet">
    <bound-workflow workflow_id="bise_checkout_workflow"/>
   </type>
  </bindings>

@@ -3,15 +3,21 @@ import logging
 
 from lxml.builder import E
 from lxml.html import fromstring, tostring
+from zope.component import getMultiAdapter
 
+from AccessControl import getSecurityManager
 from Acquisition import aq_inner
 from bise.country.interfaces import ICountryPage
 from plone import api
-from plone.api.user import has_permission
+from plone.api.content import get_state
+from plone.api.user import get_roles, has_permission, is_anonymous
 from plone.app.contentlisting.interfaces import (IContentListing,
                                                  IContentListingObject)
+from plone.app.iterate.interfaces import ICheckinCheckoutPolicy
 from plone.memoize import view
 from plone.subrequest import subrequest
+from Products.CMFCore.permissions import ModifyPortalContent
+from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 logger = logging.getLogger('bise.country.views')
@@ -302,8 +308,8 @@ class CountryFactsheetView(object):
     def get_countries(self):
         countries = self.context.aq_parent.getFolderContents(
             contentFilter={'portal_type': 'countryfactsheet',
-             'sort_on': 'sortable_title',
-             'sort_order': 'ascending'}
+                           'sort_on': 'sortable_title',
+                           'sort_order': 'ascending'}
         )
         results = []
 
@@ -316,3 +322,101 @@ class CountryFactsheetView(object):
                             'href': brain.getURL()})
 
         return results
+
+
+class CountryCheckoutViewlet(BrowserView):
+    """ Countries "checkout menu" viewlet
+    """
+
+    def state_labels(self):
+        return {
+            'draft': 'First draft',
+            'country_draft': 'Country draft',
+            'etc_review': 'Under review by ETC/EEA',
+            'published': 'Published',
+        }
+
+    def is_contributor(self):
+        local_roles = get_roles(obj=self.context, inherit=True)
+
+        return 'Contributor' in local_roles
+
+    def can_cancel(self):
+        # contributor must have ModifyPortalContent permission
+
+        sm = getSecurityManager()
+
+        return self.has_checkout() and \
+            sm.checkPermission(ModifyPortalContent, self.context)
+
+    def has_checkout(self):
+        policy = ICheckinCheckoutPolicy(self.context, None)
+
+        if policy is None:
+            return False
+
+        wc = policy.getWorkingCopy()
+
+        return wc is not None
+
+    def can_checkout(self):
+        # user is Contributer, state is published, context is baseline and
+        # doesn't have a checkout
+
+        local_roles = get_roles(obj=self.context, inherit=True)
+
+        control = getMultiAdapter((self.context, self.request),
+                                  name="iterate_control")
+
+        # this happens if the context is not registered for @@iterate_control
+        # for example, content types we don't care about
+
+        if not hasattr(control, 'is_checkout'):
+            return False
+
+        policy = ICheckinCheckoutPolicy(self.context, None)
+
+        if policy is None:
+            return False
+
+        wc = policy.getWorkingCopy()
+
+        is_baseline = not control.is_checkout()
+        is_published = get_state(self.context) == 'published'
+        # is_country_draft = get_state(self.context) == 'country_draft'
+        is_contributor = 'Contributor' in local_roles
+        has_wc = wc is not None
+
+        correct_state = is_published    # or is_country_draft
+
+        return is_baseline \
+            and correct_state \
+            and is_contributor \
+            and (not has_wc)
+
+    def can_checkin(self):
+        # user is Reviewer/Editor, state is submitted, context is wc
+
+        local_roles = get_roles(obj=self.context, inherit=True)
+
+        control = getMultiAdapter((self.context, self.request),
+                                  name="iterate_control")
+
+        if not hasattr(control, 'is_checkout'):
+            return False
+        is_wc = control.is_checkout()
+        is_ready = get_state(self.context) == 'ready_for_checkin'
+        can_checkin = bool(set(['Editor', 'Reviewer']).
+                           intersection(set(local_roles)))
+
+        return is_wc and is_ready and can_checkin
+
+    def available(self):
+
+        return (
+            (not is_anonymous()) and
+            (self.can_checkout() or
+             self.can_checkin() or
+             (self.is_contributor() and self.can_cancel())
+             )
+        )
