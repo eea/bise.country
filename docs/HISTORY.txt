@@ -1,7 +1,7 @@
 Changelog
 =========
 
-6.7 - (2018-06-19)
+6.7-dev0 - (2018-06-19)
 ------------------
 - Tweak workflows for checkout workflow
   [tiberich #95356]
