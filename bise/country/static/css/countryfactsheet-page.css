@@ -1145,7 +1145,9 @@
 }
 
 .userrole-anonymous.template-countries-sections-v3 #countryfactsheets-map,
-.userrole-anonymous.portaltype-countryfactsheet .svg-header-wrapper {
+.userrole-anonymous.portaltype-countryfactsheet .svg-header-wrapper,
+.userrole-member.template-countries-sections-v3 #countryfactsheets-map,
+.userrole-member.portaltype-countryfactsheet .svg-header-wrapper {
   top: 124px;
 }
 
