@@ -3,6 +3,8 @@ Changelog
 
 6.5.dev0 - (unreleased)
 -----------------------
+- Added iterate_control override for folders
+  [iulianpetchesi #95356]
 
 6.4 - (2018-06-18)
 ------------------
@@ -415,4 +417,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
