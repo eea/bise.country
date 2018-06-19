@@ -432,4 +432,4 @@ class CountryCheckoutView(ViewletBase, CountryCheckoutView):
         if not is_ok:
             return
 
-        return CountryFactsheetView(self.context, self.request).available()
+        return CountryCheckoutView(self.context, self.request).available()
