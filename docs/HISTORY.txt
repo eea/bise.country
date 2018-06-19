@@ -3,6 +3,8 @@ Changelog
 
 6.6.dev0 - (unreleased)
 -----------------------
+- Jsling fixes
+  [ichim-david refs #90214]
 
 6.5 - (2018-06-19)
 ------------------
