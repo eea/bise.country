@@ -423,7 +423,7 @@ class CountryCheckoutView(BrowserView):
         )
 
 
-class CountryCheckoutView(ViewletBase, CountryCheckoutView):
+class CountryCheckoutViewlet(ViewletBase, CountryCheckoutView):
 
     @property
     def available(self):
