@@ -7,21 +7,21 @@
   i18n_domain="bise.country">
 
   <browser:page
-    class=".views.CountryCheckoutViewlet"
+    class=".views.CountryCheckoutView"
     for="*"
     name="countryrep_checkout_actions"
     permission="plone.app.iterate.CheckOutContent"
     template="pt/checkout_view.pt"
     />
 
-  <!-- <browser:viewlet -->
-  <!--   class=".viewlets.CountryCheckoutViewlet" -->
-  <!--   for="cs.folderishpage.folderishpage.IFolderishPage" -->
-  <!--   manager="plone.app.layout.viewlets.interfaces.IAboveContent" -->
-  <!--   name="country_profile_checkout_actions_folderishpage" -->
-  <!--   permission="zope2.View" -->
-  <!--   template="pt/checkout_viewlet.pt" -->
-  <!--   /> -->
+  <browser:viewlet
+    class=".viewlets.CountryCheckoutViewlet"
+    for="*"
+    manager="plone.app.layout.viewlets.interfaces.IAboveContent"
+    name="country_profile_checkout_actions"
+    permission="zope2.View"
+    template="pt/checkout_view.pt"
+    />
 
   <adapter for="bise.country.interfaces.ICountryFolder *"
     name="plone.contentmenu.actions"

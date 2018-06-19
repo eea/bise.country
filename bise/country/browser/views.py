@@ -14,6 +14,7 @@ from plone.api.user import get_roles, has_permission, is_anonymous
 from plone.app.contentlisting.interfaces import (IContentListing,
                                                  IContentListingObject)
 from plone.app.iterate.interfaces import ICheckinCheckoutPolicy
+from plone.app.layout.viewlets import ViewletBase
 from plone.memoize import view
 from plone.subrequest import subrequest
 from Products.CMFCore.permissions import ModifyPortalContent
@@ -324,7 +325,7 @@ class CountryFactsheetView(object):
         return results
 
 
-class CountryCheckoutViewlet(BrowserView):
+class CountryCheckoutView(BrowserView):
     """ Countries "checkout menu" viewlet
     """
 
@@ -420,3 +421,15 @@ class CountryCheckoutViewlet(BrowserView):
              (self.is_contributor() and self.can_cancel())
              )
         )
+
+
+class CountryCheckoutView(ViewletBase, CountryCheckoutView):
+
+    @property
+    def available(self):
+        is_ok = self.context.aq_parent.getId() == 'checkout-folder'
+
+        if not is_ok:
+            return
+
+        return CountryFactsheetView(self.context, self.request).available()

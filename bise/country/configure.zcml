@@ -72,7 +72,6 @@
     name="force_unlock"
     class=".ForceUnlock"
     permission="cmf.ManagePortal"
-    layer="bise.theme.interfaces.IBiseThemeLayer"
     />
 
   <browser:resourceDirectory

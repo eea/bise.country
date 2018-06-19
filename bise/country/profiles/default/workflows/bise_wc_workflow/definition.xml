@@ -25,7 +25,6 @@
    <permission-role>Site Administrator</permission-role>
   </permission-map>
   <permission-map name="Add portal content" acquired="False">
-   <permission-role>Contributor</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
