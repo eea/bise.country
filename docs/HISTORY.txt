@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.3.dev0 - (unreleased)
------------------------
+7.3 - (2018-06-20)
+------------------
 - Added workaround for bug in plone.app.iterate
   [tiberich]
 
