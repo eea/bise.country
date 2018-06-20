@@ -108,6 +108,9 @@
                tal:attributes="id string:t-${repeat/lc/index}"
                >
 
+               <!-- <div tal:content="nocall: python: lc[1]"></div> -->
+               <!-- <div tal:content="nocall: python: lc[1].portal_type"></div> -->
+
                <div
               tal:define="obj python: lc[1]"
               tal:replace="structure obj/@@countryrep_checkout_actions | nothing"

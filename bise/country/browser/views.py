@@ -364,6 +364,8 @@ class CountryCheckoutView(BrowserView):
         # user is Contributer, state is published, context is baseline and
         # doesn't have a checkout
 
+        # if self.context.portal_type == 'Document':
+        #     import pdb; pdb.set_trace()
         local_roles = get_roles(obj=self.context, inherit=True)
 
         control = getMultiAdapter((self.context, self.request),

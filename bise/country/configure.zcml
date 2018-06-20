@@ -43,29 +43,12 @@
   <adapter factory=".constrain.CountryFolderAddableTypes" />
 
   <browser:page
-    for="bise.country.factsheet.ICountryFactsheet"
+    for="bise.country.interfaces.ICountryPage"
     name="iterate_control"
     class=".iterate.IterateControl"
     permission="zope2.View"
     allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout"
     />
-
-  <browser:page
-    for="cs.folderishpage.folderishpage.IFolderishPage"
-    name="iterate_control"
-    class=".iterate.IterateControl"
-    permission="zope2.View"
-    allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout"
-  />
-
-# TODO: replace this with registration for Document
-  <!-- <browser:page -->
-  <!--   for="plone.app.contenttypes.interfaces.IFolder" -->
-  <!--   name="iterate_control" -->
-  <!--   class=".iterate.IterateControl" -->
-  <!--   permission="zope2.View" -->
-  <!--   allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout" -->
-  <!-- /> -->
 
   <browser:page
     for="*"
@@ -83,14 +66,7 @@
 
   <adapter
     name="plone.app.iterate.parent"
-    for="bise.country.factsheet.ICountryFactsheet"
-    provides="plone.app.iterate.interfaces.IWCContainerLocator"
-    factory=".iterate.FactsheetParentFolderLocator"
-    />
-
-  <adapter
-    name="plone.app.iterate.parent"
-    for="cs.folderishpage.folderishpage.IFolderishPage"
+    for="bise.country.interfaces.ICountryPage"
     provides="plone.app.iterate.interfaces.IWCContainerLocator"
     factory=".iterate.FactsheetParentFolderLocator"
     />
@@ -104,5 +80,30 @@
     <implements interface="plone.locking.interfaces.ITTWLockable" />
     <!-- <implements interface="bise.country.interfaces.ICountryPage" /> -->
   </class>
+
+  <!-- <adapter -->
+  <!--   name="plone.app.iterate.parent" -->
+  <!--   for="cs.folderishpage.folderishpage.IFolderishPage" -->
+  <!--   provides="plone.app.iterate.interfaces.IWCContainerLocator" -->
+  <!--   factory=".iterate.FactsheetParentFolderLocator" -->
+  <!--   /> -->
+
+  <!-- <browser:page -->
+  <!--   for="cs.folderishpage.folderishpage.IFolderishPage" -->
+  <!--   name="iterate_control" -->
+  <!--   class=".iterate.IterateControl" -->
+  <!--   permission="zope2.View" -->
+  <!--   allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout" -->
+  <!-- /> -->
+
+# TODO: replace this with registration for Document
+  <!-- <browser:page -->
+  <!--   for="plone.app.contenttypes.interfaces.IFolder" -->
+  <!--   name="iterate_control" -->
+  <!--   class=".iterate.IterateControl" -->
+  <!--   permission="zope2.View" -->
+  <!--   allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout" -->
+  <!-- /> -->
+
 
 </configure>
