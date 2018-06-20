@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.1.dev0 - (unreleased)
------------------------
+7.1 - (2018-06-20)
+------------------
 - More fixes to checkout viewlet
   [tiberich]
 
