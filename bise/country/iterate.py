@@ -1,22 +1,24 @@
+import logging
+
+from zope.component import adapter, hooks
+from zope.interface import implementer
+
 from AccessControl import getSecurityManager
 from Acquisition import aq_inner
-from Products.CMFCore.interfaces import IDynamicType
-from Products.CMFCore.permissions import AddPortalContent
 from plone.app.iterate import PloneMessageFactory as _
 from plone.app.iterate.browser.control import Control
 from plone.app.iterate.containers import ParentFolderLocator
-from plone.app.iterate.interfaces import ICheckinCheckoutPolicy
-from plone.app.iterate.interfaces import IIterateAware
-from plone.app.iterate.interfaces import IObjectArchiver
-from plone.app.iterate.interfaces import IWCContainerLocator
-from plone.app.iterate.interfaces import IWorkingCopy
-from plone.app.iterate.permissions import CheckinPermission
-from plone.app.iterate.permissions import CheckoutPermission
+from plone.app.iterate.dexterity import copier
+from plone.app.iterate.interfaces import (ICheckinCheckoutPolicy,
+                                          IIterateAware, IObjectArchiver,
+                                          IWCContainerLocator, IWorkingCopy)
+from plone.app.iterate.permissions import CheckinPermission, CheckoutPermission
 from plone.memoize.view import memoize
-from zope.component import adapter
-from zope.component import hooks
-from zope.interface import implementer
-import logging
+from Products.CMFCore.interfaces import IDynamicType
+from Products.CMFCore.permissions import AddPortalContent
+from Products.CMFCore.utils import getToolByName
+from Products.DCWorkflow.DCWorkflow import DCWorkflowDefinition
+from ZODB.PersistentMapping import PersistentMapping
 
 logger = logging.getLogger('bise.country')
 
@@ -34,6 +36,7 @@ class IterateControl(Control):
             return False
 
         archiver = IObjectArchiver(context)
+
         if not archiver.isVersionable():
             return False
 
@@ -52,6 +55,7 @@ class IterateControl(Control):
             return False
 
         archiver = IObjectArchiver(context)
+
         if not archiver.isVersionable():
             return False
 
@@ -59,6 +63,7 @@ class IterateControl(Control):
             return False
 
         policy = ICheckinCheckoutPolicy(context, None)
+
         if policy is None:
             return False
 
@@ -66,11 +71,13 @@ class IterateControl(Control):
             original = policy.getBaseline()
         except:
             return False
+
         if original is None:
             return False
 
         checkPermission = getSecurityManager().checkPermission
         # permission is "iterate : Check in content"
+
         if not checkPermission(CheckinPermission, original):
             return False
 
@@ -85,10 +92,12 @@ class IterateControl(Control):
             return False
 
         archiver = IObjectArchiver(context)
+
         if not archiver.isVersionable():
             return False
 
         policy = ICheckinCheckoutPolicy(context, None)
+
         if policy is None:
             return False
 
@@ -96,10 +105,12 @@ class IterateControl(Control):
             return False
 
         # check if its is a checkout
+
         if policy.getBaseline() is not None:
             return False
 
         checkPermission = getSecurityManager().checkPermission
+
         if not checkPermission(CheckoutPermission, context):
             return False
 
@@ -111,6 +122,7 @@ class IterateControl(Control):
         given working copy
         """
         policy = ICheckinCheckoutPolicy(self.context, None)
+
         if policy is None:
             return False
         wc = policy.getWorkingCopy()
@@ -122,6 +134,7 @@ class IterateControl(Control):
         is_wc = (self.context.aq_inner.aq_self is wc.aq_inner.aq_self)
         res = has_wc and is_wc
         print "Checkout cancel allowed: ", res
+
         return res
 
 
@@ -139,14 +152,17 @@ class CheckoutFolderLocator(object):
 
     def checkout_location(self):
         site = hooks.getSite()
+
         if 'checkout-folder' in site.contentIds():
             return site['checkout-folder']
 
     @property
     def available(self):
         folder = self.checkout_location()
+
         if folder is None:
             return False
+
         return bool(
             getSecurityManager().checkPermission(
                 AddPortalContent,
@@ -156,6 +172,7 @@ class CheckoutFolderLocator(object):
     def __call__(self):
         if not self.available:
             return None
+
         return aq_inner(self.checkout_location())
 
 
@@ -174,3 +191,27 @@ class FactsheetParentFolderLocator(ParentFolderLocator):
 
     def __call__(self):
         return None
+
+
+class ContentCopier(copier.ContentCopier):
+    def _reassembleWorkingCopy(self, new_baseline, baseline):
+        # NOTE: we rewrite this method because it is broken. It should check
+        # for workflows not on the self.context (as it is in original), but on
+        # the new baseline
+        try:
+            new_baseline.workflow_history = PersistentMapping(
+                baseline.workflow_history.items())
+        except AttributeError:
+            # No workflow apparently.  Oh well.
+            pass
+
+        # reset wf state security directly
+        workflow_tool = getToolByName(self.context, 'portal_workflow')
+        wfs = workflow_tool.getWorkflowsFor(new_baseline)
+
+        for wf in wfs:
+            if not isinstance(wf, DCWorkflowDefinition):
+                continue
+            wf.updateRoleMappingsFor(new_baseline)
+
+        return new_baseline

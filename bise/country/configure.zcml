@@ -32,7 +32,7 @@
 
   <subscriber
     for="plone.app.iterate.interfaces.IWorkingCopy
-         OFS.interfaces.IObjectWillBeRemovedEvent"
+    OFS.interfaces.IObjectWillBeRemovedEvent"
     handler=".events.handle_iterate_wc_deletion"
     />
 
@@ -81,29 +81,9 @@
     <!-- <implements interface="bise.country.interfaces.ICountryPage" /> -->
   </class>
 
-  <!-- <adapter -->
-  <!--   name="plone.app.iterate.parent" -->
-  <!--   for="cs.folderishpage.folderishpage.IFolderishPage" -->
-  <!--   provides="plone.app.iterate.interfaces.IWCContainerLocator" -->
-  <!--   factory=".iterate.FactsheetParentFolderLocator" -->
-  <!--   /> -->
-
-  <!-- <browser:page -->
-  <!--   for="cs.folderishpage.folderishpage.IFolderishPage" -->
-  <!--   name="iterate_control" -->
-  <!--   class=".iterate.IterateControl" -->
-  <!--   permission="zope2.View" -->
-  <!--   allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout" -->
-  <!-- /> -->
-
-# TODO: replace this with registration for Document
-  <!-- <browser:page -->
-  <!--   for="plone.app.contenttypes.interfaces.IFolder" -->
-  <!--   name="iterate_control" -->
-  <!--   class=".iterate.IterateControl" -->
-  <!--   permission="zope2.View" -->
-  <!--   allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout" -->
-  <!-- /> -->
-
+  <adapter
+    for="bise.country.interfaces.ICountryPage"
+    factory=".iterate.ContentCopier"
+    />
 
 </configure>
