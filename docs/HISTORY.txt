@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.9.dev0 - (unreleased)
+-----------------------
+
 6.8 - (2018-06-20)
 ------------------
 - Hide checkout view when object is checked out
