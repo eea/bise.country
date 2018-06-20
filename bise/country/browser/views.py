@@ -436,4 +436,10 @@ class CountryCheckoutViewlet(ViewletBase, CountryCheckoutView):
         if not is_ok:
             return
 
-        return CountryCheckoutView(self.context, self.request).available()
+        return (
+            (not is_anonymous()) and
+            (self.can_checkout() or
+             self.can_checkin() or
+             (self.is_contributor() and self.can_cancel())
+             )
+        )
