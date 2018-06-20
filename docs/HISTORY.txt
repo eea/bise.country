@@ -3,6 +3,8 @@ Changelog
 
 6.9.dev0 - (unreleased)
 -----------------------
+- Also show edit link in checkout viewlet
+  [tiberich]
 
 6.8 - (2018-06-20)
 ------------------
