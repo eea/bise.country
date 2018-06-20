@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.0.dev0 - (unreleased)
------------------------
+7.0 - (2018-06-20)
+------------------
 - Fix checkout view availability
   [tiberich]
 
