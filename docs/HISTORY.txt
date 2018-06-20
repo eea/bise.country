@@ -3,6 +3,8 @@ Changelog
 
 6.8.dev0 - (unreleased)
 -----------------------
+- Hide checkout view when object is checked out
+  [iulianpetchesi #95356]
 
 6.7 - (2018-06-19)
 ------------------
@@ -430,4 +432,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

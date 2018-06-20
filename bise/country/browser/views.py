@@ -413,6 +413,10 @@ class CountryCheckoutView(BrowserView):
         return is_wc and is_ready and can_checkin
 
     def available(self):
+        is_ok = self.context.aq_parent.getId() == 'checkout-folder'
+
+        if is_ok:
+            return
 
         return (
             (not is_anonymous()) and
