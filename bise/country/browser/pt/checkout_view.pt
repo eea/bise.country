@@ -34,7 +34,18 @@
     tal:condition="python: view.is_contributor() and
                            view.can_cancel() and
                            view.has_checkout()">
+    <style>
+.section-checkout-folder.userrole-contributor #site #site-admin {
+  display: none;
+}
+    </style>
+
     <ul>
+      <li>
+        <a href="" tal:attributes="href string:${context/absolute_url}/edit">
+          <strong>Edit</strong> this Country Draft
+        </a>
+      </li>
       <li>
         <a href="" tal:attributes="href string:${context/absolute_url}/@@content-cancel-checkout">
           <strong>Delete</strong> current Country Draft
