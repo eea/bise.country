@@ -1,8 +1,10 @@
 """ Share a country with a group or user
 """
 
+from bise.country.interfaces import ICountryPage
 from Products.Five.browser import BrowserView
-from plone.api.portal import get_tool
+from Products.Five.utilities.marker import mark
+from plone.api.portal import get_tool, getSite
 from plone.app.iterate.interfaces import ICheckinCheckoutPolicy
 from plone.directives import form
 from z3c.form import button
@@ -10,7 +12,7 @@ from z3c.form.interfaces import ActionExecutionError
 from zope import schema
 from zope.app.pagetemplate import ViewPageTemplateFile
 from zope.component import getMultiAdapter
-from zope.interface import Invalid, Interface, implements
+from zope.interface import Invalid, Interface, implements, providedBy
 from zope.schema.vocabulary import SimpleVocabulary
 import logging
 
@@ -35,6 +37,10 @@ PLONE_ROLE_TO_LABEL = {
     'Editor': u'ETC representative',
     'Reviewer': u'EEA representative',
 }
+
+PLONE_LOCATIONS = [
+    'countries/gi/', 'mtr/countries/', 'maes/maes_countries/'
+]
 
 
 class IShareSchema(form.Schema):
@@ -134,8 +140,17 @@ location."""
         if wc:
             contexts.append(wc)
 
+        site = getSite()
+
+        for location in PLONE_LOCATIONS:
+            obj = site.unrestrictedTraverse(location + self.context.id)
+            if obj:
+                contexts.append(obj)
+
         for folder in contexts:
             self.assign_role_to_principal(folder, role, principal_id)
+            if ICountryPage not in list(providedBy(folder)):
+                mark(folder, ICountryPage)
 
     def assign_role_to_principal(self, context, role, principal_id):
         roles = set(context.get_local_roles_for_userid(userid=principal_id))

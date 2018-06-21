@@ -3,6 +3,9 @@ Changelog
 
 7.4.dev0 - (unreleased)
 -----------------------
+- Modified the bise-country-share view so that it includes all country pages
+  of a specific country + added interface marker for ICountryPage
+  [iulianpetchesi #95356]
 - Hide the add items menu from contributors on country factsheets
   [iulianpetchesi #95356]
 
