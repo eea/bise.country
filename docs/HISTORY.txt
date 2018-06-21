@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.5.dev0 - (unreleased)
+-----------------------
+
 7.4 - (2018-06-21)
 ------------------
 - Modified the bise-country-share view so that it includes all country pages
