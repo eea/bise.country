@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.4.dev0 - (unreleased)
------------------------
+7.4 - (2018-06-21)
+------------------
 - Modified the bise-country-share view so that it includes all country pages
   of a specific country + added interface marker for ICountryPage
   [iulianpetchesi #95356]
@@ -465,3 +465,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
