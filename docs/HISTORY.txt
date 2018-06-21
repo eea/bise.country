@@ -3,6 +3,9 @@ Changelog
 
 7.5.dev0 - (unreleased)
 -----------------------
+* Bug fix: fixed countries and individual country pages when checked on IOS 9.3
+  for the svg map
+  [ichim-david refs #90214]
 
 7.4 - (2018-06-21)
 ------------------

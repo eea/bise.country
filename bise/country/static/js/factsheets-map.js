@@ -1,6 +1,8 @@
 var nonEuMembers;
 var mapletsCountries;
 
+var url = window.location.origin + window.location.pathname;
+
 Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 };
@@ -119,7 +121,6 @@ function drawCountries(
   zoomLevel   // correction factor for zoom
 ) {
   // Draw the countries in the specified viewport
-
   var focusCountriesFeature = filterCountriesById(countries, focusIds);
 
   var path = d3.geoPath().projection(projection);   // the path transformer
@@ -140,7 +141,7 @@ function drawCountries(
   var g = svg
     .append('g')
     .attr('class', 'country-maps')
-    .attr('clip-path', 'url(#' + cprectid + ')')
+    .attr('clip-path', 'url(' + url + '#' + cprectid + ')')
   ;
 
   var b = path.bounds(focusCountriesFeature);
@@ -332,7 +333,7 @@ function drawCountries(
     })
     .attr('class', 'country-flag')
     .attr('clip-path', function(d) {
-      return 'url(#cp-' + cprectid + '-' + d.properties.id + ')';
+      return 'url(' + url + '#cp-' + cprectid + '-' + d.properties.id + ')';
     })
     .attr("x", function (d) {
       var pbox = d3.select('#c-' + cprectid + '-' + d.properties.id).node().getBBox();
@@ -397,10 +398,10 @@ function drawCountries(
           '##eu-biodiversity-strategy': 't-2',
           '##maes': 't-3',
           '##green-infrastructure': 't-4'
-        }
+        };
         for (var key in tabsLoc) {
           if (tabsLoc.hasOwnProperty(key)) {
-            var wLoc = window.location.href
+            var wLoc = window.location.href;
             if (wLoc.indexOf(key) > -1) {
               location.href = link + '##' + tabsLoc[key];
             }
@@ -447,7 +448,7 @@ function drawCountriesForMinimap(
   var g = svg
     .append('g')
     .attr('class', 'country-maps')
-    .attr('clip-path', 'url(#' + cprectid + ')')
+    .attr('clip-path', 'url(' + url + '#' + cprectid + ')')
   ;
 
   var b = path.bounds(focusCountriesFeature);
@@ -679,6 +680,7 @@ function renderEUMinimap(
     .attr('width', 30)
     .attr('height', 20)
     .attr('href', 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg')
+    .attr('xlink:href', 'https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag_of_Europe.svg')
   ;
 
   label.raise();
