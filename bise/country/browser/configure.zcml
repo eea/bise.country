@@ -28,6 +28,11 @@
     factory=".overrides.ActionsSubMenuItem"
     provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
 
+  <adapter for="bise.country.interfaces.ICountryPage *"
+    name="plone.contentmenu.factories"
+    factory=".overrides.FactoriesSubMenuItem"
+    provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
+
   <browser:page
     name="plone_context_state"
     for="bise.country.interfaces.ICountryFolder"

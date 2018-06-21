@@ -3,6 +3,8 @@ Changelog
 
 7.4.dev0 - (unreleased)
 -----------------------
+- Hide the add items menu from contributors on country factsheets
+  [iulianpetchesi #95356]
 
 7.3 - (2018-06-20)
 ------------------
@@ -460,4 +462,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
