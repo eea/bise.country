@@ -141,12 +141,12 @@ location."""
             contexts.append(wc)
 
         site = getSite()
-
         for location in PLONE_LOCATIONS:
+            if self.context.aq_parent.id != 'countries':
+                continue
             obj = site.unrestrictedTraverse(location + self.context.id)
             if obj:
                 contexts.append(obj)
-
         for folder in contexts:
             self.assign_role_to_principal(folder, role, principal_id)
             if ICountryPage not in list(providedBy(folder)):
@@ -211,6 +211,13 @@ class EditRolesForm(BrowserView):
             if wc:
                 contexts.append(wc)
 
+            site = getSite()
+            for location in PLONE_LOCATIONS:
+                if self.context.aq_parent.id != 'countries':
+                    continue
+                obj = site.unrestrictedTraverse(location + self.context.id)
+                if obj:
+                    contexts.append(obj)
             for context in contexts:
                 context.manage_delLocalRoles([pid])
 
