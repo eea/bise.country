@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.5.dev0 - (unreleased)
------------------------
+7.5 - (2018-06-25)
+------------------
 - Get rid of the ICountryFolder interface
   [iulianpetchesi #95356]
 - Bug fix: fixed countries and individual country pages when checked on IOS 9.3
@@ -473,3 +473,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
