@@ -23,7 +23,7 @@
     template="pt/checkout_view.pt"
     />
 
-  <adapter for="bise.country.interfaces.ICountryFolder *"
+  <adapter for="bise.country.interfaces.ICountryPage *"
     name="plone.contentmenu.actions"
     factory=".overrides.ActionsSubMenuItem"
     provides="plone.app.contentmenu.interfaces.IContentMenuItem" />
@@ -35,7 +35,7 @@
 
   <browser:page
     name="plone_context_state"
-    for="bise.country.interfaces.ICountryFolder"
+    for="bise.country.interfaces.ICountryPage"
     permission="zope.Public"
     class=".overrides.ContextState"
     allowed_interface="plone.app.layout.globals.interfaces.IContextState"
@@ -43,14 +43,14 @@
 
   <browser:page
     name="bise-country-share"
-    for="bise.country.interfaces.ICountryFolder"
+    for="bise.country.interfaces.ICountryPage"
     permission="plone.DelegateRoles"
     class=".sharing.ShareForm"
     />
 
   <browser:page
     name="bise-country-share-edit"
-    for="bise.country.interfaces.ICountryFolder"
+    for="bise.country.interfaces.ICountryPage"
     permission="plone.DelegateRoles"
     class=".sharing.EditRolesForm"
     template="pt/share-edit.pt"
