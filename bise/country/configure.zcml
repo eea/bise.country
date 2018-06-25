@@ -40,7 +40,7 @@
   <interface interface=".interfaces.ICountryFolder" />
   <interface interface=".interfaces.ICountryPage" />
 
-  <adapter factory=".constrain.CountryFolderAddableTypes" />
+  <!-- <adapter factory=".constrain.CountryFolderAddableTypes" /> -->
 
   <browser:page
     for="bise.country.interfaces.ICountryPage"
