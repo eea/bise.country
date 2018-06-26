@@ -51,7 +51,7 @@ function setGISection() {
     $(this).nextUntil(giTitle).andSelf().wrapAll("<div class='gi-content-box'/>");
   });
 
-  var giContentSelector = giContent.children('p:first-child').nextAll();
+  var giContentSelector = giContent.find('.gi-content-box');
 
   giContent.append($cc);
   $('.tab-content-wrapper', parent).append(giContentSelector);
