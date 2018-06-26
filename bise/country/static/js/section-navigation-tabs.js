@@ -283,4 +283,16 @@ function setNavigationSections() {
   });
 
   $('.i-sticky').iSticky(); // activate sticky plugin/polyfill for sidebar
+
+  // 96627 implement sticky position for browsers that do not support it such
+  // as IE
+  window.setTimeout(function() {
+      // we need a small timeout in order to ensure that we get all of the tabs
+      // content
+      if (window.Stickyfill) {
+          $('.i-sticky').each(function(idx, el) {
+              return new window.Stickyfill.Sticky(el);
+          });
+      }
+  }, 3000);
 }

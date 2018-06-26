@@ -59,6 +59,7 @@
       <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++bise.country/js/i-sticky.js" ></script>
 
       <!-- This is for the top navigation tabs in a country factsheet page -->
+        <script tal:attributes="src string:${portal_url}/++resource++bise.country/js/stickyfill.min.js" ></script>
       <script tal:attributes="src string:${portal_url}/++resource++bise.country/js/section-navigation-tabs.js" ></script>
       <script tal:attributes="src string:${portal_url}/++resource++bise.country/js/countryfactsheets.js" ></script>
       <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++bise.country/css/countryfactsheet-page.css" />

@@ -66,16 +66,17 @@
       <!-- <script src="/++resource++bise.biodiversityfactsheet/maps.js"></script> -->
 
       <!-- This is used by the svg header map -->
-      <script src="/++resource++bise.country/js/factsheets-map.js"></script>
+      <script tal:attributes="src string:${portal_url}/++resource++bise.country/js/factsheets-map.js"></script>
 
       <!-- this is IE Compatibility for the Contributions tab, left side nav menu -->
-      <script type="text/javascript" src="++resource++bise.country/js/i-sticky.js"></script>
+      <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++bise.country/js/i-sticky.js"></script>
 
       <!-- This is for the top navigation tabs in a country factsheet page -->
-      <script src="++resource++bise.country/js/section-navigation-tabs.js" ></script>
-      <script src="++resource++bise.country/js/countryfactsheets.js"></script>
-      <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-page.css"/>
-      <link rel="stylesheet" href="++resource++bise.country/css/countryfactsheet-map.css"/>
+        <script tal:attributes="src string:${portal_url}/++resource++bise.country/js/stickyfill.min.js" ></script>
+      <script tal:attributes="src string:${portal_url}/++resource++bise.country/++resource++bise.country/js/section-navigation-tabs.js" ></script>
+      <script tal:attributes="src string:${portal_url}/++resource++bise.country/++resource++bise.country/js/countryfactsheets.js"></script>
+      <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++bise.country/css/countryfactsheet-page.css"/>
+      <link rel="stylesheet" tal:attributes="href string:${portal_url}/++resource++bise.country/css/countryfactsheet-map.css"/>
 
       <div class="panel with-nav-tabs panel-default">
         <div class="panel-heading">

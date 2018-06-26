@@ -3,6 +3,13 @@ Changelog
 
 7.6.dev0 - (unreleased)
 -----------------------
+* Change: reference svg images from countries.tsv without http in order to load
+  correctly both while developing and while viewing on production where we have
+  https
+  [ichim-david refs #96627]
+* Feature: fixed sticky position for browsers that do not support position sticky
+  by adding stickyfill plugin
+  [ichim-david refs #96627]
 
 7.5 - (2018-06-25)
 ------------------
