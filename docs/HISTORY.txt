@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.6.dev0 - (unreleased)
------------------------
+7.6 - (2018-06-27)
+------------------
 - Disable edit button for nature directives tab
   [iulianpetchesi #95356]
 * Change: reference svg images from countries.tsv without http in order to load
@@ -485,3 +485,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
