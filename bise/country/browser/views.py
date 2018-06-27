@@ -149,6 +149,8 @@ class CountriesSection(object):
         return objs
 
     def can_edit(self, obj):
+        if 'eu_country_profiles' in [obj.aq_parent.id, obj.id]:
+            return False
         return has_permission('Modify portal content', obj=obj)
 
 
