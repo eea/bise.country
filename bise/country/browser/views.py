@@ -164,31 +164,37 @@ class CountryFactsheetView(object):
         (
             'Country Overview',
             None,
-            ' '
+            ' ',
+            '%s - Country Overview',
         ),
         (
             'EU Nature Directives',
             'countries/nature-directives',
             '- insert one sentence providing an overview of the information '
-            'that can be found on this page'
+            'that can be found on this page',
+            'Nature Directives for %s',
         ),
         (
             'EU Biodiversity Strategy',
             'mtr/countries',
             '- insert one sentence providing an overview of the information '
-            'that can be found on this page'
+            'that can be found on this page',
+            '%s - Contribution to the mid-term review of the EU biodiversity '
+            'strategy to 2020 based on the 5th national report to CBD',
         ),
         (
             'MAES',
             'maes/maes_countries',
             '- insert one sentence providing an overview of the information '
-            'that can be found on this page'
+            'that can be found on this page',
+            'MAES-related developments in %s',
         ),
         (
             'Green Infrastructure',
             'countries/gi',
             '- insert one sentence providing an overview of the information '
-            'that can be found on this page'
+            'that can be found on this page',
+            'Green Infrastructure in %s',
         )
     )
 
@@ -199,9 +205,10 @@ class CountryFactsheetView(object):
 
         country_id = self.context.getId()
 
-        for label, location, description in self._tab_labels:
+        for label, location, description, tooltip in self._tab_labels:
+            tooltip = tooltip % self.context.fact_countryName
             if not location:
-                tabs.append((label, self.context))
+                tabs.append((label, self.context, tooltip))
 
                 continue
             path = location + '/' + country_id
@@ -212,7 +219,9 @@ class CountryFactsheetView(object):
 
                 continue
             else:
-                tabs.append((label, dest, description))
+                if dest.get('nature-directives', None):
+                    description = dest.get('nature-directives').description
+                tabs.append((label, dest, description, tooltip))
 
         return tabs
 

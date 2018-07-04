@@ -6,27 +6,13 @@
       Main text here
   </div>
 
-  <h3 class="quick-links-title">Quick links:</h3>
-
-  <ul class="quick-links-list">
-    <li role="presentation" tal:repeat="lc view/tabs">
-
-      <span tal:condition="python: repeat['lc'].index != 0">
-        <a href=""
-           class="tabs-listing"
-           data-toggle="tab"
-           tal:attributes="href string:##t-${repeat/lc/index}"
-           tal:content="python: lc[0]">
-          Tab title
-        </a>
-        <span
-          tal:content="python: lc[2]">
-            Tab small description
-        </span>
+  <div class="quick-links-list">
+    <div tal:repeat="lc view/tabs" >
+      <span tal:content="python: lc[2]"
+          tal:condition="python: repeat['lc'].index != 0 and lc[1].get('nature-directives', None)">
       </span>
-
-    </li>
-  </ul>
+    </div>
+  </div>
 
   <tal:section repeat="section view/facts">
 

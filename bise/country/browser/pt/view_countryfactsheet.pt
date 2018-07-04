@@ -96,6 +96,7 @@
                  tal:content="python: lc[0]">
                 Title
               </a>
+              <span class="country-tooltip" tal:content="python: lc[-1]"> Tooltip </span>
             </li>
           </ul>
         </div>

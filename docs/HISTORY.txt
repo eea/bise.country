@@ -3,16 +3,18 @@ Changelog
 
 7.7.dev0 - (unreleased)
 -----------------------
+- More country pages tweaks
+  [iulianpetchesi #96812]
 
 7.6 - (2018-06-27)
 ------------------
 - Disable edit button for nature directives tab
   [iulianpetchesi #95356]
-* Change: reference svg images from countries.tsv without http in order to load
+- Change: reference svg images from countries.tsv without http in order to load
   correctly both while developing and while viewing on production where we have
   https
   [ichim-david refs #96627]
-* Feature: fixed sticky position for browsers that do not support position sticky
+- Feature: fixed sticky position for browsers that do not support position sticky
   by adding stickyfill plugin
   [ichim-david refs #96627]
 
@@ -488,4 +490,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
