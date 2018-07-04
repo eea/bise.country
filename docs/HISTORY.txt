@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.7.dev0 - (unreleased)
------------------------
+7.7 - (2018-07-04)
+------------------
 - More country pages tweaks
   [iulianpetchesi #96812]
 
@@ -490,3 +490,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
