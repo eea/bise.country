@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.9.dev0 - (unreleased)
+-----------------------
+
 7.8 - (2018-07-10)
 ------------------
 - Modify country tooltip, factsheet template
