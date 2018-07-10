@@ -3,6 +3,8 @@ Changelog
 
 7.8.dev0 - (unreleased)
 -----------------------
+- Modify country tooltip, factsheet template
+  [iulianpetchesi #96812]
 
 7.7 - (2018-07-04)
 ------------------
@@ -493,4 +495,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

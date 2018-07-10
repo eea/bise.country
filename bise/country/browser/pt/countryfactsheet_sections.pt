@@ -1,10 +1,10 @@
 <div class="country-overview-section">
-  <div
+  <!-- <div
       class="country-overview"
       tal:condition="context/text"
       tal:content="structure context/text/output">
       Main text here
-  </div>
+  </div> -->
 
   <div class="quick-links-list">
     <div tal:repeat="lc view/tabs" >
