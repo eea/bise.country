@@ -272,4 +272,11 @@ jQuery(document).click(function(){
   // fix the country profile dropdown: when anything is clicked, hide dropdown
   $('.dd-country-title .options').hide().removeClass('show');
   $('.dd-country-title i').removeClass('fa fa-angle-up').addClass('fa fa-angle-down');
+
+  // remove empty divs within quick-links-list
+  $.each($('.quick-links-list').children(), function (index, el) {
+      if ($(el).children().length == 0){
+          $(el).remove();
+      }
+  })
 });

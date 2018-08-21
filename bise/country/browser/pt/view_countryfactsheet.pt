@@ -133,7 +133,7 @@
                    Edit this page
                  </a>
                </div>
-
+               <h2 class="fact-title-section" tal:content="python: lc[-1]"></h2>
                <div class="content-wrapper"
                       tal:attributes="class python: 'content-' + lc[0].lower().replace(' ', '-')"
                       tal:content="structure python: (lc[1] is not None) and view.view_page(lc[1]) or ''"

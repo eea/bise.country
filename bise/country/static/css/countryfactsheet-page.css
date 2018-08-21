@@ -1067,11 +1067,11 @@
   padding-bottom: 20px;
 } */
 
-.quick-links-list {
+/* .quick-links-list {
   border-bottom: 1px solid #efe9db;
   padding-bottom: 20px;
   margin: 20px 0 !important;
-}
+} */
 
 .template-countries-sections-v2 {
   background-color: #F7F4ED;
@@ -1241,6 +1241,11 @@
 
 .gi-content-wrapper h3 {
   margin-top: 1rem;
+}
+
+.fact-title-section {
+    float: left;
+    width: 100%;
 }
 
 @media (min-width: 992px) {

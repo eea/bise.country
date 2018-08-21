@@ -3,6 +3,8 @@ Changelog
 
 7.9.dev0 - (unreleased)
 -----------------------
+- Added title for section + other tweaks
+  [iulianpetchesi #96812]
 
 7.8 - (2018-07-10)
 ------------------
@@ -498,4 +500,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
