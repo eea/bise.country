@@ -266,6 +266,35 @@ jQuery(document).ready(function($) {
   }
   window.onhashchange = locationHashChanged;
 
+  var isIe = function detectIE() {
+      var ua = window.navigator.userAgent;
+      var msie = ua.indexOf('MSIE ');
+      if (msie > 0) {
+          // IE 10 or older => return true
+          return true;
+      }
+
+      var trident = ua.indexOf('Trident/');
+      if (trident > 0) {
+          // IE 11 => return true
+          return true;
+      }
+
+      var edge = ua.indexOf('Edge/');
+      if (edge > 0) {
+          // Edge (IE 12+) => return true
+          return true;
+      }
+
+      // other browser
+      return false;
+  };
+  if (!endsWith(window.location.pathname, '/')) {
+      if (isIe()) {
+          var pathname = window.location.pathname;
+          window.location.pathname = pathname + '/';
+      }
+  }
 });
 
 jQuery(document).click(function(){
@@ -280,3 +309,7 @@ jQuery(document).click(function(){
       }
   })
 });
+
+function endsWith(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
