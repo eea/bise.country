@@ -18,13 +18,13 @@
         </span>
       </h2> -->
 
-      <div class="quick-links-list">
+      <!-- <div class="quick-links-list">
         <div tal:repeat="lc view/tabs" >
           <span tal:content="python: lc[2]"
               tal:condition="python: repeat['lc'].index != 0 and lc[1].get('nature-directives', None)">
           </span>
         </div>
-      </div>
+      </div> -->
 
       <div class="section-content"
         tal:attributes="id section_obj/getId;">

@@ -778,6 +778,11 @@
   margin-top: 0;
 }
 
+.content-country-overview .content-container {
+  border-top: none;
+  margin-top: 0;
+}
+
 .content-green-infrastructure .nav-list li a,
 .content-country-overview .nav-list li a {
   font-weight: bold;
@@ -828,6 +833,7 @@
 .i-sticky {
   position: sticky;
   position: -webkit-sticky;
+  /* position: fixed; */
   top: -1px;
 }
 
@@ -1402,6 +1408,8 @@
   .intro-wrapper {
     display: none !important;
   }
+
+  
 }
 
 @media (min-width: 768px) {
@@ -1459,6 +1467,13 @@
   }
 }
 
+@media (max-width: 534px) {
+    .nav-tabs li a {
+      padding: 12px;
+      font-size: 14px;
+    }
+}
+
 @media (max-width: 480px) {
   .template-countries-sections-v3 #countryfactsheets-map {
     border: none;
@@ -1469,5 +1484,9 @@
   .portaltype-biodiversityfactsheet h3.collapsible,
   .fact h3 {
     font-size: 1.3rem !important;
+  }
+  .nav-tabs li a {
+    padding: 10px;
+    font-size: 14px;
   }
 }

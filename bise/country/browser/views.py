@@ -172,7 +172,7 @@ class CountryFactsheetView(object):
             'countries/nature-directives',
             '- insert one sentence providing an overview of the information '
             'that can be found on this page',
-            'Nature Directives for %s',
+            'EU Nature Directives for %s',
         ),
         (
             'EU Biodiversity Strategy',
