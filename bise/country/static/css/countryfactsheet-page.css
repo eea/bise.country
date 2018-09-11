@@ -1408,8 +1408,6 @@
   .intro-wrapper {
     display: none !important;
   }
-
-  
 }
 
 @media (min-width: 768px) {
@@ -1471,6 +1469,12 @@
     .nav-tabs li a {
       padding: 12px;
       font-size: 14px;
+    }
+    #nature-directives .i-sticky {
+        position: relative;
+        height: auto;
+        margin-bottom: 2em;
+        margin-left: 2em;
     }
 }
 
