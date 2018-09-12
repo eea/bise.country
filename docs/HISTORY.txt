@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.1.dev0 - (unreleased)
+-----------------------
+
 8.0 - (2018-09-12)
 ------------------
 - Added js for pathname change so that links factsheet links work in IE/Edge
