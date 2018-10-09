@@ -32,6 +32,21 @@ function filterCountriesById(countries, filterIds) {
   return features;
 }
 
+function GetIEVersion() {
+  var sAgent = window.navigator.userAgent;
+  var Idx = sAgent.indexOf("MSIE");
+
+  // If IE, return version number.
+  if (Idx > 0)
+    return parseInt(sAgent.substring(Idx+ 5, sAgent.indexOf(".", Idx)));
+
+  // If IE 11 then look for Updated user agent string.
+  else if (!!navigator.userAgent.match(/Trident\/7\./))
+    return 11;
+
+  else
+    return 0; //It is not IE
+}
 
 function travelToOppositeMutator(start, viewport, delta) {
   // point: the point we want to mutate
@@ -143,7 +158,6 @@ function drawCountries(
     .attr('class', 'country-maps')
     .attr('clip-path', 'url(' + url + '#' + cprectid + ')')
   ;
-
   var b = path.bounds(focusCountriesFeature);
 
   // var vRatio = window.vRatio;
@@ -324,7 +338,11 @@ function drawCountries(
     .enter()
     .append('image')
     .attr('href', function(d) {
-      return d.url;
+        if (GetIEVersion() > 0) {
+            return '/fallback.svg';
+        } else {
+            return d.url;
+        }
     })
     .attr('xlink:href', function(d) {
        // 90214 older versions of IOS Safari know about image href only if used

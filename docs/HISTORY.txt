@@ -3,6 +3,8 @@ Changelog
 
 8.1.dev0 - (unreleased)
 -----------------------
+- Added map fallback for flags in IE
+  [iulianpetchesi #96812]
 
 8.0 - (2018-09-12)
 ------------------
@@ -508,4 +510,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
