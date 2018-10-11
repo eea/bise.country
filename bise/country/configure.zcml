@@ -11,18 +11,12 @@
   <include package="plone.app.workflow" />
 
   <include file="workflow.zcml" />
+  <include file="profiles.zcml" />
   <include file="upgrades.zcml" />
 
   <include package=".browser" />
   <include package=".tiles" />
 
-  <genericsetup:registerProfile
-    name="default"
-    title="bise.country"
-    directory="profiles/default"
-    description="Installs the bise.country package"
-    provides="Products.GenericSetup.interfaces.EXTENSION"
-    />
   <!-- -*- extra stuff goes here -*- -->
 
   <subscriber

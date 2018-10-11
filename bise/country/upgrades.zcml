@@ -1,12 +1,12 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
   xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
-  i18n_domain="bise.theme">
+  i18n_domain="bise.country">
 
   <genericsetup:upgradeSteps
     source="1000"
     destination="1001"
-    profile="bise.theme:default">
+    profile="bise.country:default">
 
     <!-- <genericsetup:upgradeStep -->
     <!--   title="Resolve PloneGlossary Javascript issues in Plone 4.3" -->
@@ -42,6 +42,14 @@
     profile="bise.country:default"
     title="Reimport workflows"
     handler=".upgrades.upgrade_to_1004"
+    />
+
+  <genericsetup:upgradeStep
+    source="1004"
+    destination="1005"
+    profile="bise.country:default"
+    title="Reimport registry"
+    handler=".upgrades.upgrade_to_1005"
     />
 
 </configure>
