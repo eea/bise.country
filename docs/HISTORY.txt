@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.2.dev0 - (unreleased)
------------------------
+8.2 - (2018-10-11)
+------------------
 - Added upgrade step to add allowed_sizes in registry
   [olimpiurob #96812]
 - Fixed infinite recurse when adding a new country
