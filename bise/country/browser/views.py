@@ -211,17 +211,19 @@ class CountryFactsheetView(object):
                 tabs.append((label, self.context, tooltip))
 
                 continue
-            path = location + '/' + country_id
+            path = '/'.join([location, country_id])
             try:
                 dest = portal.restrictedTraverse(path)
+                # Make sure we have the right object e.g. nature-directives
+                if path not in dest.absolute_url():
+                    raise
             except Exception:
                 logger.warning("Could not find path: %s", path)
-
                 continue
-            else:
-                if dest.get('nature-directives', None):
-                    description = dest.get('nature-directives').description
-                tabs.append((label, dest, description, tooltip))
+
+            if dest.get('nature-directives', None):
+                description = dest.get('nature-directives').description
+            tabs.append((label, dest, description, tooltip))
 
         return tabs
 
