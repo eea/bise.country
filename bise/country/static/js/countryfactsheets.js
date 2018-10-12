@@ -15,6 +15,8 @@ jQuery(document).ready(function($) {
   var isCountriesPage = country_tabs_links.attr('href') === '##overview';
   var noHash = window.location.href.indexOf("##") == -1;
   if (isCountriesPage && noHash) {window.location.href += '##overview';}
+  var nav_list = [];
+  nav_list = nav_list.concat($(".section-content .nav-list li a"));
 
   // select country dropdown functionality on countries section page
   $('.country-dropdown select').change(function() {
@@ -144,6 +146,26 @@ jQuery(document).ready(function($) {
     $(value).find("iframe").prop("src", function() {
       return $(this).data("src");
     });
+  });
+
+  // Add the edit button
+  $.each($(".section-content .nav-list li a"), function(index, value) {
+    var edit_href = $(value).prop("href").split("#")[0] + 'edit';
+    var edit_ctrl = $("<div/>", {
+      class: 'edit-button'
+    });
+    var edit_i = $("<i/>", {
+        "class": "fa fa-pencil-square-o"
+    });
+    var edit_a = $("<a/>", {
+      target: "_blank",
+      "class": "btn btn-edit",
+      text: "Edit this page",
+      href: edit_href,
+    });
+    edit_a.prepend(edit_i);
+    edit_ctrl.append(edit_a);
+    $($(".fact-contents")[index]).append(edit_ctrl);
   });
 
   $('.fact-contents iframe').each(function() {

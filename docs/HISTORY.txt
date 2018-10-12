@@ -3,6 +3,8 @@ Changelog
 
 8.3.dev0 - (unreleased)
 -----------------------
+- Added Edit this page button for facts
+  [olimpiurob #96812]
 - Added description for country overview and removed tab titles field
   [iulianpetchesi #96812]
 
