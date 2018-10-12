@@ -3,6 +3,8 @@ Changelog
 
 8.3.dev0 - (unreleased)
 -----------------------
+- Added description for country overview and removed tab titles field
+  [iulianpetchesi #96812]
 
 8.2 - (2018-10-11)
 ------------------
@@ -520,4 +522,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

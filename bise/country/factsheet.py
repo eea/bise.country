@@ -11,12 +11,12 @@ class ICountryFactsheet(Interface):
     """ A country factsheet
     """
 
-    tab_titles = List(
-        title=u"Tab titles",
-        unique=True,
-        default=[u'Factsheet', u'Contributions', u'MAES'],
-        value_type=TextLine(title=u"Tab")
-    )
+    # tab_titles = List(
+    #     title=u"Tab titles",
+    #     unique=True,
+    #     default=[u'Factsheet', u'Contributions', u'MAES'],
+    #     value_type=TextLine(title=u"Tab")
+    # )
 
     text = RichText(title=(u"Description"),
                     description=u"Provide a description of the country.",

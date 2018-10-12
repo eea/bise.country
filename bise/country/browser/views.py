@@ -208,7 +208,7 @@ class CountryFactsheetView(object):
         for label, location, description, tooltip in self._tab_labels:
             tooltip = tooltip % self.context.fact_countryName
             if not location:
-                tabs.append((label, self.context, tooltip))
+                tabs.append((label, self.context, self.context.text, tooltip))
 
                 continue
             path = '/'.join([location, country_id])

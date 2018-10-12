@@ -1251,6 +1251,10 @@
 
 .fact-title-section {
     float: left;
+}
+
+.fact-description-section {
+    float: left;
     width: 100%;
 }
 
