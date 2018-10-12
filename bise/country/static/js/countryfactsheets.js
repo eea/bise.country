@@ -160,7 +160,7 @@ jQuery(document).ready(function($) {
     var edit_a = $("<a/>", {
       target: "_blank",
       "class": "btn btn-edit",
-      text: "Edit this page",
+      text: "Edit section",
       href: edit_href,
     });
     edit_a.prepend(edit_i);
