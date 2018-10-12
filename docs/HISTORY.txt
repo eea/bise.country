@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.3.dev0 - (unreleased)
------------------------
+8.3 - (2018-10-12)
+------------------
 - Added Edit-sections button
   [iulianpetchesi #96812]
 - Renamed Edit this page to Edit section for facts
@@ -528,3 +528,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
