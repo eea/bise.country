@@ -10,13 +10,13 @@
         tabs view/tabs;
         portal_state context/@@plone_portal_state;
         portal_url portal_state/portal_url;
-        labels python: context.tab_titles or ['Factsheet', 'Contributions', 'MAES'];
+        tabs python: view.tabs();
+        labels python: tabs[0] if len(tabs) >= 1 else ['Factsheet', 'Contributions', 'MAES'];
         countries python: context.aq_parent.getFolderContents(
               contentFilter={'portal_type': 'countryfactsheet',
                              'sort_on': 'sortable_title',
                              'sort_order': 'ascending'}
               )">
-
       <div class="country-header header-bg">
         <svg-container
             class="svg-header-wrapper svg-map-container"
