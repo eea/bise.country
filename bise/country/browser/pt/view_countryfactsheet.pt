@@ -137,7 +137,9 @@
                  </a>
                </div>
                <h2 class="fact-title-section" tal:content="python: lc[-1]"></h2>
-               <div class="fact-description-section" tal:content="structure python: (lc[2] is not None) and getattr(lc[2], 'output', None) or ''"/>
+               <div class="fact-description-section"
+                    tal:content="structure python: (lc[2] is not None) and getattr(lc[2], 'output', None) or ''"
+                    tal:attributes="class python: 'fact-description-section fact-desc-' + lc[0].lower().replace(' ', '-')"/>
                <div class="content-wrapper"
                       tal:attributes="class python: 'content-' + lc[0].lower().replace(' ', '-')"
                       tal:content="structure python: (lc[1] is not None) and view.view_page(lc[1]) or ''"

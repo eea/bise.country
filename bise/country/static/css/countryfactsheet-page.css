@@ -1259,6 +1259,10 @@
     margin-top: 1em;
 }
 
+.fact-description-section.fact-desc-country-overview {
+  border-bottom: 1px solid #efe9db;
+}
+
 @media (min-width: 992px) {
   #mtr-main-wrapper {
     float:right;
