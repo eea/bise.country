@@ -125,18 +125,13 @@
                        tal:define="obj python: lc[1]"
                  >
                  <a href=""
-                      target="_blank"
-                      class="btn btn-edit"
-                      tal:attributes="href string:${obj/absolute_url}/edit"
-                   >
+                    class="btn btn-edit"
+                    tal:attributes="href string:${obj/absolute_url}/edit">
                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                    Edit properties
                  </a>
-                 <a href=""
-                      target="_blank"
-                      class="btn btn-edit"
-                      tal:attributes="href string:${obj/absolute_url}/folder_contents"
-                   >
+                 <a href="" target="_blank" class="btn btn-edit"
+                    tal:attributes="href string:${obj/absolute_url}/folder_contents">
                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                    Edit sections
                  </a>
