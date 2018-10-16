@@ -1454,6 +1454,22 @@
     left: 0;
     right: auto;
   }
+  .fact-description-section table.basic-facts {
+      border-collapse: collapse;
+      border-spacing: 0px;
+      border: 1px solid lightgray;
+      margin-top: 5px;
+  }
+  .fact-description-section table.basic-facts tr:nth-child(odd) {
+      background: #eee;
+  }
+  .fact-description-section table.basic-facts th {
+    display: table-cell;
+    vertical-align: inherit;
+  }
+  .fact-description-section table.basic-facts tr td {
+    padding: 5px;
+  }
 }
 
 @media (max-width: 767px) {

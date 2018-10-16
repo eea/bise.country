@@ -3,6 +3,8 @@ Changelog
 
 8.5.dev0 - (unreleased)
 -----------------------
+- Added styling for table.basic-facts
+  [olimpiurob #96812]
 - Removed target _blank from Edit properties button
   [olimpiurob #96812]
 
