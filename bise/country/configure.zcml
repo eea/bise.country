@@ -25,6 +25,12 @@
     />
 
   <subscriber
+    for="bise.biodiversityfactsheet.fact.IFact
+         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+    handler=".events.handle_facts_edit_event"
+    />
+
+  <subscriber
     for="plone.app.iterate.interfaces.IWorkingCopy
     OFS.interfaces.IObjectWillBeRemovedEvent"
     handler=".events.handle_iterate_wc_deletion"

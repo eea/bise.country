@@ -1,7 +1,10 @@
+from bise.country.factsheet import CountryFactsheet
 from plone.app.iterate.dexterity.utils import get_baseline
 from plone.app.iterate.event import WorkingCopyDeletedEvent
+from zExceptions import Redirect
 from zope.event import notify
 import logging
+import transaction
 
 
 logger = logging.getLogger("bise.country.events")
@@ -53,3 +56,17 @@ def handle_iterate_wc_deletion(object, event):
     except:
         return
     notify(WorkingCopyDeletedEvent(object, baseline, relation=None))
+
+
+def handle_facts_edit_event(object, event):
+    """ Redirect to countryfactsheet when editing Facts """
+    for obj in object.REQUEST.PARENTS:
+        c_name = getattr(obj, 'fact_countryName', None)
+        if c_name:
+            c_id = obj.getId()
+            if c_name.lower().replace(' ', '-') == c_id:
+                path = '/'.join(['countries', c_id])
+                cf = obj.restrictedTraverse(path, None)
+                if cf and path in cf.absolute_url():
+                    transaction.commit()
+                    raise Redirect(cf.absolute_url())

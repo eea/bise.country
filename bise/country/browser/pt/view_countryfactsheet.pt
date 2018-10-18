@@ -104,48 +104,44 @@
         <div class="panel-body">
           <div class="tab-content" tal:condition="tabs">
 
-            <div
-              class="tab-pane"
-              tal:repeat="lc python:tabs"
-               tal:attributes="id string:t-${repeat/lc/index}"
-               >
+            <div class="tab-pane"
+                 tal:repeat="lc python:tabs"
+                 tal:attributes="id string:t-${repeat/lc/index}">
+              <div tal:define="l_slug python: lc[0].lower().replace(' ', '-')" tal:omit-tag="">
+                 <!-- <div tal:content="nocall: python: lc[1]"></div> -->
+                 <!-- <div tal:content="nocall: python: lc[1].portal_type"></div> -->
 
-               <!-- <div tal:content="nocall: python: lc[1]"></div> -->
-               <!-- <div tal:content="nocall: python: lc[1].portal_type"></div> -->
+                 <div tal:define="obj python: lc[1]"
+                      tal:replace="structure obj/@@countryrep_checkout_actions | nothing">
+                    Checkout Actions Menu
+                 </div>
 
-               <div
-              tal:define="obj python: lc[1]"
-              tal:replace="structure obj/@@countryrep_checkout_actions | nothing"
-              >
-              Checkout Actions Menu
-               </div>
-
-               <div class="edit-button"
-                       tal:condition="python: (lc[1] is not None) and view.can_edit(lc[1])"
-                       tal:define="obj python: lc[1]"
-                 >
-                 <a href=""
-                    class="btn btn-edit"
-                    tal:attributes="href string:${obj/absolute_url}/edit">
-                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                   Edit properties
-                 </a>
-                 <a href="" target="_blank" class="btn btn-edit"
-                    tal:attributes="href string:${obj/absolute_url}/folder_contents">
-                   <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                   Edit sections
-                 </a>
-               </div>
-               <h2 class="fact-title-section" tal:content="python: lc[-1]"></h2>
-               <div class="fact-description-section"
-                    tal:content="structure python: (lc[2] is not None) and getattr(lc[2], 'output', None) or ''"
-                    tal:attributes="class python: 'fact-description-section fact-desc-' + lc[0].lower().replace(' ', '-')"/>
-               <div class="content-wrapper"
-                      tal:attributes="class python: 'content-' + lc[0].lower().replace(' ', '-')"
-                      tal:content="structure python: (lc[1] is not None) and view.view_page(lc[1]) or ''"
-                 >
-                 page inside here
-               </div>
+                 <div class="edit-button"
+                      tal:condition="python: (lc[1] is not None) and view.can_edit(lc[1])"
+                      tal:define="obj python: lc[1]">
+                   <a href=""
+                      class="btn btn-edit"
+                      tal:attributes="href string:${obj/absolute_url}/edit">
+                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                     Edit properties
+                   </a>
+                   <a tal:condition="python: l_slug not in ['eu-biodiversity-strategy', 'maes', 'green-infrastructure']"
+                      href="" target="_blank" class="btn btn-edit"
+                      tal:attributes="href string:${obj/absolute_url}/folder_contents">
+                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                     Edit sections
+                   </a>
+                 </div>
+                 <h2 class="fact-title-section" tal:content="python: lc[-1]"></h2>
+                 <div class="fact-description-section"
+                      tal:content="structure python: (lc[2] is not None) and getattr(lc[2], 'output', None) or ''"
+                      tal:attributes="class python: 'fact-description-section fact-desc-' + l_slug"/>
+                 <div class="content-wrapper"
+                      tal:attributes="class python: 'content-' + l_slug"
+                      tal:content="structure python: (lc[1] is not None) and view.view_page(lc[1]) or ''">
+                   page inside here
+                 </div>
+              </div>
             </div>
           </div>
         </div>

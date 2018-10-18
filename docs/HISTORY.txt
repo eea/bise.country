@@ -3,6 +3,13 @@ Changelog
 
 8.5.dev0 - (unreleased)
 -----------------------
+- Redirect to countryfactsheet after editing a fact
+  [olimpiurob #96812]
+- Removed Edit section from 'EU Biodiversity Strategy', 'MAES' and
+ 'Green Infrastructure' tabs
+  [olimpiurob #96812]
+- Added border bottom to country overview fact-sheet-description
+  [olimpiurob #96812]
 - Added styling for table.basic-facts
   [olimpiurob #96812]
 - Removed target _blank from Edit properties button
