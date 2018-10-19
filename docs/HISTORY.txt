@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.5.dev0 - (unreleased)
------------------------
+8.5 - (2018-10-19)
+------------------
 - Fixed 'MAES' tab wrongfully displaying the group of countries selection
   [olimpiurob #96812]
 - Redirect to countryfactsheet after editing a fact
