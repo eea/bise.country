@@ -767,13 +767,6 @@ function mapInit(settings) {
   var allCountries = [].concat.apply([],getCountries);
   var filteredCountries = allCountries;
 
-  if (window.isMaesMap) {
-    $('#countries-filter').show();
-    $('.eu-map-filter').hide();
-  } else {
-    $('#countries-filter').hide();
-  }
-
   // get ratio from data attribute
   var zoomLevel = parseFloat($(".svg-map-container").data('ratio'));
   var showMapFilter = $("#countryfactsheets-map").data('show-map-filter');
@@ -782,6 +775,13 @@ function mapInit(settings) {
     $('.eu-map-filter').hide();
   } else {
     $('.eu-map-filter').show();
+  }
+
+  if (window.isMaesMap) {
+    $('#countries-filter').show();
+    $('.eu-map-filter').hide();
+  } else {
+    $('#countries-filter').hide();
   }
 
   var width = window.isGlobalMap ? $('.svg-map-container svg').width() : $(window).width();

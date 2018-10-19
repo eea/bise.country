@@ -3,6 +3,8 @@ Changelog
 
 8.5.dev0 - (unreleased)
 -----------------------
+- Fixed 'MAES' tab wrongfully displaying the group of countries selection
+  [olimpiurob #96812]
 - Redirect to countryfactsheet after editing a fact
   [olimpiurob #96812]
 - Removed Edit section from 'EU Biodiversity Strategy', 'MAES' and
