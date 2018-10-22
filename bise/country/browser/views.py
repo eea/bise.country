@@ -384,6 +384,10 @@ class CountryCheckoutView(BrowserView):
         control = getMultiAdapter((self.context, self.request),
                                   name="iterate_control")
 
+        # currently enable the viewlet only for mtr page
+        if 'mtr/countries' not in self.context.absolute_url_path():
+            return False
+
         # this happens if the context is not registered for @@iterate_control
         # for example, content types we don't care about
 

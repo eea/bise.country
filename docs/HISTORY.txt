@@ -3,6 +3,8 @@ Changelog
 
 8.6.dev0 - (unreleased)
 -----------------------
+- Added condition for checkout viewlet so that only /mtr/ can be checked-out
+  [iulianpetchesi #96812]
 
 8.5 - (2018-10-19)
 ------------------
@@ -552,4 +554,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
