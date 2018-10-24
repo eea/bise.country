@@ -3,6 +3,10 @@ Changelog
 
 8.7.dev0 - (unreleased)
 -----------------------
+- Fixed encoding issues on tab contents
+  [olimpiurob #96812]
+- Added div with content id in templates
+  [olimpiurob #96812]
 
 8.6 - (2018-10-22)
 ------------------

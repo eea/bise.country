@@ -7,7 +7,7 @@
   metal:use-macro="context/@@standard_macros/page">
 
   <body metal:fill-slot="body">
-    <div>
+    <div id="content">
 
       <div class="header-bg">
         <svg-container

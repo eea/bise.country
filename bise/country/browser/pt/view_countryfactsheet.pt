@@ -6,17 +6,16 @@
       metal:use-macro="context/@@standard_macros/page">
 
   <body metal:fill-slot="body">
-    <div tal:define="
-        tabs view/tabs;
-        portal_state context/@@plone_portal_state;
-        portal_url portal_state/portal_url;
-        tabs python: view.tabs();
-        labels python: tabs[0] if len(tabs) >= 1 else ['Factsheet', 'Contributions', 'MAES'];
-        countries python: context.aq_parent.getFolderContents(
-              contentFilter={'portal_type': 'countryfactsheet',
-                             'sort_on': 'sortable_title',
-                             'sort_order': 'ascending'}
-              )">
+    <div id="content"
+      tal:define="tabs view/tabs;
+                  portal_state context/@@plone_portal_state;
+                  portal_url portal_state/portal_url;
+                  tabs python: view.tabs();
+                  labels python: tabs[0] if len(tabs) >= 1 else ['Factsheet', 'Contributions', 'MAES'];
+                  countries python: context.aq_parent.getFolderContents(
+                        contentFilter={'portal_type': 'countryfactsheet',
+                                       'sort_on': 'sortable_title',
+                                       'sort_order': 'ascending'})">
       <div class="country-header header-bg">
         <svg-container
             class="svg-header-wrapper svg-map-container"
