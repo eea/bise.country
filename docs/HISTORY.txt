@@ -3,6 +3,8 @@ Changelog
 
 8.8.dev0 - (unreleased)
 -----------------------
+- Removed encoding workaround
+  [olimpiurob #96812]
 
 8.7 - (2018-10-24)
 ------------------

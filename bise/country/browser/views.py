@@ -279,12 +279,6 @@ class CountryFactsheetView(object):
         path = '/'.join(obj.getPhysicalPath())
         resp = subrequest(path)
         body = resp.getBody()
-        # Ugly hack for some weird instances where we get latin1 encoded content
-        try:
-            unicode(body)
-            encoding = 'utf-8'
-        except:
-            encoding = 'latin1'
 
         e = fromstring(body)
         nodes = e.cssselect("#content-core > *")
@@ -304,7 +298,7 @@ class CountryFactsheetView(object):
         for node in nodes:
             root.append(node)
 
-        content = tostring(root, pretty_print=True, encoding=encoding)
+        content = tostring(root, pretty_print=True)
 
         if al:
             self.request.set('ajax_load', al)
