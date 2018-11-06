@@ -28,20 +28,116 @@ function setupScrollHandler() {
   });
 
 }
+function setupSidebar(target) {
+  // Setup the sidebar wrapper
+  var row = $('<div class="row"/>');
+  var sidebar = $('<div class="sidebar-wrapper i-sticky col-md-3 sidebar"/>');
+  var swrap = $('<div class="tab-content col-md-9 "/>');
+  var menu = $('<ul class="nav-list nav-menu-list-style"/>');
+  var mclose = $('<div class="mobile-only close-sidebar"><i class="fa fa-times" aria-hidden="true"></i></div>');
+  sidebar.append(mclose);
+  sidebar.append(menu);
+  $(target).wrapAll(swrap);
+  sidebar.insertBefore($(target).parent());
+  var parent = $(target).parent().parent();
+  parent.find('[class*="col-md"]').wrapAll(row);
+
+  return parent.find('.row');
+}
+
+function setMobileSidebar(sidebar_wrapper, target, sections) {
+  var $mwrap = $('<div class="i-sticky mobile-only mobile-sidebar"><div class="mobile-content">Contributions Menu <i class="fa fa-bars" aria-hidden="true"></i></div></div>');
+  $mwrap.insertBefore(target);
+  var menu = sidebar_wrapper.find('.nav-list.nav-menu-list-style');
+
+  for (var i = 0; i < sections.length; i++) {
+    var sectionTitle = sections[i].title;
+    var sectionDescr = sections[i].description;
+    var targetID =  sections[i].sectionId;
+    var targetHash = sections[i].sectionHash;
+
+    var loc = targetHash;
+    var $sa = $('<p/>').text(sectionTitle).data('wloc', loc);
+    var $ss = $('<a class="tree-toggle nav-header"/>').attr('href', document.location.pathname + '#' + loc);
+    $ss.append($sa);
+    if (sectionDescr) {
+      var $sp = $('<p/>').text(sectionDescr);
+      $ss.append($sp);
+    }
+    var $sli = $('<li/>');
+    $sli.append($ss);
+    menu.append($sli);
+
+    var sectionActions = sections[i].subsections;
+    if (typeof sectionActions !== 'undefined') {
+      var $sul = $('<ul class="nav-list trees bullets"/>');
+      $sli.append($sul);
+      for (var j = 0; j < sectionActions.length; j++) {
+        var subTitle = sectionActions[j].title;
+        var subDescription = sectionActions[j].description;
+        var actionID = sectionActions[j].sectionId;
+        var actionHash = sectionActions[j].sectionHash;
+        var navActionTitle = $('<p class="action-title"/>').text(subTitle);
+        var navActionDescription = $('<p class="action-description" />').text(subDescription);
+        var $sp = $('<a/>').attr('href', document.location.pathname + '#' + actionHash).append(navActionTitle, navActionDescription);
+        var $ali = $('<li/>');
+        $ali.append($sp);
+        $sul.append($ali);
+      }
+    }
+  }
+}
+
+function setOverviewSection() {
+  var ovSections = [];
+  $(".content-country-overview .country-overview-content-box").each(function(){
+    var $cb = $(this);
+    var sectionTitle = $cb.children('.fact-title').text().trim();
+    if (sectionTitle) {
+      var sectionIdPrefix = $cb.attr("id");
+      $cb.attr('id', sectionIdPrefix);
+      var section = {
+        "title": sectionTitle,
+        "description": "",
+        "sectionHash": sectionIdPrefix,
+        "sectionId": parseInt(sectionIdPrefix.split('-')[1]),
+        "subsections": []
+      }
+      ovSections.push(section);
+    }
+  });
+  var sidebar_wrapper = $(".content-country-overview > .row");
+  setMobileSidebar(sidebar_wrapper, '.content-country-overview', ovSections);
+};
+
+function setNatureDirectivesSection() {
+  var ndSection = [];
+  $(".content-eu-nature-directives .country-overview-content-box").each(function(){
+    var $cb = $(this);
+    var sectionTitle = $cb.children('.fact-title').text().trim();
+    if (sectionTitle) {
+      var sectionIdPrefix = $cb.attr("id");
+      $cb.attr('id', sectionIdPrefix);
+      var section = {
+        "title": sectionTitle,
+        "description": "",
+        "sectionHash": sectionIdPrefix,
+        "sectionId": parseInt(sectionIdPrefix.split('-')[1]),
+        "subsections": []
+      }
+      ndSection.push(section);
+    }
+  });
+  var sidebar_wrapper = $(".content-eu-nature-directives .row");
+  // add missing close button for the mobile sidebar
+  var mclose = $('<div class="mobile-only close-sidebar"><i class="fa fa-times" aria-hidden="true"></i></div>');
+  sidebar_wrapper.find('.sidebar-wrapper').prepend(mclose);
+  setMobileSidebar(sidebar_wrapper, '.content-eu-nature-directives .content-container', ndSection);
+};
 
 function setGISection() {
   // Restructured tabs content with sidebar
   // Green Infrastracture tab
-
-  var $cc = $(
-  '<div class="content-container">' +
-    '<div class="row">' +
-      '<div class="i-sticky sidebar-wrapper col-md-3 sidebar"/>' +
-      '<div class="tab-content-wrapper col-md-9 "/>' +
-    '</div>' +
-  '</div>'
-  );
-
   var parent = $('.content-green-infrastructure');
 
   var giContent = $('#parent-fieldname-text', parent);
@@ -53,100 +149,79 @@ function setGISection() {
 
   var giContentSelector = giContent.find('.gi-content-box');
 
-  giContent.append($cc);
   $('.tab-content-wrapper', parent).append(giContentSelector);
 
-  var $gmenu = $('<ul class="nav-list nav-menu-list-style"/>');
-  $('.sidebar-wrapper', parent).append($gmenu);
-
-  var _htc = 0;
+  var _hgi = 0;
   var _hsc = 0;
 
   var giSections = [];
   $('.gi-content-box').each(function() {
     var $cb = $(this);
     var sectionTitle = $cb.children('h2').text().trim();
-
     if (sectionTitle) {
-      _htc += 1;
-      $cb.attr('id', 'htc-' + _htc);
-      giSections.push([[sectionTitle, _htc], []]);
+      var sectionIdPrefix = 'hgi-' + _hgi;
+      $cb.attr('id', sectionIdPrefix);
+      var section = {
+        "title": sectionTitle.toString().slice(3).trim(),
+        "description": "",
+        "sectionHash": sectionIdPrefix,
+        "sectionId": _hgi,
+        "subsections": []
+      }
+      giSections.push(section);
+      _hgi += 1;
     }
-
     $('h3', this).each(function() {
       var sectionSubTitle = $(this).text().trim();
+      var sectionSubIdPrefix = 'hsc-' + _hsc;
+      $(this).attr('id', sectionSubIdPrefix);
+      var subsection = {
+        "title": sectionSubTitle,
+        "description": "",
+        "sectionHash": sectionSubIdPrefix,
+        "sectionId": _hsc,
+      }
+      giSections[giSections.length - 1].subsections.push(subsection);
       _hsc += 1;
-      $(this).attr('id', 'hsc-' + _hsc);
-      giSections[giSections.length - 1][1].push([sectionSubTitle, _hsc]);
     });
   });
-
-  for (var i = 0; i < giSections.length; i++) {
-    var titleID = giSections[i][0][1];
-    var $sul = $('<ul class="nav-list trees bullets"/>');
-    var $li = $('<li/>');
-    var $lia = $('<a class="tree-toggle nav-header"/>').attr('href', document.location.pathname + '#htc-' + titleID);
-    var title = giSections[i][0][0].split('.').map(function(item) { return item.trim()});
-    var preNR = title[0];
-    var title = title[1];
-    var $sp = $('<span/>').text(preNR + '. ');
-    var $lip = $('<p/>').text(title);
-
-    $lia.append($sp);
-    $lia.append($lip);
-    $li.append($lia);
-    $gmenu.append($li);
-    $li.append($sul);
-
-    var sectionSub = giSections[i][1];
-
-    for (var j = 0; j < sectionSub.length; j++) {
-      var subTitleID = sectionSub[j][1];
-      var subSectionTitle = $('<p/>').text(sectionSub[j][0]);
-      var $sublia = $('<a/>').attr('href', document.location.pathname + '#hsc-' + subTitleID);
-      var $subli = $('<li/>');
-
-      $sublia.append(subSectionTitle);
-      $subli.append($sublia);
-      $sul.append($subli);
-    }
-  }
-
+  var sidebar_wrapper = setupSidebar('.gi-content-box');
+  setMobileSidebar(sidebar_wrapper, '.content-green-infrastructure', giSections);
 }
 
 function setBiodivStrategySection() {
   // EU Biodiversity Strategy (contributions) tab page sidebar
   $('.anchor-link').hide();
+  var sidebar_wrapper = setupSidebar('.country-table');
+  
   var $smwrap = $('<div id="mtr-wrapper" class="mtr-container"/>');
-  var $srow = $('<div id="srow" class="row"/>');
-  var $swrap = $('<div id="mtr-main-wrapper" class="tab-content col-md-9 "/>');
-  var $mwrap = $('<div class="i-sticky mobile-only mobile-sidebar"><div class="mobile-content">Contributions Menu <i class="fa fa-bars" aria-hidden="true"></i></div></div>');
-
-  $('.country-table').wrapAll($smwrap);
-  $('.country-table').wrapAll($srow);
-  $('.country-table').wrapAll($swrap);
-
-  var $wrapper = $('#srow');
-
-  $mwrap.insertBefore(".country-table");
+  sidebar_wrapper.wrapAll($smwrap);
 
   var _gtarc = 0; // global counter for name targets
 
-  var $sidebar = $('#sidebar-wrapper');
   var sections = [];
 
   $('tr').each(function() {
     var $tr = $(this);
-    var section_title = $('h2', this).text();
+    var sectionTitle = $('h2', this).text();
     var cl = $tr.attr('class');
 
     if (cl && cl.indexOf('target') !== -1) {
-      var section_descr = $('td:nth-child(2) p', this).text();
+      var sectionDescr = $('td:nth-child(2) p', this).text();
       $tr.addClass('targetTitle');
     }
 
-    if (section_title) {
-      sections.push([section_title, section_descr, []]);
+    if (sectionTitle) {
+      var targetID = sectionTitle.slice(-1);
+      var sectionIdPrefix = 'eu-target-' + targetID;
+      var section = {
+        "title": sectionTitle,
+        "description": sectionDescr,
+        "sectionHash": sectionIdPrefix,
+        "sectionId": targetID,
+        "subsections": []
+      }
+      sections.push(section);
     }
 
     $('td', this).each(function() {
@@ -159,9 +234,19 @@ function setBiodivStrategySection() {
         var getChar = text.charAt(7);
         var conChar = parseInt(getChar);
         if (!isNaN(conChar)) {
+          var sectionSubIdPrefix = 'htc-' + _gtarc;
+          $td.attr('id', sectionSubIdPrefix);
+          var subText = text.split(':');
+          var subTitle = subText[0];
+          var subDescription = subText[1];
+          var subsection = {
+            "title": subTitle,
+            "description": subDescription,
+            "sectionHash": sectionSubIdPrefix,
+            "sectionId": _gtarc,
+          }
+          sections[sections.length - 1].subsections.push(subsection);
           _gtarc += 1;
-          $td.attr('id', 'gtarc-' + _gtarc);
-          sections[sections.length - 1][2].push([text, [_gtarc]]);
         }
       }
       if (text.indexOf('Target') === 0) {
@@ -170,50 +255,7 @@ function setBiodivStrategySection() {
     })
 
   });
-
-  var $ssidebar = $('<div id="sidebar-wrapper" class="sidebar-wrapper i-sticky col-md-3 sidebar"/>');
-  var $menu = $('<ul class="nav-list nav-menu-list-style"/>');
-  var $mclose = $('<div class="mobile-only close-sidebar"><i class="fa fa-times" aria-hidden="true"></i></div>');
-
-  $ssidebar.append($mclose);
-  $ssidebar.append($menu);
-  $wrapper.append($ssidebar);
-
-  for (var i = 0; i < sections.length; i++) {
-    var sectionTitle = sections[i][0].toString().slice(3).trim();
-    var sectionTitle = sectionTitle.charAt(0).toUpperCase() + sectionTitle.slice(1).toLowerCase();
-    var sectionDescr = sections[i][1];
-    var targetID = sectionTitle.slice(-1);
-
-    var loc = 'eu-target-' + targetID;
-    var $sa = $('<p/>').text(sectionTitle).data('wloc', loc);
-
-    var $sp = $('<p/>').text(sectionDescr);
-    var $ss = $('<a class="tree-toggle nav-header"/>').attr('href', document.location.pathname + '#' + loc);
-    $ss.append($sa);
-    $ss.append($sp);
-    var $sli = $('<li/>');
-    $sli.append($ss);
-    $menu.append($sli);
-    var $sul = $('<ul class="nav-list trees bullets"/>');
-    $sli.append($sul);
-
-    var sectionActions = sections[i][2];
-
-    for (var j = 0; j < sectionActions.length; j++) {
-      var action = sectionActions[j][0];
-      var subText = action.split(':');
-      var subTitle = subText[0];
-      var subDescription = subText[1];
-      var actionID = sectionActions[j][1];
-      var navActionTitle = $('<p class="action-title"/>').text(subTitle);
-      var navActionDescription = $('<p class="action-description" />').text(subDescription);
-      var $sp = $('<a/>').attr('href', document.location.pathname + '#gtarc-' + actionID).append(navActionTitle, navActionDescription);
-      var $ali = $('<li/>');
-      $ali.append($sp);
-      $sul.append($ali);
-    }
-  }
+  setMobileSidebar(sidebar_wrapper, '.country-table', sections);
 
   if ($('.mtr-container tr').hasClass('targetTitle')) {
     $tdp = $('.targetTitle td:first-child p');
@@ -240,12 +282,10 @@ function setBiodivStrategySection() {
     $('.country-table table').css("width", "100%");
   }
 
-  $("#mtr-main-wrapper").insertAfter("#sidebar-wrapper");
-
   // show/hide sidebar on mobile
   $('.mobile-sidebar, .close-sidebar').click(function(e) {
     e.stopPropagation();
-    $('#sidebar-wrapper').toggleClass("toggle-sidebar");
+    $('.sidebar-wrapper').toggleClass("toggle-sidebar");
   });
 }
 
@@ -254,14 +294,14 @@ function setNavigationSections() {
   var isMobileDevice = navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i);
 
   $('body').click(function() {
-    if ($('#sidebar-wrapper').hasClass('toggle-sidebar')) {
-      $("#sidebar-wrapper").toggleClass('toggle-sidebar')
+    if ($('.sidebar-wrapper').hasClass('toggle-sidebar')) {
+      $(".sidebar-wrapper").toggleClass('toggle-sidebar')
     }
   });
 
   $('.sidebar li ul li a').click(function() {
     if (isMobileDevice) {
-      $('#sidebar-wrapper').hide();
+      $('.sidebar-wrapper').hide();
     }
   });
 

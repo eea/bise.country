@@ -268,10 +268,13 @@ jQuery(document).ready(function($) {
   // activate lazyload for iframes
   // $('.lazyload').lazyload();
 
+  setOverviewSection();
+  setNatureDirectivesSection();
   setGISection();
   setBiodivStrategySection();
 
   setNavigationSections();
+
 
   // click on country tab when hash is changed such as using the forward backward
   // browser buttons

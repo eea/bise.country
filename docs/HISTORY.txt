@@ -3,6 +3,8 @@ Changelog
 
 8.8.dev0 - (unreleased)
 -----------------------
+- Added Contributions Menu for all tabs except for MAES and mobile sidebar
+  [olimpiurob #96812]
 - Removed encoding workaround
   [olimpiurob #96812]
 

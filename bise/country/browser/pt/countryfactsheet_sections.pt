@@ -32,6 +32,7 @@
         <div class="content-container">
           <div class="row">
             <div class="i-sticky sidebar-wrapper col-md-3 sidebar">
+              <div class="mobile-only close-sidebar"><i class="fa fa-times" aria-hidden="true"></i></div>
               <ul class="nav-list nav-menu-list-style">
 
                 <li tal:repeat="fact python:view.facts()[0]['facts']">

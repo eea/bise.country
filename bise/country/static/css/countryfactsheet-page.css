@@ -1288,7 +1288,7 @@
     padding: 0 25px;
   }
 
-  #sidebar-wrapper {
+  .sidebar-wrapper {
     position: fixed;
     height: 100%;
     background-color: white;

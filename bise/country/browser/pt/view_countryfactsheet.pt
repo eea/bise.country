@@ -136,7 +136,7 @@
                       tal:content="structure python: (lc[2] is not None) and getattr(lc[2], 'output', None) or ''"
                       tal:attributes="class python: 'fact-description-section fact-desc-' + l_slug"/>
                  <div class="content-wrapper"
-                      tal:attributes="class python: 'content-' + l_slug"
+                      tal:attributes="class python: 'content-fact content-' + l_slug"
                       tal:content="structure python: (lc[1] is not None) and view.view_page(lc[1]) or ''">
                    page inside here
                  </div>
