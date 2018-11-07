@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.9.dev0 - (unreleased)
------------------------
+8.9 - (2018-11-07)
+------------------
 - Added Contributions Menu for all tabs except for MAES and mobile sidebar
   [olimpiurob #96812]
 
