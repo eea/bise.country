@@ -251,7 +251,9 @@ jQuery(document).ready(function($) {
      }
   );
 
-  $('.tab-content iframe').width('100%');
+  if (window.matchMedia("(min-width: 800px)").matches) {
+    $('.tab-content iframe').width('100%');
+  }
 
   // comment iframes for lazyload
   // function comment(element) {

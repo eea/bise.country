@@ -3,6 +3,8 @@ Changelog
 
 9.0.dev0 - (unreleased)
 -----------------------
+- Set iframes width to 100% only when min-width = 800px
+  [olimpiurob #96812]
 
 8.9 - (2018-11-07)
 ------------------
