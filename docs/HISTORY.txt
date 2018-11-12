@@ -3,6 +3,8 @@ Changelog
 
 9.1.dev0 - (unreleased)
 -----------------------
+- Added text-align right to .tab-content-wrapper .data-source
+  [olimpiurob #96812]
 
 9.0 - (2018-11-07)
 ------------------

@@ -751,6 +751,10 @@
   text-align: justify;
 }
 
+.tab-content-wrapper .data-source {
+  text-align: right;
+}
+
 .tab-content a {
   word-wrap: break-word;
   hyphens: auto;
