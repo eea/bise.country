@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.2.dev0 - (unreleased)
+-----------------------
+
 9.1 - (2018-11-12)
 ------------------
 - Removed target _blank from Edit section
