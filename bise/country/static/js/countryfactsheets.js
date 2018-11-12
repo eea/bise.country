@@ -158,7 +158,6 @@ jQuery(document).ready(function($) {
         "class": "fa fa-pencil-square-o"
     });
     var edit_a = $("<a/>", {
-      target: "_blank",
       "class": "btn btn-edit",
       text: "Edit section",
       href: edit_href,
