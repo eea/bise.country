@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.1.dev0 - (unreleased)
------------------------
+9.1 - (2018-11-12)
+------------------
 - Removed target _blank from Edit section
   [olimpiurob #96812]
 - Added text-align right to .tab-content-wrapper .data-source
