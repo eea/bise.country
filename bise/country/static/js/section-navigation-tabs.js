@@ -112,22 +112,6 @@ function setOverviewSection() {
 
 function setNatureDirectivesSection() {
   var ndSection = [];
-  $(".content-eu-nature-directives .country-overview-content-box").each(function(){
-    var $cb = $(this);
-    var sectionTitle = $cb.children('.fact-title').text().trim();
-    if (sectionTitle) {
-      var sectionIdPrefix = $cb.attr("id");
-      $cb.attr('id', sectionIdPrefix);
-      var section = {
-        "title": sectionTitle,
-        "description": "",
-        "sectionHash": sectionIdPrefix,
-        "sectionId": parseInt(sectionIdPrefix.split('-')[1]),
-        "subsections": []
-      }
-      ndSection.push(section);
-    }
-  });
   var sidebar_wrapper = $(".content-eu-nature-directives .row");
   // add missing close button for the mobile sidebar
   var mclose = $('<div class="mobile-only close-sidebar"><i class="fa fa-times" aria-hidden="true"></i></div>');

@@ -3,6 +3,8 @@ Changelog
 
 9.2.dev0 - (unreleased)
 -----------------------
+- Fixed double entries in EU Nature Directives tab
+  [olimpiurob #96812]
 
 9.1 - (2018-11-12)
 ------------------
