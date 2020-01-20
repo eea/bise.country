@@ -422,6 +422,8 @@ function drawCountries(
             var wLoc = window.location.href;
             if (wLoc.indexOf(key) > -1) {
               location.href = link + '##' + tabsLoc[key];
+            } else {
+              location.href = link;
             }
           }
         }
