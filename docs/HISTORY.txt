@@ -3,6 +3,8 @@ Changelog
 
 9.3.dev0 - (unreleased)
 -----------------------
+- Update Czechia country name
+  [krisztina]
 
 9.2 - (2018-11-16)
 ------------------
@@ -591,4 +593,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
