@@ -3,6 +3,8 @@ Changelog
 
 9.3.dev0 - (unreleased)
 -----------------------
+- Hide factsheet edit button for anons
+  [krisztina]
 - Update Czechia country name
   [krisztina]
 
