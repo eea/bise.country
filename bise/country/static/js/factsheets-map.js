@@ -716,7 +716,11 @@ function setCountryNames(countries) {
 
 function setCountryFlags(countries, flags) {
   countries.forEach(function(c) {
-    var cname = c.name.replace(' ', '_');
+    var name = c.properties.SHRT_ENGL;
+    if (name === 'Czechia') {
+      name = 'Czech Republic';
+    }
+    var cname = name.replace(' ', '_');
     flags.forEach(function(f) {
       if (f.url.indexOf(cname) > -1) {
         c.url = f.url;

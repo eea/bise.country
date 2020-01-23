@@ -3,6 +3,8 @@ Changelog
 
 9.4.dev0 - (unreleased)
 -----------------------
+- Fix Czechia's flag on countries map
+  [krisztina]
 - Fix country map links
   [krisztina]
 
