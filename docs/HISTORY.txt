@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.4.dev0 - (unreleased)
------------------------
+9.4 - (2020-01-23)
+------------------
 - Fix Czechia's flag on countries map
   [krisztina]
 - Fix country map links
@@ -602,3 +602,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
