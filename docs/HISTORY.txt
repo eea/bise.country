@@ -1,8 +1,10 @@
 Changelog
 =========
 
-9.3 - (2020-01-23)
-------------------
+9.3.dev0 - (unreleased)
+-----------------------
+- Hide factsheet edit button for anons
+  [krisztina]
 - Update Czechia country name
   [krisztina]
 

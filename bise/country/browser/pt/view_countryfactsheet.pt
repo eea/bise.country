@@ -9,6 +9,7 @@
     <div id="content"
       tal:define="tabs view/tabs;
                   portal_state context/@@plone_portal_state;
+                  isAnon portal_state/anonymous;
                   portal_url portal_state/portal_url;
                   tabs python: view.tabs();
                   labels python: tabs[0] if len(tabs) >= 1 else ['Factsheet', 'Contributions', 'MAES'];
@@ -115,22 +116,25 @@
                     Checkout Actions Menu
                  </div>
 
-                 <div class="edit-button"
-                      tal:condition="python: (lc[1] is not None) and view.can_edit(lc[1])"
-                      tal:define="obj python: lc[1]">
-                   <a href=""
-                      class="btn btn-edit"
-                      tal:attributes="href string:${obj/absolute_url}/edit">
-                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                     Edit properties
-                   </a>
-                   <a tal:condition="python: l_slug not in ['eu-biodiversity-strategy', 'maes', 'green-infrastructure']"
-                      href="" target="_blank" class="btn btn-edit"
-                      tal:attributes="href string:${obj/absolute_url}/folder_contents">
-                     <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                     Edit sections
-                   </a>
-                 </div>
+                 <tal:block condition="not:isAnon">
+                   <div class="edit-button"
+                     tal:condition="python: (lc[1] is not None) and view.can_edit(lc[1]) "
+                     tal:define="obj python: lc[1]">
+                     <a href=""
+                       class="btn btn-edit"
+                       tal:attributes="href string:${obj/absolute_url}/edit">
+                       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                       Edit properties
+                     </a>
+                     <a tal:condition="python: l_slug not in ['eu-biodiversity-strategy', 'maes', 'green-infrastructure']"
+                       href="" target="_blank" class="btn btn-edit"
+                       tal:attributes="href string:${obj/absolute_url}/folder_contents">
+                       <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                       Edit sections
+                     </a>
+                   </div>
+                 </tal:block>
+
                  <h2 class="fact-title-section" tal:content="python: lc[-1]"></h2>
                  <div class="fact-description-section"
                       tal:content="structure python: (lc[2] is not None) and getattr(lc[2], 'output', None) or ''"
