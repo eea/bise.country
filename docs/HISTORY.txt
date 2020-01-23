@@ -3,6 +3,8 @@ Changelog
 
 9.4.dev0 - (unreleased)
 -----------------------
+- Fix country map links
+  [krisztina]
 
 9.3 - (2020-01-23)
 ------------------
@@ -598,4 +600,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
