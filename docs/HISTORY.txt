@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.3.dev0 - (unreleased)
------------------------
+9.3 - (2020-01-23)
+------------------
 - Update Czechia country name
   [krisztina]
 
@@ -593,3 +593,4 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
+
