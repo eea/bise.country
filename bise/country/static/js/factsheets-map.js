@@ -285,7 +285,7 @@ function drawCountries(
 
         if (d3.select("#checkb_1").property("checked")) {
           // focus eu members on the map
-          if (euCountries) {
+          if (euCountries && !nonEuCountries) {
             if (isMapletCountry) return 'country-stroke country-focus';
             return 'country-stroke country-focus country-outline';
           }

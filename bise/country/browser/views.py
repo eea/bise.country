@@ -21,6 +21,8 @@ from Products.CMFCore.permissions import ModifyPortalContent
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
+from datetime import date
+
 logger = logging.getLogger('bise.country.views')
 
 NONEU = [
@@ -65,6 +67,11 @@ class MapFolderListingSettings(object):
         }
 
         self.request.response.headers['Content-Type'] = 'application/json'
+
+        today = date.today()
+        dayUKExit = '2020-02-01'
+        if today.strftime("%Y-%m-%d") >= dayUKExit:
+            res['nonEuMembers'].append('United Kingdom')
 
         return json.dumps(res)
 

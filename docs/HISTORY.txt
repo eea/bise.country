@@ -3,6 +3,10 @@ Changelog
 
 9.5.dev0 - (unreleased)
 -----------------------
+- Fix Brexit add UK to nonEU
+  [iugin #113534]
+- Fix on map EU members to not "show" nonEuMembers
+  [iugin]
 
 9.4 - (2020-01-23)
 ------------------
@@ -605,4 +609,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
