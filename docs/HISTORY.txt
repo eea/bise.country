@@ -3,6 +3,8 @@ Changelog
 
 9.6.dev0 - (unreleased)
 -----------------------
+- Hide facts edit button from anonymous users
+  [krisztina]
 
 9.5 - (2020-01-28)
 ------------------
@@ -612,4 +614,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

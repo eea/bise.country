@@ -1030,6 +1030,12 @@
 }
 
 /* countries sections mockup css */
+.country-overview-content-box {
+  clear: both;
+}
+.userrole-anonymous .fact-contents .edit-button {
+  display: none;
+}
 .edit-button {
   float: right;
 }
@@ -1037,7 +1043,7 @@
   background: #44434c;
   color: #fff;
   font-weight: normal;
-  margin-bottom: 20px;
+  margin: 15px 0;
 }
 .btn-edit:hover {
   background: #2b2b2b;
