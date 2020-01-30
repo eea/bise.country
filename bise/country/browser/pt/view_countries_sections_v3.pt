@@ -37,12 +37,6 @@
             <p> Here you can find national reports related to biodiversity and EU Member State information related to indicators organised by country.</p>
           </div>
 
-          <div class="map-helper">
-            <div class="map-helper-wrapper">
-              <span>Click on a specific Member State to see more information.</span>
-              <a class="btn btn-primary">Got it!</a>
-            </div>
-          </div>
         </svg-container>
       </div>
 

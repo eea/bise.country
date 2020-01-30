@@ -64,6 +64,7 @@ class MapFolderListingSettings(object):
             ],
             "maplets": ','.join(MAPLETS),
             "nonEuMembers": NONEU,
+            "forceBeige": []
         }
 
         self.request.response.headers['Content-Type'] = 'application/json'
@@ -71,7 +72,7 @@ class MapFolderListingSettings(object):
         today = date.today()
         dayUKExit = '2020-02-01'
         if today.strftime("%Y-%m-%d") >= dayUKExit:
-            res['filteredCountries'][0]['countries'].remove('United Kingdom')
+            res['forceBeige'].append('United Kingdom')
 
         return json.dumps(res)
 

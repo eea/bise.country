@@ -7,16 +7,6 @@ Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 };
 
-function brexitHappend() {
-  var today = new Date();
-  var brexitDate = new Date("2020-02-01 0:00:00");
-
-  if(today > brexitDate){
-    return true;
-  }
-  return false;
-}
-
 function makeid() {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -35,9 +25,6 @@ function filterCountriesById(countries, filterIds) {
   };
   countries.forEach(function(c) {
     if (filterIds.indexOf(c.name) === -1) {
-      return;
-    }
-    if (brexitHappend() && c.name == 'United Kingdom') {
       return;
     }
     features.features.push(c);
@@ -238,6 +225,15 @@ function drawCountries(
         for (var i = 0; i < countryGroups.length; i++) {
           var c = countryGroups[i]['countries'];
           var filterTitle = countryGroups[i]['title'];
+          //BREXIT
+          if (d.name=='United Kingdom') {
+            var today = new Date();
+            var brexitDate = new Date("2020-02-01 0:00:00");
+            if(today > brexitDate){
+              return '';
+            }
+          }
+
           if (c.indexOf(d.name) > -1) {
             if (isMapletCountry) return countryGroups[i]['color'];
             if ($('.maplet-container').length > 0) return '#b0b0b0';
@@ -295,10 +291,12 @@ function drawCountries(
         var euCountries = window.available_map_countries.indexOf(d.name) > -1;
         var nonEuCountries = nonEuMembers.indexOf(d.name) > -1;
         var isMapletCountry = mapletsCountries.indexOf(d.name) > -1;
+        //BREXIT
+        var isForceBeige = forceBeige.indexOf(d.name) > -1;
 
         if (d3.select("#checkb_1").property("checked")) {
           // focus eu members on the map
-          if (euCountries && !nonEuCountries) {
+          if (euCountries && !nonEuCountries && !isForceBeige) {
             if (isMapletCountry) return 'country-stroke country-focus';
             return 'country-stroke country-focus country-outline';
           }
@@ -310,7 +308,7 @@ function drawCountries(
             return 'country-stroke non-eu-country-focus country-outline';
           }
         }
-        else if (d3.select("#checkb_3").property("checked")) {
+        else if (d3.select("#checkb_3").property("checked") && !isForceBeige) {
           // focus all countries on the map
           if (nonEuCountries) {
             if (isMapletCountry) return 'country-stroke non-eu-country-focus';
@@ -745,18 +743,10 @@ function mapInit(settings) {
   $('body').addClass('factsheets');
 
   countryGroups = settings['filteredCountries'];
-  if (brexitHappend()) {
-    for (i = 0; i < countryGroups.length; i++) {
-      for (j = 0; j < countryGroups[i].countries.length; j++) {
-        if(countryGroups[i].countries[j] == 'United Kingdom') {
-          countryGroups[i].countries[j] = '--';
-        }
-      }
-    }
-  }
 
   mapletsCountries = settings['maplets'];
   nonEuMembers = settings['nonEuMembers'];
+  forceBeige = settings['forceBeige'];
 
   window.isHeaderMap = $(".country-header").hasClass('country-header');
   window.isHeaderGlobalMap = $("#countryfactsheets-map").hasClass('svg-header-wrapper');

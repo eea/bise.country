@@ -3,6 +3,8 @@ Changelog
 
 9.8.dev0 - (unreleased)
 -----------------------
+- UK beige but clickable, remove black tooltip box
+  [iugin #113534]
 
 9.7 - (2020-01-30)
 ------------------
@@ -622,4 +624,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
