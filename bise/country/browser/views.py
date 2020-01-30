@@ -71,7 +71,7 @@ class MapFolderListingSettings(object):
         today = date.today()
         dayUKExit = '2020-02-01'
         if today.strftime("%Y-%m-%d") >= dayUKExit:
-            res['nonEuMembers'].append('United Kingdom')
+            res['filteredCountries'][0]['countries'].remove('United Kingdom')
 
         return json.dumps(res)
 
@@ -152,6 +152,11 @@ class CountriesSection(object):
         brains = obj.getFolderContents(contentFilter={'sort_on': 'getId', })
         objs = [b.getObject() for b in brains]
         objs = [o for o in objs if ICountryPage.providedBy(o)]
+
+        today = date.today()
+        dayUKExit = '2020-02-01'
+        if today.strftime("%Y-%m-%d") >= dayUKExit:
+            objs = [o for o in objs if 'United Kingdom' not in o.title]
 
         return objs
 

@@ -43,7 +43,7 @@
         </div>
         <div class="checkb-wrapper">
           <input type="radio" class='countries-checkbox' id="checkb_2"/>
-          <label for="checkb_2" style="color: #ffa349">Non EU Members</label>
+          <label for="checkb_2" style="color: #ffa349">Other EEA or Cooperating Countries</label>
         </div>
         <div class="checkb-wrapper">
           <input type="radio" class='countries-checkbox' id="checkb_3"/>

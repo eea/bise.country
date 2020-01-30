@@ -3,6 +3,8 @@ Changelog
 
 9.7.dev0 - (unreleased)
 -----------------------
+- Uk in beige, change label map, text heat map, remove small EU map
+  [iugin #113534]
 
 9.6 - (2020-01-29)
 ------------------
@@ -617,4 +619,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

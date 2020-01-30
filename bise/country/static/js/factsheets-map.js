@@ -7,6 +7,16 @@ Number.isFinite = Number.isFinite || function(value) {
   return typeof value === 'number' && isFinite(value);
 };
 
+function brexitHappend() {
+  var today = new Date();
+  var brexitDate = new Date("2020-02-01 0:00:00");
+
+  if(today > brexitDate){
+    return true;
+  }
+  return false;
+}
+
 function makeid() {
   var text = '';
   var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -25,6 +35,9 @@ function filterCountriesById(countries, filterIds) {
   };
   countries.forEach(function(c) {
     if (filterIds.indexOf(c.name) === -1) {
+      return;
+    }
+    if (brexitHappend() && c.name == 'United Kingdom') {
       return;
     }
     features.features.push(c);
@@ -312,7 +325,6 @@ function drawCountries(
       })
     }
   }
-
 
   // define clipping paths for all focused countries
   defs
@@ -733,6 +745,16 @@ function mapInit(settings) {
   $('body').addClass('factsheets');
 
   countryGroups = settings['filteredCountries'];
+  if (brexitHappend()) {
+    for (i = 0; i < countryGroups.length; i++) {
+      for (j = 0; j < countryGroups[i].countries.length; j++) {
+        if(countryGroups[i].countries[j] == 'United Kingdom') {
+          countryGroups[i].countries[j] = '--';
+        }
+      }
+    }
+  }
+
   mapletsCountries = settings['maplets'];
   nonEuMembers = settings['nonEuMembers'];
 
@@ -985,26 +1007,6 @@ function customizeMap(
       if (isMobileDevice || ($(window).width() < 800) ) {
         var mstart = [$(window).width() - getPageContentRight() - mw - 20, 80];
       }
-    }
-
-    if (window.isMaesMap) {
-      var mc = svg
-       .append('g')
-       .attr('class', 'minimap-container')
-       ;
-
-      renderEUMinimap(
-        mc,
-        [width, height],
-        countries,
-        countries_Id,
-        mstart,
-        mside,
-        mp,
-        0.8,
-        mw,
-        mh
-      );
     }
 
     // add the zoomed countries (cyprus, malta, etc) as maplets

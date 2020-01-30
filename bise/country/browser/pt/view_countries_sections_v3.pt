@@ -25,7 +25,7 @@
             </div>
             <div class="checkb-wrapper">
               <input type="radio" class='countries-checkbox' id="checkb_2"/>
-              <label for="checkb_2" style="color: #ffa349">Non EU Members</label>
+              <label for="checkb_2" style="color: #ffa349">Other EEA or Cooperating Countries</label>
             </div>
             <div class="checkb-wrapper">
               <input type="radio" class='countries-checkbox' id="checkb_3" checked/>
@@ -34,7 +34,7 @@
           </div>
           <div class="intro-wrapper">
             <h1> Interactive <br> countries map</h1>
-            <p> Here you can find EU Member State national reports related to biodiversity and information related to indicators organised by country.</p>
+            <p> Here you can find national reports related to biodiversity and EU Member State information related to indicators organised by country.</p>
           </div>
 
           <div class="map-helper">
