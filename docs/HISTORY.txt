@@ -3,6 +3,8 @@ Changelog
 
 9.9.dev0 - (unreleased)
 -----------------------
+- repair links for country containg space in name, uk, czechia and bosnia
+  [iugin #113534]
 
 9.8 - (2020-01-30)
 ------------------
@@ -627,4 +629,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-

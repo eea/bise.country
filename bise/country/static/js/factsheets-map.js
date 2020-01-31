@@ -420,6 +420,13 @@ function drawCountries(
       if (window.isHeaderMap) return;
       if (window.available_map_countries.indexOf(d.name) > -1) {
         var link = d.name.toLowerCase();
+        if (link == 'bosnia and herzegovina') {
+          link = 'bosnia herzegovina'
+        }
+        if (link == 'czechia') {
+          link = 'czech republic'
+        }
+        link = link.replace(/ /g, '-') ;
         var tabsLoc = {
           '##overview': 't-0',
           '##eu-nature-directives': 't-1',
