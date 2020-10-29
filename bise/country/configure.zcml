@@ -12,4 +12,7 @@
   <interface interface=".interfaces.ICountryFolder" />
   <interface interface=".interfaces.ICountryPage" />
 
+  <subscriber factory=".rdf.BiseCountryModifier"
+    provides="eea.dexterity.rdfmarshaller.interfaces.ISurfResourceModifier" />
+
 </configure>
