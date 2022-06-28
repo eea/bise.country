@@ -1,3 +1,6 @@
+""" Change the rdf resource
+"""
+
 from zope.component import adapts
 from zope.interface import implementer
 

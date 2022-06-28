@@ -1,5 +1,8 @@
-from setuptools import setup, find_packages
+""" Setup bise.country
+"""
+
 import os
+from setuptools import setup, find_packages
 
 NAME = "bise.country"
 PATH = NAME.split('.') + ['version.txt']

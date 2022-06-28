@@ -1,6 +1,5 @@
-# -*- extra stuff goes here -*-
-from Products.CMFCore.utils import getToolByName
-from Products.Five.browser import BrowserView
+""" Initializing
+"""
 
 
 def initialize(context):
