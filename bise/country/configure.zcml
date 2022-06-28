@@ -8,82 +8,11 @@
 
   <five:registerPackage package="." initialize=".initialize" />
 
-  <include package="plone.app.workflow" />
-
-  <include file="workflow.zcml" />
-  <include file="profiles.zcml" />
-  <include file="upgrades.zcml" />
-
-  <include package=".browser" />
-  <include package=".tiles" />
-
-  <!-- -*- extra stuff goes here -*- -->
-
-  <subscriber
-    for="plone.app.iterate.interfaces.ICheckoutEvent"
-    handler=".events.handle_checkout_event"
-    />
-
-  <subscriber
-    for="bise.biodiversityfactsheet.fact.IFact
-         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-    handler=".events.handle_facts_edit_event"
-    />
-
-  <subscriber
-    for="plone.app.iterate.interfaces.IWorkingCopy
-    OFS.interfaces.IObjectWillBeRemovedEvent"
-    handler=".events.handle_iterate_wc_deletion"
-    />
-
   <!-- Marker interface -->
   <interface interface=".interfaces.ICountryFolder" />
   <interface interface=".interfaces.ICountryPage" />
 
-  <!-- <adapter factory=".constrain.CountryFolderAddableTypes" /> -->
-
-  <browser:page
-    for="bise.country.interfaces.ICountryPage"
-    name="iterate_control"
-    class=".iterate.IterateControl"
-    permission="zope2.View"
-    allowed_attributes="checkin_allowed checkout_allowed cancel_allowed is_checkout"
-    />
-
-  <browser:page
-    for="*"
-    name="force_unlock"
-    class=".ForceUnlock"
-    permission="cmf.ManagePortal"
-    />
-
-  <browser:resourceDirectory
-    name="bise.country"
-    directory="static"
-    />
-
-  <adapter factory=".iterate.CheckoutFolderLocator" />
-
-  <adapter
-    name="plone.app.iterate.parent"
-    for="bise.country.interfaces.ICountryPage"
-    provides="plone.app.iterate.interfaces.IWCContainerLocator"
-    factory=".iterate.FactsheetParentFolderLocator"
-    />
-
-  <class class="bise.country.factsheet.CountryFactsheet">
-    <implements interface="plone.locking.interfaces.ITTWLockable" />
-    <!-- <implements interface="bise.country.interfaces.ICountryPage" /> -->
-  </class>
-
-  <class class="cs.folderishpage.folderishpage.FolderishPage">
-    <implements interface="plone.locking.interfaces.ITTWLockable" />
-    <!-- <implements interface="bise.country.interfaces.ICountryPage" /> -->
-  </class>
-
-  <adapter
-    for="bise.country.interfaces.ICountryPage"
-    factory=".iterate.ContentCopier"
-    />
+  <subscriber factory=".rdf.BiseCountryModifier"
+    provides="eea.dexterity.rdfmarshaller.interfaces.ISurfResourceModifier" />
 
 </configure>

@@ -1,5 +1,8 @@
-from setuptools import setup, find_packages
+""" Setup bise.country
+"""
+
 import os
+from setuptools import setup, find_packages
 
 NAME = "bise.country"
 PATH = NAME.split('.') + ['version.txt']
@@ -31,6 +34,11 @@ setup(name=NAME,
           'setuptools',
           # -*- Extra requirements: -*-
       ],
+      extras_require={
+          'test': [
+              'plone.app.testing',
+          ],
+      },
       entry_points="""
       # -*- Entry points: -*-
 
