@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     GIT_NAME = "bise.country"
-    GIT_HISTORYFILE = "CHANGES.rst"
+    GIT_HISTORYFILE = "docs/HISTORY.txt"
     SONARQUBE_TAGS = "biodiversity.europa.eu"
   }
 
