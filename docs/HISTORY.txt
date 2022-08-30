@@ -1,6 +1,10 @@
 Changelog
 =========
 
+10.0 - (2022-08-30)
+---------------------------
+* Change: Fix release version [valentinab25]
+
 10.0.dev0 - (unreleased)
 ------------------------
 
@@ -632,4 +636,3 @@ Changelog
 1.0 - (2017-03-28)
 ------------------
 - Initial release
-
