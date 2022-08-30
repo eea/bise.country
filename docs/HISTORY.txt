@@ -5,7 +5,7 @@ Changelog
 ---------------------------
 * Change: Fix release version [valentinab25]
 
-10.0.dev0 - (unreleased)
+10.0 - (2022-08-30)
 ------------------------
 
 9.9 - (2020-01-31)
